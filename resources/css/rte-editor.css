@@ -7,5 +7,6 @@
 .ql-container{
     color: #31304D;
     font-family: "Nunito Sans", sans-serif !important;
-    height: 150px !important;
+    min-height: 150px !important;
+    height: auto;
 }
