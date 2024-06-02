@@ -7,9 +7,8 @@ import RteEditor from "../Components/Markdown/Rte";
 
 const CreateBlog = () => {
 
-    const [rteValue, setRteValue] = useState(null)
     const [image, setImage] = useState(null)
-    const { data, setData, post, progress } = useForm({
+    const { data, setData, post, errors, progress } = useForm({
         title: '',
         description: '',
         content: null,
@@ -18,7 +17,7 @@ const CreateBlog = () => {
       
     function store(e) {
         e.preventDefault()
-        post('/blog/store')
+        post(`/blog/store/${e.target.name}`)
     }
 
     const onImageChange = (event) => {
@@ -35,11 +34,11 @@ const CreateBlog = () => {
                     <h1 className=" text-xl font-bold">Get Started on Your New Blog Today📒</h1>  
                 </div>
                 <div className="pb-8">
-                    <form onSubmit={store}>
+                    <form>
                         <div className=" grid grid-cols-[70%_27%] gap-[3%]">
                             <div>
-                                <Input type="text" label="Title" value={data.title} onChange={e => setData('title', e.target.value)} placeholder="Create your unique title of your blog here..." className="mb-5" />
-                                <Input type="text" label="Description(Optional)" value={data.description} onChange={e => setData('description', e.target.value)} placeholder="Add description of your blog here..." className="mb-5" />
+                                <Input error={errors.title} type="text" label="Title" value={data.title} onChange={e => setData('title', e.target.value)} placeholder="Create your unique title of your blog here..." className="mb-5" />
+                                <Input error={errors.description} type="text" label="Description" value={data.description} onChange={e => setData('description', e.target.value)} placeholder="Add description of your blog here..." className="mb-5" />
                             </div>
                             <div className="w-full h-[200px] p-2 mb-4 flex bg-gray-100 border-dashed border-2 border-secondary rounded-md items-center mx-auto text-center cursor-pointer">
                                 <input id="upload" type="file" className="hidden" accept="image/*" onChange={onImageChange} />
@@ -59,12 +58,12 @@ const CreateBlog = () => {
                             </div>
                         </div>
                         <div className=" mb-2">
-                            <RteEditor setRteValue={setData} rteValue={data.content} />
+                            <RteEditor setRteValue={setData} rteValue={data.content} error={errors.content} />
                         </div>
                         <div className=" flex items-center justify-end gap-2">
                             <Link href="/" className=" font-bold border border-secondary  py-2 text-sm rounded px-3 text-primary tracking-wide">Back</Link>
-                            <button type="submit" className=" font-bold bg-secondary  py-2 text-sm rounded px-3 text-light tracking-wide">Save to Draft</button>
-                            <button type="submit" className=" font-bold bg-indigo-700 py-2 text-sm rounded px-3 text-light tracking-wide">Publish</button>
+                            <button type="button" onClick={store} name="draft" className=" font-bold bg-secondary  py-2 text-sm rounded px-3 text-light tracking-wide">Save to Draft</button>
+                            <button type="button" onClick={store} name="publish" className=" font-bold bg-indigo-700 py-2 text-sm rounded px-3 text-light tracking-wide">Publish</button>
                         </div>
                     </form>
                 </div>  

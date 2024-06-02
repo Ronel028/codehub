@@ -20,9 +20,10 @@ const RteEditor = (props) => {
   
   return (
     <>
-      <div>
+      <div className={`${props.error ? 'border-red-500 border rounded-md p-1' : ''}`}>
         <ReactQuill theme='snow' value={props.rteValue} onChange={(e) => props.setRteValue('content', e)} placeholder='Write your blog content here...' modules={toolbarOptions} />
       </div>
+      {props.error && <p className=" text-xs text-red-500">{props.error}</p>}
     </>
   ) 
 }

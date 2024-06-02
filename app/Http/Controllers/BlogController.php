@@ -18,12 +18,20 @@ class BlogController extends Controller
 
     public function store(Request $request)
     {
+
+        $request->validate([
+            'title' => 'required',
+            'description' => 'required',
+            'content' => 'required',
+        ]);
+
         DB::beginTransaction();
         $blog = new BlogPost();
         $blog->user_id = Auth::user()->id;
         $blog->title = $request->title;
         $blog->description = $request->description;
         $blog->content = $request->content;
+        $blog->status = $request->status;
 
         if ($blog->save()) {
 
