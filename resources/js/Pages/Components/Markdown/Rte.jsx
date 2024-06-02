@@ -21,7 +21,7 @@ const RteEditor = (props) => {
   return (
     <>
       <div>
-        <ReactQuill theme='snow' value={props.rteValue} onChange={props.setRteValue} placeholder='Write your blog content here...' modules={toolbarOptions} />
+        <ReactQuill theme='snow' value={props.rteValue} onChange={(e) => props.setRteValue('content', e)} placeholder='Write your blog content here...' modules={toolbarOptions} />
       </div>
     </>
   ) 
