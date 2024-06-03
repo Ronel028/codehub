@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('blog_posts', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained();
+            $table->text('slug');
             $table->string('title');
             $table->string('description');
             $table->longText('content');

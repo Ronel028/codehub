@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\BlogPostRequest;
 use App\Models\BlogPost;
 use App\Models\Upload;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 use Inertia\Inertia;
 
 class BlogController extends Controller
@@ -16,19 +18,14 @@ class BlogController extends Controller
         return Inertia::render('Blog/Create');
     }
 
-    public function store(Request $request)
+    public function store(BlogPostRequest $request)
     {
-
-        $request->validate([
-            'title' => 'required',
-            'description' => 'required',
-            'content' => 'required',
-        ]);
 
         DB::beginTransaction();
         $blog = new BlogPost();
         $blog->user_id = Auth::user()->id;
         $blog->title = $request->title;
+        $blog->slug = Str::slug($request->title, '-');
         $blog->description = $request->description;
         $blog->content = $request->content;
         $blog->status = $request->status;
