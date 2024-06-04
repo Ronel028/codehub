@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Link, useForm } from "@inertiajs/react";
 import { toast } from "react-toastify";
 import { MdOutlineFileUpload } from "react-icons/md";
-import MainLayout from "../layout/main"
+import MainLayout from "../../layout/main"
 import Input from "../Components/Forms/Input";
 import RteEditor from "../Components/Markdown/Rte";
 

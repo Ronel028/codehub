@@ -1,5 +1,5 @@
 import { Link } from "@inertiajs/react";
-import MainLayout from "../layout/main";
+import MainLayout from "../../layout/main";
 import { CiFacebook } from "react-icons/ci";
 import { FaLinkedinIn } from "react-icons/fa";
 import { FaSquareXTwitter } from "react-icons/fa6";
@@ -30,10 +30,10 @@ const Profile = () => {
                                 </div>
                             </div>
                             <div className=" flex items-center gap-2">
-                                <button className=" px-3 py-2 border border-primary rounded-md text-xs tracking-wide font-semibold flex items-center gap-2">
+                                <Link href="/profile/edit" className=" px-3 py-2 border border-primary rounded-md text-xs tracking-wide font-semibold flex items-center gap-2">
                                     <CiEdit className=" text-base" />
                                     Edit Profile
-                                </button>
+                                </Link>
                                 <button className=" px-3 py-2 border bg-primary text-light border-primary rounded-md text-xs tracking-wide font-semibold">Visit Website</button>
                             </div>
                         </div>

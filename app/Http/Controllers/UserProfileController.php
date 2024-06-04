@@ -11,4 +11,9 @@ class UserProfileController extends Controller
     {
         return Inertia::render('Profile/Index');
     }
+
+    public function edit()
+    {
+        return Inertia::render('Profile/Edit');
+    }
 }

@@ -28,4 +28,5 @@ Route::name('blog.')->prefix('blog')->group(function () {
 // BLOG ROUTE
 Route::middleware('auth')->name('profile.')->prefix('profile')->group(function () {
     Route::get('/', [UserProfileController::class, 'index'])->name('index');
+    Route::get('/edit', [UserProfileController::class, 'edit'])->name('edit');
 });

@@ -1,4 +1,4 @@
-import Navigation from "../Components/Navigation"
+import Navigation from "../Pages/Components/Navigation"
 
 const MainLayout = (props) => {
     return (

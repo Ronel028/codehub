@@ -1,6 +1,6 @@
 import { Link } from "@inertiajs/react"
 import { CiEdit } from "react-icons/ci";
-import MainLayout from "../layout/main";
+import MainLayout from "../../layout/main";
 
 const Home = () => {
     return (
