@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "@inertiajs/react"
+import { Link, router } from "@inertiajs/react"
 import { CiEdit } from "react-icons/ci";
 import { FaUserCircle, FaSignOutAlt  } from "react-icons/fa";
 import { MdOutlinePostAdd } from "react-icons/md";
@@ -10,6 +10,11 @@ const Navigation  = () => {
 
     const open = () => {
         setOpenMenu(prevState => ! prevState)
+    }
+
+    const logout = (e) => {
+        e.preventDefault()
+        router.post('/logout')
     }
 
     return (
@@ -31,8 +36,8 @@ const Navigation  = () => {
                                     class="relative inline-block object-cover object-center w-8 h-8 rounded-full cursor-pointer" />
                             </button>
                             <ul
-                                class={`${openMenu ? 'flex' : 'hidden'} absolute z-10 flex min-w-[180px] right-0 top-14 flex-col gap-2 overflow-auto rounded-md border border-blue-gray-50 bg-white p-3 font-sans text-sm font-normal text-blue-gray-500 shadow-lg shadow-blue-gray-500/10 focus:outline-none`}>
-                                <Link href="/"
+                                class={`${openMenu ? 'flex' : 'hidden'} absolute z-10 flex min-w-[180px] right-0 top-12 flex-col gap-2 overflow-auto rounded-md border border-blue-gray-50 bg-white p-3 font-sans text-sm font-normal text-blue-gray-500 shadow-lg shadow-blue-gray-500/10 focus:outline-none`}>
+                                <Link href="/profile"
                                     class="flex w-full cursor-pointer select-none items-center gap-2 rounded-md px-3 pt-[9px] pb-2 text-start leading-tight outline-none transition-all hover:bg-blue-gray-50 hover:bg-opacity-80 hover:text-blue-gray-900 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900">
                                     <FaUserCircle className=" text-lg" />
                                     <p class="block font-sans text-xs antialiased font-medium leading-normal text-inherit">
@@ -47,7 +52,7 @@ const Navigation  = () => {
                                     </p>
                                 </Link>
                                 <hr class="my-2 border-blue-gray-50" role="menuitem" />
-                                <button role="menuitem"
+                                <button onClick={logout}
                                     class="flex w-full cursor-pointer select-none items-center gap-2 rounded-md px-3 pt-[9px] pb-2 text-start leading-tight outline-none transition-all hover:bg-blue-gray-50 hover:bg-opacity-80 hover:text-blue-gray-900 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900">
                                     <FaSignOutAlt className=" text-lg" />
                                     <p class="block font-sans text-xs antialiased font-medium leading-normal text-inherit">

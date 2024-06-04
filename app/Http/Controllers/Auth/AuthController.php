@@ -57,4 +57,16 @@ class AuthController extends Controller
         $user->password = $request->password;
         $user->save();
     }
+
+    // LOGOUT USER
+    public function logout(Request $request): RedirectResponse
+    {
+        Auth::logout();
+
+        $request->session()->invalidate();
+
+        $request->session()->regenerateToken();
+
+        return redirect('/');
+    }
 }
