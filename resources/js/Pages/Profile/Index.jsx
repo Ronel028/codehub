@@ -23,9 +23,9 @@ const Profile = () => {
                                     <h2 className=" text-3xl font-bold tracking-wide mb-1">Ronel Florida</h2>
                                     <p className=" text-xs tracking-wide mb-4">Rizal Occidental Mindoro</p>
                                     <div>
-                                        <span class="bg-light text-primary text-xs font-medium me-2 px-2.5 py-0.5 rounded ">Web Developer</span>
-                                        <span class="bg-light text-primary text-xs font-medium me-2 px-2.5 py-0.5 rounded ">Frontend Developer</span>
-                                        <span class="bg-light text-primary text-xs font-medium me-2 px-2.5 py-0.5 rounded ">Web Designer</span>
+                                        <span className="bg-light text-primary text-xs font-medium me-2 px-2.5 py-0.5 rounded ">Web Developer</span>
+                                        <span className="bg-light text-primary text-xs font-medium me-2 px-2.5 py-0.5 rounded ">Frontend Developer</span>
+                                        <span className="bg-light text-primary text-xs font-medium me-2 px-2.5 py-0.5 rounded ">Web Designer</span>
                                     </div>
                                 </div>
                             </div>

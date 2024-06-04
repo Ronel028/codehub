@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Link } from "@inertiajs/react";
 import { FaCameraRetro, FaCamera  } from "react-icons/fa";
 import { IoIosAdd } from "react-icons/io";
@@ -5,6 +6,18 @@ import Input from "../Components/Forms/Input";
 import MainLayout from "../../layout/main";
 
 const Edit = () => {
+
+    const [datas, setDatas] = useState({
+        experience: [''],
+    })
+
+    const addExperience = () => {
+        setDatas({
+            ...datas,
+            experience: [...datas.experience, ''],
+        })
+    }
+
     return (
         <>
             <MainLayout>
@@ -50,12 +63,20 @@ const Edit = () => {
                                 <div>
                                     <div className=" flex items-center justify-between mb-1">
                                         <h4 className=" text-sm">Experience</h4>
-                                        <button className=" bg-secondary p-[2px] rounded-md">
+                                        <button type="button" onClick={addExperience} className=" bg-secondary p-[2px] rounded-md">
                                             <IoIosAdd className=" fill-white" />
                                         </button>
                                     </div>
                                     <div className=" mb-5">
-                                        <Input  />
+                                        {
+                                            datas.experience.map((data, index) => {
+                                                return (
+                                                    <div key={index} className=" mb-2">
+                                                        <Input  />
+                                                    </div>
+                                                )
+                                            })
+                                        }
                                     </div>
                                 </div>
                                 <div>
