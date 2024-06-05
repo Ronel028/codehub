@@ -6,22 +6,22 @@ import { IoIosAdd } from "react-icons/io";
 import Input from "../Components/Forms/Input";
 import MainLayout from "../../layout/main";
 
-const Edit = () => {
+const Edit = (props) => {
 
     const [datas, setDatas] = useState({
         image: null,
-        username: '',
-        email: '',
+        username: props.user.username,
+        email: props.user.email,
         password: '',
-        first_name: '',
-        middle_name: '',
-        last_name: '',
-        address: '',
-        experience: [''],
-        soc_fb: '',
-        soc_linkedin: '',
-        soc_twitter: '',
-        about: ''
+        first_name: props.user.user_detail.first_name,
+        middle_name: props.user.user_detail.middle_name,
+        last_name: props.user.user_detail.last_name,
+        address: props.user.user_detail.address,
+        experience: props.user.user_detail.experiences,
+        soc_fb: props.user.user_detail.soc_fb,
+        soc_linkedin: props.user.user_detail.soc_linkedin,
+        soc_twitter: props.user.user_detail.soc_twitter,
+        about: props.user.user_detail.about
     })
     const [imagePreview, setImagePreview] = useState(null)
 
@@ -70,6 +70,8 @@ const Edit = () => {
         })
     }
 
+    console.log(props.user)
+
     return (
         <>
             <MainLayout>
@@ -98,8 +100,8 @@ const Edit = () => {
                                 </div>
                             </div>
                             <div className=" px-10 flex flex-col gap-3">
-                                <Input name="username" type="text" label="Username" onChange={handleChange} />
-                                <Input name="email" type="email" label="Email address" onChange={handleChange} />
+                                <Input name="username" type="text" label="Username" value={datas.username} onChange={handleChange} />
+                                <Input name="email" type="email" label="Email address" value={datas.email} onChange={handleChange} />
                                 <Input name="password" type="password" label="Password" onChange={handleChange} />
                             </div>
                         </div>
@@ -109,12 +111,12 @@ const Edit = () => {
                             <div className="">
                                 <h4 className=" font-bold text-base mb-7">Personal Information</h4>
                                 <div className=" grid grid-cols-3 gap-2 mb-5">
-                                    <Input label="First Name" name="first_name" onChange={handleChange} />
-                                    <Input label="Middle Name(Optional)" name="middle_name" onChange={handleChange} />
-                                    <Input label="Last Name" name="last_name" onChange={handleChange} />
+                                    <Input label="First Name" name="first_name" value={datas.first_name} onChange={handleChange} />
+                                    <Input label="Middle Name(Optional)" name="middle_name" value={datas.middle_name} onChange={handleChange} />
+                                    <Input label="Last Name" name="last_name" value={datas.last_name} onChange={handleChange} />
                                 </div>
                                 <div className=" mb-5">
-                                    <Input label="Address" name="address" onChange={handleChange} />
+                                    <Input label="Address" name="address" value={datas.address} onChange={handleChange} />
                                 </div>
                                 <div>
                                     <div className=" flex items-center justify-between mb-1">
@@ -128,7 +130,7 @@ const Edit = () => {
                                             datas.experience.map((data, index) => {
                                                 return (
                                                     <div key={index} className=" mb-2">
-                                                        <Input name={`exp_${index}`} onChange={(e) => addExp(index, e.target.value)}   />
+                                                        <Input name={`exp_${index}`} value={data} onChange={(e) => addExp(index, e.target.value)}   />
                                                     </div>
                                                 )
                                             })
@@ -138,15 +140,15 @@ const Edit = () => {
                                 <div>
                                     <h4 className=" text-sm">Social Media Links(Optional)</h4>
                                     <div className=" grid grid-cols-3 gap-2 mb-5">
-                                        <Input placeholder="Facebook" name="soc_fb" onChange={handleChange} />
-                                        <Input placeholder="Linkedin" name="soc_linkedin" onChange={handleChange} />
-                                        <Input placeholder="Twitter" name="soc_twitter" onChange={handleChange} />
+                                        <Input placeholder="Facebook" name="soc_fb" value={datas.soc_fb} onChange={handleChange} />
+                                        <Input placeholder="Linkedin" name="soc_linkedin" value={datas.soc_linkedin} onChange={handleChange} />
+                                        <Input placeholder="Twitter" name="soc_twitter" value={datas.soc_twitter} onChange={handleChange} />
                                     </div>
                                 </div>
                                 <div>
                                     <h4 className=" text-sm">About</h4>
                                     <div className=" mb-5">
-                                        <textarea rows={6} name="about" onChange={handleChange} placeholder="Tell something about yourself..." id="" className={`w-full border border-light-gray focus:outline-primary outline-none p-2 text-xs rounded-md`}></textarea>
+                                        <textarea rows={6} name="about" value={datas.about} onChange={handleChange} placeholder="Tell something about yourself..." id="" className={`w-full border border-light-gray focus:outline-primary outline-none p-2 text-xs rounded-md`}></textarea>
                                     </div>
                                 </div>
                             </div>
