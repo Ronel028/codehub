@@ -18,11 +18,11 @@ return new class extends Migration
             $table->string('middle_name')->nullable();
             $table->string('last_name');
             $table->text('address');
-            $table->json('experiences');
-            $table->string('soc_fb');
-            $table->string('soc_linkedin');
-            $table->string('soc_twitter');
-            $table->text('about');
+            $table->json('experiences')->nullable();
+            $table->string('soc_fb')->nullable();
+            $table->string('soc_linkedin')->nullable();
+            $table->string('soc_twitter')->nullable();
+            $table->text('about')->nullable();
             $table->timestamps();
         });
     }

@@ -3,6 +3,8 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
@@ -23,6 +25,8 @@ class User extends Authenticatable
         'email',
         'password',
     ];
+
+    protected $appends = ['full_name'];
 
     /**
      * The attributes that should be hidden for serialization.
@@ -45,6 +49,17 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function getFullNameAttribute()
+    {
+        if (!is_null($this->userDetail)) {
+            if ($this->userDetail->middle_name) {
+                return $this->userDetail->first_name . " " . $this->userDetail->middle_name . " " . $this->userDetail->last_name;
+            } else {
+                return $this->userDetail->first_name . " " . $this->userDetail->last_name;
+            }
+        }
     }
 
     public function upload(): MorphOne

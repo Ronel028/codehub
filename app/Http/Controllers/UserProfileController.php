@@ -13,6 +13,7 @@ class UserProfileController extends Controller
     public function index()
     {
         $user = User::with('userDetail')->where('id', Auth::user()->id)->first();
+        // dd($user);
         return Inertia::render('Profile/Index', [
             'user' => $user
         ]);
