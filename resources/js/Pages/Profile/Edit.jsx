@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { Link } from "@inertiajs/react";
+import { Link, router } from "@inertiajs/react";
+import { toast } from "react-toastify";
 import { FaCameraRetro, FaCamera  } from "react-icons/fa";
 import { IoIosAdd } from "react-icons/io";
 import Input from "../Components/Forms/Input";
@@ -8,13 +9,64 @@ import MainLayout from "../../layout/main";
 const Edit = () => {
 
     const [datas, setDatas] = useState({
+        image: null,
+        username: '',
+        email: '',
+        password: '',
+        first_name: '',
+        middle_name: '',
+        last_name: '',
+        address: '',
         experience: [''],
+        soc_fb: '',
+        soc_linkedin: '',
+        soc_twitter: '',
+        about: ''
     })
+    const [imagePreview, setImagePreview] = useState(null)
 
+    // ADD INPUT FIELD FOR EXPERIENCE
     const addExperience = () => {
         setDatas({
             ...datas,
             experience: [...datas.experience, ''],
+        })
+    }
+
+    // ADD VALUE TO THE EXPERIENCE
+    const addExp = (index, value) => {
+        const updatedExperience = [...datas.experience];
+        updatedExperience[index] = value;
+        setDatas({
+            ...datas,
+            experience: updatedExperience
+        });
+    };
+
+    // GET ALL THE VALUE OF INPUT
+    const handleChange = (e) => {
+        setDatas({
+            ...datas,
+            [e.target.name]: e.target.value
+        })
+    }
+
+    // HANDLE IMAGE PREVIEW
+    const onImageChange = (event) => {
+        if (event.target.files && event.target.files[0]) {
+            setImagePreview(URL.createObjectURL(event.target.files[0]));
+            setDatas({
+                ...datas,
+                image: event.target.files[0]
+            })
+        }
+    }
+
+    const save = () => {
+        router.post('/profile/store', datas, {
+            onSuccess: () => {
+                toast.success('Profile updated successfully')
+            }
         })
     }
 
@@ -26,13 +78,17 @@ const Edit = () => {
                 </div>
                 <main className=" grid grid-cols-[40%_59%] gap-[1%]">
                     <div className=" pt-5 pb-10 px-3 shadow">
-                        <h4 className=" font-bold text-sm mb-7">Account Details</h4>
+                        <h4 className=" font-bold text-base mb-7">Account Details</h4>
                         <div>
                             <div className=" flex flex-col items-center justify-center">
                                 <div className=" relative rounded-full inline-block mb-5">
-                                    <input id="upload" type="file" className="hidden" accept="image/*" />
+                                    <input id="upload" type="file" className="hidden" accept="image/*" onChange={onImageChange} />
                                     <div className=" w-32 h-32 overflow-hidden rounded-full shadow-md ">
-                                        <img className="h-full w-full object-cover" src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1480&amp;q=80" alt="" />
+                                        {
+                                            imagePreview === null ? <img className="h-full w-full object-cover" src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1480&amp;q=80" alt="" />
+                                              : <img className="h-full w-full object-cover" src={imagePreview} alt="" />
+                                        }
+                                        
                                     </div>
                                     <label htmlFor="upload" className=" bg-secondary shadow p-2 rounded-full cursor-pointer inline-block absolute bottom-0 right-2">
                                         <div className="">
@@ -42,23 +98,23 @@ const Edit = () => {
                                 </div>
                             </div>
                             <div className=" px-10 flex flex-col gap-3">
-                                <Input type="text" label="Username" />
-                                <Input type="email" label="Email address" />
-                                <Input type="password" label="Password" />
+                                <Input name="username" type="text" label="Username" onChange={handleChange} />
+                                <Input name="email" type="email" label="Email address" onChange={handleChange} />
+                                <Input name="password" type="password" label="Password" onChange={handleChange} />
                             </div>
                         </div>
                     </div>
                     <div className=" py-5 px-3 shadow">
-                        <form>
+                        <div>
                             <div className="">
-                                <h4 className=" font-bold text-sm mb-7">Personal Information</h4>
+                                <h4 className=" font-bold text-base mb-7">Personal Information</h4>
                                 <div className=" grid grid-cols-3 gap-2 mb-5">
-                                    <Input label="First Name" />
-                                    <Input label="Middle Name(Optional)" />
-                                    <Input label="Last Name" />
+                                    <Input label="First Name" name="first_name" onChange={handleChange} />
+                                    <Input label="Middle Name(Optional)" name="middle_name" onChange={handleChange} />
+                                    <Input label="Last Name" name="last_name" onChange={handleChange} />
                                 </div>
                                 <div className=" mb-5">
-                                    <Input label="Address" />
+                                    <Input label="Address" name="address" onChange={handleChange} />
                                 </div>
                                 <div>
                                     <div className=" flex items-center justify-between mb-1">
@@ -72,7 +128,7 @@ const Edit = () => {
                                             datas.experience.map((data, index) => {
                                                 return (
                                                     <div key={index} className=" mb-2">
-                                                        <Input  />
+                                                        <Input name={`exp_${index}`} onChange={(e) => addExp(index, e.target.value)}   />
                                                     </div>
                                                 )
                                             })
@@ -80,17 +136,17 @@ const Edit = () => {
                                     </div>
                                 </div>
                                 <div>
-                                    <h4 className=" text-sm">Social Media Links</h4>
+                                    <h4 className=" text-sm">Social Media Links(Optional)</h4>
                                     <div className=" grid grid-cols-3 gap-2 mb-5">
-                                        <Input placeholder="Facebook" />
-                                        <Input placeholder="Linkedin" />
-                                        <Input placeholder="Twitter" />
+                                        <Input placeholder="Facebook" name="soc_fb" onChange={handleChange} />
+                                        <Input placeholder="Linkedin" name="soc_linkedin" onChange={handleChange} />
+                                        <Input placeholder="Twitter" name="soc_twitter" onChange={handleChange} />
                                     </div>
                                 </div>
                                 <div>
                                     <h4 className=" text-sm">About</h4>
                                     <div className=" mb-5">
-                                        <textarea rows={6} placeholder="Tell something about yourself..." name="" id="" className={`w-full border border-light-gray focus:outline-primary outline-none p-2 text-xs rounded-md`}></textarea>
+                                        <textarea rows={6} name="about" onChange={handleChange} placeholder="Tell something about yourself..." id="" className={`w-full border border-light-gray focus:outline-primary outline-none p-2 text-xs rounded-md`}></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -105,11 +161,11 @@ const Edit = () => {
                                 <Link href="/" className=" border border-primary rounded-md px-3 py-2 text-xs text-primary">
                                    Back
                                 </Link>
-                                <button className=" border border-primary bg-primary rounded-md px-3 py-2 text-xs text-gray-100">
+                                <button onClick={save} className=" border border-primary bg-primary rounded-md px-3 py-2 text-xs text-gray-100">
                                     Save Changes
                                 </button>
                             </div>
-                        </form>
+                        </div>
                     </div>
                 </main>
             </MainLayout>

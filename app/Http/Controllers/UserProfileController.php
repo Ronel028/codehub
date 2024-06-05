@@ -16,4 +16,10 @@ class UserProfileController extends Controller
     {
         return Inertia::render('Profile/Edit');
     }
+
+    // UPDATE PROFILE
+    public function store(Request $request)
+    {
+        dd($request);
+    }
 }
