@@ -3,10 +3,15 @@ import { Link, router } from "@inertiajs/react";
 import { toast } from "react-toastify";
 import { FaCameraRetro, FaCamera  } from "react-icons/fa";
 import { IoIosAdd } from "react-icons/io";
+import  altImage from "../Assets/Img/image-placeholder.webp"
 import Input from "../Components/Forms/Input";
 import MainLayout from "../../layout/main";
+// import textImage from 'http://localhost:8000/public/storage/images/3yt7Wkwpv8NDrefcIP3y8Sg311gtvKykrdBUWC1t.jpg'
+import textImage from '../../../../public/storage/images/3yt7Wkwpv8NDrefcIP3y8Sg311gtvKykrdBUWC1t.jpg'
 
 const Edit = (props) => {
+
+    console.log(props);
 
     const [datas, setDatas] = useState({
         image: null,
@@ -23,7 +28,7 @@ const Edit = (props) => {
         soc_twitter: (props.user.user_detail && props.user.user_detail.soc_twitter) ?? '',
         about: (props.user.user_detail && props.user.user_detail.about) ?? ''
     })
-    const [imagePreview, setImagePreview] = useState(null)
+    const [imagePreview, setImagePreview] = useState((props.user.upload && props.user.upload.path) ?? null)
 
     // ADD INPUT FIELD FOR EXPERIENCE
     const addExperience = () => {
@@ -85,8 +90,8 @@ const Edit = (props) => {
                                     <input id="upload" type="file" className="hidden" accept="image/*" onChange={onImageChange} />
                                     <div className=" w-32 h-32 overflow-hidden rounded-full shadow-md ">
                                         {
-                                            imagePreview === null ? <img className="h-full w-full object-cover" src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1480&amp;q=80" alt="" />
-                                              : <img className="h-full w-full object-cover" src={imagePreview} alt="" />
+                                            imagePreview === null ? <img className="h-full w-full object-cover" src={altImage} alt="image-placeholder" />
+                                              : <img className="h-full w-full object-cover" src={`http://localhost:5173/storage/app/${imagePreview}`} alt="" />
                                         }
                                         
                                     </div>

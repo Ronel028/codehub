@@ -20,7 +20,7 @@ class UserProfileController extends Controller
 
     public function edit()
     {
-        $user = User::with('userDetail')->where('id', Auth::user()->id)->first();
+        $user = User::with(['userDetail', 'upload'])->where('id', Auth::user()->id)->first();
         return Inertia::render('Profile/Edit', [
             'user' => $user
         ]);
@@ -29,7 +29,6 @@ class UserProfileController extends Controller
     // UPDATE PROFILE
     public function store(Request $request)
     {
-        // dd($request);
         DB::beginTransaction();
         $user = User::with('userDetail')->where('id', Auth::user()->id)->first();
         $user->username = $request->username;
@@ -37,6 +36,16 @@ class UserProfileController extends Controller
         $user->password = !is_null($request->password) ? $request->password : $user->password;
         if ($user->save()) {
             DB::commit();
+
+            // UPLOAD IMAGE
+            if ($request->hasFile('image')) {
+                $user->upload()->create([
+                    'filename' => $request->file('image')->getClientOriginalName(),
+                    'path' => $request->file('image')->store('public/images')
+                ]);
+            }
+
+            // SAVE USER INFORMATION, CHECK IF ALREADY EXIST OR NOT
             if (is_null($user->userDetail)) {
                 $user->userDetail()->create([
                     'user_id' => $user->id,

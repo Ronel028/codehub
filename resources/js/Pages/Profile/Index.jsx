@@ -4,6 +4,7 @@ import { CiFacebook } from "react-icons/ci";
 import { FaLinkedinIn } from "react-icons/fa";
 import { FaSquareXTwitter } from "react-icons/fa6";
 import { CiEdit } from "react-icons/ci";
+import  altImage from "../Assets/Img/image-placeholder.webp"
 
 const Profile = (props) => {
 
@@ -18,7 +19,7 @@ const Profile = (props) => {
                         <div className=" px-4 pb-8 pt-5 shadow mb-4 flex items-start justify-between">
                             <div className=" flex gap-2 items-start">
                                 <div className=" -mt-24 w-32 h-32 overflow-hidden rounded-full shadow-md ">
-                                    <img className="h-full w-full object-cover" src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1480&amp;q=80" alt="" />
+                                    <img className="h-full w-full object-cover" src={altImage} alt="image-placeholder" />
                                 </div>
                                 <div className="">
                                     <h2 className=" text-3xl font-bold tracking-wide mb-1">{props.user.full_name}</h2>
