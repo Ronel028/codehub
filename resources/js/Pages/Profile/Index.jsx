@@ -7,8 +7,6 @@ import { CiEdit } from "react-icons/ci";
 
 const Profile = (props) => {
 
-    console.log(props.user);
-
     return (
         <>
             <MainLayout>
@@ -24,9 +22,10 @@ const Profile = (props) => {
                                 </div>
                                 <div className="">
                                     <h2 className=" text-3xl font-bold tracking-wide mb-1">{props.user.full_name}</h2>
-                                    <p className=" text-xs tracking-wide mb-4">{props.user.user_detail === null ? props.user.user_detail.address : 'N/A'}</p>
+                                    <p className=" text-xs tracking-wide mb-4">{(props.user.user_detail && props.user.user_detail.address) ?? 'N/A' }</p>
                                     <div>
                                         {
+                                            props.user.user_detail &&
                                             props.user.user_detail.experiences.length > 0 ? props.user.user_detail.experiences.map((experience, index) => (
                                                 <span key={index} className="bg-light text-primary text-xs font-medium me-2 px-2.5 py-0.5 rounded ">{experience}</span>
                                             )) : <p>N/A</p>
@@ -45,7 +44,7 @@ const Profile = (props) => {
                         <div className=" px-4 pb-8 pt-5 shadow">
                             <h2 className=" text-base font-bold tracking-wide mb-1">About Ronel Florida</h2>
                             <p className=" text-xs tracking-wide mb-4">
-                                {props.user.user_detail.about}
+                                {(props.user.user_detail && props.user.user_detail.about) ?? 'N/A'}
                             </p>
                         </div>
                     </section>
@@ -55,15 +54,15 @@ const Profile = (props) => {
                             <ul className=" flex flex-col gap-3 text-xs tracking-wide">
                                 <li className=" flex items-center gap-2">
                                     <CiFacebook className=" text-lg" />
-                                    <Link href={props.user.user_detail.soc_fb ?? '/'} className=" hover:underline">{props.user.user_detail.soc_fb ?? 'N/A'}</Link>
+                                    <Link href={(props.user.user_detail && props.user.user_detail.soc_fb) ?? '#'} className=" hover:underline">{(props.user.user_detail && props.user.user_detail.soc_fb) ?? 'N/A'}</Link>
                                 </li>
                                 <li className=" flex items-center gap-2">
                                     <FaLinkedinIn  className=" text-lg" />
-                                    <Link href={props.user.user_detail.soc_fb ?? '/'}  className=" hover:underline">{props.user.user_detail.soc_linkedin ?? 'N/A'}</Link>
+                                    <Link href={(props.user.user_detail && props.user.user_detail.soc_linkedin) ?? '#'}  className=" hover:underline">{(props.user.user_detail && props.user.user_detail.soc_linkedin) ?? 'N/A'}</Link>
                                 </li>
                                 <li className=" flex items-center gap-2">
                                     <FaSquareXTwitter className=" text-lg" />
-                                    <Link href={props.user.user_detail.soc_fb ?? '/'}  className=" hover:underline">{props.user.user_detail.soc_twitter ?? 'N/A'}</Link>
+                                    <Link href={(props.user.user_detail && props.user.user_detail.soc_twitter) ?? '#'}  className=" hover:underline">{(props.user.user_detail && props.user.user_detail.soc_twitter) ?? 'N/A'}</Link>
                                 </li>
                             </ul>
                         </div>

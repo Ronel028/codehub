@@ -13,15 +13,15 @@ const Edit = (props) => {
         username: props.user.username,
         email: props.user.email,
         password: '',
-        first_name: props.user.user_detail.first_name,
-        middle_name: props.user.user_detail.middle_name,
-        last_name: props.user.user_detail.last_name,
-        address: props.user.user_detail.address,
-        experience: props.user.user_detail.experiences,
-        soc_fb: props.user.user_detail.soc_fb,
-        soc_linkedin: props.user.user_detail.soc_linkedin,
-        soc_twitter: props.user.user_detail.soc_twitter,
-        about: props.user.user_detail.about
+        first_name: (props.user.user_detail && props.user.user_detail.first_name) ?? '',
+        middle_name:  (props.user.user_detail && props.user.user_detail.middle_name) ?? '',
+        last_name:  (props.user.user_detail && props.user.user_detail.last_name) ?? '',
+        address:  (props.user.user_detail && props.user.user_detail.address) ?? '',
+        experience:  (props.user.user_detail && props.user.user_detail.experiences) ?? [''],
+        soc_fb: (props.user.user_detail && props.user.user_detail.soc_fb) ?? '',
+        soc_linkedin: (props.user.user_detail && props.user.user_detail.soc_linkedin) ?? '',
+        soc_twitter: (props.user.user_detail && props.user.user_detail.soc_twitter) ?? '',
+        about: (props.user.user_detail && props.user.user_detail.about) ?? ''
     })
     const [imagePreview, setImagePreview] = useState(null)
 
@@ -69,8 +69,6 @@ const Edit = (props) => {
             }
         })
     }
-
-    console.log(props.user)
 
     return (
         <>
