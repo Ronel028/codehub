@@ -35,7 +35,7 @@ class BlogController extends Controller
             if ($request->hasFile('image')) {
                 $blog->upload()->create([
                     'filename' => $request->file('image')->getClientOriginalName(),
-                    'path' => $request->file('image')->store('public/images')
+                    'path' => $request->file('image')->store('images', 'public')
                 ]);
             }
 

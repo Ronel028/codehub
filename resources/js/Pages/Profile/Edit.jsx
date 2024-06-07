@@ -6,8 +6,6 @@ import { IoIosAdd } from "react-icons/io";
 import  altImage from "../Assets/Img/image-placeholder.webp"
 import Input from "../Components/Forms/Input";
 import MainLayout from "../../layout/main";
-// import textImage from 'http://localhost:8000/public/storage/images/3yt7Wkwpv8NDrefcIP3y8Sg311gtvKykrdBUWC1t.jpg'
-import textImage from '../../../../public/storage/images/3yt7Wkwpv8NDrefcIP3y8Sg311gtvKykrdBUWC1t.jpg'
 
 const Edit = (props) => {
 
@@ -28,7 +26,7 @@ const Edit = (props) => {
         soc_twitter: (props.user.user_detail && props.user.user_detail.soc_twitter) ?? '',
         about: (props.user.user_detail && props.user.user_detail.about) ?? ''
     })
-    const [imagePreview, setImagePreview] = useState((props.user.upload && props.user.upload.path) ?? null)
+    const [imagePreview, setImagePreview] = useState((props.user.upload && `/storage/${props.user.upload.path}`) ?? null)
 
     // ADD INPUT FIELD FOR EXPERIENCE
     const addExperience = () => {
@@ -68,6 +66,7 @@ const Edit = (props) => {
     }
 
     const save = () => {
+
         router.post('/profile/store', datas, {
             onSuccess: () => {
                 toast.success('Profile updated successfully')
@@ -91,7 +90,7 @@ const Edit = (props) => {
                                     <div className=" w-32 h-32 overflow-hidden rounded-full shadow-md ">
                                         {
                                             imagePreview === null ? <img className="h-full w-full object-cover" src={altImage} alt="image-placeholder" />
-                                              : <img className="h-full w-full object-cover" src={`http://localhost:5173/storage/app/${imagePreview}`} alt="" />
+                                              : <img className="h-full w-full object-cover" src={imagePreview} alt="" />
                                         }
                                         
                                     </div>

@@ -18,14 +18,14 @@ class Upload extends Model
         'uploadable_type',
     ];
 
-    protected $appends = ['full_image_path'];
+    // protected $appends = ['full_image_path'];
 
-    protected function fullImagePath(): Attribute
-    {
-        return new Attribute(
-            get: fn () => asset($this->path),
-        );
-    }
+    // protected function fullImagePath(): Attribute
+    // {
+    //     return new Attribute(
+    //         get: fn () => asset($this->path),
+    //     );
+    // }
 
     public function uploadable(): MorphTo
     {

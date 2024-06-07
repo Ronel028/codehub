@@ -8,6 +8,8 @@ import  altImage from "../Assets/Img/image-placeholder.webp"
 
 const Profile = (props) => {
 
+    console.log(props)
+
     return (
         <>
             <MainLayout>
@@ -19,10 +21,14 @@ const Profile = (props) => {
                         <div className=" px-4 pb-8 pt-5 shadow mb-4 flex items-start justify-between">
                             <div className=" flex gap-2 items-start">
                                 <div className=" -mt-24 w-32 h-32 overflow-hidden rounded-full shadow-md ">
-                                    <img className="h-full w-full object-cover" src={altImage} alt="image-placeholder" />
+                                    <img 
+                                        className="h-full w-full object-cover" 
+                                        src={(props.user.upload && `/storage/${props.user.upload.path}`) ?? altImage} 
+                                        alt={(props.user.upload && props.user.upload.filename) ?? "image-placeholder" } 
+                                    />
                                 </div>
                                 <div className="">
-                                    <h2 className=" text-3xl font-bold tracking-wide mb-1">{props.user.full_name}</h2>
+                                    <h2 className=" text-3xl font-bold tracking-wide mb-1">{(props.user.user_detail && props.user.full_name) ?? props.user.username}</h2>
                                     <p className=" text-xs tracking-wide mb-4">{(props.user.user_detail && props.user.user_detail.address) ?? 'N/A' }</p>
                                     <div>
                                         {
@@ -43,7 +49,7 @@ const Profile = (props) => {
                             </div>
                         </div>
                         <div className=" px-4 pb-8 pt-5 shadow">
-                            <h2 className=" text-base font-bold tracking-wide mb-1">About Ronel Florida</h2>
+                            <h2 className=" text-base font-bold tracking-wide mb-1">About {(props.user.user_detail && props.user.user_detail.first_name) ?? props.user.username}</h2>
                             <p className=" text-xs tracking-wide mb-4">
                                 {(props.user.user_detail && props.user.user_detail.about) ?? 'N/A'}
                             </p>

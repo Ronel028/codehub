@@ -64,7 +64,7 @@ class User extends Authenticatable
 
     public function upload(): MorphOne
     {
-        return $this->morphOne(Upload::class, 'uploadable');
+        return $this->morphOne(Upload::class, 'uploadable')->latestOfMany();
     }
 
     public function userDetail(): HasOne

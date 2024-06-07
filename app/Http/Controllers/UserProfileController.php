@@ -12,7 +12,7 @@ class UserProfileController extends Controller
 {
     public function index()
     {
-        $user = User::with('userDetail')->where('id', Auth::user()->id)->first();
+        $user = User::with(['userDetail', 'upload'])->where('id', Auth::user()->id)->first();
         return Inertia::render('Profile/Index', [
             'user' => $user
         ]);
@@ -41,7 +41,7 @@ class UserProfileController extends Controller
             if ($request->hasFile('image')) {
                 $user->upload()->create([
                     'filename' => $request->file('image')->getClientOriginalName(),
-                    'path' => $request->file('image')->store('public/images')
+                    'path' => $request->file('image')->store('images', 'public')
                 ]);
             }
 
