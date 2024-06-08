@@ -21,6 +21,7 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 // BLOG ROUTE
 Route::name('blog.')->prefix('blog')->group(function () {
     Route::get('/create', [BlogController::class, 'createPage'])->name('create-page');
+    Route::get('/blog-list', [BlogController::class, 'index'])->name('blog-list');
     Route::post('/store/{status}', [BlogController::class, 'store'])->name('store');
     Route::get('/fetch', [BlogController::class, 'fetch'])->name('fetch');
 });

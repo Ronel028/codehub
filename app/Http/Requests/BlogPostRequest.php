@@ -25,6 +25,7 @@ class BlogPostRequest extends FormRequest
             'slug' => 'unique:blog_posts',
             'title' => 'required|unique:blog_posts',
             'description' => 'required',
+            'category' => 'required',
             'content' => 'required',
             'image' => 'max:8192'
         ];

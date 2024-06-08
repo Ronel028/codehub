@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 
 class BlogPost extends Model
@@ -21,5 +22,10 @@ class BlogPost extends Model
     public function upload(): MorphOne
     {
         return $this->morphOne(Upload::class, 'uploadable');
+    }
+
+    public function category(): HasOne
+    {
+        return $this->hasOne(CategoryReference::class, 'id');
     }
 }

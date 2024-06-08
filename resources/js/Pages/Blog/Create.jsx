@@ -5,13 +5,14 @@ import { MdOutlineFileUpload } from "react-icons/md";
 import MainLayout from "../../layout/main"
 import Input from "../Components/Forms/Input";
 import RteEditor from "../Components/Markdown/Rte";
+import Select from "../Components/Forms/Select";
 
-const CreateBlog = () => {
-
+const CreateBlog = (props) => {
     const [image, setImage] = useState(null)
     const { data, setData, post, errors, progress, reset } = useForm({
         title: '',
         description: '',
+        category: '',
         content: null,
         image: null,
     })
@@ -48,12 +49,13 @@ const CreateBlog = () => {
                 </div>
                 <div className="pb-8">
                     <form>
-                        <div className=" grid grid-cols-[70%_27%] gap-[3%]">
+                        <div className=" grid grid-cols-[70%_27%] gap-[3%] mb-4">
                             <div>
                                 <Input error={errors.title} type="text" label="Title" value={data.title} onChange={e => setData('title', e.target.value)} placeholder="Create your unique title of your blog here..." className="mb-5" />
                                 <Input error={errors.description} type="text" label="Description" value={data.description} onChange={e => setData('description', e.target.value)} placeholder="Add description of your blog here..." className="mb-5" />
+                                <Select error={errors.category} data={props.category} value={data.category} onChange={e => setData('category', e.target.value)} />
                             </div>
-                            <div className="mb-4">
+                            <div>
                                 <div className={`${errors.image ? 'border-red-500 p-1' : 'border-secondary'} w-full h-[200px] p-2  flex bg-gray-100 border-dashed border-2  rounded-md items-center mx-auto text-center cursor-pointer`}>
                                     <input id="upload" type="file" className="hidden" accept="image/*" onChange={onImageChange} />
                                     <label htmlFor="upload" className="cursor-pointer w-full h-[200px] py-2 flex items-center justify-center">
