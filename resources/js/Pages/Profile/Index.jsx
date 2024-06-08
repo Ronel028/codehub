@@ -41,11 +41,10 @@ const Profile = (props) => {
                                 </div>
                             </div>
                             <div className=" flex items-center gap-2">
-                                <Link href="/profile/edit" className=" px-3 py-2 border border-primary rounded-md text-xs tracking-wide font-semibold flex items-center gap-2">
-                                    <CiEdit className=" text-base" />
+                                <Link href="/profile/edit" className=" px-3 py-2 border bg-primary text-light rounded-md text-xs tracking-wide font-semibold flex items-center gap-2">
+                                    <CiEdit className=" text-base fill-light" />
                                     Edit Profile
                                 </Link>
-                                <button className=" px-3 py-2 border bg-primary text-light border-primary rounded-md text-xs tracking-wide font-semibold">Visit Website</button>
                             </div>
                         </div>
                         <div className=" px-4 pb-8 pt-5 shadow">

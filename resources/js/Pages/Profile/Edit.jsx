@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link, router } from "@inertiajs/react";
 import { toast } from "react-toastify";
-import { FaCameraRetro, FaCamera  } from "react-icons/fa";
+import { FaCameraRetro, FaCamera, FaMinusCircle   } from "react-icons/fa";
 import { IoIosAdd } from "react-icons/io";
 import  altImage from "../Assets/Img/image-placeholder.webp"
 import Input from "../Components/Forms/Input";
@@ -65,8 +65,16 @@ const Edit = (props) => {
         }
     }
 
-    const save = () => {
+    // REMOVE EXPERIENCE LIST
+    const removeExperience = (index) => {
+        datas.experience.splice(index, 1)
+        setDatas({
+            ...datas,
+            experience: datas.experience
+        })
+    }
 
+    const save = () => {
         router.post('/profile/store', datas, {
             onSuccess: () => {
                 toast.success('Profile updated successfully')
@@ -131,8 +139,11 @@ const Edit = (props) => {
                                         {
                                             datas.experience.map((data, index) => {
                                                 return (
-                                                    <div key={index} className=" mb-2">
+                                                    <div key={index} className=" mb-2 relative">
                                                         <Input name={`exp_${index}`} value={data} onChange={(e) => addExp(index, e.target.value)}   />
+                                                        <button onClick={() => removeExperience(index)} className=" absolute right-2 top-1/2 transform -translate-y-1/2">
+                                                            <FaMinusCircle className=" fill-red-700" />
+                                                        </button>
                                                     </div>
                                                 )
                                             })
