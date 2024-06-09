@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 
@@ -24,8 +25,8 @@ class BlogPost extends Model
         return $this->morphOne(Upload::class, 'uploadable')->latestOfMany();;
     }
 
-    public function category(): HasOne
+    public function category(): BelongsTo
     {
-        return $this->hasOne(CategoryReference::class, 'id');
+        return $this->belongsTo(CategoryReference::class, 'category_reference_id');
     }
 }

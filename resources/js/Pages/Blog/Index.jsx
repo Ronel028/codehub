@@ -1,4 +1,5 @@
 import { Link } from "@inertiajs/react";
+import moment from "moment";
 import { MdEditSquare } from "react-icons/md";
 import { FaTrashAlt } from "react-icons/fa";
 import MainLayout from "../../layout/main"
@@ -6,6 +7,8 @@ import Input from "../Components/Forms/Input"
 import imagePlaceholder from "../Assets/Img/placeholder.jpg"
 
 const BlogList = (props) => {
+
+    console.log(props);
 
     return (
         <>
@@ -37,7 +40,7 @@ const BlogList = (props) => {
                                             </div>
                                         </div>
                                         <p className=" font-bold mb-1 text-lg">{blog.title}</p>
-                                        <p className=" text-xs">{blog.created_at}</p>
+                                        <p className=" text-xs">{moment(blog.created_at).format('LL')}</p>
                                     </div>
                                 </div>
                             ))
