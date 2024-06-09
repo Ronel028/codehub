@@ -14,6 +14,7 @@ use Inertia\Inertia;
 
 class BlogController extends Controller
 {
+    // RENDER CREATE PAGE
     public function createPage()
     {
         return Inertia::render('Blog/Create', [
@@ -21,14 +22,25 @@ class BlogController extends Controller
         ]);
     }
 
+    // RENDER BLGO LIST PAGE
     public function Index()
     {
-        $blog_list = BlogPost::with(['category'])->where('user_id', Auth::user()->id)->get();
+        $blog_list = BlogPost::with(['category', 'upload'])->where('user_id', Auth::user()->id)->get();
         return Inertia::render('Blog/Index', [
             'blogs' => $blog_list
         ]);
     }
 
+    // RENDER EDIT PAGE
+    public function editPage(Request $request)
+    {
+        return Inertia::render('Blog/Edit', [
+            'category' => CategoryReference::all(),
+            'blog' => BlogPost::with(['category', 'upload'])->find($request->id)
+        ]);
+    }
+
+    // CREATE AND SAVE NEW BLOG
     public function store(BlogPostRequest $request)
     {
 
@@ -57,9 +69,31 @@ class BlogController extends Controller
         }
     }
 
-    public function fetch()
+    // SAVE UPDATED BLOG
+    public function update(Request $request)
     {
-        $blog_post = BlogPost::with('upload')->get();
-        dd($blog_post);
+        DB::beginTransaction();
+        $blog = BlogPost::find($request->id);
+        $blog->user_id = Auth::user()->id;
+        $blog->title = $request->title;
+        $blog->slug = Str::slug($request->title, '-');
+        $blog->description = $request->description;
+        $blog->category_reference_id = $request->category;
+        $blog->content = $request->content;
+        $blog->status = $request->status;
+
+        if ($blog->save()) {
+
+            if ($request->hasFile('image')) {
+                $blog->upload()->create([
+                    'filename' => $request->file('image')->getClientOriginalName(),
+                    'path' => $request->file('image')->store('images', 'public')
+                ]);
+            }
+
+            DB::commit();
+        } else {
+            DB::rollBack();
+        }
     }
 }

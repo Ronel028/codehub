@@ -21,7 +21,7 @@ class BlogPost extends Model
 
     public function upload(): MorphOne
     {
-        return $this->morphOne(Upload::class, 'uploadable');
+        return $this->morphOne(Upload::class, 'uploadable')->latestOfMany();;
     }
 
     public function category(): HasOne
