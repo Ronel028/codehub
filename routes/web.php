@@ -2,13 +2,12 @@
 
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\BlogController;
+use App\Http\Controllers\BlogListController;
 use App\Http\Controllers\UserProfileController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
-Route::get('/', function () {
-    return Inertia::render('Home/Index');
-})->name('home')->middleware('auth');
+Route::get('/', [BlogListController::class, 'index'])->name('index')->middleware('auth');
 
 // USER AUTHENTICATION
 Route::get('/login', [AuthController::class, 'login'])->name('login');

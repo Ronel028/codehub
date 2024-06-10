@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link, router } from "@inertiajs/react"
 import { CiEdit } from "react-icons/ci";
-import { FaUserCircle, FaSignOutAlt  } from "react-icons/fa";
+import { FaUserCircle, FaSignOutAlt, FaEdit  } from "react-icons/fa";
 import { MdOutlinePostAdd } from "react-icons/md";
 
 const Navigation  = () => {
@@ -24,8 +24,9 @@ const Navigation  = () => {
                     <h2>Title</h2>
                     <ul className=" flex items-center gap-10">
                         <li>
-                            <Link href="/blog/create" className="flex items-center gap-2 text-sm">
-                                <CiEdit className=" text-base" />
+                            <Link href="/blog/create" className="flex items-center shadow gap-2 text-xs bg-secondary text-light py-2 px-3 rounded-md">
+                                {/* <CiEdit className=" text-base fill-light" /> */}
+                                <FaEdit className=" text-sm fill-light" />
                                 Write
                             </Link>
                         </li>
