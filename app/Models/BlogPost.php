@@ -20,6 +20,11 @@ class BlogPost extends Model
         'content'
     ];
 
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
     public function upload(): MorphOne
     {
         return $this->morphOne(Upload::class, 'uploadable')->latestOfMany();;

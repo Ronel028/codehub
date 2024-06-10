@@ -6,6 +6,8 @@ import imagePlaceholder from "../Assets/Img/placeholder.jpg"
 
 const Home = (props) => {
 
+    console.log(props)
+
     return (
         <>
             <MainLayout>
@@ -21,15 +23,17 @@ const Home = (props) => {
                         </div>
                         <div className=" absolute bottom-4 left-4">
                             <div className=" bg-light rounded py-1 px-2 inline-block text-xs text-primary mb-1">{props.latest_blog[0].category.name}</div>
-                            <p className=" font-bold mb-1 text-light text-2xl">{props.latest_blog[0].title}</p>
-                            <p className=" text-xs text-light">{moment(props.latest_blog[0].created_at).format('ll')}</p>
+                            <p className=" font-bold mb-1 text-light text-3xl">{props.latest_blog[0].title}</p>
+                            <p className=" text-xs text-light">
+                                {(props.latest_blog[0].user.user_detail && props.latest_blog[0].user.full_name) ?? props.latest_blog[0].user.username} | {moment(props.latest_blog[0].created_at).format('ll')}
+                            </p>
                         </div>
                     </section>
                     <section className=" flex items-start ">
                         <ul className=" flex flex-col gap-2">
                             {
                                 props.latest_blog.map(blog => (
-                                    <li className=" flex items-center gap-2">
+                                    <li key={blog.id} className=" flex items-center gap-2">
                                         <div className=" w-[350px] h-[170px] rounded">
                                             <img 
                                                 className=" w-full h-full object-cover rounded" 
@@ -40,7 +44,9 @@ const Home = (props) => {
                                         <div>
                                             <div className=" bg-primary rounded py-1 px-2 inline-block text-xs text-light mb-1">{blog.category.name}</div>
                                             <p className=" font-bold mb-1 text-xl">{blog.title}</p>
-                                            <p className=" text-xs">{moment(blog.created_at).format('ll')}</p>
+                                            <p className=" text-xs">
+                                            {(blog.user.user_detail && blog.user.full_name) ?? blog.user.username} | {moment(blog.created_at).format('ll')}
+                                            </p>
                                         </div>
                                     </li>
                                 ))
@@ -49,39 +55,35 @@ const Home = (props) => {
                     </section>
                 </main>
 
+                {/* TECHNOLOGY BLOG */}
                 <div>
                     <h2 className=" text-2xl font-bold tracking-wide mb-2">Technology</h2>
                     <div className=" grid grid-cols-3 gap-2">
-                        <div>
-                            <div className=" rounded mb-2">
-                                <img className=" w-full h-full object-cover rounded" src="https://images.pexels.com/photos/19395799/pexels-photo-19395799/free-photo-of-aerial-view-of-paris-on-the-banks-of-river-seine-in-autumn.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load" alt="" />
-                            </div>
-                            <div>
-                                <div className=" bg-primary rounded py-1 px-2 inline-block text-xs text-light mb-1">Technology</div>
-                                <p className=" font-bold mb-1 text-lg">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut, voluptatem!</p>
-                                <p className=" text-xs">June 28, 2024</p>
-                            </div>
-                        </div>
-                        <div>
-                            <div className=" rounded mb-2">
-                                <img className=" w-full h-full object-cover rounded" src="https://images.pexels.com/photos/19395799/pexels-photo-19395799/free-photo-of-aerial-view-of-paris-on-the-banks-of-river-seine-in-autumn.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load" alt="" />
-                            </div>
-                            <div>
-                                <div className=" bg-primary rounded py-1 px-2 inline-block text-xs text-light mb-1">Technology</div>
-                                <p className=" font-bold mb-1 text-lg">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut, voluptatem!</p>
-                                <p className=" text-xs">June 28, 2024</p>
-                            </div>
-                        </div>
-                        <div>
-                            <div className=" rounded mb-2">
-                                <img className=" w-full h-full object-cover rounded" src="https://images.pexels.com/photos/19395799/pexels-photo-19395799/free-photo-of-aerial-view-of-paris-on-the-banks-of-river-seine-in-autumn.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load" alt="" />
-                            </div>
-                            <div>
-                                <div className=" bg-primary rounded py-1 px-2 inline-block text-xs text-light mb-1">Technology</div>
-                                <p className=" font-bold mb-1 text-lg">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut, voluptatem!</p>
-                                <p className=" text-xs">June 28, 2024</p>
-                            </div>
-                        </div>
+                        {
+                            props.blogs.filter(blog => (
+                                blog.category.name === 'Technology'
+                            )).map(blog => (
+                                <div key={blog.id}>
+                                    <div className=" rounded mb-2">
+                                        <img 
+                                            className=" w-full h-full object-cover rounded" 
+                                            src={(blog.upload && `/storage/${blog.upload.path}`) ?? imagePlaceholder} 
+                                            alt={(blog.upload && blog.upload.filename) ?? 'No image available'}
+                                        />
+                                    </div>
+                                    <div className=" mb-1">
+                                        <div className=" bg-primary rounded py-1 px-2 inline-block text-xs text-light mb-1">{blog.category.name}</div>
+                                        <p className=" font-bold mb-1 text-xl">{blog.title}</p>
+                                        <p className=" text-xs">
+                                            {(blog.user.user_detail && blog.user.full_name) ?? blog.user.username} | {moment(blog.created_at).format('ll')}
+                                        </p>
+                                    </div>
+                                    <div>
+                                        <p className=" font-normal mb-1 text-base">{blog.description}</p>
+                                    </div>
+                                </div>
+                            ))
+                        }
                     </div>
                 </div>
             </MainLayout>
