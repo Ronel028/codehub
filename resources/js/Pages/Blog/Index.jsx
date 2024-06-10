@@ -1,4 +1,5 @@
-import { Link } from "@inertiajs/react";
+import { useState, useEffect } from "react";
+import { Link, router } from "@inertiajs/react";
 import moment from "moment";
 import { MdEditSquare } from "react-icons/md";
 import { FaTrashAlt } from "react-icons/fa";
@@ -8,7 +9,19 @@ import imagePlaceholder from "../Assets/Img/placeholder.jpg"
 
 const BlogList = (props) => {
 
-    console.log(props);
+    const [search, setSearch] = useState('')
+
+    const searchBlog = (e) => {
+        setSearch(e.target.value)
+    }
+
+    useEffect(() => {
+        router.get('/blog/blog-list', {
+            search: search
+        }, {
+            preserveState: true,
+        })
+    }, [search])
 
     return (
         <>
@@ -17,12 +30,12 @@ const BlogList = (props) => {
                     <div className=" flex items-center justify-between mb-2">
                         <h2 className=" text-2xl font-bold tracking-wide mb-2">Blog post</h2>
                         <div className=" flex items-center gap-2">
-                            <Input placeholder="Search" className=" w-[200px]" />
+                            <Input placeholder="Search" name="search" value={search} onChange={searchBlog} className=" w-[200px]" />
                         </div>
                     </div>
                     <div className=" grid grid-cols-3 gap-2">
                         {
-                            props.blogs.map(blog => (
+                            props.blogs.length > 0 ? props.blogs.map(blog => (
                                 <div key={blog.id} className="border border-gray-300 rounded-md">
                                     <div className=" rounded-t-md mb-2">
                                         <img className=" w-full h-full object-cover rounded-t-md" src={ (blog.upload && `/storage/${blog.upload.path}`) ?? imagePlaceholder} alt="" />
@@ -43,7 +56,7 @@ const BlogList = (props) => {
                                         <p className=" text-xs">{moment(blog.created_at).format('LL')}</p>
                                     </div>
                                 </div>
-                            ))
+                            )) : <h3>No data found</h3>
                         }
                     </div>
                 </div>

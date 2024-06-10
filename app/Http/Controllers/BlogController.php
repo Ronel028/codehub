@@ -22,10 +22,18 @@ class BlogController extends Controller
         ]);
     }
 
-    // RENDER BLGO LIST PAGE
-    public function Index()
+    // RENDER BLOG LIST PAGE
+    public function Index(Request $request)
     {
-        $blog_list = BlogPost::with(['category', 'upload'])->where('user_id', Auth::user()->id)->get();
+        $search = $request->query('search');
+        $blog_list = BlogPost::with(['category', 'upload'])
+            ->where('user_id', Auth::user()->id)
+            ->when(
+                $search,
+                fn ($query) =>
+                $query->where('title', 'LIKE', "%{$search}%")
+            )
+            ->get();
         return Inertia::render('Blog/Index', [
             'blogs' => $blog_list
         ]);
