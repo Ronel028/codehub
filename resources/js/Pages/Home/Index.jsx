@@ -6,8 +6,6 @@ import imagePlaceholder from "../Assets/Img/placeholder.jpg"
 
 const Home = (props) => {
 
-    console.log(props)
-
     return (
         <>
             <MainLayout>
@@ -56,7 +54,7 @@ const Home = (props) => {
                 </main>
 
                 {/* TECHNOLOGY BLOG */}
-                <div>
+                <div className=" border-b border-secondary pb-5 mb-5">
                     <div className=" flex items-center justify-between mb-1">
                         <h2 className=" text-2xl font-bold tracking-wide">Technology</h2>
                         <Link href="/blog-list/blog/technology" className="text-sm text-secondary hover:underline">
@@ -67,7 +65,7 @@ const Home = (props) => {
                         {
                             props.blogs.filter(blog => (
                                 blog.category.name === 'Technology'
-                            )).map(blog => (
+                            )).slice(0,6).map(blog => (
                                 <div key={blog.id}>
                                     <div className=" rounded mb-2">
                                         <img 
@@ -84,7 +82,44 @@ const Home = (props) => {
                                         </p>
                                     </div>
                                     <div>
-                                        <p className=" font-normal mb-1 text-base">{blog.description}</p>
+                                        <p className=" font-normal mb-1 text-gray-500 text-base">{blog.description}</p>
+                                    </div>
+                                </div>
+                            ))
+                        }
+                    </div>
+                </div>
+
+                {/* Science BLOG */}
+                <div className="border-b border-secondary pb-5 mb-5">
+                    <div className=" flex items-center justify-between mb-1">
+                        <h2 className=" text-2xl font-bold tracking-wide">Science</h2>
+                        <Link href="/blog-list/blog/science" className="text-sm text-secondary hover:underline">
+                            See all
+                        </Link>
+                    </div>
+                    <div className=" grid grid-cols-3 gap-2">
+                        {
+                            props.blogs.filter(blog => (
+                                blog.category.name === 'Science'
+                            )).slice(0,6).map(blog => (
+                                <div key={blog.id}>
+                                    <div className=" rounded mb-2">
+                                        <img 
+                                            className=" w-full h-full object-cover rounded" 
+                                            src={(blog.upload && `/storage/${blog.upload.path}`) ?? imagePlaceholder} 
+                                            alt={(blog.upload && blog.upload.filename) ?? 'No image available'}
+                                        />
+                                    </div>
+                                    <div className=" mb-1">
+                                        <div className=" bg-primary rounded py-1 px-2 inline-block text-xs text-light mb-1">{blog.category.name}</div>
+                                        <p className=" font-bold mb-1 text-xl">{blog.title}</p>
+                                        <p className=" text-xs">
+                                            {(blog.user.user_detail && blog.user.full_name) ?? blog.user.username} | {moment(blog.created_at).format('ll')}
+                                        </p>
+                                    </div>
+                                    <div>
+                                        <p className=" font-normal mb-1 text-gray-500 text-base">{blog.description}</p>
                                     </div>
                                 </div>
                             ))

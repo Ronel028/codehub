@@ -3,8 +3,9 @@ import { Link, router } from "@inertiajs/react"
 import { CiEdit } from "react-icons/ci";
 import { FaUserCircle, FaSignOutAlt, FaEdit  } from "react-icons/fa";
 import { MdOutlinePostAdd } from "react-icons/md";
+import imagePlacholder from "../Assets/Img/image-placeholder.webp"
 
-const Navigation  = () => {
+const Navigation  = (props) => {
 
     const [openMenu, setOpenMenu] = useState(false)
 
@@ -33,9 +34,10 @@ const Navigation  = () => {
                             </Link>
                         </li>
                         <li>
-                            <button onClick={open}>
-                                <img alt="tania andrew"
-                                    src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1480&amp;q=80"
+                            <button onClick={open} className=" border border-secondary rounded-full">
+                                <img
+                                    src={(props.user.upload && `/storage/${props.user.upload.path}`) ?? imagePlacholder}
+                                    alt={(props.user.upload && props.user.upload.filename) ?? 'user'}
                                     className="relative inline-block object-cover object-center w-8 h-8 rounded-full cursor-pointer" />
                             </button>
                             <ul
