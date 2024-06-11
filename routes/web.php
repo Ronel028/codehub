@@ -9,6 +9,11 @@ use Inertia\Inertia;
 
 Route::get('/', [BlogListController::class, 'index'])->name('index')->middleware('auth');
 
+// BLOG LIST
+Route::middleware('auth')->name('blog-list.')->prefix('blog-list')->group(function () {
+    Route::get('/blog/{category}', [BlogListController::class, 'blogListCategory'])->name('blog-list-category');
+});
+
 // USER AUTHENTICATION
 Route::get('/login', [AuthController::class, 'login'])->name('login');
 Route::get('/register', [AuthController::class, 'register'])->name('register');

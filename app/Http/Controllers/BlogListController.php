@@ -15,4 +15,21 @@ class BlogListController extends Controller
             'blogs' => BlogPost::with(['category', 'upload', 'user'])->orderBy('created_at', 'desc')->get(),
         ]);
     }
+
+    public function blogListCategory(Request $request)
+    {
+        $category = $request->category;
+        $search = $request->query('search');
+
+        return Inertia::render("Home/Category", [
+            'category' => $request->category,
+            'blogs' => BlogPost::with(['upload', 'user'])->whereHas('category', function ($query) use ($category) {
+                $query->where('name', $category);
+            })->when(
+                $search,
+                fn ($query) =>
+                $query->where('title', 'LIKE', "%{$search}%")
+            )->get()
+        ]);
+    }
 }

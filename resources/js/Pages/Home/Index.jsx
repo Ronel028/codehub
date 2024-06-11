@@ -33,8 +33,8 @@ const Home = (props) => {
                         <ul className=" flex flex-col gap-2">
                             {
                                 props.latest_blog.map(blog => (
-                                    <li key={blog.id} className=" flex items-center gap-2">
-                                        <div className=" w-[350px] h-[170px] rounded">
+                                    <li key={blog.id} className="grid grid-cols-2 gap-2">
+                                        <div className=" w-full h-[170px] rounded border border-gray-400">
                                             <img 
                                                 className=" w-full h-full object-cover rounded" 
                                                 src={(blog.upload && `/storage/${blog.upload.path}`) ?? imagePlaceholder} 
@@ -57,7 +57,12 @@ const Home = (props) => {
 
                 {/* TECHNOLOGY BLOG */}
                 <div>
-                    <h2 className=" text-2xl font-bold tracking-wide mb-2">Technology</h2>
+                    <div className=" flex items-center justify-between mb-1">
+                        <h2 className=" text-2xl font-bold tracking-wide">Technology</h2>
+                        <Link href="/blog-list/blog/technology" className="text-sm text-secondary hover:underline">
+                            See all
+                        </Link>
+                    </div>
                     <div className=" grid grid-cols-3 gap-2">
                         {
                             props.blogs.filter(blog => (

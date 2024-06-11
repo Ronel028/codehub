@@ -21,7 +21,9 @@ const Navigation  = () => {
         <>
             <div className=" bg-gray-50 fixed top-0 left-0 right-0 z-50 border-b border-light-gray">
                 <nav className=" flex items-center justify-between py-3 max-w-[1500px] w-[90%] mx-auto relative">
-                    <h2>Title</h2>
+                    <Link href="/">
+                        <h2>Title</h2>
+                    </Link>
                     <ul className=" flex items-center gap-10">
                         <li>
                             <Link href="/blog/create" className="flex items-center shadow gap-2 text-xs bg-secondary text-light py-2 px-3 rounded-md">
