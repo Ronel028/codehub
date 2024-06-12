@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 Route::get('/', [BlogListController::class, 'index'])->name('index')->middleware('auth');
+Route::get('/{username}/{slug}', [BlogListController::class, 'fetch']);
 
 // BLOG LIST
 Route::middleware('auth')->name('blog-list.')->prefix('blog-list')->group(function () {
