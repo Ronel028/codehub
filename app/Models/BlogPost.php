@@ -17,7 +17,8 @@ class BlogPost extends Model
         'slug',
         'title',
         'description',
-        'content'
+        'content',
+        'is_published'
     ];
 
     public function user(): BelongsTo

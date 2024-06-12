@@ -1,7 +1,7 @@
 const Select = (props) => {
     return (
         <>
-            <div>
+            <div className=" w-full">
                 <select {...props} className={`w-full border ${props.error ? 'border-red-500 focus:outline-red-500' : 'border-light-gray focus:outline-primary'} outline-none p-2 text-xs rounded-md`} >
                     <option selected value='' >---Choose category---</option>
                     {

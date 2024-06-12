@@ -13,6 +13,7 @@ const CreateBlog = (props) => {
         title: '',
         description: '',
         category: '',
+        is_publish: false,
         content: null,
         image: null,
     })
@@ -20,7 +21,7 @@ const CreateBlog = (props) => {
     // SAVE DATA TO THE DATABASE
     const store = (e) => {
         e.preventDefault()
-        post(`/blog/store/${e.target.name}`, {
+        post(`/blog/store`, {
             onSuccess: () => {
                 reset('title', 'description', 'image')
                 setImage(null)
@@ -53,7 +54,15 @@ const CreateBlog = (props) => {
                             <div>
                                 <Input error={errors.title} type="text" label="Title" value={data.title} onChange={e => setData('title', e.target.value)} placeholder="Create your unique title of your blog here..." className="mb-5" />
                                 <Input error={errors.description} type="text" label="Description" value={data.description} onChange={e => setData('description', e.target.value)} placeholder="Add description of your blog here..." className="mb-5" />
-                                <Select error={errors.category} data={props.category} value={data.category} onChange={e => setData('category', e.target.value)} />
+                                <div className=" flex items-center justify-start gap-6">
+                                    <div className="">
+                                        <Select error={errors.category} data={props.category} value={data.category} onChange={e => setData('category', e.target.value)} className="w-full" />
+                                    </div>
+                                    <div className=" flex items-center gap-2">
+                                        <label htmlFor="is_publish" className=" text-sm">Make this public</label>
+                                        <input type="checkbox" id="is_publish" checked={data.is_publish} onChange={e => setData('is_publish', e.target.checked)} />
+                                    </div>
+                                </div>
                             </div>
                             <div>
                                 <div className={`${errors.image ? 'border-red-500 p-1' : 'border-secondary'} w-full h-[200px] p-2  flex bg-gray-100 border-dashed border-2  rounded-md items-center mx-auto text-center cursor-pointer`}>
@@ -80,8 +89,7 @@ const CreateBlog = (props) => {
                         </div>
                         <div className=" flex items-center justify-end gap-2">
                             <Link href="/" className=" font-bold border border-secondary  py-2 text-sm rounded px-3 text-primary tracking-wide">Back</Link>
-                            <button type="button" onClick={store} name="draft" className=" font-bold bg-secondary  py-2 text-sm rounded px-3 text-light tracking-wide">Save to Draft</button>
-                            <button type="button" onClick={store} name="publish" className=" font-bold bg-indigo-700 py-2 text-sm rounded px-3 text-light tracking-wide">Publish</button>
+                            <button type="button" onClick={store} name="publish" className=" font-bold bg-indigo-700 py-2 text-sm rounded px-3 text-light tracking-wide">Save</button>
                         </div>
                     </form>
                 </div>  

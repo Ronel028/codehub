@@ -49,9 +49,8 @@ class BlogController extends Controller
     }
 
     // CREATE AND SAVE NEW BLOG
-    public function store(BlogPostRequest $request)
+    public function store(Request $request)
     {
-
         DB::beginTransaction();
         $blog = new BlogPost();
         $blog->user_id = Auth::user()->id;
@@ -60,7 +59,7 @@ class BlogController extends Controller
         $blog->description = $request->description;
         $blog->category_reference_id = $request->category;
         $blog->content = $request->content;
-        $blog->status = $request->status;
+        $blog->is_published = $request->is_publish;
 
         if ($blog->save()) {
 
@@ -88,7 +87,7 @@ class BlogController extends Controller
         $blog->description = $request->description;
         $blog->category_reference_id = $request->category;
         $blog->content = $request->content;
-        $blog->status = $request->status;
+        $blog->is_published = $request->is_publish;
 
         if ($blog->save()) {
 

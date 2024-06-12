@@ -32,4 +32,9 @@ class BlogListController extends Controller
             )->get()
         ]);
     }
+
+    public function blogs(Request $request)
+    {
+        return Inertia::render('Home/Blogs');
+    }
 }

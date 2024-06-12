@@ -25,10 +25,26 @@ const Navigation  = (props) => {
                     <Link href="/">
                         <h2>Title</h2>
                     </Link>
-                    <ul className=" flex items-center gap-10">
+                    <ul className=" flex items-center gap-8">
+                        <li>
+                            <Link href="/blog-list/all" className="flex items-center gap-2 text-xs  text-secondary">
+                                Blogs
+                            </Link>
+                        </li>
+                        <li>
+                            <Link href="/" className="flex items-center gap-2 text-xs  text-secondary">
+                                About
+                            </Link>
+                        </li>
+                        <li>
+                            <Link href="/" className="flex items-center gap-2 text-xs  text-secondary">
+                                Contact
+                            </Link>
+                        </li>
+                    </ul>
+                    <ul className=" flex items-center gap-7">
                         <li>
                             <Link href="/blog/create" className="flex items-center shadow gap-2 text-xs bg-secondary text-light py-2 px-3 rounded-md">
-                                {/* <CiEdit className=" text-base fill-light" /> */}
                                 <FaEdit className=" text-sm fill-light" />
                                 Write
                             </Link>
