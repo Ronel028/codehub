@@ -1,9 +1,10 @@
 import moment from "moment"
+import "highlight.js/styles/default.min.css"
 import ReactQuill from "react-quill";
 import { LuDot } from "react-icons/lu";
 import MainLayout from "../../layout/main"
 import imagePlacholder from "../Assets/Img/image-placeholder.webp"
-
+import 'react-quill/dist/quill.snow.css';
 
 const ViewBlog = (props) => {
 
@@ -33,6 +34,10 @@ const ViewBlog = (props) => {
                         </div>
                             <div className=" mb-2">
                                 <ReactQuill 
+                                    modules={{
+                                        syntax: true,
+                                        toolbar: false
+                                    }}
                                     value={props.blog.content}
                                     id="style-editor"
                                     className="view-style"
