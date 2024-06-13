@@ -6,3 +6,12 @@ body, label, input, button, *{
     color: #31304D;
     font-family: "Nunito Sans", sans-serif;
 }
+
+#style-editor > *{
+    font-size: 1.25rem;
+}
+
+#style-editor .ql-editor > p{
+    /* line-height: 1.7; */
+    line-height: 32px;
+}

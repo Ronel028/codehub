@@ -16,7 +16,7 @@ const BlogList = (props) => {
     }
 
     useEffect(() => {
-        router.get('/blog/blog-list', {
+        router.get('/blog/list', {
             search: search
         }, {
             preserveState: true,

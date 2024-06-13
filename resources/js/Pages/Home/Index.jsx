@@ -31,7 +31,7 @@ const Home = (props) => {
                         <ul className=" flex flex-col gap-2">
                             {
                                 props.latest_blog.map(blog => (
-                                    <Link href={`/${blog.user.username}/${blog.slug}`}>
+                                    <Link href={`/blog-list/${blog.user.username}/${blog.slug}`}>
                                         <li key={blog.id} className="grid grid-cols-2 gap-2">
                                             <div className=" w-full h-[170px] rounded border border-gray-400">
                                                 <img 

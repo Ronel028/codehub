@@ -8,10 +8,10 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 Route::get('/', [BlogListController::class, 'index'])->name('index')->middleware('auth');
-Route::get('/{username}/{slug}', [BlogListController::class, 'fetch']);
 
 // BLOG LIST
 Route::middleware('auth')->name('blog-list.')->prefix('blog-list')->group(function () {
+    Route::get('/{username}/{slug}', [BlogListController::class, 'fetch']);
     Route::get('/blog/{category}', [BlogListController::class, 'blogListCategory'])->name('blog-list-category');
     Route::get('/all', [BlogListController::class, 'blogs'])->name('all');
 });
@@ -29,7 +29,7 @@ Route::name('blog.')->prefix('blog')->group(function () {
     Route::get('/create', [BlogController::class, 'createPage'])->name('create-page');
     Route::get('/edit/{id}', [BlogController::class, 'editPage'])->name('edit-page');
     Route::post('/save-edit', [BlogController::class, 'update'])->name('save-edit');
-    Route::get('/blog-list', [BlogController::class, 'index'])->name('blog-list');
+    Route::get('/list', [BlogController::class, 'index'])->name('list');
     Route::post('/store', [BlogController::class, 'store'])->name('store');
     Route::get('/fetch', [BlogController::class, 'fetch'])->name('fetch');
 });

@@ -37,18 +37,13 @@ class BlogListController extends Controller
     {
         $username = $request->username;
         $slug = $request->slug;
-        // $blog = BlogPost::with(['user' => function ($query) {
-        //     $query->with('userDetail');
-        // }, 'category'])->whereHas('user', function ($query) use ($username) {
-        //     $query->where('username', $username);
-        // })->where('slug', $slug)->get();
 
         return Inertia::render('Home/View', [
             'blog' =>  BlogPost::with(['user' => function ($query) {
-                $query->with('userDetail');
+                $query->with('userDetail', 'upload');
             }, 'category'])->whereHas('user', function ($query) use ($username) {
                 $query->where('username', $username);
-            })->where('slug', $slug)->get()
+            })->where('slug', $slug)->first()
         ]);
     }
 
