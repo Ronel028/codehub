@@ -1,5 +1,5 @@
+import { useEffect } from "react";
 import moment from "moment"
-import "highlight.js/styles/default.min.css"
 import ReactQuill from "react-quill";
 import { LuDot } from "react-icons/lu";
 import MainLayout from "../../layout/main"
@@ -42,7 +42,7 @@ const ViewBlog = (props) => {
                                     id="style-editor"
                                     className="view-style"
                                     readOnly={true}
-                                    theme={"bubble"}
+                                    theme={"snow"}
                                 />
                             </div>
                     </div>

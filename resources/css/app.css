@@ -14,12 +14,22 @@ body, label, input, button, *{
 }
 
 #style-editor .ql-editor > p{
-    /* line-height: 1.7; */
     line-height: 32px;
 }
 
-#style-editor .ql-syntax{
-    background-color: #0a0b0e;
+/* #style-editor .ql-syntax{
+    background-color: #23241f;
+    font-size: 1rem;
+    background-color: black;
     padding: 1rem;
     border-radius: 7px;
+} */
+
+#style-editor .ql-syntax{
+    padding: 1rem;
+    font-size: 1rem;
+}
+
+#style-editor .ql-container{
+    border: none;
 }

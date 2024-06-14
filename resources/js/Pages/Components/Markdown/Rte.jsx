@@ -3,7 +3,6 @@ import hljs from 'highlight.js';
 import ReactQuill from 'react-quill';
 import "../../../../css/rte-editor.css"
 import 'react-quill/dist/quill.snow.css';
-import "../../../../css/code.css"
 
 const toolbarOptions = {
     syntax: true,
@@ -20,11 +19,6 @@ const toolbarOptions = {
 }
 
 const RteEditor = (props) => {
-  
-
-  useEffect(() => {
-    hljs.initHighlightingOnLoad()
-  }, [])
 
   return (
     <>
