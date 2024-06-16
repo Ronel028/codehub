@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef, useMemo } from "react";
 import { Link, useForm } from "@inertiajs/react";
 import { toast } from "react-toastify";
 import { MdOutlineFileUpload } from "react-icons/md";
@@ -6,6 +6,8 @@ import MainLayout from "../../layout/main"
 import Input from "../Components/Forms/Input";
 import RteEditor from "../Components/Markdown/Rte";
 import Select from "../Components/Forms/Select";
+
+import Tiptap from "../Components/Markdown/Tiptop";
 
 const CreateBlog = (props) => {
     const [image, setImage] = useState(null)
@@ -91,6 +93,9 @@ const CreateBlog = (props) => {
                             <Link href="/" className=" font-bold border border-secondary  py-2 text-sm rounded px-3 text-primary tracking-wide">Back</Link>
                             <button type="button" onClick={store} name="publish" className=" font-bold bg-indigo-700 py-2 text-sm rounded px-3 text-light tracking-wide">Save</button>
                         </div>
+
+                        <Tiptap />
+
                     </form>
                 </div>  
             </MainLayout> 

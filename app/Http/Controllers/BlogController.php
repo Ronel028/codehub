@@ -49,7 +49,7 @@ class BlogController extends Controller
     }
 
     // CREATE AND SAVE NEW BLOG
-    public function store(Request $request)
+    public function store(BlogPostRequest $request)
     {
         DB::beginTransaction();
         $blog = new BlogPost();

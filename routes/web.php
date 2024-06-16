@@ -11,7 +11,7 @@ Route::get('/', [BlogListController::class, 'index'])->name('index')->middleware
 
 // BLOG LIST
 Route::middleware('auth')->name('blog-list.')->prefix('blog-list')->group(function () {
-    Route::get('/{username}/{slug}', [BlogListController::class, 'fetch']);
+    Route::get('/read/{username}/{slug}', [BlogListController::class, 'fetch']);
     Route::get('/blog/{category}', [BlogListController::class, 'blogListCategory'])->name('blog-list-category');
     Route::get('/all', [BlogListController::class, 'blogs'])->name('all');
 });

@@ -16,6 +16,10 @@
     },
     "dependencies": {
         "@inertiajs/react": "^1.1.0",
+        "@tiptap/extension-heading": "^2.4.0",
+        "@tiptap/pm": "^2.4.0",
+        "@tiptap/react": "^2.4.0",
+        "@tiptap/starter-kit": "^2.4.0",
         "@vitejs/plugin-react": "^4.3.0",
         "highlight.js": "^11.9.0",
         "moment": "^2.30.1",

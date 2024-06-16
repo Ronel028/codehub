@@ -11,8 +11,8 @@ class BlogListController extends Controller
     public function index()
     {
         return Inertia::render("Home/Index", [
-            'latest_blog' => BlogPost::with(['category', 'upload', 'user'])->latest()->take(3)->get(),
-            'blogs' => BlogPost::with(['category', 'upload', 'user'])->orderBy('created_at', 'desc')->get(),
+            'latest_blog' => BlogPost::with(['category', 'upload', 'user'])->where('is_published', 1)->latest()->take(3)->get(),
+            'blogs' => BlogPost::with(['category', 'upload', 'user'])->where('is_published', 1)->orderBy('created_at', 'desc')->get(),
         ]);
     }
 
@@ -23,7 +23,7 @@ class BlogListController extends Controller
 
         return Inertia::render("Home/Category", [
             'category' => $request->category,
-            'blogs' => BlogPost::with(['upload', 'user'])->whereHas('category', function ($query) use ($category) {
+            'blogs' => BlogPost::with(['upload', 'user'])->where('is_published', 1)->whereHas('category', function ($query) use ($category) {
                 $query->where('name', $category);
             })->when(
                 $search,
