@@ -5,6 +5,7 @@ import { MdOutlineFileUpload } from "react-icons/md";
 import MainLayout from "../../layout/main"
 import Input from "../Components/Forms/Input";
 import RteEditor from "../Components/Markdown/Rte";
+import Tiptap from "../Components/Markdown/Tiptap";
 import Select from "../Components/Forms/Select";
 
 const EditBlog = (props) => {
@@ -81,7 +82,8 @@ const EditBlog = (props) => {
                             </div>
                         </div>
                         <div className=" mb-2">
-                            <RteEditor setRteValue={setData} rteValue={data.content} error={errors.content} />
+                            {/* <RteEditor setRteValue={setData} rteValue={data.content} error={errors.content} /> */}
+                            <Tiptap rteValue={data.content} setRteValue={setData} />
                         </div>
                         <div className=" flex items-center justify-end gap-2">
                             <Link href="/" className=" font-bold border border-secondary  py-2 text-sm rounded px-3 text-primary tracking-wide">Back</Link>

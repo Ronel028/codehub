@@ -1,30 +1,45 @@
 import { useState, useMemo } from 'react'
 import { EditorProvider, useCurrentEditor } from '@tiptap/react'
 import Heading from '@tiptap/extension-heading'
+import Image from '@tiptap/extension-image'
 import StarterKit from '@tiptap/starter-kit'
 import { mergeAttributes } from '@tiptap/react'
 import { Extension } from '@tiptap/react'
+import ImageResize from 'tiptap-imagresize'
 
-import { FaBold, FaItalic, FaStrikethrough, FaParagraph, FaListUl, FaListOl, FaQuoteLeft   } from "react-icons/fa";
+import { FaBold, FaItalic, FaStrikethrough, FaParagraph, FaListUl, FaListOl, FaQuoteLeft, FaImage } from "react-icons/fa";
 import { BiCodeBlock, BiUndo, BiRedo  } from "react-icons/bi";
 
-const content = ''
 
 const MenuBar = () => {
-    const { editor } = useCurrentEditor()
-    const [openHeading, setOpenHeading] = useState(false)
+  const { editor } = useCurrentEditor()
+  const [openHeading, setOpenHeading] = useState(false)
+  const [image, setImage] = useState(null)
 
-    const openHeadingMenu = () => {
-      setOpenHeading(prevState => ! prevState)
-    } 
-  
-    if (!editor) {
-      return null
+  const openHeadingMenu = () => {
+    setOpenHeading(prevState => ! prevState)
+  } 
+
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const src = e.target.result;
+        editor.chain().focus().setImage({ src }).run();
+      };
+      reader.readAsDataURL(file);
     }
+  };
+
+  if (!editor) {
+    return null
+  }
   
-    return (
-      <div className="mb-2">
-        <div className="button-group flex items-center gap-5">
+  return (
+    <div className="mb-2">
+      <div className="button-group flex items-center justify-between">
+        <div className='flex items-center gap-3'>
           <div className=' relative'>
             <button type='button' onClick={openHeadingMenu} className=' py-1 px-3 border border-secondary text-sm rounded-md'>
               Heading
@@ -96,12 +111,12 @@ const MenuBar = () => {
                 .toggleBold()
                 .run()
             }
-            className={editor.isActive('bold') ? 'bg-secondary text-light' : ''}
+            className={`${editor.isActive('bold') ? 'bg-secondary text-light group' : ''} p-1 rounded`}
           >
-            <FaBold />
+            <FaBold className="group-[.bg-secondary]:fill-light text-sm" />
           </button>
           <button
-           type='button'
+            type='button'
             onClick={() => editor.chain().focus().toggleItalic().run()}
             disabled={
               !editor.can()
@@ -110,12 +125,12 @@ const MenuBar = () => {
                 .toggleItalic()
                 .run()
             }
-            className={editor.isActive('italic') ? 'bg-secondary text-light' : ''}
+            className={`${editor.isActive('italic') ? 'bg-secondary text-light group' : ''} p-1 rounded`}
           >
-            <FaItalic />
+            <FaItalic className="group-[.bg-secondary]:fill-light text-sm" />
           </button>
           <button
-           type='button'
+            type='button'
             onClick={() => editor.chain().focus().toggleStrike().run()}
             disabled={
               !editor.can()
@@ -124,45 +139,54 @@ const MenuBar = () => {
                 .toggleStrike()
                 .run()
             }
-            className={editor.isActive('strike') ? 'bg-secondary text-light' : ''}
+            className={`${editor.isActive('strike') ? 'bg-secondary text-light group' : ''} p-1 rounded`}
           >
-            <FaStrikethrough />
+            <FaStrikethrough className="group-[.bg-secondary]:fill-light text-sm" />
           </button>
           <button
             type='button'
             onClick={() => editor.chain().focus().setParagraph().run()}
-            className={editor.isActive('paragraph') ? 'bg-secondary text-light' : ''}
+            className={`${editor.isActive('paragraph') ? 'bg-secondary text-light group' : ''} p-1 rounded`}
           >
-            <FaParagraph />
+            <FaParagraph className="group-[.bg-secondary]:fill-light text-sm" />
           </button>
           <button
             type='button'
             onClick={() => editor.chain().focus().toggleBulletList().run()}
-            className={editor.isActive('bulletList') ? 'bg-secondary text-light' : ''}
+            className={`${editor.isActive('bulletList') ? 'bg-secondary text-light group' : ''} p-1 rounded`}
           >
-            <FaListUl />
+            <FaListUl className="group-[.bg-secondary]:fill-light text-sm" />
           </button>
           <button
             type='button'
             onClick={() => editor.chain().focus().toggleOrderedList().run()}
-            className={editor.isActive('orderedList') ? 'bg-secondary text-light' : ''}
+            className={`${editor.isActive('orderedList') ? 'bg-secondary text-light group' : ''} p-1 rounded`}
           >
-            <FaListOl />
+            <FaListOl className="group-[.bg-secondary]:fill-light text-sm" />
           </button>
           <button
             type='button'
             onClick={() => editor.chain().focus().toggleCodeBlock().run()}
-            className={editor.isActive('codeBlock') ? 'bg-secondary text-light' : ''}
+            className={`${editor.isActive('codeBlock') ? 'bg-secondary text-light group' : ''} p-1 rounded`}
           >
-            <BiCodeBlock />
+            <BiCodeBlock className="group-[.bg-secondary]:fill-light text-sm" />
           </button>
           <button
             type='button'
             onClick={() => editor.chain().focus().toggleBlockquote().run()}
-            className={editor.isActive('blockquote') ? 'bg-secondary text-light' : ''}
+            className={`${editor.isActive('blockquote') ? 'bg-secondary text-light group' : ''} p-1 rounded`}
           >
-            <FaQuoteLeft />
+            <FaQuoteLeft className="group-[.bg-secondary]:fill-light text-sm" />
           </button>
+            <label
+              htmlFor='image'
+              className={`p-1 rounded cursor-pointer`}
+            >
+              <input type="file" hidden id="image" onChange={handleFileChange} />
+              <FaImage />
+            </label>
+        </div>
+        <div className=' flex items-center gap-2'>
           <button
             type='button'
             onClick={() => editor.chain().focus().undo().run()}
@@ -174,25 +198,27 @@ const MenuBar = () => {
                 .run()
             }
           >
-            <BiUndo />
+            <BiUndo className=' text-lg' />
           </button>
           <button
-            type='button'
-            onClick={() => editor.chain().focus().redo().run()}
-            disabled={
-              !editor.can()
-                .chain()
-                .focus()
-                .redo()
-                .run()
-            }
-          >
+              type='button'
+              onClick={() => editor.chain().focus().redo().run()}
+              disabled={
+                !editor.can()
+                  .chain()
+                  .focus()
+                  .redo()
+                  .run()
+              }
+               className=' text-lg'
+            >
             <BiRedo />
           </button>
         </div>
       </div>
-    )
-  }
+    </div>
+  )
+}
 
 const Tiptap = (props) => {
 
@@ -224,6 +250,10 @@ const Tiptap = (props) => {
                 ]
             },
         }),
+        ImageResize.configure({
+          inline: true,
+          allowBase64: true,
+        }),
         Extension.create({
           onUpdate({ editor }) {
             props.setRteValue('content', editor.getHTML())
@@ -237,7 +267,6 @@ const Tiptap = (props) => {
         extensions={extensions}
         content={props.rteValue}
         slotBefore={<MenuBar />}
-        className="border"
     >
     </EditorProvider>
   )
