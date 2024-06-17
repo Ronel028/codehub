@@ -10,4 +10,7 @@ export default defineConfig({
             refresh: true,
         }),
     ],
+    optimizeDeps: {
+        exclude: ['@tiptap/extension-youtube']
+    }
 });

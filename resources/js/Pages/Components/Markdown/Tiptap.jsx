@@ -1,15 +1,20 @@
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useCallback } from 'react'
 import { EditorProvider, useCurrentEditor } from '@tiptap/react'
 import Heading from '@tiptap/extension-heading'
 import Image from '@tiptap/extension-image'
+import Link from '@tiptap/extension-link'
+import CodeBlockLowlight from '@tiptap/extension-code-block-lowlight'
+import Youtube from '@tiptap/extension-youtube'
+import {common, createLowlight} from 'lowlight'
 import StarterKit from '@tiptap/starter-kit'
 import { mergeAttributes } from '@tiptap/react'
 import { Extension } from '@tiptap/react'
-import ImageResize from 'tiptap-imagresize'
 
-import { FaBold, FaItalic, FaStrikethrough, FaParagraph, FaListUl, FaListOl, FaQuoteLeft, FaImage } from "react-icons/fa";
+import { FaBold, FaItalic, FaStrikethrough, FaParagraph, FaListUl, FaListOl, FaQuoteLeft, FaImage, FaLink, FaVideo } from "react-icons/fa";
 import { BiCodeBlock, BiUndo, BiRedo  } from "react-icons/bi";
 
+
+const lowlight = createLowlight(common)
 
 const MenuBar = () => {
   const { editor } = useCurrentEditor()
@@ -20,6 +25,7 @@ const MenuBar = () => {
     setOpenHeading(prevState => ! prevState)
   } 
 
+  // handle image
   const handleFileChange = (event) => {
     const file = event.target.files[0];
     if (file) {
@@ -31,6 +37,40 @@ const MenuBar = () => {
       reader.readAsDataURL(file);
     }
   };
+
+  // HANDLE LINK
+  const setLink = useCallback(() => {
+    const previousUrl = editor.getAttributes('link').href
+    const url = window.prompt('URL', previousUrl)
+
+    // cancelled
+    if (url === null) {
+      return
+    }
+
+    // empty
+    if (url === '') {
+      editor.chain().focus().extendMarkRange('link').unsetLink()
+        .run()
+
+      return
+    }
+
+    // update link
+    editor.chain().focus().extendMarkRange('link').setLink({ href: url })
+      .run()
+  }, [editor])
+
+  // youtube video
+  const addYoutubeVideo = () => {
+    const url = prompt('Enter YouTube URL')
+
+    if (url) {
+      editor.commands.setYoutubeVideo({
+        src: url,
+      })
+    }
+  }
 
   if (!editor) {
     return null
@@ -103,6 +143,7 @@ const MenuBar = () => {
           </div>
           <button
             type='button'
+            title='Bold'
             onClick={() => editor.chain().focus().toggleBold().run()}
             disabled={
               !editor.can()
@@ -117,6 +158,7 @@ const MenuBar = () => {
           </button>
           <button
             type='button'
+            title='Italic'
             onClick={() => editor.chain().focus().toggleItalic().run()}
             disabled={
               !editor.can()
@@ -131,6 +173,7 @@ const MenuBar = () => {
           </button>
           <button
             type='button'
+            title='Strike'
             onClick={() => editor.chain().focus().toggleStrike().run()}
             disabled={
               !editor.can()
@@ -145,6 +188,7 @@ const MenuBar = () => {
           </button>
           <button
             type='button'
+            title='Paragraph'
             onClick={() => editor.chain().focus().setParagraph().run()}
             className={`${editor.isActive('paragraph') ? 'bg-secondary text-light group' : ''} p-1 rounded`}
           >
@@ -152,6 +196,7 @@ const MenuBar = () => {
           </button>
           <button
             type='button'
+            title='Bullet List'
             onClick={() => editor.chain().focus().toggleBulletList().run()}
             className={`${editor.isActive('bulletList') ? 'bg-secondary text-light group' : ''} p-1 rounded`}
           >
@@ -159,6 +204,7 @@ const MenuBar = () => {
           </button>
           <button
             type='button'
+            title='Order List'
             onClick={() => editor.chain().focus().toggleOrderedList().run()}
             className={`${editor.isActive('orderedList') ? 'bg-secondary text-light group' : ''} p-1 rounded`}
           >
@@ -166,6 +212,7 @@ const MenuBar = () => {
           </button>
           <button
             type='button'
+            title='Code Block'
             onClick={() => editor.chain().focus().toggleCodeBlock().run()}
             className={`${editor.isActive('codeBlock') ? 'bg-secondary text-light group' : ''} p-1 rounded`}
           >
@@ -173,22 +220,41 @@ const MenuBar = () => {
           </button>
           <button
             type='button'
+            title='Qoute'
             onClick={() => editor.chain().focus().toggleBlockquote().run()}
             className={`${editor.isActive('blockquote') ? 'bg-secondary text-light group' : ''} p-1 rounded`}
           >
             <FaQuoteLeft className="group-[.bg-secondary]:fill-light text-sm" />
           </button>
-            <label
-              htmlFor='image'
-              className={`p-1 rounded cursor-pointer`}
+          <button
+              type='button'
+              title='Link'
+              onClick={setLink}
+              className={`${editor.isActive('blockquote') ? 'bg-secondary text-light group' : ''} p-1 rounded`}
             >
-              <input type="file" hidden id="image" onChange={handleFileChange} />
-              <FaImage />
-            </label>
+            <FaLink  className="group-[.bg-secondary]:fill-light text-sm" />
+          </button>
+          <label
+            htmlFor='image'
+            title='Image'
+            className={`p-1 rounded cursor-pointer`}
+          >
+            <input type="file" hidden id="image" onChange={handleFileChange} />
+            <FaImage />
+          </label>
+          <button
+              type='button'
+              title='Video'
+              onClick={addYoutubeVideo}
+              className={`${editor.isActive('blockquote') ? 'bg-secondary text-light group' : ''} p-1 rounded`}
+            >
+            <FaVideo   className="group-[.bg-secondary]:fill-light text-sm" />
+          </button>
         </div>
         <div className=' flex items-center gap-2'>
           <button
             type='button'
+            title='Undo'
             onClick={() => editor.chain().focus().undo().run()}
             disabled={
               !editor.can()
@@ -202,6 +268,7 @@ const MenuBar = () => {
           </button>
           <button
               type='button'
+              title='Redo'
               onClick={() => editor.chain().focus().redo().run()}
               disabled={
                 !editor.can()
@@ -250,9 +317,33 @@ const Tiptap = (props) => {
                 ]
             },
         }),
-        ImageResize.configure({
+        Image.configure({
           inline: true,
           allowBase64: true,
+        }),
+        Link.configure({
+          autolink: true,
+          openOnClick: true,
+          defaultProtocol: 'https',
+          HTMLAttributes: {
+            class: 'cursor-pointer text-blue-500 hover:underline'
+          }
+        }),
+        CodeBlockLowlight.configure({
+          lowlight,
+          HTMLAttributes: {
+            class: "rounded-md"
+          }
+        }),
+        Youtube.configure({
+          inline: false,
+          width: 480,
+          height: 320,
+          nocookie: true,
+          allowFullscreen: true,
+          ccLanguage: 'es',
+          disableKBcontrols: true,
+          loop: true,
         }),
         Extension.create({
           onUpdate({ editor }) {
