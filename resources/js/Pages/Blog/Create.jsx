@@ -23,17 +23,18 @@ const CreateBlog = (props) => {
     // SAVE DATA TO THE DATABASE
     const store = (e) => {
         e.preventDefault()
-        post(`/blog/store`, {
-            onSuccess: () => {
-                reset('title', 'description', 'image')
-                setImage(null)
-                if(e.target.name === 'publish'){
-                    toast.success('New blog successfully uploaded!')
-                }else{
-                    toast.success('Blog save successfully to draft!')
-                }
-            }
-        })
+        console.log(data)
+        // post(`/blog/store`, {
+        //     onSuccess: () => {
+        //         reset('title', 'description', 'image')
+        //         setImage(null)
+        //         if(e.target.name === 'publish'){
+        //             toast.success('New blog successfully uploaded!')
+        //         }else{
+        //             toast.success('Blog save successfully to draft!')
+        //         }
+        //     }
+        // })
     }
 
     // HANDLE IMAGE PREVIEW
@@ -87,14 +88,14 @@ const CreateBlog = (props) => {
                             </div>
                         </div>
                         <div className=" mb-2">
-                            <RteEditor setRteValue={setData} rteValue={data.content} error={errors.content} />
+                            {/* <RteEditor setRteValue={setData} rteValue={data.content} error={errors.content} /> */}
                         </div>
                         <div className=" flex items-center justify-end gap-2">
                             <Link href="/" className=" font-bold border border-secondary  py-2 text-sm rounded px-3 text-primary tracking-wide">Back</Link>
                             <button type="button" onClick={store} name="publish" className=" font-bold bg-indigo-700 py-2 text-sm rounded px-3 text-light tracking-wide">Save</button>
                         </div>
 
-                        <Tiptap />
+                        <Tiptap rteValue={data.content} setRteValue={setData} />
 
                     </form>
                 </div>  

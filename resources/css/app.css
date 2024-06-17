@@ -33,3 +33,21 @@ body, label, input, button, *{
 #style-editor .ql-container{
     border: none;
 }
+
+/* tiptap */
+.tiptap{
+    min-height: 120px;
+    height: auto;
+    border: 1px solid #31304D;
+    padding: 4px 8px;
+    border-radius: 0.375rem;
+}
+.tiptap > ul{
+    list-style-type: disc;
+    margin-left: 1.75rem;
+}
+
+.tiptap > ol{
+    list-style-type: decimal;
+    margin-left: 1.75rem;
+}
