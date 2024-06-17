@@ -1,5 +1,5 @@
-import { useState, useMemo, useCallback } from 'react'
-import { EditorProvider, useCurrentEditor } from '@tiptap/react'
+import { useState, useMemo, useCallback, useEffect } from 'react'
+import { EditorProvider, useCurrentEditor, useEditor } from '@tiptap/react'
 import Heading from '@tiptap/extension-heading'
 import Image from '@tiptap/extension-image'
 import Link from '@tiptap/extension-link'
@@ -19,7 +19,6 @@ const lowlight = createLowlight(common)
 const MenuBar = () => {
   const { editor } = useCurrentEditor()
   const [openHeading, setOpenHeading] = useState(false)
-  const [image, setImage] = useState(null)
 
   const openHeadingMenu = () => {
     setOpenHeading(prevState => ! prevState)
@@ -289,6 +288,8 @@ const MenuBar = () => {
 
 const Tiptap = (props) => {
 
+  const [value, setValue] = useState(null)
+
   const extensions = useMemo(() => {
     return [
         StarterKit.configure({
@@ -347,11 +348,15 @@ const Tiptap = (props) => {
         }),
         Extension.create({
           onUpdate({ editor }) {
-            props.setRteValue('content', editor.getHTML())
+            setValue(editor.getHTML())
           }
         })
     ]
   }, [])
+
+  useEffect(() => {
+     props.setRteValue('content', value)
+  }, [value])
 
   return (
     <EditorProvider 

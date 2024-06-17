@@ -27,11 +27,7 @@ const CreateBlog = (props) => {
             onSuccess: () => {
                 reset('title', 'description', 'image')
                 setImage(null)
-                if(e.target.name === 'publish'){
-                    toast.success('New blog successfully uploaded!')
-                }else{
-                    toast.success('Blog save successfully to draft!')
-                }
+                toast.success('New blog successfully uploaded!')
             }
         })
     }
