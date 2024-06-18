@@ -37,7 +37,7 @@ const BlogsListByCategory = (props) => {
                         {
                             props.blogs.map(blog => (
                                 <div key={blog.id}>
-                                    <div className=" rounded mb-2">
+                                    <div className="h-[250px] overflow-hidden rounded mb-2">
                                         <img 
                                             className=" w-full h-full object-cover rounded" 
                                             src={(blog.upload && `/storage/${blog.upload.path}`) ?? imagePlaceholder} 

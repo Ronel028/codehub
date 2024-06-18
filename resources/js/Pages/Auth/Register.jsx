@@ -25,7 +25,7 @@ const Register = () => {
 
     return (
         <>
-            <main className=" grid grid-cols-2 h-auto min-h-screen w-full bg-light">
+            <main className=" grid grid-cols-2 h-auto min-h-screen w-full bg-[#1b263b]">
                 <div className=" h-screen flex flex-col items-center justify-center px-32">
                     <div className=" mb-6">
                         <h1 className=" text-center font-bold text-3xl tracking-wide">Create Account</h1>
@@ -38,7 +38,7 @@ const Register = () => {
                             <Input label="Password" error={errors.password} type="password" placeholder="Minimum of 8 character" value={data.password} onChange={e => setData('password', e.target.value)} />
                             <Input label="Retype Password" error={errors.retypePassword} type="password" placeholder="Minimum of 8 character" value={data.retypePassword} onChange={e => setData('retypePassword', e.target.value)} />
                             <div className=" flex items-center justify-end">
-                                <button type="submit" className="w-full font-bold bg-secondary py-2 text-sm rounded px-3 text-light tracking-wide">Signup</button>
+                                <button type="submit" className="w-full font-bold bg-[#415A77] py-2 text-sm rounded px-3 text-light tracking-wide">Signup</button>
                             </div>
                         </div>
                         <p className=" text-xs text-right tracking-wide mt-2">Already have a account? <Link href="/login" className="hover:underline">Signin</Link></p>

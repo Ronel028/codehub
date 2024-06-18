@@ -18,7 +18,7 @@ const Profile = (props) => {
                         <div className=" h-60 w-full overflow-hidden rounded-t-md">
                             <img className=" h-full w-full object-cover" src="https://images.pexels.com/photos/956981/milky-way-starry-sky-night-sky-star-956981.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="" />
                         </div>
-                        <div className=" px-4 pb-8 pt-5 shadow mb-4 flex items-start justify-between">
+                        <div className=" px-4 pb-8 pt-5 rounded-b-md border-b border-l border-r border-[#0D1B2A] mb-4 flex items-start justify-between">
                             <div className=" flex gap-2 items-start">
                                 <div className=" -mt-24 w-32 h-32 overflow-hidden rounded-full shadow-md ">
                                     <img 
@@ -47,7 +47,7 @@ const Profile = (props) => {
                                 </Link>
                             </div>
                         </div>
-                        <div className=" px-4 pb-8 pt-5 shadow">
+                        <div className=" px-4 pb-8 pt-5 rounded-md border border-[#0D1B2A]">
                             <h2 className=" text-base font-bold tracking-wide mb-1">About {(props.user.user_detail && props.user.user_detail.first_name) ?? props.user.username}</h2>
                             <p className=" text-xs tracking-wide mb-4">
                                 {(props.user.user_detail && props.user.user_detail.about) ?? 'N/A'}
@@ -55,7 +55,7 @@ const Profile = (props) => {
                         </div>
                     </section>
                     <section>
-                        <div className=" px-4 py-5 shadow">
+                        <div className=" px-4 py-5 rounded-md border border-[#0D1B2A]">
                             <h2 className=" text-lg font-bold tracking-wide mb-2">Connect</h2>
                             <ul className=" flex flex-col gap-3 text-xs tracking-wide">
                                 <li className=" flex items-center gap-2">

@@ -81,7 +81,7 @@ const Home = (props) => {
                                     )).slice(0,6).map(blog => (
                                         <Link key={blog.id} href={`/blog-list/read/${blog.user.username}/${blog.slug}`}>
                                             <div >
-                                                <div className=" rounded mb-2">
+                                                <div className=" h-[250px] overflow-hidden rounded mb-2">
                                                     <img 
                                                         className=" w-full h-full object-cover rounded" 
                                                         src={(blog.upload && `/storage/${blog.upload.path}`) ?? imagePlaceholder} 
@@ -96,7 +96,7 @@ const Home = (props) => {
                                                     </p>
                                                 </div>
                                                 <div>
-                                                    <p className=" font-normal mb-1  text-base text-gray-400">{blog.description}</p>
+                                                    <p className=" font-normal mb-1  text-sm text-gray-400">{blog.description}</p>
                                                 </div>
                                             </div>
                                         </Link>
@@ -126,7 +126,7 @@ const Home = (props) => {
                                     )).slice(0,6).map(blog => (
                                         <Link key={blog.id} href={`/blog-list/read/${blog.user.username}/${blog.slug}`}>
                                             <div>
-                                                <div className=" rounded mb-2">
+                                                <div className="h-[250px] overflow-hidden rounded mb-2">
                                                     <img 
                                                         className=" w-full h-full object-cover rounded" 
                                                         src={(blog.upload && `/storage/${blog.upload.path}`) ?? imagePlaceholder} 
@@ -134,7 +134,7 @@ const Home = (props) => {
                                                     />
                                                 </div>
                                                 <div className=" mb-1">
-                                                    <div className=" bg-[#415a77]rounded py-1 px-2 inline-block text-xs text-light mb-1">{blog.category.name}</div>
+                                                    <div className=" bg-[#415a77] rounded py-1 px-2 inline-block text-xs text-light mb-1">{blog.category.name}</div>
                                                     <p className=" font-bold mb-1 text-xl text-[#E0E1DD]">{blog.title}</p>
                                                     <p className=" text-xs text-[#E0E1DD]">
                                                         {(blog.user.user_detail && blog.user.full_name) ?? blog.user.username} | {moment(blog.created_at).format('ll')}

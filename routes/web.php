@@ -11,9 +11,10 @@ Route::get('/', [BlogListController::class, 'index'])->name('index')->middleware
 
 // BLOG LIST
 Route::middleware('auth')->name('blog-list.')->prefix('blog-list')->group(function () {
+    Route::get('/', [BlogListController::class, 'index'])->name('index');
     Route::get('/read/{username}/{slug}', [BlogListController::class, 'fetch']);
     Route::get('/blog/{category}', [BlogListController::class, 'blogListCategory'])->name('blog-list-category');
-    Route::get('/all', [BlogListController::class, 'blogs'])->name('all');
+    // Route::get('/all', [BlogListController::class, 'blogs'])->name('all');
 });
 
 // USER AUTHENTICATION

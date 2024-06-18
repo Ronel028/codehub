@@ -16,7 +16,7 @@ const Login = () => {
 
     return (
         <>
-            <main className=" grid grid-cols-2 h-auto min-h-screen w-full bg-light">
+            <main className=" grid grid-cols-2 h-auto min-h-screen w-full bg-[#1b263b]">
                 <div className=" h-screen flex flex-col items-center justify-center px-32">
                     <div className=" mb-6">
                         <h1 className=" text-center font-bold text-3xl tracking-wide">Login Account</h1>
@@ -27,7 +27,7 @@ const Login = () => {
                             <Input label="Email Address" error={errors.email} type="email" placeholder="example@email.com" value={data.email} onChange={e => setData('email', e.target.value)} />
                             <Input label="Password" type="password" placeholder="Minimum of 8 character" value={data.password} onChange={e => setData('password', e.target.value)} />
                             <div className=" flex items-center justify-end">
-                                <button type="submit" className="w-full font-bold bg-secondary py-2 text-sm rounded px-3 text-light tracking-wide">Signin</button>
+                                <button type="submit" className="w-full font-bold bg-[#415A77] py-2 text-sm rounded px-3 text-light tracking-wide">Signin</button>
                             </div>
                         </div>
                         <p className=" text-xs text-right tracking-wide mt-2">Don't have an account? <Link href="/register" className="hover:underline">Register</Link></p>

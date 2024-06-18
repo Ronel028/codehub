@@ -1,12 +1,12 @@
 import { useState } from "react";
-import { Link, router } from "@inertiajs/react"
-import { CiEdit } from "react-icons/ci";
+import { Link, router, usePage } from "@inertiajs/react"
 import { FaUserCircle, FaSignOutAlt, FaEdit  } from "react-icons/fa";
 import { MdOutlinePostAdd } from "react-icons/md";
 import imagePlacholder from "../Assets/Img/image-placeholder.webp"
 
 const Navigation  = (props) => {
 
+    const { url, component } = usePage()
     const [openMenu, setOpenMenu] = useState(false)
 
     const open = () => {
@@ -20,24 +20,24 @@ const Navigation  = (props) => {
 
     return (
         <>
-            <div className=" bg-[#0d1b2a] fixed top-0 left-0 right-0 z-50 border-b border-light-gray">
+            <div className=" bg-[#0d1b2a] fixed top-0 left-0 right-0 z-50 border-b border-[#415A77]">
                 <nav className=" flex items-center justify-between py-3 max-w-[1500px] w-[90%] mx-auto relative">
                     <Link href="/">
                         <h2 className=" text-gray-50">Title</h2>
                     </Link>
                     <ul className=" flex items-center gap-8">
                         <li>
-                            <Link href="/blog-list/all" className="flex items-center gap-2 text-xs  text-gray-50">
+                            <Link href="/blog-list" className={`${ url.startsWith('/blog-list') ? 'text-red-400 font-bold' : 'text-[#E0E1DD]' } flex items-center gap-2 text-xs tracking-wide`}>
                                 Blogs
                             </Link>
                         </li>
                         <li>
-                            <Link href="/" className="flex items-center gap-2 text-xs  text-gray-50">
+                            <Link href="/about" className={`${ url === '/about' ? 'text-red-400 font-bold' : 'text-[#E0E1DD]' } flex items-center gap-2 text-xs tracking-wide`}>
                                 About
                             </Link>
                         </li>
                         <li>
-                            <Link href="/" className="flex items-center gap-2 text-xs  text-gray-50">
+                            <Link href="/contact" className={`${ url === 'contact' ? 'text-red-400 font-bold' : 'text-[#E0E1DD]' } flex items-center gap-2 text-xs tracking-wide`}>
                                 Contact
                             </Link>
                         </li>
@@ -57,7 +57,7 @@ const Navigation  = (props) => {
                                     className="relative inline-block object-cover object-center w-8 h-8 rounded-full cursor-pointer" />
                             </button>
                             <ul
-                                className={`${openMenu ? 'flex' : 'hidden'} absolute z-10 flex min-w-[180px] right-0 top-12 flex-col gap-2 overflow-auto rounded-md border border-blue-gray-50 bg-white p-3 font-sans text-sm font-normal text-blue-gray-500 shadow-lg shadow-blue-gray-500/10 focus:outline-none`}>
+                                className={`${openMenu ? 'flex' : 'hidden'} absolute z-10 flex min-w-[180px] right-0 top-13 flex-col gap-2 overflow-auto rounded-md border border-[#415A77] bg-[#1b263b] p-3 font-sans text-sm font-normal text-blue-gray-500 shadow-lg shadow-blue-gray-500/10 focus:outline-none`}>
                                 <Link href="/profile"
                                     className="flex w-full cursor-pointer select-none items-center gap-2 rounded-md px-3 pt-[9px] pb-2 text-start leading-tight outline-none transition-all hover:bg-blue-gray-50 hover:bg-opacity-80 hover:text-blue-gray-900 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900">
                                     <FaUserCircle className=" text-lg" />
@@ -72,7 +72,7 @@ const Navigation  = (props) => {
                                         Blog Post
                                     </p>
                                 </Link>
-                                <hr className="my-2 border-blue-gray-50" role="menuitem" />
+                                <hr className="my-2 border-[#415A77]" role="menuitem" />
                                 <button onClick={logout}
                                     className="flex w-full cursor-pointer select-none items-center gap-2 rounded-md px-3 pt-[9px] pb-2 text-start leading-tight outline-none transition-all hover:bg-blue-gray-50 hover:bg-opacity-80 hover:text-blue-gray-900 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900">
                                     <FaSignOutAlt className=" text-lg" />

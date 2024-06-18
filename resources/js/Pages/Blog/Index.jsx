@@ -36,8 +36,8 @@ const BlogList = (props) => {
                     <div className=" grid grid-cols-3 gap-2">
                         {
                             props.blogs.length > 0 ? props.blogs.map(blog => (
-                                <div key={blog.id} className="border border-gray-300 rounded-md">
-                                    <div className=" rounded-t-md mb-2">
+                                <div key={blog.id} className="border border-[#415A77] rounded-md">
+                                    <div className="h-[250px] overflow-hidden rounded-t-md mb-2">
                                         <img className=" w-full h-full object-cover rounded-t-md" src={ (blog.upload && `/storage/${blog.upload.path}`) ?? imagePlaceholder} alt="" />
                                     </div>
                                     <div className=" p-3">

@@ -9,8 +9,6 @@ import MainLayout from "../../layout/main";
 
 const Edit = (props) => {
 
-    console.log(props);
-
     const [datas, setDatas] = useState({
         image: null,
         username: props.user.username,
@@ -89,34 +87,36 @@ const Edit = (props) => {
                     <h1 className=" font-bold text-xl mb-5">Edit profile</h1>
                 </div>
                 <main className=" grid grid-cols-[40%_59%] gap-[1%]">
-                    <div className=" pt-5 pb-10 px-3 shadow">
-                        <h4 className=" font-bold text-base mb-7">Account Details</h4>
-                        <div>
-                            <div className=" flex flex-col items-center justify-center">
-                                <div className=" relative rounded-full inline-block mb-5">
-                                    <input id="upload" type="file" className="hidden" accept="image/*" onChange={onImageChange} />
-                                    <div className=" w-32 h-32 overflow-hidden rounded-full shadow-md ">
-                                        {
-                                            imagePreview === null ? <img className="h-full w-full object-cover" src={altImage} alt="image-placeholder" />
-                                              : <img className="h-full w-full object-cover" src={imagePreview} alt="" />
-                                        }
-                                        
-                                    </div>
-                                    <label htmlFor="upload" className=" bg-secondary shadow p-2 rounded-full cursor-pointer inline-block absolute bottom-0 right-2">
-                                        <div className="">
-                                            <FaCamera  className=" fill-white text-base" />
+                    <div className=" ">
+                        <div className="pt-5 pb-10 px-3 rounded-md border border-[#0D1B2A]">
+                            <h4 className=" font-bold text-base mb-7">Account Details</h4>
+                            <div>
+                                <div className=" flex flex-col items-center justify-center">
+                                    <div className=" relative rounded-full inline-block mb-5">
+                                        <input id="upload" type="file" className="hidden" accept="image/*" onChange={onImageChange} />
+                                        <div className=" w-32 h-32 overflow-hidden rounded-full shadow-md ">
+                                            {
+                                                imagePreview === null ? <img className="h-full w-full object-cover" src={altImage} alt="image-placeholder" />
+                                                : <img className="h-full w-full object-cover" src={imagePreview} alt="" />
+                                            }
+                                            
                                         </div>
-                                    </label>
+                                        <label htmlFor="upload" className=" bg-secondary shadow p-2 rounded-full cursor-pointer inline-block absolute bottom-0 right-2">
+                                            <div className="">
+                                                <FaCamera  className=" fill-white text-base" />
+                                            </div>
+                                        </label>
+                                    </div>
                                 </div>
-                            </div>
-                            <div className=" px-10 flex flex-col gap-3">
-                                <Input name="username" type="text" label="Username" value={datas.username} onChange={handleChange} />
-                                <Input name="email" type="email" label="Email address" value={datas.email} onChange={handleChange} />
-                                <Input name="password" type="password" label="Password" onChange={handleChange} />
+                                <div className=" px-10 flex flex-col gap-3">
+                                    <Input name="username" type="text" label="Username" value={datas.username} onChange={handleChange} />
+                                    <Input name="email" type="email" label="Email address" value={datas.email} onChange={handleChange} />
+                                    <Input name="password" type="password" label="Password" onChange={handleChange} />
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div className=" py-5 px-3 shadow">
+                    <div className=" py-5 px-3 rounded-md border border-[#0D1B2A]">
                         <div>
                             <div className="">
                                 <h4 className=" font-bold text-base mb-7">Personal Information</h4>
@@ -161,7 +161,7 @@ const Edit = (props) => {
                                 <div>
                                     <h4 className=" text-sm">About</h4>
                                     <div className=" mb-5">
-                                        <textarea rows={6} name="about" value={datas.about} onChange={handleChange} placeholder="Tell something about yourself..." id="" className={`w-full border border-light-gray focus:outline-primary outline-none p-2 text-xs rounded-md`}></textarea>
+                                        <textarea rows={6} name="about" value={datas.about} onChange={handleChange} placeholder="Tell something about yourself..." id="" className={`w-full border border-[#415A77] focus:outline-[#778DA9] bg-[#0D1B2A] outline-none p-2 text-xs rounded-md`}></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -173,10 +173,10 @@ const Edit = (props) => {
                                 </button>
                             </div>
                             <div className="flex items-center justify-end gap-2">
-                                <Link href="/" className=" border border-primary rounded-md px-3 py-2 text-xs text-primary">
+                                <Link href="/" className=" border border-[#415A77] rounded-md px-3 py-2 text-xs text-[#E0E1DD]">
                                    Back
                                 </Link>
-                                <button onClick={save} className=" border border-primary bg-primary rounded-md px-3 py-2 text-xs text-gray-100">
+                                <button onClick={save} className=" border border-[#415A77] bg-[#415A77] rounded-md px-3 py-2 text-xs text-gray-100">
                                     Save Changes
                                 </button>
                             </div>
