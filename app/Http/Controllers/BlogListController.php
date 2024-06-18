@@ -10,7 +10,7 @@ class BlogListController extends Controller
 {
     public function index()
     {
-        return Inertia::render("Home/Index", [
+        return Inertia::render("Home/Blogs", [
             'latest_blog' => BlogPost::with(['category', 'upload', 'user'])->where('is_published', 1)->latest()->take(3)->get(),
             'blogs' => BlogPost::with(['category', 'upload', 'user'])->where('is_published', 1)->orderBy('created_at', 'desc')->get(),
         ]);

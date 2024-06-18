@@ -7,7 +7,9 @@ use App\Http\Controllers\UserProfileController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
-Route::get('/', [BlogListController::class, 'index'])->name('index')->middleware('auth');
+Route::get('/', function () {
+    return Inertia::render('Home/Index');
+})->name('index')->middleware('auth');
 
 // BLOG LIST
 Route::middleware('auth')->name('blog-list.')->prefix('blog-list')->group(function () {

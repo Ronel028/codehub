@@ -15,6 +15,9 @@ export default {
     },
     fontFamily: {
       "nunito-sans":  ["Nunito Sans", "sans-serif"]
+    },
+    backgroundImage: {
+      'homepage' : 'url("/public/images/homepage.jpg")'
     }
   },
   plugins: [
