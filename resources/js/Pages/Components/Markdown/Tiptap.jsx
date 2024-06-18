@@ -12,6 +12,7 @@ import { Extension } from '@tiptap/react'
 
 import { FaBold, FaItalic, FaStrikethrough, FaParagraph, FaListUl, FaListOl, FaQuoteLeft, FaImage, FaLink, FaVideo } from "react-icons/fa";
 import { BiCodeBlock, BiUndo, BiRedo  } from "react-icons/bi";
+import Placeholder from '@tiptap/extension-placeholder'
 
 
 const lowlight = createLowlight(common)
@@ -287,7 +288,6 @@ const MenuBar = () => {
 }
 
 const Tiptap = (props) => {
-
   const [value, setValue] = useState(null)
 
   const extensions = useMemo(() => {
@@ -346,6 +346,10 @@ const Tiptap = (props) => {
           disableKBcontrols: true,
           loop: true,
         }),
+        Placeholder.configure({
+          placeholder: 'Write your blog content here...',
+          considerAnyAsEmpty: true
+        }),
         Extension.create({
           onUpdate({ editor }) {
             setValue(editor.getHTML())
@@ -355,16 +359,21 @@ const Tiptap = (props) => {
   }, [])
 
   useEffect(() => {
-     props.setRteValue('content', value)
+    props.setRteValue === null ? null : props.setRteValue('content', value)
   }, [value])
 
   return (
-    <EditorProvider 
-        extensions={extensions}
-        content={props.rteValue}
-        slotBefore={<MenuBar />}
-    >
-    </EditorProvider>
+      <EditorProvider
+          extensions={extensions}
+          content={props.rteValue}
+          editorProps={{
+            attributes: {
+              class: `${props.styleContainer == null ? ' h-[300px] border border-secondary' : props.styleContainer }`
+            }
+          }}
+          editable={props.editable == null ? true : false}
+          slotBefore={props.disableMenuBar ? null : <MenuBar />}
+      />
   )
 }
 

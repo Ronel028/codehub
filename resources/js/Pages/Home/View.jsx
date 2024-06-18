@@ -5,6 +5,8 @@ import { LuDot } from "react-icons/lu";
 import MainLayout from "../../layout/main"
 import imagePlacholder from "../Assets/Img/image-placeholder.webp"
 import 'react-quill/dist/quill.snow.css';
+import Tiptap from "../Components/Markdown/Tiptap";
+
 
 const ViewBlog = (props) => {
 
@@ -32,7 +34,7 @@ const ViewBlog = (props) => {
                                 </p>
                             </div>
                         </div>
-                            <div className=" mb-2">
+                            {/* <div className=" mb-2">
                                 <ReactQuill 
                                     modules={{
                                         syntax: true,
@@ -44,7 +46,14 @@ const ViewBlog = (props) => {
                                     readOnly={true}
                                     theme={"snow"}
                                 />
-                            </div>
+                            </div> */}
+                            <Tiptap 
+                                rteValue={props.blog.content} 
+                                setRteValue={null} 
+                                disableMenuBar={true} 
+                                styleContainer="h-auto line-hieght" 
+                                editable={false}
+                            />
                     </div>
                 </main>
             </MainLayout>

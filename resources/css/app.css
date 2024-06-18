@@ -36,9 +36,7 @@ body, label, input, button, *{
 
 /* tiptap */
 .tiptap{
-    height: 250px;
-    border: 1px solid #31304D;
-    padding: 4px 8px;
+    padding: 0.5rem;
     border-radius: 0.375rem;
     overflow-y: auto;
 }
@@ -51,3 +49,17 @@ body, label, input, button, *{
     list-style-type: decimal;
     margin-left: 1.75rem;
 }
+
+.tiptap.line-hieght > p{
+    line-height: 1.75rem;
+    font-size: 1rem;
+}
+
+.tiptap p.is-editor-empty:first-child::before {
+    color: #adb5bd;
+    content: attr(data-placeholder);
+    float: left;
+    height: 0;
+    font-size:1rem;
+    pointer-events: none;
+  }
