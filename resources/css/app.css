@@ -5,7 +5,8 @@
 @tailwind utilities;
 
 body, label, input, button, *{
-    color: #31304D;
+    /* color: #31304D; */
+    color: #E0E1DD;
     font-family: "Nunito Sans", sans-serif;
 }
 
@@ -54,6 +55,10 @@ body, label, input, button, *{
     line-height: 1.75rem;
     font-size: 1rem;
 }
+
+.ProseMirror:focus {
+    outline: 1px solid #778DA9;
+  }
 
 .tiptap p.is-editor-empty:first-child::before {
     color: #adb5bd;

@@ -84,21 +84,12 @@ const MenuBar = () => {
             <button type='button' onClick={openHeadingMenu} className=' py-1 px-3 border border-secondary text-sm rounded-md'>
               Heading
             </button>
-            <ul className={`${openHeading ? 'block' : 'hidden'} absolute bottom-8 border border-secondary bg-light rounded-md mt-1 shadow w-[130px]`}>
-              <li>
-                <button
-                  type='button'
-                  onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}
-                  className={`${editor.isActive('heading', { level: 1 }) ? 'bg-secondary text-light' : ''} py-1 px-2 text-left hover:bg-secondary hover:text-light w-full`}
-                >
-                  Heading 1
-              </button>
-              </li>
+            <ul className={`${openHeading ? 'block' : 'hidden'} absolute bottom-8 border border-[#415A77] bg-[#1B263B] rounded-md mt-1 shadow w-[130px]`}>
               <li>
                 <button
                     type='button'
                     onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}
-                    className={`${editor.isActive('heading', { level: 2 }) ? 'bg-secondary text-light' : ''} py-1 px-2 text-left hover:bg-secondary hover:text-light w-full`}
+                    className={`${editor.isActive('heading', { level: 2 }) ? 'bg-[#415A77] text-[#E0E1DD]' : ''} py-1 px-2 text-left hover:bg-[#415A77] hover:text-light w-full`}
                   >
                     Heading 2
                 </button>
@@ -107,7 +98,7 @@ const MenuBar = () => {
                 <button
                     type='button'
                     onClick={() => editor.chain().focus().toggleHeading({ level: 3 }).run()}
-                    className={`${editor.isActive('heading', { level: 3 }) ? 'bg-secondary text-light' : ''} py-1 px-2 text-left hover:bg-secondary hover:text-light w-full`}
+                    className={`${editor.isActive('heading', { level: 3 }) ? 'bg-[#415A77] text-[#E0E1DD]' : ''} py-1 px-2 text-left hover:bg-[#415A77] hover:text-light w-full`}
                   >
                     Heading 3
                 </button>
@@ -116,7 +107,7 @@ const MenuBar = () => {
                 <button
                   type='button'
                   onClick={() => editor.chain().focus().toggleHeading({ level: 4 }).run()}
-                  className={`${editor.isActive('heading', { level: 4 }) ? 'bg-secondary text-light' : ''} py-1 px-2 text-left hover:bg-secondary hover:text-light w-full`}
+                  className={`${editor.isActive('heading', { level: 4 }) ? 'bg-[#415A77] text-[#E0E1DD]' : ''} py-1 px-2 text-left hover:bg-[#415A77] hover:text-light w-full`}
                 >
                   Heading 4
                 </button>
@@ -125,7 +116,7 @@ const MenuBar = () => {
                 <button
                     type='button'
                     onClick={() => editor.chain().focus().toggleHeading({ level: 5 }).run()}
-                    className={`${editor.isActive('heading', { level: 5 }) ? 'bg-secondary text-light' : ''} py-1 px-2 text-left hover:bg-secondary hover:text-light w-full`}
+                    className={`${editor.isActive('heading', { level: 5 }) ? 'bg-[#415A77] text-[#E0E1DD]' : ''} py-1 px-2 text-left hover:bg-[#415A77] hover:text-light w-full`}
                   >
                     Heading 5
                 </button>
@@ -134,7 +125,7 @@ const MenuBar = () => {
                 <button
                   type='button'
                   onClick={() => editor.chain().focus().toggleHeading({ level: 6 }).run()}
-                  className={`${editor.isActive('heading', { level: 6 }) ? 'bg-secondary text-light' : ''} py-1 px-2 text-left hover:bg-secondary hover:text-light w-full`}
+                  className={`${editor.isActive('heading', { level: 6 }) ? 'bg-[#415A77] text-[#E0E1DD]' : ''} py-1 px-2 text-left hover:bg-[#415A77] hover:text-light w-full`}
                 >
                   Heading 6
                 </button>
@@ -152,7 +143,7 @@ const MenuBar = () => {
                 .toggleBold()
                 .run()
             }
-            className={`${editor.isActive('bold') ? 'bg-secondary text-light group' : ''} p-1 rounded`}
+            className={`${editor.isActive('bold') ? 'bg-[#415A77] text-[#E0E1DD] group' : ''} p-1 rounded`}
           >
             <FaBold className="group-[.bg-secondary]:fill-light text-sm" />
           </button>
@@ -167,7 +158,7 @@ const MenuBar = () => {
                 .toggleItalic()
                 .run()
             }
-            className={`${editor.isActive('italic') ? 'bg-secondary text-light group' : ''} p-1 rounded`}
+            className={`${editor.isActive('italic') ? 'bg-[#415A77] text-[#E0E1DD] group' : ''} p-1 rounded`}
           >
             <FaItalic className="group-[.bg-secondary]:fill-light text-sm" />
           </button>
@@ -182,7 +173,7 @@ const MenuBar = () => {
                 .toggleStrike()
                 .run()
             }
-            className={`${editor.isActive('strike') ? 'bg-secondary text-light group' : ''} p-1 rounded`}
+            className={`${editor.isActive('strike') ? 'bg-[#415A77] text-[#E0E1DD] group' : ''} p-1 rounded`}
           >
             <FaStrikethrough className="group-[.bg-secondary]:fill-light text-sm" />
           </button>
@@ -190,7 +181,7 @@ const MenuBar = () => {
             type='button'
             title='Paragraph'
             onClick={() => editor.chain().focus().setParagraph().run()}
-            className={`${editor.isActive('paragraph') ? 'bg-secondary text-light group' : ''} p-1 rounded`}
+            className={`${editor.isActive('paragraph') ? 'bg-[#415A77] text-[#E0E1DD] group' : ''} p-1 rounded`}
           >
             <FaParagraph className="group-[.bg-secondary]:fill-light text-sm" />
           </button>
@@ -198,7 +189,7 @@ const MenuBar = () => {
             type='button'
             title='Bullet List'
             onClick={() => editor.chain().focus().toggleBulletList().run()}
-            className={`${editor.isActive('bulletList') ? 'bg-secondary text-light group' : ''} p-1 rounded`}
+            className={`${editor.isActive('bulletList') ? 'bg-[#415A77] text-[#E0E1DD] group' : ''} p-1 rounded`}
           >
             <FaListUl className="group-[.bg-secondary]:fill-light text-sm" />
           </button>
@@ -206,7 +197,7 @@ const MenuBar = () => {
             type='button'
             title='Order List'
             onClick={() => editor.chain().focus().toggleOrderedList().run()}
-            className={`${editor.isActive('orderedList') ? 'bg-secondary text-light group' : ''} p-1 rounded`}
+            className={`${editor.isActive('orderedList') ? 'bg-[#415A77] text-[#E0E1DD] group' : ''} p-1 rounded`}
           >
             <FaListOl className="group-[.bg-secondary]:fill-light text-sm" />
           </button>
@@ -214,7 +205,7 @@ const MenuBar = () => {
             type='button'
             title='Code Block'
             onClick={() => editor.chain().focus().toggleCodeBlock().run()}
-            className={`${editor.isActive('codeBlock') ? 'bg-secondary text-light group' : ''} p-1 rounded`}
+            className={`${editor.isActive('codeBlock') ? 'bg-[#415A77] text-[#E0E1DD] group' : ''} p-1 rounded`}
           >
             <BiCodeBlock className="group-[.bg-secondary]:fill-light text-sm" />
           </button>
@@ -222,7 +213,7 @@ const MenuBar = () => {
             type='button'
             title='Qoute'
             onClick={() => editor.chain().focus().toggleBlockquote().run()}
-            className={`${editor.isActive('blockquote') ? 'bg-secondary text-light group' : ''} p-1 rounded`}
+            className={`${editor.isActive('blockquote') ? 'bg-[#415A77] text-[#E0E1DD] group' : ''} p-1 rounded`}
           >
             <FaQuoteLeft className="group-[.bg-secondary]:fill-light text-sm" />
           </button>
@@ -230,7 +221,7 @@ const MenuBar = () => {
               type='button'
               title='Link'
               onClick={setLink}
-              className={`${editor.isActive('blockquote') ? 'bg-secondary text-light group' : ''} p-1 rounded`}
+              className={`${editor.isActive('blockquote') ? 'bg-[#415A77] text-[#E0E1DD] group' : ''} p-1 rounded`}
             >
             <FaLink  className="group-[.bg-secondary]:fill-light text-sm" />
           </button>
@@ -246,7 +237,7 @@ const MenuBar = () => {
               type='button'
               title='Video'
               onClick={addYoutubeVideo}
-              className={`${editor.isActive('blockquote') ? 'bg-secondary text-light group' : ''} p-1 rounded`}
+              className={`${editor.isActive('blockquote') ? 'bg-[#415A77] text-[#E0E1DD] group' : ''} p-1 rounded`}
             >
             <FaVideo   className="group-[.bg-secondary]:fill-light text-sm" />
           </button>
@@ -302,7 +293,6 @@ const Tiptap = (props) => {
                 ? node.attrs.level 
                 : this.options.levels[0]
                 const classes = {
-                    1: 'text-4xl',
                     2: 'text-3xl',
                     3: 'text-2xl',
                     4: 'text-xl',
@@ -368,7 +358,7 @@ const Tiptap = (props) => {
           content={props.rteValue}
           editorProps={{
             attributes: {
-              class: `${props.styleContainer == null ? ' h-[300px] border border-secondary' : props.styleContainer }`
+              class: `${props.styleContainer == null ? ' h-[300px] border border-[#415A77]' : props.styleContainer }`
             }
           }}
           editable={props.editable == null ? true : false}

@@ -45,14 +45,14 @@ const BlogsListByCategory = (props) => {
                                         />
                                     </div>
                                     <div className=" mb-1">
-                                        <div className=" bg-primary rounded py-1 px-2 inline-block text-xs text-light mb-1">{props.category}</div>
+                                        <div className=" bg-[#415a77] rounded py-1 px-2 inline-block text-xs text-light mb-1">{props.category}</div>
                                         <p className=" font-bold mb-1 text-xl">{blog.title}</p>
                                         <p className=" text-xs">
                                             {(blog.user.user_detail && blog.user.full_name) ?? blog.user.username} | {moment(blog.created_at).format('ll')}
                                         </p>
                                     </div>
                                     <div>
-                                        <p className=" font-normal mb-1 text-gray-500 text-base">{blog.description}</p>
+                                        <p className=" font-normal mb-1 text-gray-400 text-base">{blog.description}</p>
                                     </div>
                                 </div>
                             ))

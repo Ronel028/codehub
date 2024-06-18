@@ -7,7 +7,7 @@ const MainLayout = (props) => {
 
     return (
         <>
-            <main className=" bg-gray-50 h-auto min-h-screen">
+            <main className=" bg-[#1b263b] h-auto min-h-screen">
                 <main className=" max-w-[1500px] w-[90%] mx-auto">
                     <Navigation user={auth.user} />
                     <section className="pt-[65px] pb-10">

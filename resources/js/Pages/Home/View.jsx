@@ -26,7 +26,7 @@ const ViewBlog = (props) => {
                                     className="relative inline-block object-cover object-center w-full h-full rounded-full cursor-pointer" />
                             </div>
                             <div>
-                                <p className=" text-secondary text-sm">{props.blog.user.full_name ?? "N/A"} | {props.blog.user.username}</p>
+                                <p className=" text-[#E0E1DD] text-sm">{props.blog.user.full_name ?? "N/A"} | {props.blog.user.username}</p>
                                 <p className=" text-gray-400 text-xs flex items-center">
                                     {moment(props.blog.created_at).startOf('hour').fromNow()}
                                     <LuDot />

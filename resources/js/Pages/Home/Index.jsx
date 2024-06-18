@@ -44,9 +44,9 @@ const Home = (props) => {
                                                         />
                                                     </div>
                                                     <div>
-                                                        <div className=" bg-primary rounded py-1 px-2 inline-block text-xs text-light mb-1">{blog.category.name}</div>
-                                                        <p className=" font-bold mb-1 text-xl">{blog.title}</p>
-                                                        <p className=" text-xs">
+                                                        <div className=" bg-[#415a77] rounded py-1 px-2 inline-block text-xs text-light mb-1">{blog.category.name}</div>
+                                                        <p className=" font-bold mb-1 text-xl text-[#E0E1DD]">{blog.title}</p>
+                                                        <p className=" text-xs text-[#E0E1DD]">
                                                         {(blog.user.user_detail && blog.user.full_name) ?? blog.user.username} | {moment(blog.created_at).format('ll')}
                                                         </p>
                                                     </div>
@@ -69,8 +69,8 @@ const Home = (props) => {
                     )).length > 0 ? (
                         <div className=" border-b border-secondary pb-5 mb-5">
                             <div className=" flex items-center justify-between mb-1">
-                                <h2 className=" text-2xl font-bold tracking-wide">Technology</h2>
-                                <Link href="/blog-list/blog/technology" className="text-sm text-secondary hover:underline">
+                                <h2 className=" text-2xl font-bold tracking-wide text-[#E0E1DD]">Technology</h2>
+                                <Link href="/blog-list/blog/technology" className="text-sm text-[#E0E1DD] hover:underline">
                                     See all
                                 </Link>
                             </div>
@@ -89,14 +89,14 @@ const Home = (props) => {
                                                     />
                                                 </div>
                                                 <div className=" mb-1">
-                                                    <div className=" bg-primary rounded py-1 px-2 inline-block text-xs text-light mb-1">{blog.category.name}</div>
-                                                    <p className=" font-bold mb-1 text-xl">{blog.title}</p>
-                                                    <p className=" text-xs">
+                                                    <div className=" bg-[#415a77] rounded py-1 px-2 inline-block text-xs text-light mb-1">{blog.category.name}</div>
+                                                    <p className=" font-bold mb-1 text-xl text-[#E0E1DD]">{blog.title}</p>
+                                                    <p className=" text-xs text-[#E0E1DD]">
                                                         {(blog.user.user_detail && blog.user.full_name) ?? blog.user.username} | {moment(blog.created_at).format('ll')}
                                                     </p>
                                                 </div>
                                                 <div>
-                                                    <p className=" font-normal mb-1 text-gray-500 text-base">{blog.description}</p>
+                                                    <p className=" font-normal mb-1  text-base text-gray-400">{blog.description}</p>
                                                 </div>
                                             </div>
                                         </Link>
@@ -114,8 +114,8 @@ const Home = (props) => {
                     )).length > 0 ? (
                         <div className="border-b border-secondary pb-5 mb-5">
                             <div className=" flex items-center justify-between mb-1">
-                                <h2 className=" text-2xl font-bold tracking-wide">Science</h2>
-                                <Link href="/blog-list/blog/science" className="text-sm text-secondary hover:underline">
+                                <h2 className=" text-2xl font-bold tracking-wide text-[#E0E1DD]">Science</h2>
+                                <Link href="/blog-list/blog/science" className="text-sm text-[#E0E1DD] hover:underline">
                                     See all
                                 </Link>
                             </div>
@@ -134,14 +134,14 @@ const Home = (props) => {
                                                     />
                                                 </div>
                                                 <div className=" mb-1">
-                                                    <div className=" bg-primary rounded py-1 px-2 inline-block text-xs text-light mb-1">{blog.category.name}</div>
-                                                    <p className=" font-bold mb-1 text-xl">{blog.title}</p>
-                                                    <p className=" text-xs">
+                                                    <div className=" bg-[#415a77]rounded py-1 px-2 inline-block text-xs text-light mb-1">{blog.category.name}</div>
+                                                    <p className=" font-bold mb-1 text-xl text-[#E0E1DD]">{blog.title}</p>
+                                                    <p className=" text-xs text-[#E0E1DD]">
                                                         {(blog.user.user_detail && blog.user.full_name) ?? blog.user.username} | {moment(blog.created_at).format('ll')}
                                                     </p>
                                                 </div>
                                                 <div>
-                                                    <p className=" font-normal mb-1 text-gray-500 text-base">{blog.description}</p>
+                                                    <p className=" font-normal mb-1 text-gray-400 text-base">{blog.description}</p>
                                                 </div>
                                             </div>
                                         </Link>

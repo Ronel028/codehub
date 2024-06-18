@@ -62,7 +62,7 @@ const EditBlog = (props) => {
                                 </div>
                             </div>
                             <div>
-                                <div className={`${errors.image ? 'border-red-500 p-1' : 'border-secondary'} w-full h-[200px] p-2  flex bg-gray-100 border-dashed border-2  rounded-md items-center mx-auto text-center cursor-pointer`}>
+                                <div className={`${errors.image ? 'border-red-500 p-1' : 'border-[#415A77] bg-[#0D1B2A] '} w-full h-[200px] p-2  flex border-dashed border-2  rounded-md items-center mx-auto text-center cursor-pointer`}>
                                     <input id="upload" type="file" className="hidden" accept="image/*" onChange={onImageChange} />
                                     <label htmlFor="upload" className="cursor-pointer w-full h-[200px] py-2 flex items-center justify-center">
                                     {
@@ -70,9 +70,9 @@ const EditBlog = (props) => {
                                                 <div className=" flex items-center justify-center">
                                                     <MdOutlineFileUpload className=" text-4xl" />
                                                 </div>
-                                                <h5 className="mb-2 text-xl font-bold tracking-tight text-gray-700">Upload picture</h5>
-                                                <p className="font-normal text-sm text-gray-400 md:px-6">Choose photo size should be less than <b className="text-primary">8mb</b></p>
-                                                <p className="font-normal text-sm text-gray-400 md:px-6">and should be in <b className="text-primary">JPG, PNG, or WEBP</b> format.</p>
+                                                <h5 className="mb-2 text-xl font-bold tracking-tight text-[#E0E1DD]">Upload picture</h5>
+                                                <p className="font-normal text-sm text-[#778DA9] md:px-6">Choose photo size should be less than <b className="text-[#E0E1DD]">8mb</b></p>
+                                                <p className="font-normal text-sm text-[#778DA9] md:px-6">and should be in <b className="text-[#E0E1DD]">JPG, PNG, or WEBP</b> format.</p>
                                                 <span id="filename" className="text-gray-500 bg-gray-200 z-50"></span>
                                             </div> : <img className=" w-full h-full object-cover rounded-md" src={image} alt="" />
                                     }
@@ -86,8 +86,8 @@ const EditBlog = (props) => {
                             <Tiptap rteValue={data.content} setRteValue={setData} />
                         </div>
                         <div className=" flex items-center justify-end gap-2">
-                            <Link href="/" className=" font-bold border border-secondary  py-2 text-sm rounded px-3 text-primary tracking-wide">Back</Link>
-                            <button type="button" onClick={store} name="publish" className=" font-bold bg-indigo-700 py-2 text-sm rounded px-3 text-light tracking-wide">Save</button>
+                            <Link href="/" className=" font-bold border border-[#415A77]  py-2 text-sm rounded px-3 text-[#E0E1DD] tracking-wide">Back</Link>
+                            <button type="button" onClick={store} name="publish" className=" font-bold bg-[#415A77] py-2 text-sm rounded px-3 text-[#E0E1DD] tracking-wide">Save</button>
                         </div>
                     </form>
                 </div>  

@@ -20,31 +20,31 @@ const Navigation  = (props) => {
 
     return (
         <>
-            <div className=" bg-gray-50 fixed top-0 left-0 right-0 z-50 border-b border-light-gray">
+            <div className=" bg-[#0d1b2a] fixed top-0 left-0 right-0 z-50 border-b border-light-gray">
                 <nav className=" flex items-center justify-between py-3 max-w-[1500px] w-[90%] mx-auto relative">
                     <Link href="/">
-                        <h2>Title</h2>
+                        <h2 className=" text-gray-50">Title</h2>
                     </Link>
                     <ul className=" flex items-center gap-8">
                         <li>
-                            <Link href="/blog-list/all" className="flex items-center gap-2 text-xs  text-secondary">
+                            <Link href="/blog-list/all" className="flex items-center gap-2 text-xs  text-gray-50">
                                 Blogs
                             </Link>
                         </li>
                         <li>
-                            <Link href="/" className="flex items-center gap-2 text-xs  text-secondary">
+                            <Link href="/" className="flex items-center gap-2 text-xs  text-gray-50">
                                 About
                             </Link>
                         </li>
                         <li>
-                            <Link href="/" className="flex items-center gap-2 text-xs  text-secondary">
+                            <Link href="/" className="flex items-center gap-2 text-xs  text-gray-50">
                                 Contact
                             </Link>
                         </li>
                     </ul>
                     <ul className=" flex items-center gap-7">
                         <li>
-                            <Link href="/blog/create" className="flex items-center shadow gap-2 text-xs bg-secondary text-light py-2 px-3 rounded-md">
+                            <Link href="/blog/create" className="flex items-center shadow gap-2 text-xs bg-[#415a77] text-light py-2 px-3 rounded-md">
                                 <FaEdit className=" text-sm fill-light" />
                                 Write
                             </Link>
