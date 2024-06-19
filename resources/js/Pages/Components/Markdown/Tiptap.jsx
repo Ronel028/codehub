@@ -279,7 +279,7 @@ const MenuBar = () => {
 }
 
 const Tiptap = (props) => {
-  const [value, setValue] = useState(null)
+  const [value, setValue] = useState(props.rteValue)
 
   const extensions = useMemo(() => {
     return [

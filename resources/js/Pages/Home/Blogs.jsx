@@ -1,5 +1,6 @@
 import moment from "moment";
 import { Link } from "@inertiajs/react"
+import NoDataFound from "../Components/Nodatafound";
 import MainLayout from "../../layout/main";
 import imagePlaceholder from "../Assets/Img/placeholder.jpg"
 
@@ -36,7 +37,7 @@ const Blogs = (props) => {
                                         props.latest_blog.map(blog => (
                                             <Link key={blog.id} href={`/blog-list/read/${blog.user.username}/${blog.slug}`}>
                                                 <li className="grid grid-cols-2 gap-2">
-                                                    <div className=" w-full h-[170px] rounded border border-gray-400">
+                                                    <div className=" w-full h-[170px] rounded border border-[#415A77]">
                                                         <img 
                                                             className=" w-full h-full object-cover rounded" 
                                                             src={(blog.upload && `/storage/${blog.upload.path}`) ?? imagePlaceholder} 
@@ -58,7 +59,7 @@ const Blogs = (props) => {
                             </section>
                         </main>
                     ) : (
-                        <h1>No data found</h1> 
+                       <NoDataFound content="Uh-oh! No data found. Please be the first to share." /> 
                     )
                 }           
                 
