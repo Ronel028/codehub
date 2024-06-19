@@ -3,6 +3,7 @@ import { Link, router, usePage } from "@inertiajs/react"
 import { FaUserCircle, FaSignOutAlt, FaEdit  } from "react-icons/fa";
 import { MdOutlinePostAdd } from "react-icons/md";
 import imagePlacholder from "../Assets/Img/image-placeholder.webp"
+import Input from "./Forms/Input";
 
 const Navigation  = (props) => {
 
@@ -37,12 +38,19 @@ const Navigation  = (props) => {
                             </Link>
                         </li>
                         <li>
-                            <Link href="/contact" className={`${ url === 'contact' ? 'text-red-400 font-bold' : 'text-[#E0E1DD]' } flex items-center gap-2 text-xs tracking-wide`}>
+                            <Link href="/contact" className={`${ url === '/contact' ? 'text-red-400 font-bold' : 'text-[#E0E1DD]' } flex items-center gap-2 text-xs tracking-wide`}>
                                 Contact
                             </Link>
                         </li>
                     </ul>
                     <ul className=" flex items-center gap-7">
+                        {
+                            url.startsWith('/blog-list/blog') || url.startsWith('/blog/list') ? (
+                                <li>
+                                    <Input placeholder={`Search blog related to ${props.category}...`} value={props.search} onChange={props.setSearch} />
+                                </li>
+                            ) : ''
+                        }
                         <li>
                             <Link href="/blog/create" className="flex items-center shadow gap-2 text-xs bg-[#415a77] text-light py-2 px-3 rounded-md">
                                 <FaEdit className=" text-sm fill-light" />
