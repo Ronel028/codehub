@@ -15,18 +15,17 @@ const Home = () => {
                             <h1 className=" text-7xl font-bold mb-5">
                                 Informative Tips, News and Stories for Every Day
                             </h1>
-                            <h3 className=" text-2xl leading-8 mb-5">
-                                Welcome to our blog, your ultimate destination
-                                for sharing knowledge and experiences across a
-                                wide range of topics. From the latest tech
-                                trends to personal development, health, and
-                                wellness, we cover it all. Our mission is to
-                                provide you with valuable insights and
-                                inspirational stories that empower you to make
-                                informed decisions and lead a fulfilling life.
-                                Dive into a diverse collection of articles,
-                                guides, and stories crafted by experts and
-                                enthusiasts alike.
+                            <h3 className=" text-2xl tracking-wide leading-9 mb-5">
+                                Welcome to{" "}
+                                <span className="font-bold">KNOWL</span>, your
+                                ultimate destination for sharing and gaining knowledge and
+                                experiences across a wide range of categories.
+                                From the latest technology to news, health, and
+                                more, we cover it all. Our mission is to provide
+                                you with valuable insights and experiences that
+                                enhance your daily life. Dive into a diverse
+                                collection of articles, guides, and stories
+                                crafted by experts and enthusiasts alike.
                             </h3>
                             <div className=" inline-block">
                                 <Link

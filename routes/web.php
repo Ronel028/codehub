@@ -9,10 +9,10 @@ use Inertia\Inertia;
 
 Route::get('/', function () {
     return Inertia::render('Home/Index');
-})->name('index')->middleware('auth');
+})->name('index');
 
 // BLOG LIST
-Route::middleware('auth')->name('blog-list.')->prefix('blog-list')->group(function () {
+Route::name('blog-list.')->prefix('blog-list')->group(function () {
     Route::get('/', [BlogListController::class, 'index'])->name('index');
     Route::get('/read/{username}/{slug}', [BlogListController::class, 'fetch']);
     Route::get('/blog/{category}', [BlogListController::class, 'blogListCategory'])->name('blog-list-category');
@@ -28,7 +28,7 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 
 // BLOG ROUTE
-Route::name('blog.')->prefix('blog')->group(function () {
+Route::middleware('auth')->name('blog.')->prefix('blog')->group(function () {
     Route::get('/create', [BlogController::class, 'createPage'])->name('create-page');
     Route::get('/edit/{id}', [BlogController::class, 'editPage'])->name('edit-page');
     Route::post('/save-edit', [BlogController::class, 'update'])->name('save-edit');
