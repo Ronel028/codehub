@@ -84,7 +84,7 @@ const MenuBar = () => {
             <button type='button' onClick={openHeadingMenu} className=' py-1 px-3 border border-secondary text-sm rounded-md'>
               Heading
             </button>
-            <ul className={`${openHeading ? 'block' : 'hidden'} absolute bottom-8 border border-[#415A77] bg-[#1B263B] rounded-md mt-1 shadow w-[130px]`}>
+            <ul className={`${openHeading ? 'block' : 'hidden'} absolute z-[60] bottom-8 border border-[#415A77] bg-[#1B263B] rounded-md mt-1 shadow w-[130px]`}>
               <li>
                 <button
                     type='button'
@@ -342,7 +342,9 @@ const Tiptap = (props) => {
         }),
         Extension.create({
           onUpdate({ editor }) {
-            setValue(editor.getHTML())
+            let value = editor.getHTML()
+            value = value.replace(/<p>\s*<\/p>/g, '')
+            setValue(value)
           }
         })
     ]
@@ -353,17 +355,22 @@ const Tiptap = (props) => {
   }, [value])
 
   return (
-      <EditorProvider
-          extensions={extensions}
-          content={props.rteValue}
-          editorProps={{
-            attributes: {
-              class: `${props.styleContainer == null ? ' h-[300px] border border-[#415A77]' : props.styleContainer }`
-            }
-          }}
-          editable={props.editable == null ? true : false}
-          slotBefore={props.disableMenuBar ? null : <MenuBar />}
-      />
+      <>
+        <div className={` ${props.error ? 'border border-red-500 p-2 rounded-md' : ''}`}>
+          <EditorProvider
+              extensions={extensions}
+              content={props.rteValue}
+              editorProps={{
+                attributes: {
+                  class: `${props.styleContainer == null ? 'border-[#415A77] h-[300px] border' : props.styleContainer }`
+                }
+              }}
+              editable={props.editable == null ? true : false}
+              slotBefore={props.disableMenuBar ? null : <MenuBar />}
+          />
+          {props.error && <p className=" text-xs text-red-500 mt-1">{props.error}</p>}
+        </div>
+      </>
   )
 }
 

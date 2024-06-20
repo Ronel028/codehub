@@ -82,8 +82,7 @@ const EditBlog = (props) => {
                             </div>
                         </div>
                         <div className=" mb-2">
-                            {/* <RteEditor setRteValue={setData} rteValue={data.content} error={errors.content} /> */}
-                            <Tiptap rteValue={data.content} setRteValue={setData} />
+                            <Tiptap error={errors.content} rteValue={data.content} setRteValue={setData} />
                         </div>
                         <div className=" flex items-center justify-end gap-2">
                             <Link href="/" className=" font-bold border border-[#415A77]  py-2 text-sm rounded px-3 text-[#E0E1DD] tracking-wide">Back</Link>

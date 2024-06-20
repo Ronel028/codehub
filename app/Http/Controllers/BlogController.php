@@ -79,6 +79,15 @@ class BlogController extends Controller
     // SAVE UPDATED BLOG
     public function update(Request $request)
     {
+
+        $request->validate([
+            'title' => 'required',
+            'description' => 'required',
+            'category' => 'required',
+            'content' => 'required',
+            'image' => 'max:8192'
+        ]);
+
         DB::beginTransaction();
         $blog = BlogPost::find($request->id);
         $blog->user_id = Auth::user()->id;

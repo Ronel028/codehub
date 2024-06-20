@@ -10,6 +10,7 @@ import Select from "../Components/Forms/Select";
 import Tiptap from "../Components/Markdown/Tiptap";
 
 const CreateBlog = (props) => {
+
     const [image, setImage] = useState(null)
     const { data, setData, post, errors, progress, reset } = useForm({
         title: '',
@@ -25,7 +26,14 @@ const CreateBlog = (props) => {
         e.preventDefault()
         post(`/blog/store`, {
             onSuccess: () => {
-                reset('title', 'description', 'image')
+                setData({
+                    title: '',
+                    description: '',
+                    category: '',
+                    is_publish: false,
+                    content: null,
+                    image: null,
+                })
                 setImage(null)
                 toast.success('New blog successfully uploaded!')
             }
@@ -83,7 +91,7 @@ const CreateBlog = (props) => {
                             </div>
                         </div>
                         <div className=" mb-2">
-                            <Tiptap rteValue={data.content} setRteValue={setData} />
+                            <Tiptap error={errors.content} rteValue={data.content} setRteValue={setData} />
                             {/* <RteEditor setRteValue={setData} rteValue={data.content} error={errors.content} /> */}
                         </div>
                         <div className=" flex items-center justify-end gap-2">

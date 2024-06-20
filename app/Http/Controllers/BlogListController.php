@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\BlogPost;
+use App\Models\CategoryReference;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -13,6 +14,7 @@ class BlogListController extends Controller
         return Inertia::render("Home/Blogs", [
             'latest_blog' => BlogPost::with(['category', 'upload', 'user'])->where('is_published', 1)->latest()->take(3)->get(),
             'blogs' => BlogPost::with(['category', 'upload', 'user'])->where('is_published', 1)->orderBy('created_at', 'desc')->get(),
+            'categories' => CategoryReference::all()
         ]);
     }
 

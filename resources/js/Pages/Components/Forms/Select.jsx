@@ -10,7 +10,7 @@ const Select = (props) => {
                         })
                     }
                 </select>
-                {props.error && <p className=" text-xs text-red-500">{props.error}</p>}
+                {props.error && <p className=" text-xs text-red-500 mt-1">{props.error}</p>}
             </div>
         </>
     )

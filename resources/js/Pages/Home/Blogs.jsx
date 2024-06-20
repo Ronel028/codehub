@@ -6,13 +6,15 @@ import imagePlaceholder from "../Assets/Img/placeholder.jpg"
 
 const Blogs = (props) => {
 
+    console.log(props)
+
     return (
         <>
             <MainLayout>
                 {
                     props.latest_blog.length > 0 ? (
                         <main className=" grid grid-cols-2 gap-1 mb-10">
-                            <section className=" flex items-center relative">
+                            <section className=" flex items-center relative border border-[#778DA9] rounded-md overflow-hidden p-1">
                                     <div className=" rounded relative w-full h-full">
                                         <img 
                                             className=" w-full h-full object-cover rounded" 
@@ -37,7 +39,7 @@ const Blogs = (props) => {
                                         props.latest_blog.map(blog => (
                                             <Link key={blog.id} href={`/blog-list/read/${blog.user.username}/${blog.slug}`}>
                                                 <li className="grid grid-cols-2 gap-2">
-                                                    <div className=" w-full h-[170px] rounded border border-[#415A77]">
+                                                    <div className=" w-full h-[170px] rounded border p-1 border-[#415A77]">
                                                         <img 
                                                             className=" w-full h-full object-cover rounded" 
                                                             src={(blog.upload && `/storage/${blog.upload.path}`) ?? imagePlaceholder} 
@@ -61,7 +63,17 @@ const Blogs = (props) => {
                     ) : (
                        <NoDataFound content="Uh-oh! No data found. Please be the first to share." /> 
                     )
-                }           
+                }    
+
+                <div className="mb-10 flex items-center gap-2">
+                    {
+                        props.categories.map(category => (
+                            <Link href={`/blog-list/blog/${category.name.toLowerCase()}`} className="flex items-center shadow gap-2 text-xs border border-[#415a77] hover:bg-[#415a77] text-light py-2 px-3 rounded-md">
+                                {category.name}
+                            </Link>
+                        ))
+                    }
+                </div>       
                 
                 {/* TECHNOLOGY BLOG */}
                 {
@@ -81,8 +93,8 @@ const Blogs = (props) => {
                                         blog.category.name === 'Technology'
                                     )).slice(0,6).map(blog => (
                                         <Link key={blog.id} href={`/blog-list/read/${blog.user.username}/${blog.slug}`}>
-                                            <div >
-                                                <div className=" h-[250px] overflow-hidden rounded mb-2">
+                                            <div>
+                                                <div className=" h-[250px] overflow-hidden rounded mb-2 border border-[#415A77]">
                                                     <img 
                                                         className=" w-full h-full object-cover rounded" 
                                                         src={(blog.upload && `/storage/${blog.upload.path}`) ?? imagePlaceholder} 
@@ -127,7 +139,7 @@ const Blogs = (props) => {
                                     )).slice(0,6).map(blog => (
                                         <Link key={blog.id} href={`/blog-list/read/${blog.user.username}/${blog.slug}`}>
                                             <div>
-                                                <div className="h-[250px] overflow-hidden rounded mb-2">
+                                                <div className="h-[250px] overflow-hidden rounded mb-2 border border-[#415A77]">
                                                     <img 
                                                         className=" w-full h-full object-cover rounded" 
                                                         src={(blog.upload && `/storage/${blog.upload.path}`) ?? imagePlaceholder} 

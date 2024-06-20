@@ -47,7 +47,7 @@ const Navigation  = (props) => {
                         {
                             url.startsWith('/blog-list/blog') || url.startsWith('/blog/list') ? (
                                 <li>
-                                    <Input placeholder={`Search blog related to ${props.category}...`} value={props.search} onChange={props.setSearch} />
+                                    <Input placeholder='Search...' value={props.search} onChange={props.setSearch} />
                                 </li>
                             ) : ''
                         }

@@ -24,6 +24,8 @@ const BlogList = (props) => {
         })
     }, [search])
 
+    console.log(props)
+
     return (
         <>
             <MainLayout setSearch={searchBlog} search={search}>
@@ -36,13 +38,20 @@ const BlogList = (props) => {
                             <div className=" grid grid-cols-3 gap-2">
                                 {
                                     props.blogs.map(blog => (
-                                        <div key={blog.id} className="border border-[#415A77] rounded-md">
-                                            <div className="h-[250px] overflow-hidden rounded-t-md mb-2">
+                                        <div key={blog.id} className="">
+                                            <div className="h-[250px] overflow-hidden rounded-t-md mb-2 border border-[#415A77] rounded-md">
                                                 <img className=" w-full h-full object-cover rounded-t-md" src={ (blog.upload && `/storage/${blog.upload.path}`) ?? imagePlaceholder} alt="" />
                                             </div>
-                                            <div className=" p-3">
+                                            <div className=" py-2">
                                                 <div className=" flex items-center justify-between">
-                                                    <div className=" bg-primary rounded py-1 px-2 inline-block text-xs text-light mb-1">{blog.category.name}</div>
+                                                    <div className=" flex items-center gap-1">
+                                                        <div className=" bg-[#415A77] rounded py-1 px-2 inline-block text-xs text-light mb-2">{blog.category.name}</div>
+                                                        <div className={`${blog.is_published === 1 ? 'bg-green-500 text-[#1B263B]' : 'bg-red-500 text-[#E0E1DD]'}  rounded py-1 px-2 inline-block text-xs  font-bold mb-2`}>
+                                                            {
+                                                                blog.is_published === 1 ? 'Published' : 'Draft'
+                                                            }
+                                                        </div>
+                                                    </div>
                                                     <div className=" flex items-center gap-3">
                                                         <button title="Remove">
                                                             <FaTrashAlt className=" text-base fill-red-600" />
