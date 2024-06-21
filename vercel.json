@@ -2,7 +2,8 @@
     "version": 2,
     "framework": null,
     "functions": {
-        "api/index.php": { "runtime": "vercel-php@0.6.0" }
+        "api/index.php": { "runtime": "vercel-php@0.6.0" },
+        "api/storage-link.php": { "runtime": "vercel-php@0.6.0" }
     },
     "routes": [
         {
@@ -16,6 +17,10 @@
         {
             "src": "/favicon/(.*)",
             "dest": "/public/favicon/"
+        },
+        {
+            "src": "/api/storage-link",
+            "dest": "/api/storage-link.php"
         },
         { 
             "src": "/(.*)", 
