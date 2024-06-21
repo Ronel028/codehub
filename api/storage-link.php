@@ -6,8 +6,9 @@ require __DIR__ . '/../vendor/autoload.php';
 // Boot Laravel application
 $app = require_once __DIR__ . '/../bootstrap/app.php';
 
-// Handle console kernel
+// Set up the application
 $kernel = $app->make(Illuminate\Contracts\Console\Kernel::class);
+$kernel->bootstrap();
 
 // Run artisan command
 try {
