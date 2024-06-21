@@ -18,7 +18,7 @@ const Blogs = (props) => {
                                     <div className=" rounded relative w-full h-full">
                                         <img 
                                             className=" w-full h-full object-cover rounded" 
-                                            src={(props.latest_blog[0].upload && `/storage/${props.latest_blog[0].upload.path}`) ?? imagePlaceholder} 
+                                            src={(props.latest_blog[0].upload && props.latest_blog[0].upload.path) ?? imagePlaceholder} 
                                             alt={(props.latest_blog[0].upload && props.latest_blog[0].upload.filename) ?? 'No image available'}
                                         />
                                         <div className="absolute inset-0 bg-secondary bg-opacity-40 rounded"></div>
@@ -42,7 +42,7 @@ const Blogs = (props) => {
                                                     <div className=" w-full h-[170px] rounded border p-1 border-[#415A77]">
                                                         <img 
                                                             className=" w-full h-full object-cover rounded" 
-                                                            src={(blog.upload && `/storage/${blog.upload.path}`) ?? imagePlaceholder} 
+                                                            src={(blog.upload && blog.upload.path) ?? imagePlaceholder} 
                                                             alt={(blog.upload && blog.upload.filename) ?? 'No image available'}
                                                         />
                                                     </div>
@@ -101,7 +101,7 @@ const Blogs = (props) => {
                                                 <div className=" h-[250px] overflow-hidden rounded mb-2 border border-[#415A77]">
                                                     <img 
                                                         className=" w-full h-full object-cover rounded" 
-                                                        src={(blog.upload && `/storage/${blog.upload.path}`) ?? imagePlaceholder} 
+                                                        src={(blog.upload && blog.upload.path) ?? imagePlaceholder} 
                                                         alt={(blog.upload && blog.upload.filename) ?? 'No image available'}
                                                     />
                                                 </div>
@@ -146,7 +146,7 @@ const Blogs = (props) => {
                                                 <div className="h-[250px] overflow-hidden rounded mb-2 border border-[#415A77]">
                                                     <img 
                                                         className=" w-full h-full object-cover rounded" 
-                                                        src={(blog.upload && `/storage/${blog.upload.path}`) ?? imagePlaceholder} 
+                                                        src={(blog.upload && blog.upload.path) ?? imagePlaceholder} 
                                                         alt={(blog.upload && blog.upload.filename) ?? 'No image available'}
                                                     />
                                                 </div>

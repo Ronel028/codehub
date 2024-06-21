@@ -40,7 +40,7 @@ const BlogList = (props) => {
                                     props.blogs.map(blog => (
                                         <div key={blog.id} className="">
                                             <div className="h-[250px] overflow-hidden rounded-t-md mb-2 border border-[#415A77] rounded-md">
-                                                <img className=" w-full h-full object-cover rounded-t-md" src={ (blog.upload && `/storage/${blog.upload.path}`) ?? imagePlaceholder} alt="" />
+                                                <img className=" w-full h-full object-cover rounded-t-md" src={ (blog.upload && blog.upload.path) ?? imagePlaceholder} alt="" />
                                             </div>
                                             <div className=" py-2">
                                                 <div className=" flex items-center justify-between">

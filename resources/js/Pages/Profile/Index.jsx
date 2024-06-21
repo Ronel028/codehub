@@ -23,7 +23,7 @@ const Profile = (props) => {
                                 <div className=" -mt-24 w-32 h-32 overflow-hidden rounded-full shadow-md ">
                                     <img 
                                         className="h-full w-full object-cover" 
-                                        src={(props.user.upload && `/storage/${props.user.upload.path}`) ?? altImage} 
+                                        src={(props.user.upload && props.user.upload.path) ?? altImage} 
                                         alt={(props.user.upload && props.user.upload.filename) ?? "image-placeholder" } 
                                     />
                                 </div>

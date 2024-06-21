@@ -24,7 +24,7 @@ const Edit = (props) => {
         soc_twitter: (props.user.user_detail && props.user.user_detail.soc_twitter) ?? '',
         about: (props.user.user_detail && props.user.user_detail.about) ?? ''
     })
-    const [imagePreview, setImagePreview] = useState((props.user.upload && `/storage/${props.user.upload.path}`) ?? null)
+    const [imagePreview, setImagePreview] = useState((props.user.upload && props.user.upload.path) ?? null)
 
     // ADD INPUT FIELD FOR EXPERIENCE
     const addExperience = () => {

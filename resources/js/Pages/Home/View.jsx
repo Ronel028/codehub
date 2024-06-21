@@ -21,7 +21,7 @@ const ViewBlog = (props) => {
                         <div className=" flex items-center gap-2 mb-5">
                             <div className="w-10 h-10 rounded-full p-[2px] border flex items-center justify-center">
                                 <img
-                                    src={(props.blog.user.upload && `/storage/${props.blog.user.upload.path}`) ?? imagePlacholder}
+                                    src={(props.blog.user.upload && props.blog.user.upload.path) ?? imagePlacholder}
                                     alt={(props.blog.user.upload && props.blog.user.upload.filename) ?? 'user'}
                                     className="relative inline-block object-cover object-center w-full h-full rounded-full cursor-pointer" />
                             </div>

@@ -30,15 +30,28 @@ return [
 
     'disks' => [
 
+        // 'local' => [
+        //     'driver' => 'local',
+        //     'root' => env('STORAGE_DIR', storage_path('app')),
+        //     'throw' => false,
+        // ],
+
+        // 'public' => [
+        //     'driver' => 'local',
+        //     'root' => env('STORAGE_DIR', storage_path('app/public')),
+        //     'url' => env('APP_URL') . '/storage',
+        //     'visibility' => 'public',
+        //     'throw' => false,
+        // ],
         'local' => [
             'driver' => 'local',
-            'root' => env('STORAGE_DIR', storage_path('app')),
+            'root' =>  storage_path('app'),
             'throw' => false,
         ],
 
         'public' => [
             'driver' => 'local',
-            'root' => env('STORAGE_DIR', storage_path('app/public')),
+            'root' => storage_path('app/public'),
             'url' => env('APP_URL') . '/storage',
             'visibility' => 'public',
             'throw' => false,

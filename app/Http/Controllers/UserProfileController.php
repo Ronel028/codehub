@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -39,10 +40,20 @@ class UserProfileController extends Controller
 
             // UPLOAD IMAGE
             if ($request->hasFile('image')) {
+
+                $uploadedFile = Cloudinary::upload($request->file('image')->getRealPath(), [
+                    'folder' => 'knowl_img'
+                ]);
+
                 $user->upload()->create([
                     'filename' => $request->file('image')->getClientOriginalName(),
-                    'path' => $request->file('image')->store('images', 'public')
+                    'path' => $uploadedFile->getSecurePath(),
                 ]);
+
+                // $user->upload()->create([
+                //     'filename' => $request->file('image')->getClientOriginalName(),
+                //     'path' => $request->file('image')->store('images', 'public')
+                // ]);
             }
 
             // SAVE USER INFORMATION, CHECK IF ALREADY EXIST OR NOT

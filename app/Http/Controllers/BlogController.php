@@ -6,6 +6,7 @@ use App\Http\Requests\BlogPostRequest;
 use App\Models\BlogPost;
 use App\Models\CategoryReference;
 use App\Models\Upload;
+use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -64,10 +65,20 @@ class BlogController extends Controller
         if ($blog->save()) {
 
             if ($request->hasFile('image')) {
+
+                $uploadedFile = Cloudinary::upload($request->file('image')->getRealPath(), [
+                    'folder' => 'knowl_img'
+                ]);
+
                 $blog->upload()->create([
                     'filename' => $request->file('image')->getClientOriginalName(),
-                    'path' => $request->file('image')->store('images', 'public')
+                    'path' => $uploadedFile->getSecurePath(),
                 ]);
+
+                // $blog->upload()->create([
+                //     'filename' => $request->file('image')->getClientOriginalName(),
+                //     'path' => $request->file('image')->store('images', 'public')
+                // ]);
             }
 
             DB::commit();
@@ -101,10 +112,20 @@ class BlogController extends Controller
         if ($blog->save()) {
 
             if ($request->hasFile('image')) {
+
+                $uploadedFile = Cloudinary::upload($request->file('image')->getRealPath(), [
+                    'folder' => 'knowl_img'
+                ]);
+
                 $blog->upload()->create([
                     'filename' => $request->file('image')->getClientOriginalName(),
-                    'path' => $request->file('image')->store('images', 'public')
+                    'path' => $uploadedFile->getSecurePath(),
                 ]);
+
+                // $blog->upload()->create([
+                //     'filename' => $request->file('image')->getClientOriginalName(),
+                //     'path' => $request->file('image')->store('images', 'public')
+                // ]);
             }
 
             DB::commit();

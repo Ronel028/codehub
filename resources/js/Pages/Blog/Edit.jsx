@@ -10,7 +10,7 @@ import Select from "../Components/Forms/Select";
 
 const EditBlog = (props) => {
 
-    const [image, setImage] = useState((props.blog.upload && `/storage/${props.blog.upload.path}`) ?? null)
+    const [image, setImage] = useState((props.blog.upload && props.blog.upload.path) ?? null)
     const { data, setData, post, errors, progress, reset } = useForm({
         id: props.blog.id,
         title: props.blog.title,
