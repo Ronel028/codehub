@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react"
 import { Link, router } from "@inertiajs/react"
 import moment from "moment"
+import { debounce } from "lodash"
 import Input from "../Components/Forms/Input"
 import MainLayout from "../../layout/main"
 import imagePlaceholder from "../Assets/Img/placeholder.jpg"
@@ -15,11 +16,18 @@ const BlogsListByCategory = (props) => {
     }
 
     useEffect(() => {
-        router.get(`/blog-list/blog/${props.category}`, {
-            search: search
-        }, {
-            preserveState: true,
-        })
+        const searchDeb = debounce(() => {
+            router.get(`/blog-list/blog/${props.category}`, {
+                search: search
+            }, {
+                preserveState: true,
+            })
+        }, 300)
+
+        searchDeb();
+
+        return () => searchDeb.cancel();
+
     }, [search])
 
     return (

@@ -24,8 +24,6 @@ const BlogList = (props) => {
         })
     }, [search])
 
-    console.log(props)
-
     return (
         <>
             <MainLayout setSearch={searchBlog} search={search}>
