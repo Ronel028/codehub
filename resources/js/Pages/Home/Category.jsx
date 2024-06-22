@@ -36,7 +36,7 @@ const BlogsListByCategory = (props) => {
                                                     <div className="h-[250px] overflow-hidden rounded mb-2 border border-[#415A77]">
                                                         <img 
                                                             className=" w-full h-full object-cover rounded" 
-                                                            src={(blog.upload && `/storage/${blog.upload.path}`) ?? imagePlaceholder} 
+                                                            src={(blog.upload && blog.upload.path) ?? imagePlaceholder} 
                                                             alt={(blog.upload && blog.upload.filename) ?? 'No image available'}
                                                         />
                                                     </div>
