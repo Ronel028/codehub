@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link, router } from "@inertiajs/react";
 import moment from "moment";
+import { debounce } from "lodash"
 import { MdEditSquare } from "react-icons/md";
 import { FaTrashAlt } from "react-icons/fa";
 import MainLayout from "../../layout/main"
@@ -17,11 +18,18 @@ const BlogList = (props) => {
     }
 
     useEffect(() => {
-        router.get('/blog/list', {
-            search: search
-        }, {
-            preserveState: true,
-        })
+
+        const searchDeb = debounce(() => {
+            router.get('/blog/list', {
+                search: search
+            }, {
+                preserveState: true,
+            })
+        }, 300)
+
+        searchDeb();
+
+        return () => searchDeb.cancel();
     }, [search])
 
     return (
