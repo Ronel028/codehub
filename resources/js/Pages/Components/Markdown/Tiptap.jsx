@@ -5,6 +5,7 @@ import Image from '@tiptap/extension-image'
 import Link from '@tiptap/extension-link'
 import CodeBlockLowlight from '@tiptap/extension-code-block-lowlight'
 import Youtube from '@tiptap/extension-youtube'
+import HardBreak from '@tiptap/extension-hard-break'
 import {common, createLowlight} from 'lowlight'
 import StarterKit from '@tiptap/starter-kit'
 import { mergeAttributes } from '@tiptap/react'
@@ -284,7 +285,9 @@ const Tiptap = (props) => {
   const extensions = useMemo(() => {
     return [
         StarterKit.configure({
-            heading: false
+            heading: false,
+            codeBlock: false,
+            hardBreak: false
         }),
         Heading.configure({ levels: [1, 2] }).extend({
             levels: [1, 2],
@@ -335,6 +338,13 @@ const Tiptap = (props) => {
           ccLanguage: 'es',
           disableKBcontrols: true,
           loop: true,
+        }),
+        HardBreak.extend({
+          addKeyboardShortcuts () {
+            return {
+              Enter: () => this.editor.commands.setHardBreak()
+            }
+          }
         }),
         Placeholder.configure({
           placeholder: 'Write your blog content here...',

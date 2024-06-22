@@ -70,7 +70,7 @@ const Blogs = (props) => {
                         <div className="mb-10 flex items-center gap-2">
                             {
                                 props.categories.map(category => (
-                                    <Link href={`/blog-list/blog/${category.name.toLowerCase()}`} className="flex items-center shadow gap-2 text-xs border border-[#415a77] hover:bg-[#415a77] text-light py-2 px-3 rounded-md">
+                                    <Link key={category.id} href={`/blog-list/blog/${category.name.toLowerCase()}`} className="flex items-center shadow gap-2 text-xs border border-[#415a77] hover:bg-[#415a77] text-light py-2 px-3 rounded-md">
                                         {category.name}
                                     </Link>
                                 ))
