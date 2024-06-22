@@ -6,8 +6,6 @@ import imagePlaceholder from "../Assets/Img/placeholder.jpg"
 
 const Blogs = (props) => {
 
-    console.log(props)
-
     return (
         <>
             <MainLayout>
@@ -46,12 +44,14 @@ const Blogs = (props) => {
                                                             alt={(blog.upload && blog.upload.filename) ?? 'No image available'}
                                                         />
                                                     </div>
-                                                    <div>
-                                                        <div className=" bg-[#415a77] rounded py-1 px-2 inline-block text-xs text-light mb-1">{blog.category.name}</div>
-                                                        <p className=" font-bold mb-1 text-xl text-[#E0E1DD]">{blog.title}</p>
-                                                        <p className=" text-xs text-[#E0E1DD]">
-                                                        {(blog.user.user_detail && blog.user.full_name) ?? blog.user.username} | {moment(blog.created_at).format('ll')}
-                                                        </p>
+                                                    <div className="inline-flex justify-center flex-col">
+                                                        <div>
+                                                            <div className=" bg-[#415a77] rounded py-1 px-2 inline-block text-xs text-light mb-1">{blog.category.name}</div>
+                                                            <p className=" font-bold mb-1 text-xl text-[#E0E1DD]">{blog.title}</p>
+                                                            <p className=" text-xs text-[#E0E1DD]">
+                                                            {(blog.user.user_detail && blog.user.full_name) ?? blog.user.username} | {moment(blog.created_at).format('ll')}
+                                                            </p>
+                                                        </div>
                                                     </div>
                                                 </li>
                                             </Link>
@@ -94,7 +94,7 @@ const Blogs = (props) => {
                             <div className=" grid grid-cols-3 gap-2">
                                 {
                                     props.blogs.filter(blog => (
-                                        blog.category.name === 'Technology'
+                                        blog.category.name === 'Technology' || blog.category.name === 'Programming'
                                     )).slice(0,6).map(blog => (
                                         <Link key={blog.id} href={`/blog-list/read/${blog.user.username}/${blog.slug}`}>
                                             <div>
@@ -124,23 +124,13 @@ const Blogs = (props) => {
                     ) : null
                 }
 
-                {/* Science BLOG */}
+                {/* All BLOG */}
                 {
-                     props.blogs.filter(blog => (
-                        blog.category.name === 'Science'
-                    )).length > 0 ? (
+                     props.blogs.length > 0 ? (
                         <div className="border-b border-secondary pb-5 mb-5">
-                            <div className=" flex items-center justify-between mb-1">
-                                <h2 className=" text-2xl font-bold tracking-wide text-[#E0E1DD]">Science</h2>
-                                <Link href="/blog-list/blog/science" className="text-sm text-[#E0E1DD] hover:underline">
-                                    See all
-                                </Link>
-                            </div>
-                            <div className=" grid grid-cols-3 gap-2">
+                            <div className=" grid grid-cols-3 gap-3">
                                 {
-                                    props.blogs.filter(blog => (
-                                        blog.category.name === 'Science'
-                                    )).slice(0,6).map(blog => (
+                                    props.blogs.map(blog => (
                                         <Link key={blog.id} href={`/blog-list/read/${blog.user.username}/${blog.slug}`}>
                                             <div>
                                                 <div className="h-[250px] overflow-hidden rounded mb-2 border border-[#415A77]">
