@@ -82,7 +82,7 @@ const Blogs = (props) => {
                 {/* TECHNOLOGY BLOG */}
                 {
                     props.blogs.filter(blog => (
-                        blog.category.name === 'Technology'
+                        blog.category.name === 'Technology' || blog.category.name === 'Programming'
                     )).length > 0 ? (
                         <div className=" border-b border-secondary pb-5 mb-5">
                             <div className=" flex items-center justify-between mb-1">
