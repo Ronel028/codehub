@@ -45,7 +45,10 @@ class BlogListController extends Controller
                 $query->with('userDetail', 'upload');
             }, 'category'])->whereHas('user', function ($query) use ($username) {
                 $query->where('username', $username);
-            })->where('slug', $slug)->first()
+            })->where('slug', $slug)->first(),
+            'more_blogs' => BlogPost::with(['user', 'category', 'upload'])->whereHas('user', function ($query) use ($username) {
+                $query->where('username', $username);
+            })->whereNot('slug', $slug)->orderBy('created_at', 'desc')->get()
         ]);
     }
 
