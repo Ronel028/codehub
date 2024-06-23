@@ -3,11 +3,14 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Mail\VerificationEmail;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 use Inertia\Inertia;
 
 class AuthController extends Controller
@@ -30,11 +33,19 @@ class AuthController extends Controller
             'password' => ['required'],
         ]);
 
-        if (Auth::attempt($credentials)) {
-            $request->session()->regenerate();
-
-            return redirect()->intended('/');
+        try {
+            Mail::to('floridaronel15@gmail.com')->send(new VerificationEmail());
+            Log::info('Email sent Successfully');
+        } catch (\Throwable $th) {
+            Log::error('Failed to send email: ' . $th->getMessage());
         }
+
+
+        // if (Auth::attempt($credentials)) {
+        //     $request->session()->regenerate();
+
+        //     return redirect()->intended('/');
+        // }
 
         return back()->withErrors([
             'email' => 'The provided credentials do not match our records.',
