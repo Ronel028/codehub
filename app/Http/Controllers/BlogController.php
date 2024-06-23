@@ -34,6 +34,7 @@ class BlogController extends Controller
                 fn ($query) =>
                 $query->where('title', 'LIKE', "%{$search}%")
             )
+            ->orderBy('created_at', 'desc')
             ->get();
         return Inertia::render('Blog/Index', [
             'blogs' => $blog_list

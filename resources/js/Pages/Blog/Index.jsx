@@ -59,11 +59,11 @@ const BlogList = (props) => {
                                                         </div>
                                                     </div>
                                                     <div className=" flex items-center gap-3">
-                                                        <button title="Remove">
+                                                        {/* <button title="Remove">
                                                             <FaTrashAlt className=" text-base fill-red-600" />
-                                                        </button>
+                                                        </button> */}
                                                         <Link title="Edit" href={`/blog/edit/${blog.id}`}>
-                                                            <MdEditSquare className=" text-lg fill-blue-600" />
+                                                            <MdEditSquare className=" text-lg fill-[#E0E1DD]" />
                                                         </Link>
                                                     </div>
                                                 </div>

@@ -13,8 +13,8 @@ createInertiaApp({
     createRoot(el).render(
       <>
         <ToastContainer
-          position="top-center"
-          autoClose={5000}
+          position="bottom-center"
+          autoClose={2000}
           hideProgressBar={false}
           newestOnTop={false}
           closeOnClick
@@ -22,7 +22,7 @@ createInertiaApp({
           pauseOnFocusLoss
           draggable
           pauseOnHover
-          theme="light"
+          theme="dark"
         />
         <App {...props} />
       </>
