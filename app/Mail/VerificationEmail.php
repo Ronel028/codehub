@@ -28,7 +28,6 @@ class VerificationEmail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            from: new Address('knowl@email.com', 'Knowl Support Team'),
             subject: 'Verification Email',
         );
     }

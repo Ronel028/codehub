@@ -34,7 +34,7 @@ class AuthController extends Controller
         ]);
 
         try {
-            Mail::to('floridaronel15@gmail.com')->send(new VerificationEmail());
+            Mail::to('piyaxa4914@egela.com')->send(new VerificationEmail());
             Log::info('Email sent Successfully');
         } catch (\Throwable $th) {
             Log::error('Failed to send email: ' . $th->getMessage());
