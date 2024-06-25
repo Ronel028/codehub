@@ -26,7 +26,6 @@ Route::get('/register', [AuthController::class, 'register'])->name('register');
 Route::post('/create-account', [AuthController::class, 'createAccount'])->name('create-account');
 Route::post('/authenticate', [AuthController::class, 'authenticate'])->name('authenticate');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
-
 Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
     $request->fulfill();
     return Inertia::render('Home/Index');
@@ -49,8 +48,8 @@ Route::middleware(['auth', 'verified'])->name('blog.')->prefix('blog')->group(fu
     Route::get('/fetch', [BlogController::class, 'fetch'])->name('fetch');
 });
 
-// BLOG ROUTE
-Route::middleware('auth')->name('profile.')->prefix('profile')->group(function () {
+// USER ROUTE
+Route::middleware(['auth', 'verified'])->name('profile.')->prefix('profile')->group(function () {
     Route::get('/', [UserProfileController::class, 'index'])->name('index');
     Route::get('/edit', [UserProfileController::class, 'edit'])->name('edit');
     Route::post('/store', [UserProfileController::class, 'store'])->name('store');
