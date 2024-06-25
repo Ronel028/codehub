@@ -8,7 +8,7 @@ const Blogs = (props) => {
 
     return (
         <>
-            <MainLayout>
+            <MainLayout pageTitle="Blogs">
                 {
                     props.latest_blog.length > 0 ? (
                         <main className=" grid grid-cols-2 gap-1 mb-10">

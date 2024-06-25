@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef, useMemo } from "react";
+import { AiOutlineLoading } from "react-icons/ai";
 import { Link, useForm } from "@inertiajs/react";
 import { toast } from "react-toastify";
 import { MdOutlineFileUpload } from "react-icons/md";
@@ -12,6 +13,7 @@ import Tiptap from "../Components/Markdown/Tiptap";
 const CreateBlog = (props) => {
 
     const [image, setImage] = useState(null)
+    const [loading, setLoading] = useState(false)
     const { data, setData, post, errors, progress, reset } = useForm({
         title: '',
         description: '',
@@ -36,6 +38,12 @@ const CreateBlog = (props) => {
                 })
                 setImage(null)
                 toast.success('New blog successfully uploaded!')
+            },
+            onStart: () => {
+                setLoading(true)
+            },
+            onFinish: () => {
+                setLoading(false)
             }
         })
     }
@@ -95,8 +103,16 @@ const CreateBlog = (props) => {
                             {/* <RteEditor setRteValue={setData} rteValue={data.content} error={errors.content} /> */}
                         </div>
                         <div className=" flex items-center justify-end gap-2">
-                            <Link href="/" className=" font-bold border border-[#415A77]  py-2 text-sm rounded px-3 text-[#E0E1DD] tracking-wide">Back</Link>
-                            <button type="button" onClick={store} name="publish" className=" font-bold bg-[#415A77] py-2 text-sm rounded px-3 text-[#E0E1DD] tracking-wide">Save</button>
+                            <Link replace href="/" className=" font-bold border border-[#415A77]  py-2 text-sm rounded px-3 text-[#E0E1DD] tracking-wide">Back</Link>
+                            <button 
+                                type="button" 
+                                onClick={store} 
+                                name="publish" 
+                                className=" font-bold bg-[#415A77] py-2 flex items-center gap-1 text-sm rounded px-3 text-[#E0E1DD] tracking-wide"
+                            >
+                                Save
+                                {loading ? <AiOutlineLoading className="animate-spin" /> : null}
+                            </button>
                         </div>
                     </form>
                 </div>  
