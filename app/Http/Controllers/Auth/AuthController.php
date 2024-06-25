@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Mail\VerificationEmail;
 use App\Models\User;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -33,19 +34,11 @@ class AuthController extends Controller
             'password' => ['required'],
         ]);
 
-        try {
-            Mail::to('piyaxa4914@egela.com')->send(new VerificationEmail());
-            Log::info('Email sent Successfully');
-        } catch (\Throwable $th) {
-            Log::error('Failed to send email: ' . $th->getMessage());
+        if (Auth::attempt($credentials)) {
+            $request->session()->regenerate();
+
+            return redirect()->intended('/');
         }
-
-
-        // if (Auth::attempt($credentials)) {
-        //     $request->session()->regenerate();
-
-        //     return redirect()->intended('/');
-        // }
 
         return back()->withErrors([
             'email' => 'The provided credentials do not match our records.',
@@ -66,7 +59,9 @@ class AuthController extends Controller
         $user->username = $request->username;
         $user->email = $request->email;
         $user->password = $request->password;
-        $user->save();
+        if ($user->save()) {
+            event(new Registered($user));
+        }
     }
 
     // LOGOUT USER

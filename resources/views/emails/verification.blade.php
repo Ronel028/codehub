@@ -1,1 +1,1 @@
-<h1>Hello this if from mailgun</h1>
+<h1>Verify you account</h1>

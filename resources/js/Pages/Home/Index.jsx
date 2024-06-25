@@ -1,9 +1,20 @@
+import { useEffect } from "react";
 import { Link, usePage } from "@inertiajs/react";
+import { toast } from "react-toastify";
 import { FaCircleArrowRight } from "react-icons/fa6";
 import Navigation from "../Components/Navigation";
 
-const Home = () => {
+const Home = (props) => {
+
     const { auth } = usePage().props;
+
+    useEffect(() => {
+        if(props.email_verified_at == 0){
+            toast.warn('Please verify your account to access the page!')
+        }else{
+            return
+        }
+    }, [])
 
     return (
         <>
