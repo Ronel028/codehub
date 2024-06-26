@@ -7,9 +7,11 @@ import Input from "../Components/Forms/Input";
 import RteEditor from "../Components/Markdown/Rte";
 import Tiptap from "../Components/Markdown/Tiptap";
 import Select from "../Components/Forms/Select";
+import Button from "../Components/Forms/Button";
 
 const EditBlog = (props) => {
 
+    const [loading, setLoading] = useState(false)
     const [image, setImage] = useState((props.blog.upload && props.blog.upload.path) ?? null)
     const { data, setData, post, errors, progress, reset } = useForm({
         id: props.blog.id,
@@ -27,6 +29,12 @@ const EditBlog = (props) => {
         post(`/blog/save-edit`, {
             onSuccess: () => {
                 toast.success('blog successfully updated!')
+            },
+            onStart: () => {
+                setLoading(true)
+            },
+            onFinish: () => {
+                setLoading(false)
             }
         })
     }
@@ -86,7 +94,7 @@ const EditBlog = (props) => {
                         </div>
                         <div className=" flex items-center justify-end gap-2">
                             <Link href="/" className=" font-bold border border-[#415A77]  py-2 text-sm rounded px-3 text-[#E0E1DD] tracking-wide">Back</Link>
-                            <button type="button" onClick={store} name="publish" className=" font-bold bg-[#415A77] py-2 text-sm rounded px-3 text-[#E0E1DD] tracking-wide">Save</button>
+                            <Button event={store} loading={loading}>Save</Button>
                         </div>
                     </form>
                 </div>  

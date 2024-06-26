@@ -6,9 +6,11 @@ import { IoIosAdd } from "react-icons/io";
 import  altImage from "../Assets/Img/image-placeholder.webp"
 import Input from "../Components/Forms/Input";
 import MainLayout from "../../layout/main";
+import Button from "../Components/Forms/Button";
 
 const Edit = (props) => {
 
+    const [loading, setLoading] = useState(false)
     const [datas, setDatas] = useState({
         image: null,
         username: props.user.username,
@@ -72,10 +74,16 @@ const Edit = (props) => {
         })
     }
 
-    const save = () => {
+    const store = () => {
         router.post('/profile/store', datas, {
             onSuccess: () => {
                 toast.success('Profile updated successfully')
+            },
+            onStart: () => {
+                setLoading(true)
+            },
+            onFinish: () => {
+                setLoading(false)
             }
         })
     }
@@ -176,9 +184,7 @@ const Edit = (props) => {
                                 <Link href="/" className=" border border-[#415A77] rounded-md px-3 py-2 text-xs text-[#E0E1DD]">
                                    Back
                                 </Link>
-                                <button onClick={save} className=" border border-[#415A77] bg-[#415A77] rounded-md px-3 py-2 text-xs text-gray-100">
-                                    Save Changes
-                                </button>
+                                <Button event={store} loading={loading}>Save Changes</Button>
                             </div>
                         </div>
                     </div>

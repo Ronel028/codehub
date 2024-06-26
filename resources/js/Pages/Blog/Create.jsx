@@ -7,6 +7,7 @@ import MainLayout from "../../layout/main"
 import Input from "../Components/Forms/Input";
 import RteEditor from "../Components/Markdown/Rte";
 import Select from "../Components/Forms/Select";
+import Button from "../Components/Forms/Button";
 
 import Tiptap from "../Components/Markdown/Tiptap";
 
@@ -103,16 +104,8 @@ const CreateBlog = (props) => {
                             {/* <RteEditor setRteValue={setData} rteValue={data.content} error={errors.content} /> */}
                         </div>
                         <div className=" flex items-center justify-end gap-2">
-                            <Link replace href="/" className=" font-bold border border-[#415A77]  py-2 text-sm rounded px-3 text-[#E0E1DD] tracking-wide">Back</Link>
-                            <button 
-                                type="button" 
-                                onClick={store} 
-                                name="publish" 
-                                className=" font-bold bg-[#415A77] py-2 flex items-center gap-1 text-sm rounded px-3 text-[#E0E1DD] tracking-wide"
-                            >
-                                Save
-                                {loading ? <AiOutlineLoading className="animate-spin" /> : null}
-                            </button>
+                            <Link href="/" className=" font-bold border border-[#415A77]  py-2 text-sm rounded px-3 text-[#E0E1DD] tracking-wide">Back</Link>
+                            <Button event={store} loading={loading}>Save</Button>
                         </div>
                     </form>
                 </div>  

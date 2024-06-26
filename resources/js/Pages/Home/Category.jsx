@@ -9,8 +9,6 @@ import NoDataFound from "../Components/Nodatafound"
 
 const BlogsListByCategory = (props) => {
 
-    console.log(props)
-
     const [search, setSearch] = useState('')
 
     const searchBlog = (e) => {
