@@ -83,7 +83,7 @@ const MenuBar = ({ editor }) => {
             <button type='button' onClick={openHeadingMenu} className=' py-1 px-3 border border-secondary text-sm rounded-md'>
               Heading
             </button>
-            <ul className={`${openHeading ? 'block' : 'hidden'} absolute z-[60] bottom-8 border border-[#415A77] bg-[#1B263B] rounded-md mt-1 shadow w-[130px]`}>
+            <ul className={`${openHeading ? 'block' : 'hidden'} absolute z-[60]  border border-[#415A77] bg-[#1B263B] rounded-md mt-1 shadow w-[130px]`}>
               <li>
                 <button
                     type='button'
