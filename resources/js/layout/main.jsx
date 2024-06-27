@@ -10,7 +10,7 @@ const MainLayout = (props) => {
             <main className=" bg-[#1b263b] h-auto min-h-screen">
                 <main className=" max-w-[1500px] w-[90%] mx-auto">
                     <Navigation setSearch={props.setSearch} search={props.search} user={auth.user} />
-                    <section className="pt-[65px] pb-10">
+                    <section className="pt-[65px]">
                         {props.children}
                     </section>
                 </main>

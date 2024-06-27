@@ -127,7 +127,7 @@ const Blogs = (props) => {
                 {/* All BLOG */}
                 {
                      props.blogs.length > 0 ? (
-                        <div className="border-b border-secondary pb-5 mb-5">
+                        <div className="border-b border-secondary pb-5">
                             <div className=" grid grid-cols-3 gap-3">
                                 {
                                     props.blogs.map(blog => (

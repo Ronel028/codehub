@@ -3,9 +3,7 @@ import { Link, router } from "@inertiajs/react";
 import moment from "moment";
 import { debounce } from "lodash"
 import { MdEditSquare } from "react-icons/md";
-import { FaTrashAlt } from "react-icons/fa";
 import MainLayout from "../../layout/main"
-import Input from "../Components/Forms/Input"
 import imagePlaceholder from "../Assets/Img/placeholder.jpg"
 import NoDataFound from "../Components/Nodatafound";
 

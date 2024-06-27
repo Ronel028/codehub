@@ -10,6 +10,9 @@ export default defineConfig({
             refresh: true,
         }),
     ],
+    build: {
+        chunkSizeWarningLimit: 1600
+    },
     optimizeDeps: {
         exclude: ['@tiptap/extension-youtube']
     }

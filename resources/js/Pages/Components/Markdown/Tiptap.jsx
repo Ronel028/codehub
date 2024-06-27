@@ -1,5 +1,5 @@
-import { useState, useMemo, useCallback, useEffect } from 'react'
-import { EditorProvider, useCurrentEditor, useEditor } from '@tiptap/react'
+import { useState, useMemo, useCallback, useEffect, useRef } from 'react'
+import { useEditor, EditorContent } from '@tiptap/react'
 import Heading from '@tiptap/extension-heading'
 import Image from '@tiptap/extension-image'
 import Link from '@tiptap/extension-link'
@@ -11,15 +11,13 @@ import StarterKit from '@tiptap/starter-kit'
 import { mergeAttributes } from '@tiptap/react'
 import { Extension } from '@tiptap/react'
 
-import { FaBold, FaItalic, FaStrikethrough, FaParagraph, FaListUl, FaListOl, FaQuoteLeft, FaImage, FaLink, FaVideo } from "react-icons/fa";
+import { FaBold, FaItalic, FaStrikethrough, FaParagraph, FaListUl, FaListOl, FaQuoteLeft, FaImage, FaLink, FaVideo, FaExpandArrowsAlt  } from "react-icons/fa";
 import { BiCodeBlock, BiUndo, BiRedo  } from "react-icons/bi";
 import Placeholder from '@tiptap/extension-placeholder'
 
-
 const lowlight = createLowlight(common)
 
-const MenuBar = () => {
-  const { editor } = useCurrentEditor()
+const MenuBar = ({ editor }) => {
   const [openHeading, setOpenHeading] = useState(false)
 
   const openHeadingMenu = () => {
@@ -280,7 +278,10 @@ const MenuBar = () => {
 }
 
 const Tiptap = (props) => {
+  const editorRef = useRef(null)
+  const [height, setHeight] = useState(null)
   const [value, setValue] = useState(props.rteValue)
+  const [expandEditor, setExpandEditor] = useState(false)
 
   const extensions = useMemo(() => {
     return [
@@ -364,21 +365,61 @@ const Tiptap = (props) => {
     props.setRteValue === null ? null : props.setRteValue('content', value)
   }, [value])
 
+
+  const editorExpand = () => {
+    setExpandEditor(prevState => !prevState)
+  }
+
+  useEffect(() => {
+    if (editorRef.current) {
+      let size = (editorRef.current.clientHeight - 80) + 'px'
+      expandEditor ? setHeight(size) : setHeight(`300px`);
+    }
+  }, [expandEditor]);
+
+  const editor = useEditor({
+    extensions: extensions,
+    content: props.rteValue,
+    editorProps: {
+      attributes: {
+        class: `${props.styleContainer == null ? `border-[#415A77] border` : props.styleContainer }`,
+        style: `${props.styleContainer == null ? `height: ${height};` : props.styleContainer } `
+      }
+    },
+    editable: props.editable == null ? true : false
+  })
+
+  useEffect(() => {
+    if(editor){
+      editor.setOptions({
+        editorProps: {
+          attributes: {
+            class: `${props.styleContainer == null ? `border-[#415A77] border` : props.styleContainer }`,
+            style: `${props.styleContainer == null ? `height: ${height};` : props.styleContainer } `
+          }
+        }
+      })
+    }
+  }, [height])
+
   return (
       <>
-        <div className={` ${props.error ? 'border border-red-500 p-2 rounded-md' : ''}`}>
-          <EditorProvider
-              extensions={extensions}
-              content={props.rteValue}
-              editorProps={{
-                attributes: {
-                  class: `${props.styleContainer == null ? 'border-[#415A77] h-[300px] border' : props.styleContainer }`
-                }
-              }}
-              editable={props.editable == null ? true : false}
-              slotBefore={props.disableMenuBar ? null : <MenuBar />}
-          />
-          {props.error && <p className=" text-xs text-red-500 mt-1">{props.error}</p>}
+        <div className={`${expandEditor ? 'absolute inset-0 z-[999] bg-[#415A77] bg-opacity-40 backdrop-blur-sm px-2 py-3' : '' }`}>
+          <div ref={editorRef} className={` ${props.error && !expandEditor ? 'border border-red-500 p-2 rounded-md' : ''} ${expandEditor ? `bg-[#1B263B] p-2 rounded-md h-full` : ''}`}>
+            
+            {
+              props.disableMenuBar ? null : (
+                <div className=' flex items-center justify-end'>
+                  <button title='Expand Editor' type='button' onClick={editorExpand}>
+                    <FaExpandArrowsAlt />
+                  </button>
+                </div>
+              )
+            }
+            { props.disableMenuBar ? null : <MenuBar editor={editor} /> }
+            <EditorContent editor={editor}  />
+            {(props.error && !expandEditor) && <p className=" text-xs text-red-500 mt-1">{props.error}</p>}
+          </div>
         </div>
       </>
   )
