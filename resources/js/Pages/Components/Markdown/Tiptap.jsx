@@ -5,7 +5,6 @@ import Image from '@tiptap/extension-image'
 import Link from '@tiptap/extension-link'
 import CodeBlockLowlight from '@tiptap/extension-code-block-lowlight'
 import Youtube from '@tiptap/extension-youtube'
-import HardBreak from '@tiptap/extension-hard-break'
 import {common, createLowlight} from 'lowlight'
 import StarterKit from '@tiptap/starter-kit'
 import { mergeAttributes } from '@tiptap/react'
@@ -288,7 +287,6 @@ const Tiptap = (props) => {
         StarterKit.configure({
             heading: false,
             codeBlock: false,
-            hardBreak: false
         }),
         Heading.configure({ levels: [1, 2] }).extend({
             levels: [1, 2],
@@ -340,13 +338,6 @@ const Tiptap = (props) => {
           disableKBcontrols: true,
           loop: true,
         }),
-        HardBreak.extend({
-          addKeyboardShortcuts () {
-            return {
-              Enter: () => this.editor.commands.setHardBreak()
-            }
-          }
-        }),
         Placeholder.configure({
           placeholder: 'Write your blog content here...',
           considerAnyAsEmpty: true
@@ -354,7 +345,10 @@ const Tiptap = (props) => {
         Extension.create({
           onUpdate({ editor }) {
             let value = editor.getHTML()
-            value = value.replace(/<p>\s*<\/p>/g, '')
+
+            if (!('content' in editor.getJSON().content[0])) {
+              value = value.replace(/<p>\s*<\/p>/g, '')
+            }
             setValue(value)
           }
         })
