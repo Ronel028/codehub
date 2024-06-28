@@ -376,7 +376,7 @@ const Tiptap = (props) => {
 
   useEffect(() => {
     if (editorRef.current) {
-      let size = (editorRef.current.clientHeight - 85) + 'px'
+      let size = (editorRef.current.clientHeight - 45) + 'px'
       expandEditor ? setHeight(size) : setHeight(`300px`);
     }
   }, [expandEditor]);
@@ -409,17 +409,7 @@ const Tiptap = (props) => {
   return (
       <>
         <div className={`${expandEditor ? 'absolute inset-0 z-[999] bg-[#415A77] bg-opacity-40 backdrop-blur-sm px-2 py-3' : '' }`}>
-          <div ref={editorRef} className={` ${props.error && !expandEditor ? 'border border-red-500 p-2 rounded-md' : ''} ${expandEditor ? `bg-[#1B263B] p-2 rounded-md h-full` : ''}`}>
-            
-            {/* {
-              props.disableMenuBar ? null : (
-                <div className=' flex items-center justify-end mb-2'>
-                  <button title='Expand Editor' type='button' onClick={editorExpand}>
-                    <FaExpandArrowsAlt />
-                  </button>
-                </div>
-              )
-            } */}
+          <div ref={editorRef} className={` ${props.error && !expandEditor ? 'border border-red-500 p-2 rounded-md' : ''} ${expandEditor ? ` rounded-md h-full` : ''}`}>
             { props.disableMenuBar ? null : <MenuBar editor={editor} editorExpand={editorExpand} /> }
             <EditorContent editor={editor}  />
             {(props.error && !expandEditor) && <p className=" text-xs text-red-500 mt-1">{props.error}</p>}
