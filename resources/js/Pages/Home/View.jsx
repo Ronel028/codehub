@@ -13,8 +13,6 @@ import NoDataFound from "../Components/Nodatafound";
 
 const ViewBlog = (props) => {
 
-    console.log(props);
-
     return (
         <>
             <MainLayout>

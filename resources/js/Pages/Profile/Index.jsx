@@ -8,8 +8,6 @@ import  altImage from "../Assets/Img/image-placeholder.webp"
 
 const Profile = (props) => {
 
-    console.log(props)
-
     return (
         <>
             <MainLayout>

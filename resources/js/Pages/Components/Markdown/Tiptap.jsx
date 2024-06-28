@@ -5,18 +5,20 @@ import Image from '@tiptap/extension-image'
 import Link from '@tiptap/extension-link'
 import CodeBlockLowlight from '@tiptap/extension-code-block-lowlight'
 import Youtube from '@tiptap/extension-youtube'
+import ImageResize from 'tiptap-extension-resize-image'
 import {common, createLowlight} from 'lowlight'
 import StarterKit from '@tiptap/starter-kit'
 import { mergeAttributes } from '@tiptap/react'
 import { Extension } from '@tiptap/react'
 
-import { FaBold, FaItalic, FaStrikethrough, FaParagraph, FaListUl, FaListOl, FaQuoteLeft, FaImage, FaLink, FaVideo, FaExpandArrowsAlt  } from "react-icons/fa";
-import { BiCodeBlock, BiUndo, BiRedo  } from "react-icons/bi";
+import { FaBold, FaItalic, FaStrikethrough, FaParagraph, FaListUl, FaListOl, FaQuoteLeft, FaImage, FaLink, FaVideo, FaCode  } from "react-icons/fa";
+import { BiUndo, BiRedo  } from "react-icons/bi";
+import { AiOutlineExpand } from "react-icons/ai";
 import Placeholder from '@tiptap/extension-placeholder'
 
 const lowlight = createLowlight(common)
 
-const MenuBar = ({ editor }) => {
+const MenuBar = ({ editor, editorExpand }) => {
   const [openHeading, setOpenHeading] = useState(false)
 
   const openHeadingMenu = () => {
@@ -75,172 +77,178 @@ const MenuBar = ({ editor }) => {
   }
   
   return (
-    <div className="mb-2">
-      <div className="button-group flex items-center justify-between">
-        <div className='flex items-center gap-3'>
-          <div className=' relative'>
-            <button type='button' onClick={openHeadingMenu} className=' py-1 px-3 border border-secondary text-sm rounded-md'>
-              Heading
+    <div className=" border-b border-[#1B263B]">
+      <div className=" flex items-center justify-between bg-[#0D1B2A] p-2 rounded-t-md">
+        <div className='flex items-center divide-x divide-[#1B263B]'>
+          <div className=' flex items-center gap-2 pr-3'>
+            <div className=' relative'>
+              <button type='button' onClick={openHeadingMenu} className=' py-1 px-3 border border-secondary text-sm rounded-md'>
+                Heading
+              </button>
+              <ul className={`${openHeading ? 'block' : 'hidden'} absolute z-[60]  border border-[#415A77] bg-[#1B263B] rounded-md mt-1 shadow w-[130px]`}>
+                <li>
+                  <button
+                      type='button'
+                      onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}
+                      className={`${editor.isActive('heading', { level: 2 }) ? 'bg-[#415A77] text-[#E0E1DD]' : ''} py-1 px-2 text-left hover:bg-[#415A77] hover:text-light w-full`}
+                    >
+                      Heading 2
+                  </button>
+                </li>
+                <li>
+                  <button
+                      type='button'
+                      onClick={() => editor.chain().focus().toggleHeading({ level: 3 }).run()}
+                      className={`${editor.isActive('heading', { level: 3 }) ? 'bg-[#415A77] text-[#E0E1DD]' : ''} py-1 px-2 text-left hover:bg-[#415A77] hover:text-light w-full`}
+                    >
+                      Heading 3
+                  </button>
+                </li>
+                <li>
+                  <button
+                    type='button'
+                    onClick={() => editor.chain().focus().toggleHeading({ level: 4 }).run()}
+                    className={`${editor.isActive('heading', { level: 4 }) ? 'bg-[#415A77] text-[#E0E1DD]' : ''} py-1 px-2 text-left hover:bg-[#415A77] hover:text-light w-full`}
+                  >
+                    Heading 4
+                  </button>
+                </li>
+                <li>
+                  <button
+                      type='button'
+                      onClick={() => editor.chain().focus().toggleHeading({ level: 5 }).run()}
+                      className={`${editor.isActive('heading', { level: 5 }) ? 'bg-[#415A77] text-[#E0E1DD]' : ''} py-1 px-2 text-left hover:bg-[#415A77] hover:text-light w-full`}
+                    >
+                      Heading 5
+                  </button>
+                </li>
+                <li>
+                  <button
+                    type='button'
+                    onClick={() => editor.chain().focus().toggleHeading({ level: 6 }).run()}
+                    className={`${editor.isActive('heading', { level: 6 }) ? 'bg-[#415A77] text-[#E0E1DD]' : ''} py-1 px-2 text-left hover:bg-[#415A77] hover:text-light w-full`}
+                  >
+                    Heading 6
+                  </button>
+                </li>
+              </ul>
+            </div>
+            <button
+              type='button'
+              title='Bold'
+              onClick={() => editor.chain().focus().toggleBold().run()}
+              disabled={
+                !editor.can()
+                  .chain()
+                  .focus()
+                  .toggleBold()
+                  .run()
+              }
+              className={`${editor.isActive('bold') ? 'bg-[#415A77] text-[#E0E1DD] group' : ''} hover:bg-[#415A77] p-1 rounded`}
+            >
+              <FaBold className="group-[.bg-[#415A77]]:fill-[#E0E1DD] text-sm" />
             </button>
-            <ul className={`${openHeading ? 'block' : 'hidden'} absolute z-[60]  border border-[#415A77] bg-[#1B263B] rounded-md mt-1 shadow w-[130px]`}>
-              <li>
-                <button
-                    type='button'
-                    onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}
-                    className={`${editor.isActive('heading', { level: 2 }) ? 'bg-[#415A77] text-[#E0E1DD]' : ''} py-1 px-2 text-left hover:bg-[#415A77] hover:text-light w-full`}
-                  >
-                    Heading 2
-                </button>
-              </li>
-              <li>
-                <button
-                    type='button'
-                    onClick={() => editor.chain().focus().toggleHeading({ level: 3 }).run()}
-                    className={`${editor.isActive('heading', { level: 3 }) ? 'bg-[#415A77] text-[#E0E1DD]' : ''} py-1 px-2 text-left hover:bg-[#415A77] hover:text-light w-full`}
-                  >
-                    Heading 3
-                </button>
-              </li>
-              <li>
-                <button
-                  type='button'
-                  onClick={() => editor.chain().focus().toggleHeading({ level: 4 }).run()}
-                  className={`${editor.isActive('heading', { level: 4 }) ? 'bg-[#415A77] text-[#E0E1DD]' : ''} py-1 px-2 text-left hover:bg-[#415A77] hover:text-light w-full`}
-                >
-                  Heading 4
-                </button>
-              </li>
-              <li>
-                <button
-                    type='button'
-                    onClick={() => editor.chain().focus().toggleHeading({ level: 5 }).run()}
-                    className={`${editor.isActive('heading', { level: 5 }) ? 'bg-[#415A77] text-[#E0E1DD]' : ''} py-1 px-2 text-left hover:bg-[#415A77] hover:text-light w-full`}
-                  >
-                    Heading 5
-                </button>
-              </li>
-              <li>
-                <button
-                  type='button'
-                  onClick={() => editor.chain().focus().toggleHeading({ level: 6 }).run()}
-                  className={`${editor.isActive('heading', { level: 6 }) ? 'bg-[#415A77] text-[#E0E1DD]' : ''} py-1 px-2 text-left hover:bg-[#415A77] hover:text-light w-full`}
-                >
-                  Heading 6
-                </button>
-              </li>
-            </ul>
+            <button
+              type='button'
+              title='Italic'
+              onClick={() => editor.chain().focus().toggleItalic().run()}
+              disabled={
+                !editor.can()
+                  .chain()
+                  .focus()
+                  .toggleItalic()
+                  .run()
+              }
+              className={`${editor.isActive('italic') ? 'bg-[#415A77] text-[#E0E1DD] group' : ''} hover:bg-[#415A77] p-1 rounded`}
+            >
+              <FaItalic className="group-[.bg-[#415A77]]:fill-[#E0E1DD] text-sm" />
+            </button>
+            <button
+              type='button'
+              title='Strike'
+              onClick={() => editor.chain().focus().toggleStrike().run()}
+              disabled={
+                !editor.can()
+                  .chain()
+                  .focus()
+                  .toggleStrike()
+                  .run()
+              }
+              className={`${editor.isActive('strike') ? 'bg-[#415A77] text-[#E0E1DD] group' : ''} hover:bg-[#415A77] p-1 rounded`}
+            >
+              <FaStrikethrough className="group-[.bg-[#415A77]]:fill-[#E0E1DD] text-sm" />
+            </button>
+            <button
+              type='button'
+              title='Paragraph'
+              onClick={() => editor.chain().focus().setParagraph().run()}
+              className={`${editor.isActive('paragraph') ? 'bg-[#415A77] text-[#E0E1DD] group' : ''} hover:bg-[#415A77] p-1 rounded`}
+            >
+              <FaParagraph className="group-[.bg-[#415A77]]:fill-[#E0E1DD] text-sm" />
+            </button>
           </div>
-          <button
-            type='button'
-            title='Bold'
-            onClick={() => editor.chain().focus().toggleBold().run()}
-            disabled={
-              !editor.can()
-                .chain()
-                .focus()
-                .toggleBold()
-                .run()
-            }
-            className={`${editor.isActive('bold') ? 'bg-[#415A77] text-[#E0E1DD] group' : ''} p-1 rounded`}
-          >
-            <FaBold className="group-[.bg-secondary]:fill-light text-sm" />
-          </button>
-          <button
-            type='button'
-            title='Italic'
-            onClick={() => editor.chain().focus().toggleItalic().run()}
-            disabled={
-              !editor.can()
-                .chain()
-                .focus()
-                .toggleItalic()
-                .run()
-            }
-            className={`${editor.isActive('italic') ? 'bg-[#415A77] text-[#E0E1DD] group' : ''} p-1 rounded`}
-          >
-            <FaItalic className="group-[.bg-secondary]:fill-light text-sm" />
-          </button>
-          <button
-            type='button'
-            title='Strike'
-            onClick={() => editor.chain().focus().toggleStrike().run()}
-            disabled={
-              !editor.can()
-                .chain()
-                .focus()
-                .toggleStrike()
-                .run()
-            }
-            className={`${editor.isActive('strike') ? 'bg-[#415A77] text-[#E0E1DD] group' : ''} p-1 rounded`}
-          >
-            <FaStrikethrough className="group-[.bg-secondary]:fill-light text-sm" />
-          </button>
-          <button
-            type='button'
-            title='Paragraph'
-            onClick={() => editor.chain().focus().setParagraph().run()}
-            className={`${editor.isActive('paragraph') ? 'bg-[#415A77] text-[#E0E1DD] group' : ''} p-1 rounded`}
-          >
-            <FaParagraph className="group-[.bg-secondary]:fill-light text-sm" />
-          </button>
-          <button
-            type='button'
-            title='Bullet List'
-            onClick={() => editor.chain().focus().toggleBulletList().run()}
-            className={`${editor.isActive('bulletList') ? 'bg-[#415A77] text-[#E0E1DD] group' : ''} p-1 rounded`}
-          >
-            <FaListUl className="group-[.bg-secondary]:fill-light text-sm" />
-          </button>
-          <button
-            type='button'
-            title='Order List'
-            onClick={() => editor.chain().focus().toggleOrderedList().run()}
-            className={`${editor.isActive('orderedList') ? 'bg-[#415A77] text-[#E0E1DD] group' : ''} p-1 rounded`}
-          >
-            <FaListOl className="group-[.bg-secondary]:fill-light text-sm" />
-          </button>
-          <button
-            type='button'
-            title='Code Block'
-            onClick={() => editor.chain().focus().toggleCodeBlock().run()}
-            className={`${editor.isActive('codeBlock') ? 'bg-[#415A77] text-[#E0E1DD] group' : ''} p-1 rounded`}
-          >
-            <BiCodeBlock className="group-[.bg-secondary]:fill-light text-sm" />
-          </button>
-          <button
-            type='button'
-            title='Qoute'
-            onClick={() => editor.chain().focus().toggleBlockquote().run()}
-            className={`${editor.isActive('blockquote') ? 'bg-[#415A77] text-[#E0E1DD] group' : ''} p-1 rounded`}
-          >
-            <FaQuoteLeft className="group-[.bg-secondary]:fill-light text-sm" />
-          </button>
-          <button
+          <div className=' flex items-center gap-2 px-3'>
+            <button
               type='button'
-              title='Link'
-              onClick={setLink}
-              className={`${editor.isActive('blockquote') ? 'bg-[#415A77] text-[#E0E1DD] group' : ''} p-1 rounded`}
+              title='Bullet List'
+              onClick={() => editor.chain().focus().toggleBulletList().run()}
+              className={`${editor.isActive('bulletList') ? 'bg-[#415A77] text-[#E0E1DD] group' : ''} hover:bg-[#415A77] p-1 rounded`}
             >
-            <FaLink  className="group-[.bg-secondary]:fill-light text-sm" />
-          </button>
-          <label
-            htmlFor='image'
-            title='Image'
-            className={`p-1 rounded cursor-pointer`}
-          >
-            <input type="file" hidden id="image" onChange={handleFileChange} />
-            <FaImage />
-          </label>
-          <button
+              <FaListUl className="group-[.bg-[#415A77]]:fill-[#E0E1DD] text-sm" />
+            </button>
+            <button
               type='button'
-              title='Video'
-              onClick={addYoutubeVideo}
-              className={`${editor.isActive('blockquote') ? 'bg-[#415A77] text-[#E0E1DD] group' : ''} p-1 rounded`}
+              title='Order List'
+              onClick={() => editor.chain().focus().toggleOrderedList().run()}
+              className={`${editor.isActive('orderedList') ? 'bg-[#415A77] text-[#E0E1DD] group' : ''} hover:bg-[#415A77] p-1 rounded`}
             >
-            <FaVideo   className="group-[.bg-secondary]:fill-light text-sm" />
-          </button>
+              <FaListOl className="group-[.bg-[#415A77]]:fill-[#E0E1DD] text-sm" />
+            </button>
+          </div>
+          <div className=' flex items-center gap-2 px-3'>
+            <button
+              type='button'
+              title='Code Block'
+              onClick={() => editor.chain().focus().toggleCodeBlock().run()}
+              className={`${editor.isActive('codeBlock') ? 'bg-[#415A77] text-[#E0E1DD] group' : ''} hover:bg-[#415A77] p-1 rounded`}
+            >
+              <FaCode className="group-[.bg-[#415A77]]:fill-[#E0E1DD] text-base" />
+            </button>
+            <button
+              type='button'
+              title='Qoute'
+              onClick={() => editor.chain().focus().toggleBlockquote().run()}
+              className={`${editor.isActive('blockquote') ? 'bg-[#415A77] text-[#E0E1DD] group' : ''} hover:bg-[#415A77] p-1 rounded`}
+            >
+              <FaQuoteLeft className="group-[.bg-[#415A77]]:fill-[#E0E1DD] text-sm" />
+            </button>
+            <button
+                type='button'
+                title='Link'
+                onClick={setLink}
+                className={`${editor.isActive('blockquote') ? 'bg-[#415A77] text-[#E0E1DD] group' : ''} hover:bg-[#415A77] p-1 rounded`}
+              >
+              <FaLink  className="group-[.bg-[#415A77]]:fill-[#E0E1DD] text-sm" />
+            </button>
+            <label
+              htmlFor='image'
+              title='Image'
+              className={`p-1 rounded cursor-pointer hover:bg-[#415A77]`}
+            >
+              <input type="file" hidden id="image" onChange={handleFileChange} />
+              <FaImage />
+            </label>
+            <button
+                type='button'
+                title='Video'
+                onClick={addYoutubeVideo}
+                className={`${editor.isActive('blockquote') ? 'bg-[#415A77] text-[#E0E1DD] group' : ''} hover:bg-[#415A77] p-1 rounded`}
+              >
+              <FaVideo   className="group-[.bg-[#415A77]]:fill-light text-sm" />
+            </button>
+          </div>
         </div>
-        <div className=' flex items-center gap-2'>
+        <div className=' flex items-center gap-3'>
           <button
             type='button'
             title='Undo'
@@ -253,7 +261,7 @@ const MenuBar = ({ editor }) => {
                 .run()
             }
           >
-            <BiUndo className=' text-lg' />
+            <BiUndo className=' text-lg fill-[#E0E1DD]' />
           </button>
           <button
               type='button'
@@ -266,9 +274,11 @@ const MenuBar = ({ editor }) => {
                   .redo()
                   .run()
               }
-               className=' text-lg'
             >
-            <BiRedo />
+            <BiRedo className=' text-lg fill-[#E0E1DD]' />
+          </button>
+          <button title='Expand Editor' type='button' onClick={editorExpand} className='fill-[#E0E1DD]'>
+            <AiOutlineExpand />
           </button>
         </div>
       </div>
@@ -310,7 +320,7 @@ const Tiptap = (props) => {
                 ]
             },
         }),
-        Image.configure({
+        ImageResize.configure({
           inline: true,
           allowBase64: true,
         }),
@@ -366,7 +376,7 @@ const Tiptap = (props) => {
 
   useEffect(() => {
     if (editorRef.current) {
-      let size = (editorRef.current.clientHeight - 80) + 'px'
+      let size = (editorRef.current.clientHeight - 85) + 'px'
       expandEditor ? setHeight(size) : setHeight(`300px`);
     }
   }, [expandEditor]);
@@ -376,7 +386,7 @@ const Tiptap = (props) => {
     content: props.rteValue,
     editorProps: {
       attributes: {
-        class: `${props.styleContainer == null ? `border-[#415A77] border` : props.styleContainer }`,
+        class: `${props.styleContainer == null ? `border-[#415A77] rounded-b-md bg-[#0D1B2A] text-sm` : props.styleContainer }`,
         style: `${props.styleContainer == null ? `height: ${height};` : props.styleContainer } `
       }
     },
@@ -388,7 +398,7 @@ const Tiptap = (props) => {
       editor.setOptions({
         editorProps: {
           attributes: {
-            class: `${props.styleContainer == null ? `border-[#415A77] border` : props.styleContainer }`,
+            class: `${props.styleContainer == null ? `border-[#415A77] rounded-b-md bg-[#0D1B2A] text-sm` : props.styleContainer }`,
             style: `${props.styleContainer == null ? `height: ${height};` : props.styleContainer } `
           }
         }
@@ -401,16 +411,16 @@ const Tiptap = (props) => {
         <div className={`${expandEditor ? 'absolute inset-0 z-[999] bg-[#415A77] bg-opacity-40 backdrop-blur-sm px-2 py-3' : '' }`}>
           <div ref={editorRef} className={` ${props.error && !expandEditor ? 'border border-red-500 p-2 rounded-md' : ''} ${expandEditor ? `bg-[#1B263B] p-2 rounded-md h-full` : ''}`}>
             
-            {
+            {/* {
               props.disableMenuBar ? null : (
-                <div className=' flex items-center justify-end'>
+                <div className=' flex items-center justify-end mb-2'>
                   <button title='Expand Editor' type='button' onClick={editorExpand}>
                     <FaExpandArrowsAlt />
                   </button>
                 </div>
               )
-            }
-            { props.disableMenuBar ? null : <MenuBar editor={editor} /> }
+            } */}
+            { props.disableMenuBar ? null : <MenuBar editor={editor} editorExpand={editorExpand} /> }
             <EditorContent editor={editor}  />
             {(props.error && !expandEditor) && <p className=" text-xs text-red-500 mt-1">{props.error}</p>}
           </div>
