@@ -6,6 +6,8 @@ import imagePlaceholder from "../Assets/Img/placeholder.jpg"
 
 const Blogs = (props) => {
 
+    console.log(props)
+
     return (
         <>
             <MainLayout pageTitle="Blogs">
@@ -25,8 +27,14 @@ const Blogs = (props) => {
                                         <div className=" absolute bottom-4 left-4">
                                             <div className=" bg-light rounded py-1 px-2 inline-block text-xs text-primary mb-1">{props.latest_blog[0].category.name}</div>
                                             <p className=" font-bold mb-1 text-light text-3xl">{props.latest_blog[0].title}</p>
-                                            <p className=" text-xs text-light">
-                                                {(props.latest_blog[0].user.user_detail && props.latest_blog[0].user.full_name) ?? props.latest_blog[0].user.username} | {moment(props.latest_blog[0].created_at).format('ll')}
+                                            <p className="text-xs text-light flex items-center gap-1">
+                                                {
+                                                    props.latest_blog[0].user.full_name != ' ' && props.latest_blog[0].user.full_name != null ? (
+                                                        <span>{props.latest_blog[0].user.full_name}</span>
+                                                    ) :  <span>{props.latest_blog[0].user.username}</span>
+                                                }
+                                                <span>|</span>
+                                                <span>{moment(props.latest_blog[0].created_at).format('ll')}</span>
                                             </p>
                                         </div>
                                     </Link>
@@ -48,8 +56,14 @@ const Blogs = (props) => {
                                                         <div>
                                                             <div className=" bg-[#415a77] rounded py-1 px-2 inline-block text-xs text-light mb-1">{blog.category.name}</div>
                                                             <p className=" font-bold mb-1 text-xl text-[#E0E1DD]">{blog.title}</p>
-                                                            <p className=" text-xs text-[#E0E1DD]">
-                                                            {(blog.user.user_detail && blog.user.full_name) ?? blog.user.username} | {moment(blog.created_at).format('ll')}
+                                                            <p className="text-xs text-[#E0E1DD] flex items-center gap-1">
+                                                                {
+                                                                    blog.user.full_name != ' ' && blog.user.full_name != null ? (
+                                                                        <span>{blog.user.full_name}</span>
+                                                                    ) :  <span>{blog.user.username}</span>
+                                                                }
+                                                                <span>|</span>
+                                                                <span>{moment(blog.created_at).format('ll')}</span>
                                                             </p>
                                                         </div>
                                                     </div>
@@ -108,8 +122,14 @@ const Blogs = (props) => {
                                                 <div className=" mb-1">
                                                     <div className=" bg-[#415a77] rounded py-1 px-2 inline-block text-xs text-light mb-1">{blog.category.name}</div>
                                                     <p className=" font-bold mb-1 text-xl text-[#E0E1DD]">{blog.title}</p>
-                                                    <p className=" text-xs text-[#E0E1DD]">
-                                                        {(blog.user.user_detail && blog.user.full_name) ?? blog.user.username} | {moment(blog.created_at).format('ll')}
+                                                     <p className="text-xs text-[#E0E1DD] flex items-center gap-1">
+                                                        {
+                                                            blog.user.full_name != ' ' && blog.user.full_name != null ? (
+                                                                <span>{blog.user.full_name}</span>
+                                                            ) :  <span>{blog.user.username}</span>
+                                                        }
+                                                        <span>|</span>
+                                                        <span>{moment(blog.created_at).format('ll')}</span>
                                                     </p>
                                                 </div>
                                                 <div>
@@ -143,8 +163,14 @@ const Blogs = (props) => {
                                                 <div className=" mb-1">
                                                     <div className=" bg-[#415a77] rounded py-1 px-2 inline-block text-xs text-light mb-1">{blog.category.name}</div>
                                                     <p className=" font-bold mb-1 text-xl text-[#E0E1DD]">{blog.title}</p>
-                                                    <p className=" text-xs text-[#E0E1DD]">
-                                                        {(blog.user.user_detail && blog.user.full_name) ?? blog.user.username} | {moment(blog.created_at).format('ll')}
+                                                    <p className="text-xs text-[#E0E1DD] flex items-center gap-1">
+                                                        {
+                                                            blog.user.full_name != ' ' && blog.user.full_name != null ? (
+                                                                <span>{blog.user.full_name}</span>
+                                                            ) :  <span>{blog.user.username}</span>
+                                                        }
+                                                        <span>|</span>
+                                                        <span>{moment(blog.created_at).format('ll')}</span>
                                                     </p>
                                                 </div>
                                                 <div>
