@@ -1,9 +1,11 @@
+import { useState } from "react";
 import { Link, useForm } from "@inertiajs/react";
 import Input from "../Components/Forms/Input";
 import accessImg from "../Assets/Img/access.jpg"
 
 const Login = () => {
 
+    const [showPassword, setShowPassword] = useState(false);
     const { data, setData, post, processing, errors, reset } = useForm({
         email: '',
         password: '',
@@ -25,7 +27,7 @@ const Login = () => {
                     <form className=" w-full" onSubmit={create}>
                         <div className=" flex flex-col gap-4">
                             <Input label="Email Address" error={errors.email} type="email" placeholder="example@email.com" value={data.email} onChange={e => setData('email', e.target.value)} />
-                            <Input label="Password" type="password" placeholder="Minimum of 8 character" value={data.password} onChange={e => setData('password', e.target.value)} />
+                            <Input label="Password" type='password' placeholder="Minimum of 8 character" value={data.password} onChange={e => setData('password', e.target.value)} />
                             <div className=" flex items-center justify-end">
                                 <button type="submit" className="w-full font-bold bg-[#415A77] py-2 text-sm rounded px-3 text-light tracking-wide">Signin</button>
                             </div>
