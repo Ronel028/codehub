@@ -23,7 +23,7 @@ const CreateBlog = (props) => {
         content: null,
         image: null,
     })
-      
+
     // SAVE DATA TO THE DATABASE
     const store = (e) => {
         e.preventDefault()
@@ -61,7 +61,7 @@ const CreateBlog = (props) => {
         <>
             <MainLayout>
                 <div className=" mb-8 py-4 border-b">
-                    <h1 className=" text-xl font-bold">Get Started on Your New Blog Today📒</h1>  
+                    <h1 className=" text-xl font-bold">Get Started on your New Blog Today📒</h1>
                 </div>
                 <div className="pb-8">
                     <form>
@@ -83,8 +83,8 @@ const CreateBlog = (props) => {
                                 <div className={`${errors.image ? 'border-red-500 p-1' : 'border-[#415A77] bg-[#0D1B2A] '} w-full h-[200px] p-2  flex  border-dashed border-2  rounded-md items-center mx-auto text-center cursor-pointer`}>
                                     <input id="upload" type="file" className="hidden" accept="image/*" onChange={onImageChange} />
                                     <label htmlFor="upload" className="cursor-pointer w-full h-[200px] py-2 flex items-center justify-center">
-                                    {
-                                        image === null ? <div>
+                                        {
+                                            image === null ? <div>
                                                 <div className=" flex items-center justify-center">
                                                     <MdOutlineFileUpload className=" text-4xl" />
                                                 </div>
@@ -93,7 +93,7 @@ const CreateBlog = (props) => {
                                                 <p className="font-normal text-sm text-[#778DA9] md:px-6">and should be in <b className="text-[#E0E1DD]">JPG, PNG, or WEBP</b> format.</p>
                                                 <span id="filename" className="text-gray-500 bg-gray-200 z-50"></span>
                                             </div> : <img className=" w-full h-full object-cover rounded-md" src={image} alt="" />
-                                    }
+                                        }
                                     </label>
                                 </div>
                                 {errors.image && <p className=" text-xs text-red-500">{errors.image}</p>}
@@ -104,14 +104,14 @@ const CreateBlog = (props) => {
                             {/* <RteEditor setRteValue={setData} rteValue={data.content} error={errors.content} /> */}
                         </div>
                         <div className=" flex items-center justify-end gap-2">
-                            <Link href="/" className=" font-bold border border-[#415A77]  py-2 text-sm rounded px-3 text-[#E0E1DD] tracking-wide">Back</Link>
+                            <Link href="/" className=" border border-[#415A77] hover:bg-[#415A77] transition-colors ease-linear duration-150 rounded-md text-xs px-3 py-2 text-[#E0E1DD]">Back</Link>
                             <Button event={store} loading={loading}>Save</Button>
                         </div>
                     </form>
-                </div>  
-            </MainLayout> 
+                </div>
+            </MainLayout>
         </>
-    )  
+    )
 }
 
 export default CreateBlog

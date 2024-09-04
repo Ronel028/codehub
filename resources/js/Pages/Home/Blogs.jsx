@@ -15,29 +15,29 @@ const Blogs = (props) => {
                     props.latest_blog.length > 0 ? (
                         <main className=" grid grid-cols-2 gap-1 mb-10">
                             <section className=" flex items-center relative border border-[#778DA9] rounded-md overflow-hidden p-1">
-                                    <div className=" rounded relative w-full h-full">
-                                        <img 
-                                            className=" w-full h-full object-cover rounded" 
-                                            src={(props.latest_blog[0].upload && props.latest_blog[0].upload.path) ?? imagePlaceholder} 
-                                            alt={(props.latest_blog[0].upload && props.latest_blog[0].upload.filename) ?? 'No image available'}
-                                        />
-                                        <div className="absolute inset-0 bg-secondary bg-opacity-40 rounded"></div>
+                                <div className=" rounded relative w-full h-full">
+                                    <img
+                                        className=" w-full h-full object-cover rounded"
+                                        src={(props.latest_blog[0].upload && props.latest_blog[0].upload.path) ?? imagePlaceholder}
+                                        alt={(props.latest_blog[0].upload && props.latest_blog[0].upload.filename) ?? 'No image available'}
+                                    />
+                                    <div className="absolute inset-0 bg-secondary bg-opacity-40 rounded"></div>
+                                </div>
+                                <Link href={`/blog-list/read/${props.latest_blog[0].user.username}/${props.latest_blog[0].slug}`}>
+                                    <div className=" absolute bottom-4 left-4">
+                                        <div className=" bg-light rounded py-1 px-2 inline-block text-xs text-primary mb-1">{props.latest_blog[0].category.name}</div>
+                                        <p className=" font-bold mb-1 text-light text-3xl">{props.latest_blog[0].title}</p>
+                                        <p className="text-xs text-light flex items-center gap-1">
+                                            {
+                                                props.latest_blog[0].user.full_name != ' ' && props.latest_blog[0].user.full_name != null ? (
+                                                    <span>{props.latest_blog[0].user.full_name}</span>
+                                                ) : <span>{props.latest_blog[0].user.username}</span>
+                                            }
+                                            <span>|</span>
+                                            <span>{moment(props.latest_blog[0].created_at).format('ll')}</span>
+                                        </p>
                                     </div>
-                                    <Link href={`/blog-list/read/${props.latest_blog[0].user.username}/${props.latest_blog[0].slug}`}>
-                                        <div className=" absolute bottom-4 left-4">
-                                            <div className=" bg-light rounded py-1 px-2 inline-block text-xs text-primary mb-1">{props.latest_blog[0].category.name}</div>
-                                            <p className=" font-bold mb-1 text-light text-3xl">{props.latest_blog[0].title}</p>
-                                            <p className="text-xs text-light flex items-center gap-1">
-                                                {
-                                                    props.latest_blog[0].user.full_name != ' ' && props.latest_blog[0].user.full_name != null ? (
-                                                        <span>{props.latest_blog[0].user.full_name}</span>
-                                                    ) :  <span>{props.latest_blog[0].user.username}</span>
-                                                }
-                                                <span>|</span>
-                                                <span>{moment(props.latest_blog[0].created_at).format('ll')}</span>
-                                            </p>
-                                        </div>
-                                    </Link>
+                                </Link>
                             </section>
                             <section className=" flex items-start ">
                                 <ul className=" flex flex-col gap-2">
@@ -46,21 +46,21 @@ const Blogs = (props) => {
                                             <Link key={blog.id} href={`/blog-list/read/${blog.user.username}/${blog.slug}`}>
                                                 <li className="grid grid-cols-2 gap-2">
                                                     <div className=" w-full h-[170px] rounded border p-1 border-[#415A77]">
-                                                        <img 
-                                                            className=" w-full h-full object-cover rounded" 
-                                                            src={(blog.upload && blog.upload.path) ?? imagePlaceholder} 
+                                                        <img
+                                                            className=" w-full h-full object-cover rounded"
+                                                            src={(blog.upload && blog.upload.path) ?? imagePlaceholder}
                                                             alt={(blog.upload && blog.upload.filename) ?? 'No image available'}
                                                         />
                                                     </div>
                                                     <div className="inline-flex justify-center flex-col">
                                                         <div>
-                                                            <div className=" bg-[#415a77] rounded py-1 px-2 inline-block text-xs text-light mb-1">{blog.category.name}</div>
+                                                            <span className=" bg-[#415a77] rounded py-0.5 px-1 inline-block text-xs text-light mb-1">{blog.category.name}</span>
                                                             <p className=" font-bold mb-1 text-xl text-[#E0E1DD]">{blog.title}</p>
                                                             <p className="text-xs text-[#E0E1DD] flex items-center gap-1">
                                                                 {
                                                                     blog.user.full_name != ' ' && blog.user.full_name != null ? (
                                                                         <span>{blog.user.full_name}</span>
-                                                                    ) :  <span>{blog.user.username}</span>
+                                                                    ) : <span>{blog.user.username}</span>
                                                                 }
                                                                 <span>|</span>
                                                                 <span>{moment(blog.created_at).format('ll')}</span>
@@ -75,24 +75,24 @@ const Blogs = (props) => {
                             </section>
                         </main>
                     ) : (
-                       <NoDataFound content="Uh-oh! No data found. Please be the first to share." /> 
+                        <NoDataFound content="Uh-oh! No data found. Please be the first to share." />
                     )
-                }    
+                }
 
                 {
                     props.latest_blog.length > 0 ? (
                         <div className="mb-10 flex items-center gap-2">
                             {
                                 props.categories.map(category => (
-                                    <Link key={category.id} href={`/blog-list/blog/${category.name.toLowerCase()}`} className="flex items-center shadow gap-2 text-xs border border-[#415a77] hover:bg-[#415a77] text-light py-2 px-3 rounded-md">
+                                    <Link key={category.id} href={`/blog-list/blog/${category.name.toLowerCase()}`} className="flex items-center shadow gap-2 text-xs border border-[#415a77] hover:bg-[#415a77] text-light py-2 px-3 transition-colors ease-linear duration-150 rounded-md">
                                         {category.name}
                                     </Link>
                                 ))
                             }
-                        </div>       
+                        </div>
                     ) : null
                 }
-                
+
                 {/* TECHNOLOGY BLOG */}
                 {
                     props.blogs.filter(blog => (
@@ -109,24 +109,24 @@ const Blogs = (props) => {
                                 {
                                     props.blogs.filter(blog => (
                                         blog.category.name === 'Technology' || blog.category.name === 'Programming'
-                                    )).slice(0,6).map(blog => (
+                                    )).slice(0, 6).map(blog => (
                                         <Link key={blog.id} href={`/blog-list/read/${blog.user.username}/${blog.slug}`}>
                                             <div>
                                                 <div className=" h-[250px] overflow-hidden rounded mb-2 border border-[#415A77]">
-                                                    <img 
-                                                        className=" w-full h-full object-cover rounded" 
-                                                        src={(blog.upload && blog.upload.path) ?? imagePlaceholder} 
+                                                    <img
+                                                        className=" w-full h-full object-cover rounded"
+                                                        src={(blog.upload && blog.upload.path) ?? imagePlaceholder}
                                                         alt={(blog.upload && blog.upload.filename) ?? 'No image available'}
                                                     />
                                                 </div>
                                                 <div className=" mb-1">
                                                     <div className=" bg-[#415a77] rounded py-1 px-2 inline-block text-xs text-light mb-1">{blog.category.name}</div>
                                                     <p className=" font-bold mb-1 text-xl text-[#E0E1DD]">{blog.title}</p>
-                                                     <p className="text-xs text-[#E0E1DD] flex items-center gap-1">
+                                                    <p className="text-xs text-[#E0E1DD] flex items-center gap-1">
                                                         {
                                                             blog.user.full_name != ' ' && blog.user.full_name != null ? (
                                                                 <span>{blog.user.full_name}</span>
-                                                            ) :  <span>{blog.user.username}</span>
+                                                            ) : <span>{blog.user.username}</span>
                                                         }
                                                         <span>|</span>
                                                         <span>{moment(blog.created_at).format('ll')}</span>
@@ -146,7 +146,7 @@ const Blogs = (props) => {
 
                 {/* All BLOG */}
                 {
-                     props.blogs.length > 0 ? (
+                    props.blogs.length > 0 ? (
                         <div className="border-b border-secondary pb-5">
                             <div className=" grid grid-cols-3 gap-3">
                                 {
@@ -154,9 +154,9 @@ const Blogs = (props) => {
                                         <Link key={blog.id} href={`/blog-list/read/${blog.user.username}/${blog.slug}`}>
                                             <div>
                                                 <div className="h-[250px] overflow-hidden rounded mb-2 border border-[#415A77]">
-                                                    <img 
-                                                        className=" w-full h-full object-cover rounded" 
-                                                        src={(blog.upload && blog.upload.path) ?? imagePlaceholder} 
+                                                    <img
+                                                        className=" w-full h-full object-cover rounded"
+                                                        src={(blog.upload && blog.upload.path) ?? imagePlaceholder}
                                                         alt={(blog.upload && blog.upload.filename) ?? 'No image available'}
                                                     />
                                                 </div>
@@ -167,7 +167,7 @@ const Blogs = (props) => {
                                                         {
                                                             blog.user.full_name != ' ' && blog.user.full_name != null ? (
                                                                 <span>{blog.user.full_name}</span>
-                                                            ) :  <span>{blog.user.username}</span>
+                                                            ) : <span>{blog.user.username}</span>
                                                         }
                                                         <span>|</span>
                                                         <span>{moment(blog.created_at).format('ll')}</span>

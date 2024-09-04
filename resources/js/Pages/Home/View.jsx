@@ -43,7 +43,7 @@ const ViewBlog = (props) => {
                                 </p>
                             </div>
                         </div>
-                            {/* <div className=" mb-2">
+                        {/* <div className=" mb-2">
                                 <ReactQuill 
                                     modules={{
                                         syntax: true,
@@ -56,13 +56,13 @@ const ViewBlog = (props) => {
                                     theme={"snow"}
                                 />
                             </div> */}
-                            <Tiptap 
-                                rteValue={props.blog.content} 
-                                setRteValue={null} 
-                                disableMenuBar={true} 
-                                styleContainer="h-auto line-hieght" 
-                                editable={false}
-                            />
+                        <Tiptap
+                            rteValue={props.blog.content}
+                            setRteValue={null}
+                            disableMenuBar={true}
+                            styleContainer="h-auto line-hieght"
+                            editable={false}
+                        />
                     </div>
                 </main>
             </MainLayout>
@@ -76,16 +76,16 @@ const ViewBlog = (props) => {
                     </div>
                     <div className=" mb-5">
                         <p className=" text-[#E0E1DD] text-base font-bold flex items-center gap-1 mb-1">
-                            Written by 
-                                {
-                                    props.blog.user.full_name != ' ' && props.blog.user.full_name != null ? (
-                                        <span>{props.blog.user.full_name + ' | ' + props.blog.user.username}</span>
-                                    ) : <span>{props.blog.user.username}</span>
-                                }
+                            Written by
+                            {
+                                props.blog.user.full_name != ' ' && props.blog.user.full_name != null ? (
+                                    <span>{props.blog.user.full_name + ' | ' + props.blog.user.username}</span>
+                                ) : <span>{props.blog.user.username}</span>
+                            }
                         </p>
                         <p className=" text-[#778DA9] text-xs flex items-center mb-3">
                             {
-                                props.blog.user.user_detail ? (
+                                props.blog.user.user_detail && props.blog.user.user_detail.experiences !== null ? (
                                     props.blog.user.user_detail.experiences.map((experience, index) => (
                                         <span key={index} className="flex items-center">
                                             <span className="  bg-[#415A77] py-1 px-2 rounded-md">
@@ -103,7 +103,7 @@ const ViewBlog = (props) => {
                     </div>
                     <div className=" pt-5 mb-6">
                         <h1 className=" text-base font-bold tracking-wide flex items-center gap-1 mb-3">
-                            More from 
+                            More from
                             {
                                 props.blog.user.full_name != ' ' && props.blog.user.full_name != null ? (
                                     <span>{props.blog.user.full_name + ' | ' + props.blog.user.username}</span>
@@ -113,34 +113,34 @@ const ViewBlog = (props) => {
                         {
                             props.more_blogs.length > 0 ? (
                                 <div className=" grid grid-cols-3 gap-3">
-                                        {
-                                            props.more_blogs.map(blog => (
-                                                <Link key={blog.id} href={`/blog-list/read/${blog.user.username}/${blog.slug}`}>
-                                                    <div>
-                                                        <div className="h-[250px] overflow-hidden rounded mb-2 border border-[#415A77]">
-                                                            <img 
-                                                                className=" w-full h-full object-cover rounded" 
-                                                                src={(blog.upload && blog.upload.path) ?? imagePlaceholder} 
-                                                                alt={(blog.upload && blog.upload.filename) ?? 'No image available'}
-                                                            />
-                                                        </div>
-                                                        <div className=" mb-1">
-                                                            <div className=" bg-[#415a77] rounded py-1 px-2 inline-block text-xs text-light mb-1">{blog.category.name}</div>
-                                                            <p className=" font-bold mb-1 text-xl">{blog.title}</p>
-                                                            <p className=" text-xs">
-                                                                {(blog.user.user_detail && blog.user.full_name) ?? blog.user.username} | {moment(blog.created_at).format('ll')}
-                                                            </p>
-                                                        </div>
-                                                        <div>
-                                                            <p className=" font-normal mb-1 text-gray-400 text-base">{blog.description}</p>
-                                                        </div>
+                                    {
+                                        props.more_blogs.map(blog => (
+                                            <Link key={blog.id} href={`/blog-list/read/${blog.user.username}/${blog.slug}`}>
+                                                <div>
+                                                    <div className="h-[250px] overflow-hidden rounded mb-2 border border-[#415A77]">
+                                                        <img
+                                                            className=" w-full h-full object-cover rounded"
+                                                            src={(blog.upload && blog.upload.path) ?? imagePlaceholder}
+                                                            alt={(blog.upload && blog.upload.filename) ?? 'No image available'}
+                                                        />
                                                     </div>
-                                                </Link>
-                                            ))
-                                        }
-                                    </div>
+                                                    <div className=" mb-1">
+                                                        <div className=" bg-[#415a77] rounded py-1 px-2 inline-block text-xs text-light mb-1">{blog.category.name}</div>
+                                                        <p className=" font-bold mb-1 text-xl">{blog.title}</p>
+                                                        <p className=" text-xs">
+                                                            {(blog.user.user_detail && blog.user.full_name) ?? blog.user.username} | {moment(blog.created_at).format('ll')}
+                                                        </p>
+                                                    </div>
+                                                    <div>
+                                                        <p className=" font-normal mb-1 text-gray-400 text-base">{blog.description}</p>
+                                                    </div>
+                                                </div>
+                                            </Link>
+                                        ))
+                                    }
+                                </div>
                             ) : (
-                                <NoDataFound content="No more post." /> 
+                                <NoDataFound content="No more post." />
                             )
                         }
                     </div>

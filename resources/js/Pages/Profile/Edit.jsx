@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { Link, router } from "@inertiajs/react";
 import { toast } from "react-toastify";
-import { FaCameraRetro, FaCamera, FaMinusCircle   } from "react-icons/fa";
+import { FaCameraRetro, FaCamera, FaMinusCircle } from "react-icons/fa";
 import { IoIosAdd } from "react-icons/io";
-import  altImage from "../Assets/Img/image-placeholder.webp"
+import altImage from "../Assets/Img/image-placeholder.webp"
 import Input from "../Components/Forms/Input";
 import MainLayout from "../../layout/main";
 import Button from "../Components/Forms/Button";
@@ -17,10 +17,10 @@ const Edit = (props) => {
         email: props.user.email,
         password: '',
         first_name: (props.user.user_detail && props.user.user_detail.first_name) ?? '',
-        middle_name:  (props.user.user_detail && props.user.user_detail.middle_name) ?? '',
-        last_name:  (props.user.user_detail && props.user.user_detail.last_name) ?? '',
-        address:  (props.user.user_detail && props.user.user_detail.address) ?? '',
-        experience:  (props.user.user_detail && props.user.user_detail.experiences) ?? [''],
+        middle_name: (props.user.user_detail && props.user.user_detail.middle_name) ?? '',
+        last_name: (props.user.user_detail && props.user.user_detail.last_name) ?? '',
+        address: (props.user.user_detail && props.user.user_detail.address) ?? '',
+        experience: (props.user.user_detail && props.user.user_detail.experiences) ?? [''],
         soc_fb: (props.user.user_detail && props.user.user_detail.soc_fb) ?? '',
         soc_linkedin: (props.user.user_detail && props.user.user_detail.soc_linkedin) ?? '',
         soc_twitter: (props.user.user_detail && props.user.user_detail.soc_twitter) ?? '',
@@ -75,6 +75,8 @@ const Edit = (props) => {
     }
 
     const store = () => {
+        console.log(datas);
+
         router.post('/profile/store', datas, {
             onSuccess: () => {
                 toast.success('Profile updated successfully')
@@ -105,13 +107,13 @@ const Edit = (props) => {
                                         <div className=" w-32 h-32 overflow-hidden rounded-full shadow-md ">
                                             {
                                                 imagePreview === null ? <img className="h-full w-full object-cover" src={altImage} alt="image-placeholder" />
-                                                : <img className="h-full w-full object-cover" src={imagePreview} alt="" />
+                                                    : <img className="h-full w-full object-cover" src={imagePreview} alt="" />
                                             }
-                                            
+
                                         </div>
                                         <label htmlFor="upload" className=" bg-secondary shadow p-2 rounded-full cursor-pointer inline-block absolute bottom-0 right-2">
                                             <div className="">
-                                                <FaCamera  className=" fill-white text-base" />
+                                                <FaCamera className=" fill-white text-base" />
                                             </div>
                                         </label>
                                     </div>
@@ -148,7 +150,7 @@ const Edit = (props) => {
                                             datas.experience.map((data, index) => {
                                                 return (
                                                     <div key={index} className=" mb-2 relative">
-                                                        <Input name={`exp_${index}`} value={data} onChange={(e) => addExp(index, e.target.value)}   />
+                                                        <Input name={`exp_${index}`} value={data} onChange={(e) => addExp(index, e.target.value)} />
                                                         <button onClick={() => removeExperience(index)} className=" absolute right-2 top-1/2 transform -translate-y-1/2">
                                                             <FaMinusCircle className=" fill-red-700" />
                                                         </button>
@@ -176,13 +178,13 @@ const Edit = (props) => {
                             <div className=" border-t border-light-gray pt-2 mb-5">
                                 <h4 className=" text-lg font-bold">Delete your account?</h4>
                                 <p className=" text-xs mb-2">Deleting your account will remove your access. This action cannot be undone.</p>
-                                <button className=" border border-red-600 rounded-md px-3 py-2 text-xs text-red-600">
+                                <button className=" border border-red-300 hover:bg-red-300 hover:text-secondary transition-colors ease-linear duration-150 font-bold tracking-wide rounded-md px-3 py-2 text-xs text-red-300">
                                     Delete your account
                                 </button>
                             </div>
                             <div className="flex items-center justify-end gap-2">
-                                <Link href="/" className=" border border-[#415A77] rounded-md px-3 py-2 text-xs text-[#E0E1DD]">
-                                   Back
+                                <Link href="/" className=" border border-[#415A77] hover:bg-[#415A77] transition-colors ease-linear duration-150 rounded-md text-xs px-3 py-2 text-[#E0E1DD]">
+                                    Back
                                 </Link>
                                 <Button event={store} loading={loading}>Save Changes</Button>
                             </div>

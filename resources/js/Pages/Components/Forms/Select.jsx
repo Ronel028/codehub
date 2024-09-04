@@ -3,7 +3,7 @@ const Select = (props) => {
         <>
             <div className=" w-full">
                 <select {...props} className={`w-full border ${props.error ? 'border-red-500 focus:outline-red-500' : 'border-[#415A77]  focus:outline-[#778DA9]'} bg-[#0D1B2A] outline-none p-2 text-xs rounded-md`} >
-                    <option value='' >---Choose category---</option>
+                    <option value='' >--- Choose category ---</option>
                     {
                         props.data.map((item, index) => {
                             return <option key={item.id} value={item.id}>{item.name}</option>
