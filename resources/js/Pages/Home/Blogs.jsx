@@ -26,7 +26,7 @@ const Blogs = (props) => {
                                 <Link href={`/blog-list/read/${props.latest_blog[0].user.username}/${props.latest_blog[0].slug}`}>
                                     <div className=" absolute bottom-4 left-4">
                                         <div className=" bg-light rounded py-1 px-2 inline-block text-xs text-primary mb-1">{props.latest_blog[0].category.name}</div>
-                                        <p className=" font-bold mb-1 text-light text-3xl">{props.latest_blog[0].title}</p>
+                                        <p className=" font-bold mb-1 text-light blog__title__home">{props.latest_blog[0].title}</p>
                                         <p className="text-xs text-light flex items-center gap-1">
                                             {
                                                 props.latest_blog[0].user.full_name != ' ' && props.latest_blog[0].user.full_name != null ? (
@@ -45,7 +45,7 @@ const Blogs = (props) => {
                                         props.latest_blog.map(blog => (
                                             <Link key={blog.id} href={`/blog-list/read/${blog.user.username}/${blog.slug}`}>
                                                 <li className="grid grid-cols-2 gap-2">
-                                                    <div className=" w-full h-[120px] md:h-[170px] rounded border p-1 border-[#415A77]">
+                                                    <div className=" w-full h-auto md:h-[170px] rounded border p-1 border-[#415A77]">
                                                         <img
                                                             className=" w-full h-full object-cover rounded"
                                                             src={(blog.upload && blog.upload.path) ?? imagePlaceholder}
@@ -55,7 +55,7 @@ const Blogs = (props) => {
                                                     <div className="inline-flex justify-center flex-col">
                                                         <div>
                                                             <span className=" bg-[#415a77] rounded py-0.5 px-1 inline-block text-xs text-light mb-1">{blog.category.name}</span>
-                                                            <p className=" font-bold mb-1 text-xl text-[#E0E1DD]">{blog.title}</p>
+                                                            <p className=" font-bold mb-1 text-base sm:text-xl text-[#E0E1DD]">{blog.title}</p>
                                                             <p className="text-xs text-[#E0E1DD] flex items-center gap-1">
                                                                 {
                                                                     blog.user.full_name != ' ' && blog.user.full_name != null ? (

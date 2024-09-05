@@ -84,3 +84,8 @@ button,
     font-size: clamp(1.875rem, 0.4688rem + 4.5vw, 3rem);
     line-height: 1.2;
 }
+
+.blog__title__home {
+    font-size: clamp(1.125rem, 0.1875rem + 3vw, 1.875rem);
+    line-height: 1.2;
+}
