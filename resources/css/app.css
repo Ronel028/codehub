@@ -73,3 +73,14 @@ button,
     font-size: 0.875rem;
     pointer-events: none;
 }
+
+.header__font {
+    /* font-size: clamp(1.875rem, -1.4063rem + 10.5vw, 4.5rem); */
+    font-size: clamp(2.5rem, 1.5rem + 3.2vw, 4.5rem);
+    line-height: 1.2;
+}
+
+.blog__title {
+    font-size: clamp(1.875rem, 0.4688rem + 4.5vw, 3rem);
+    line-height: 1.2;
+}

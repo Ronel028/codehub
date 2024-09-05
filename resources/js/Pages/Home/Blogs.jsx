@@ -13,7 +13,7 @@ const Blogs = (props) => {
             <MainLayout pageTitle="Blogs">
                 {
                     props.latest_blog.length > 0 ? (
-                        <main className=" grid grid-cols-2 gap-1 mb-10">
+                        <main className=" grid md:grid-cols-2 gap-1 mb-10">
                             <section className=" flex items-center relative border border-[#778DA9] rounded-md overflow-hidden p-1">
                                 <div className=" rounded relative w-full h-full">
                                     <img
@@ -45,7 +45,7 @@ const Blogs = (props) => {
                                         props.latest_blog.map(blog => (
                                             <Link key={blog.id} href={`/blog-list/read/${blog.user.username}/${blog.slug}`}>
                                                 <li className="grid grid-cols-2 gap-2">
-                                                    <div className=" w-full h-[170px] rounded border p-1 border-[#415A77]">
+                                                    <div className=" w-full h-[120px] md:h-[170px] rounded border p-1 border-[#415A77]">
                                                         <img
                                                             className=" w-full h-full object-cover rounded"
                                                             src={(blog.upload && blog.upload.path) ?? imagePlaceholder}
@@ -81,7 +81,7 @@ const Blogs = (props) => {
 
                 {
                     props.latest_blog.length > 0 ? (
-                        <div className="mb-10 flex items-center gap-2">
+                        <div className="mb-10 flex items-center flex-wrap gap-2">
                             {
                                 props.categories.map(category => (
                                     <Link key={category.id} href={`/blog-list/blog/${category.name.toLowerCase()}`} className="flex items-center shadow gap-2 text-xs border border-[#415a77] hover:bg-[#415a77] text-light py-2 px-3 transition-colors ease-linear duration-150 rounded-md">
@@ -105,7 +105,7 @@ const Blogs = (props) => {
                                     See all
                                 </Link>
                             </div>
-                            <div className=" grid grid-cols-3 gap-2">
+                            <div className=" grid sm:grid-cols-2 md:grid-cols-3 gap-2">
                                 {
                                     props.blogs.filter(blog => (
                                         blog.category.name === 'Technology' || blog.category.name === 'Programming'
@@ -148,7 +148,7 @@ const Blogs = (props) => {
                 {
                     props.blogs.length > 0 ? (
                         <div className="border-b border-secondary pb-5">
-                            <div className=" grid grid-cols-3 gap-3">
+                            <div className=" grid sm:grid-cols-2 md:grid-cols-3 gap-3">
                                 {
                                     props.blogs.map(blog => (
                                         <Link key={blog.id} href={`/blog-list/read/${blog.user.username}/${blog.slug}`}>

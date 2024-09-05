@@ -33,7 +33,7 @@ const Navigation = (props) => {
                     <Link href="/">
                         <img height={80} width={80} src={knowl} alt="knowl" />
                     </Link>
-                    <ul className=" flex items-center gap-8">
+                    <ul className=" hidden sm:flex items-center gap-8">
                         <li>
                             <Link href="/blog-list" className={`${url.startsWith('/blog-list') ? 'text-red-400 font-bold' : 'text-[#E0E1DD]'} flex items-center gap-2 text-xs tracking-wide`}>
                                 Blogs

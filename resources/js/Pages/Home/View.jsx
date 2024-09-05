@@ -18,7 +18,7 @@ const ViewBlog = (props) => {
             <MainLayout>
                 <main className=" max-w-[1000px] mx-auto">
                     <div className=" pt-5 mb-6">
-                        <h1 className=" text-5xl font-bold tracking-wide">{props.blog.title}</h1>
+                        <h1 className=" blog__title font-bold tracking-wide">{props.blog.title}</h1>
                     </div>
                     <div className=" pb-7">
                         <div className=" flex items-center gap-2 mb-5">
@@ -67,7 +67,7 @@ const ViewBlog = (props) => {
                 </main>
             </MainLayout>
             <div className=" w-full py-8 h-auto bg-[#0D1B2A]">
-                <div className="mb-5 max-w-[1000px] mx-auto">
+                <div className="mb-5 w-[90%] max-w-[1000px] mx-auto">
                     <div className="w-14 h-14 rounded-full p-[2px] mb-3 border border-[#415A77] flex items-center justify-center">
                         <img
                             src={(props.blog.user.upload && props.blog.user.upload.path) ?? imagePlacholder}
@@ -112,7 +112,7 @@ const ViewBlog = (props) => {
                         </h1>
                         {
                             props.more_blogs.length > 0 ? (
-                                <div className=" grid grid-cols-3 gap-3">
+                                <div className=" grid sm:grid-cols-2 md:grid-cols-3 gap-3">
                                     {
                                         props.more_blogs.map(blog => (
                                             <Link key={blog.id} href={`/blog-list/read/${blog.user.username}/${blog.slug}`}>
