@@ -61,7 +61,7 @@ const EditBlog = (props) => {
                                 <Input error={errors.description} type="text" label="Description" value={data.description} onChange={e => setData('description', e.target.value)} placeholder="Add description of your blog here..." className="mb-5" />
                                 <div className=" flex items-center justify-start gap-6">
                                     <div className=" flex items-center gap-2">
-                                        <label htmlFor="is_publish" className=" text-sm">Make this public</label>
+                                        <label htmlFor="is_publish" className="cursor-pointer text-sm">Make this visible to everyone</label>
                                         <input type="checkbox" id="is_publish" checked={data.is_publish} onChange={e => setData('is_publish', e.target.checked)} />
                                     </div>
                                 </div>

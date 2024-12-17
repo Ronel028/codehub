@@ -13,8 +13,7 @@ class BlogListController extends Controller
     {
         return Inertia::render("Home/Blogs", [
             'latest_blog' => BlogPost::with(['upload', 'user'])->where('is_published', 1)->latest()->take(3)->get(),
-            'blogs' => BlogPost::with(['upload', 'user'])->where('is_published', 1)->orderBy('created_at', 'desc')->get(),
-            'categories' => CategoryReference::all()
+            'blogs' => BlogPost::with(['upload', 'user'])->where('is_published', 1)->orderBy('created_at', 'desc')->get()
         ]);
     }
 

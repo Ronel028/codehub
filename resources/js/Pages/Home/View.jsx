@@ -43,19 +43,6 @@ const ViewBlog = (props) => {
                                 </p>
                             </div>
                         </div>
-                        {/* <div className=" mb-2">
-                                <ReactQuill 
-                                    modules={{
-                                        syntax: true,
-                                        toolbar: false
-                                    }}
-                                    value={props.blog.content}
-                                    id="style-editor"
-                                    className="view-style"
-                                    readOnly={true}
-                                    theme={"snow"}
-                                />
-                            </div> */}
                         <Tiptap
                             rteValue={props.blog.content}
                             setRteValue={null}
@@ -125,7 +112,6 @@ const ViewBlog = (props) => {
                                                         />
                                                     </div>
                                                     <div className=" mb-1">
-                                                        <div className=" bg-[#415a77] rounded py-1 px-2 inline-block text-xs text-light mb-1">{blog.category.name}</div>
                                                         <p className=" font-bold mb-1 text-xl">{blog.title}</p>
                                                         <p className=" text-xs">
                                                             {(blog.user.user_detail && blog.user.full_name) ?? blog.user.username} | {moment(blog.created_at).format('ll')}

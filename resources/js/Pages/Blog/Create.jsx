@@ -60,18 +60,18 @@ const CreateBlog = (props) => {
     return (
         <>
             <MainLayout>
-                <div className=" mb-8 py-4 border-b">
-                    <h1 className=" text-xl font-bold">Get Started on your New Blog Today📒</h1>
+                <div className=" mb-8 py-4 border-b border-light-gray">
+                    <h1 className=" text-xl font-bold">Start Sharing Your Code and Knowledge Today.</h1>
                 </div>
                 <div className="pb-8">
                     <form>
                         <div className=" grid grid-cols-[70%_27%] gap-[3%] mb-4">
                             <div>
                                 <Input error={errors.title} type="text" label="Title" value={data.title} onChange={e => setData('title', e.target.value)} placeholder="Create your unique title of your blog here..." className="mb-5" />
-                                <Input error={errors.description} type="text" label="Description" value={data.description} onChange={e => setData('description', e.target.value)} placeholder="Add description of your blog here..." className="mb-5" />
+                                <Input error={errors.description} type="text" label="Description" value={data.description} onChange={e => setData('description', e.target.value)} placeholder="Description here..." className="mb-5" />
                                 <div className=" flex items-center justify-start gap-6">
                                     <div className=" flex items-center gap-2">
-                                        <label htmlFor="is_publish" className=" text-sm">Make this public</label>
+                                        <label htmlFor="is_publish" className=" text-sm cursor-pointer">Make this visible to everyone</label>
                                         <input type="checkbox" id="is_publish" checked={data.is_publish} onChange={e => setData('is_publish', e.target.checked)} />
                                     </div>
                                 </div>

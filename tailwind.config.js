@@ -16,9 +16,10 @@ export default {
     fontFamily: {
       "nunito-sans": ["Nunito Sans", "sans-serif"],
       "source-pro-code": ["Source Code Pro", "sans-serif"],
+      "courier-prime": ["Courier Prime", "sans-serif"]
     },
     backgroundImage: {
-      'homepage': 'url("/public/images/homepage.jpg")'
+      'homepage': 'url("/public/images/code-bg.jpg")'
     }
   },
   plugins: [

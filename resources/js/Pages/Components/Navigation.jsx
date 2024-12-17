@@ -10,6 +10,7 @@ import { FiUserPlus } from "react-icons/fi";
 import { BsPersonLock } from "react-icons/bs";
 import { RiStickyNoteAddLine } from "react-icons/ri";
 import { AiOutlineCodepenCircle } from "react-icons/ai";
+import { FaLaptopCode } from "react-icons/fa";
 import imagePlacholder from "../Assets/Img/image-placeholder.webp"
 import knowl from "../Assets/Img/knowl-logo.png"
 import Input from "./Forms/Input";
@@ -32,9 +33,9 @@ const Navigation = (props) => {
         <>
             <div className=" bg-[#0d1b2a] fixed top-0 left-0 right-0 z-50 border-b border-[#415A77]">
                 <nav className=" flex items-center justify-between py-3 max-w-[1500px] w-[90%] mx-auto relative">
-                    <Link href="/" className="flex items-center font-bold text-red-400 font-source-pro-code text-xl">
-                        <span className=" text-red-400 font-source-pro-code">C</span>
-                        <span className="px-[3px] text-lg text-light-gray"><AiOutlineCodepenCircle /></span>
+                    <Link href="/" className="flex items-center font-bold text-red-400 font-courier-prime text-xl">
+                        C
+                        <FaLaptopCode className="px-[0.0625rem] text-xl text-light-gray" />
                         DE HUB
                     </Link>
                     <ul className=" hidden sm:flex items-center gap-8">

@@ -18,9 +18,7 @@ class BlogController extends Controller
     // RENDER CREATE PAGE
     public function createPage()
     {
-        return Inertia::render('Blog/Create', [
-            'category' => CategoryReference::all()
-        ]);
+        return Inertia::render('Blog/Create');
     }
 
     // RENDER BLOG LIST PAGE
@@ -45,7 +43,6 @@ class BlogController extends Controller
     public function editPage(Request $request)
     {
         return Inertia::render('Blog/Edit', [
-            'category' => CategoryReference::all(),
             'blog' => BlogPost::with(['upload'])->find($request->id)
         ]);
     }
@@ -74,11 +71,6 @@ class BlogController extends Controller
                     'filename' => $request->file('image')->getClientOriginalName(),
                     'path' => $uploadedFile->getSecurePath(),
                 ]);
-
-                // $blog->upload()->create([
-                //     'filename' => $request->file('image')->getClientOriginalName(),
-                //     'path' => $request->file('image')->store('images', 'public')
-                // ]);
             }
 
             DB::commit();
@@ -94,7 +86,6 @@ class BlogController extends Controller
         $request->validate([
             'title' => 'required',
             'description' => 'required',
-            'category' => 'required',
             'content' => 'required',
             'image' => 'max:8192'
         ]);
@@ -105,7 +96,6 @@ class BlogController extends Controller
         $blog->title = $request->title;
         $blog->slug = Str::slug($request->title, '-');
         $blog->description = $request->description;
-        $blog->category_reference_id = $request->category;
         $blog->content = $request->content;
         $blog->is_published = $request->is_publish;
 
@@ -121,11 +111,6 @@ class BlogController extends Controller
                     'filename' => $request->file('image')->getClientOriginalName(),
                     'path' => $uploadedFile->getSecurePath(),
                 ]);
-
-                // $blog->upload()->create([
-                //     'filename' => $request->file('image')->getClientOriginalName(),
-                //     'path' => $request->file('image')->store('images', 'public')
-                // ]);
             }
 
             DB::commit();
