@@ -40,6 +40,6 @@ createInertiaApp({
         />
         <App {...props} />
       </>
-    ) 
+    )
   },
 })

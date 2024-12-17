@@ -31,8 +31,8 @@ class BlogPost extends Model
         return $this->morphOne(Upload::class, 'uploadable')->latestOfMany();;
     }
 
-    public function category(): BelongsTo
-    {
-        return $this->belongsTo(CategoryReference::class, 'category_reference_id');
-    }
+    // public function category(): BelongsTo
+    // {
+    //     return $this->belongsTo(CategoryReference::class, 'category_reference_id');
+    // }
 }

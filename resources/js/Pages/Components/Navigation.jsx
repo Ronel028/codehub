@@ -4,10 +4,12 @@ import { FaUserCircle, FaSignOutAlt, FaEdit, FaUserLock, FaRegUser } from "react
 import { TiUserAdd } from "react-icons/ti";
 import { MdOutlinePostAdd, MdOutlineSignpost } from "react-icons/md";
 import { CiLogout } from "react-icons/ci";
+import { IoCodeSlashSharp } from "react-icons/io5";
 import { IoIosLogOut } from "react-icons/io";
 import { FiUserPlus } from "react-icons/fi";
 import { BsPersonLock } from "react-icons/bs";
 import { RiStickyNoteAddLine } from "react-icons/ri";
+import { AiOutlineCodepenCircle } from "react-icons/ai";
 import imagePlacholder from "../Assets/Img/image-placeholder.webp"
 import knowl from "../Assets/Img/knowl-logo.png"
 import Input from "./Forms/Input";
@@ -30,8 +32,10 @@ const Navigation = (props) => {
         <>
             <div className=" bg-[#0d1b2a] fixed top-0 left-0 right-0 z-50 border-b border-[#415A77]">
                 <nav className=" flex items-center justify-between py-3 max-w-[1500px] w-[90%] mx-auto relative">
-                    <Link href="/">
-                        <img height={80} width={80} src={knowl} alt="knowl" />
+                    <Link href="/" className="flex items-center font-bold text-red-400 font-source-pro-code text-xl">
+                        <span className=" text-red-400 font-source-pro-code">C</span>
+                        <span className="px-[3px] text-lg text-light-gray"><AiOutlineCodepenCircle /></span>
+                        DE HUB
                     </Link>
                     <ul className=" hidden sm:flex items-center gap-8">
                         <li>

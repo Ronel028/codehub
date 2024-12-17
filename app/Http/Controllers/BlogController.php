@@ -27,11 +27,11 @@ class BlogController extends Controller
     public function Index(Request $request)
     {
         $search = $request->query('search');
-        $blog_list = BlogPost::with(['category', 'upload'])
+        $blog_list = BlogPost::with(['upload'])
             ->where('user_id', Auth::user()->id)
             ->when(
                 $search,
-                fn ($query) =>
+                fn($query) =>
                 $query->where('title', 'LIKE', "%{$search}%")
             )
             ->orderBy('created_at', 'desc')
@@ -46,7 +46,7 @@ class BlogController extends Controller
     {
         return Inertia::render('Blog/Edit', [
             'category' => CategoryReference::all(),
-            'blog' => BlogPost::with(['category', 'upload'])->find($request->id)
+            'blog' => BlogPost::with(['upload'])->find($request->id)
         ]);
     }
 
@@ -59,7 +59,6 @@ class BlogController extends Controller
         $blog->title = $request->title;
         $blog->slug = Str::slug($request->title, '-');
         $blog->description = $request->description;
-        $blog->category_reference_id = $request->category;
         $blog->content = $request->content;
         $blog->is_published = $request->is_publish;
 

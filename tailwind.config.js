@@ -7,17 +7,18 @@ export default {
   theme: {
     extend: {
       colors: {
-        'primary' : '#161A30',
-        'secondary' : '#31304D',
-        'light-gray' : '#B6BBC4',
-        'light' : '#F0ECE5',
+        'primary': '#161A30',
+        'secondary': '#31304D',
+        'light-gray': '#B6BBC4',
+        'light': '#F0ECE5',
       },
     },
     fontFamily: {
-      "nunito-sans":  ["Nunito Sans", "sans-serif"]
+      "nunito-sans": ["Nunito Sans", "sans-serif"],
+      "source-pro-code": ["Source Code Pro", "sans-serif"],
     },
     backgroundImage: {
-      'homepage' : 'url("/public/images/homepage.jpg")'
+      'homepage': 'url("/public/images/homepage.jpg")'
     }
   },
   plugins: [

@@ -24,15 +24,10 @@ const Home = (props) => {
                     <main className="pt-[65px] pb-10">
                         <div className="max-w-[1500px] w-[90%] mx-auto">
                             <h1 className=" header__font font-bold mb-5">
-                                Informative Tips, News and Stories for Every Day
+                                The Developer's Hub: Tips, Tools, and Stories for Coders
                             </h1>
                             <h3 className=" text-xl ms:text-2xl tracking-wide leading-7 mb-5">
-                                Welcome to{" "}
-                                <span className="font-bold">KNOWL</span>, your
-                                ultimate destination for sharing and gaining knowledge and
-                                experiences across a wide range of categories.
-                                From the latest technology to news, health, and
-                                more, we cover it all.
+                                Welcome to Codehub, your hub for programming excellence. Discover tutorials, industry news, and tips to power your coding journey.
                             </h3>
                             <div className=" inline-block">
                                 <Link

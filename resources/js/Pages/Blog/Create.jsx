@@ -70,9 +70,6 @@ const CreateBlog = (props) => {
                                 <Input error={errors.title} type="text" label="Title" value={data.title} onChange={e => setData('title', e.target.value)} placeholder="Create your unique title of your blog here..." className="mb-5" />
                                 <Input error={errors.description} type="text" label="Description" value={data.description} onChange={e => setData('description', e.target.value)} placeholder="Add description of your blog here..." className="mb-5" />
                                 <div className=" flex items-center justify-start gap-6">
-                                    <div className="">
-                                        <Select error={errors.category} data={props.category} value={data.category} onChange={e => setData('category', e.target.value)} className="w-full" />
-                                    </div>
                                     <div className=" flex items-center gap-2">
                                         <label htmlFor="is_publish" className=" text-sm">Make this public</label>
                                         <input type="checkbox" id="is_publish" checked={data.is_publish} onChange={e => setData('is_publish', e.target.checked)} />

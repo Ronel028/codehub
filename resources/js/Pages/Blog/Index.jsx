@@ -38,18 +38,17 @@ const BlogList = (props) => {
                         <h2 className=" text-2xl font-bold tracking-wide mb-2">Blog post</h2>
                     </div>
                     {
-                         props.blogs.length > 0 ? (
+                        props.blogs.length > 0 ? (
                             <div className=" grid grid-cols-3 gap-2">
                                 {
                                     props.blogs.map(blog => (
                                         <div key={blog.id} className="">
                                             <div className="h-[250px] overflow-hidden rounded-t-md mb-2 border border-[#415A77] rounded-md">
-                                                <img className=" w-full h-full object-cover rounded-t-md" src={ (blog.upload && blog.upload.path) ?? imagePlaceholder} alt="" />
+                                                <img className=" w-full h-full object-cover rounded-t-md" src={(blog.upload && blog.upload.path) ?? imagePlaceholder} alt="" />
                                             </div>
                                             <div className=" py-2">
                                                 <div className=" flex items-center justify-between">
                                                     <div className=" flex items-center gap-1">
-                                                        <div className=" bg-[#415A77] rounded py-1 px-2 inline-block text-xs text-light mb-2">{blog.category.name}</div>
                                                         <div className={`${blog.is_published === 1 ? 'bg-green-500 text-[#1B263B]' : 'bg-red-500 text-[#E0E1DD]'}  rounded py-1 px-2 inline-block text-xs  font-bold mb-2`}>
                                                             {
                                                                 blog.is_published === 1 ? 'Published' : 'Draft'
@@ -72,7 +71,7 @@ const BlogList = (props) => {
                                     ))
                                 }
                             </div>
-                         ) : <NoDataFound content="Uh-oh! No data found." /> 
+                        ) : <NoDataFound content="Uh-oh! No data found." />
                     }
                 </div>
             </MainLayout>

@@ -12,8 +12,8 @@ class BlogListController extends Controller
     public function index()
     {
         return Inertia::render("Home/Blogs", [
-            'latest_blog' => BlogPost::with(['category', 'upload', 'user'])->where('is_published', 1)->latest()->take(3)->get(),
-            'blogs' => BlogPost::with(['category', 'upload', 'user'])->where('is_published', 1)->orderBy('created_at', 'desc')->get(),
+            'latest_blog' => BlogPost::with(['upload', 'user'])->where('is_published', 1)->latest()->take(3)->get(),
+            'blogs' => BlogPost::with(['upload', 'user'])->where('is_published', 1)->orderBy('created_at', 'desc')->get(),
             'categories' => CategoryReference::all()
         ]);
     }
@@ -25,11 +25,9 @@ class BlogListController extends Controller
 
         return Inertia::render("Home/Category", [
             'category' => $request->category,
-            'blogs' => BlogPost::with(['upload', 'user'])->where('is_published', 1)->whereHas('category', function ($query) use ($category) {
-                $query->where('name', $category);
-            })->when(
+            'blogs' => BlogPost::with(['upload', 'user'])->where('is_published', 1)->when(
                 $search,
-                fn ($query) =>
+                fn($query) =>
                 $query->where('title', 'LIKE', "%{$search}%")
             )->get()
         ]);
@@ -43,10 +41,10 @@ class BlogListController extends Controller
         return Inertia::render('Home/View', [
             'blog' =>  BlogPost::with(['user' => function ($query) {
                 $query->with('userDetail', 'upload');
-            }, 'category'])->whereHas('user', function ($query) use ($username) {
+            }])->whereHas('user', function ($query) use ($username) {
                 $query->where('username', $username);
             })->where('slug', $slug)->first(),
-            'more_blogs' => BlogPost::with(['user', 'category', 'upload'])->whereHas('user', function ($query) use ($username) {
+            'more_blogs' => BlogPost::with(['user', 'upload'])->whereHas('user', function ($query) use ($username) {
                 $query->where('username', $username);
             })->whereNot('slug', $slug)->orderBy('created_at', 'desc')->get()
         ]);
