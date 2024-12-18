@@ -14,32 +14,39 @@ import TiptopRte from "../Components/Markdown/TiptopRte";
 
 const CreateBlog = (props) => {
 
+    const [postId, setPostId] = useState(null)
+    const [isChange, setIsChange] = useState(false)
     const [image, setImage] = useState(null)
     const [loading, setLoading] = useState(false)
-    const { data, setData, post, errors, progress, reset } = useForm({
-        title: '',
-        description: '',
-        category: '',
-        is_publish: false,
+    // const { data, setData, post, errors, progress, reset } = useForm({
+    //     title: '',
+    //     description: '',
+    //     category: '',
+    //     is_publish: false,
+    //     content: null,
+    //     image: null,
+    // })
+    const { data, setData, post } = useForm({
         content: null,
-        image: null,
+        is_publish: false
     })
 
     // SAVE DATA TO THE DATABASE
     const store = (e) => {
         e.preventDefault()
-        post(`/blog/store`, {
+        const queryParams = new URLSearchParams(window.location.search)
+        post(`/blog/store?post_id=${queryParams.get('id')}`, {
             onSuccess: () => {
-                setData({
-                    title: '',
-                    description: '',
-                    category: '',
-                    is_publish: false,
-                    content: null,
-                    image: null,
-                })
-                setImage(null)
+                // setData({
+                //     title: '',
+                //     description: '',
+                //     is_publish: false,
+                //     content: null,
+                //     image: null,
+                // })
+                // setImage(null)
                 toast.success('New blog successfully uploaded!')
+                setIsChange(true)
             },
             onStart: () => {
                 setLoading(true)
@@ -58,6 +65,11 @@ const CreateBlog = (props) => {
         }
     }
 
+    // useEffect(() => {
+    //     const queryParams = new URLSearchParams(window.location.search)
+    //     setPostId(queryParams.get('id'))
+    // }, [isChange])
+
     return (
         <>
             <MainLayout>
@@ -67,7 +79,7 @@ const CreateBlog = (props) => {
                 <div className="pb-8">
                     <form>
                         <div className=" grid grid-cols-[70%_27%] gap-[3%] mb-4">
-                            <div>
+                            {/* <div>
                                 <Input error={errors.title} type="text" label="Title" value={data.title} onChange={e => setData('title', e.target.value)} placeholder="Create your unique title of your blog here..." className="mb-5" />
                                 <Input error={errors.description} type="text" label="Description" value={data.description} onChange={e => setData('description', e.target.value)} placeholder="Description here..." className="mb-5" />
                                 <div className=" flex items-center justify-start gap-6">
@@ -76,8 +88,8 @@ const CreateBlog = (props) => {
                                         <input type="checkbox" id="is_publish" checked={data.is_publish} onChange={e => setData('is_publish', e.target.checked)} />
                                     </div>
                                 </div>
-                            </div>
-                            <div>
+                            </div> */}
+                            {/* <div>
                                 <div className={`${errors.image ? 'border-red-500 p-1' : 'border-[#415A77] bg-[#0D1B2A] '} w-full h-[200px] p-2  flex  border-dashed border-2  rounded-md items-center mx-auto text-center cursor-pointer`}>
                                     <input id="upload" type="file" className="hidden" accept="image/*" onChange={onImageChange} />
                                     <label htmlFor="upload" className="cursor-pointer w-full h-[200px] py-2 flex items-center justify-center">
@@ -95,11 +107,17 @@ const CreateBlog = (props) => {
                                     </label>
                                 </div>
                                 {errors.image && <p className=" text-xs text-red-500">{errors.image}</p>}
+                            </div> */}
+                            <div className=" flex items-center justify-start gap-6">
+                                <div className=" flex items-center gap-2">
+                                    <label htmlFor="is_publish" className=" text-sm cursor-pointer">Make this visible to everyone</label>
+                                    <input type="checkbox" id="is_publish" checked={data.is_publish} onChange={e => setData('is_publish', e.target.checked)} />
+                                </div>
                             </div>
                         </div>
                         <div className=" mb-2">
                             {/* <Tiptap error={errors.content} rteValue={data.content} setRteValue={setData} /> */}
-                            <TiptopRte />
+                            <TiptopRte data={data} setData={setData} />
                             {/* <RteEditor setRteValue={setData} rteValue={data.content} error={errors.content} /> */}
                         </div>
                         <div className=" flex items-center justify-end gap-2">

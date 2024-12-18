@@ -8,7 +8,7 @@ import { MdFormatListBulleted } from "react-icons/md";
 
 const lowlight = createLowlight(all)
 
-const TiptopRte = () => {
+const TiptopRte = ({ data, setData }) => {
 
     const editor = useEditor({
         extensions: [
@@ -21,7 +21,18 @@ const TiptopRte = () => {
                     'Write something … It’ll be shared with everyone else looking at this example.',
             }),
         ],
-        content: ''
+        content: data.content,
+        onUpdate: ({ editor }) => {
+            let value = editor.getHTML()
+            if (!('content' in editor.getJSON().content[0])) {
+                value = value.replace(/<p>\s*<\/p>/g, '')
+            }
+            setData({
+                ...data,
+                content: value
+            })
+        }
+
     })
 
     return (

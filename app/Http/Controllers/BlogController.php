@@ -47,19 +47,38 @@ class BlogController extends Controller
         ]);
     }
 
-    // CREATE AND SAVE NEW BLOG
-    public function store(BlogPostRequest $request)
+    // CREATE AND SAVE NEW BLOG BlogPostRequest
+    public function store(Request $request)
     {
         DB::beginTransaction();
-        $blog = new BlogPost();
-        $blog->user_id = Auth::user()->id;
-        $blog->title = $request->title;
-        $blog->slug = Str::slug($request->title, '-');
-        $blog->description = $request->description;
-        $blog->content = $request->content;
-        $blog->is_published = $request->is_publish;
+        try {
+            //code...
+            $title = Str::betweenFirst($request->content, '<h1>', '</h1>');
+            $description = Str::betweenFirst($request->content, '<h2>', '</h2>');
+            $updateContentRemoveTitle = Str::remove('<h1>' . $title . '</h1>', $request->content);
+            $content = Str::remove('<h2>' . $description . '</h2>', $updateContentRemoveTitle);
 
-        if ($blog->save()) {
+            // $blog = new BlogPost();
+            // $blog->user_id = Auth::user()->id;
+            // $blog->title = $title;
+            // $blog->slug = Str::uuid();
+            // $blog->description = $description;
+            // $blog->content = $content;
+            // $blog->is_published = $request->is_publish;
+
+            $blog = BlogPost::updateOrCreate(
+                [
+                    "id" => $request->post_id
+                ],
+                [
+                    'user_id' => Auth::user()->id,
+                    'slug' => Str::uuid(),
+                    'title' => $title,
+                    'description' => $description,
+                    'content' => $content,
+                    'is_published' => $request->is_publish,
+                ]
+            );
 
             if ($request->hasFile('image')) {
 
@@ -74,7 +93,8 @@ class BlogController extends Controller
             }
 
             DB::commit();
-        } else {
+            return redirect()->route('blog.create-page', ['id' => $blog->id]);
+        } catch (\Throwable $th) {
             DB::rollBack();
         }
     }
