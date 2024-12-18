@@ -10,6 +10,7 @@ import Select from "../Components/Forms/Select";
 import Button from "../Components/Forms/Button";
 
 import Tiptap from "../Components/Markdown/Tiptap";
+import TiptopRte from "../Components/Markdown/TiptopRte";
 
 const CreateBlog = (props) => {
 
@@ -97,7 +98,8 @@ const CreateBlog = (props) => {
                             </div>
                         </div>
                         <div className=" mb-2">
-                            <Tiptap error={errors.content} rteValue={data.content} setRteValue={setData} />
+                            {/* <Tiptap error={errors.content} rteValue={data.content} setRteValue={setData} /> */}
+                            <TiptopRte />
                             {/* <RteEditor setRteValue={setData} rteValue={data.content} error={errors.content} /> */}
                         </div>
                         <div className=" flex items-center justify-end gap-2">

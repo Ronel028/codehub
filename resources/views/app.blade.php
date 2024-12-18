@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+    {{-- <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests"> --}}
     <title>Code Hub</title>
     <link rel="icon" type="image/png" sizes="16x16" href="/public/images/knowledge-transfer.png">
     <link rel="preconnect" href="https://fonts.bunny.net">

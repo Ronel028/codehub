@@ -4,6 +4,20 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+    h1{
+        @apply text-[2rem]
+    }
+
+    h2{
+        @apply text-[1.5rem]
+    }
+
+    h3{
+        @apply text-[1.17rem]
+    }
+}
+
 body,
 label,
 input,
@@ -61,7 +75,8 @@ button {
 }
 
 .ProseMirror:focus {
-    outline: 1px solid #778DA9;
+    /* outline: 1px solid #778DA9; */
+    outline: none;
 }
 
 .tiptap p.is-editor-empty:first-child::before {
