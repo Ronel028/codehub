@@ -16,9 +16,15 @@ use Inertia\Inertia;
 class BlogController extends Controller
 {
     // RENDER CREATE PAGE
-    public function createPage()
+    public function createPage(Request $request)
     {
-        return Inertia::render('Blog/Create');
+        $blog = null;
+        if (!is_null($request->id)) {
+            $blog = BlogPost::find($request->id);
+        }
+        return Inertia::render('Blog/Create', [
+            'blog' => $blog
+        ]);
     }
 
     // RENDER BLOG LIST PAGE
@@ -52,19 +58,22 @@ class BlogController extends Controller
     {
         DB::beginTransaction();
         try {
-            //code...
-            $title = Str::betweenFirst($request->content, '<h1>', '</h1>');
-            $description = Str::betweenFirst($request->content, '<h2>', '</h2>');
-            $updateContentRemoveTitle = Str::remove('<h1>' . $title . '</h1>', $request->content);
-            $content = Str::remove('<h2>' . $description . '</h2>', $updateContentRemoveTitle);
-
-            // $blog = new BlogPost();
-            // $blog->user_id = Auth::user()->id;
-            // $blog->title = $title;
-            // $blog->slug = Str::uuid();
-            // $blog->description = $description;
-            // $blog->content = $content;
-            // $blog->is_published = $request->is_publish;
+            $title = null;
+            $description = null;
+            preg_match('/<h1>(.*?)<\/h1>/', $request->content, $title);
+            preg_match('/<h2>(.*?)<\/h2>/', $request->content, $description);
+            if (isset($title[1])) {
+                $title = $title[1];
+            } else {
+                $title = null;
+            }
+            if (isset($description[1])) {
+                $description = $description[1];
+            } else {
+                $description = null;
+            }
+            // $title = Str::betweenFirst($request->content, '<h1>', '</h1>');
+            // $description = Str::betweenFirst($request->content, '<h2>', '</h2>');
 
             $blog = BlogPost::updateOrCreate(
                 [
@@ -75,7 +84,7 @@ class BlogController extends Controller
                     'slug' => Str::uuid(),
                     'title' => $title,
                     'description' => $description,
-                    'content' => $content,
+                    'content' => $request->content,
                     'is_published' => $request->is_publish,
                 ]
             );

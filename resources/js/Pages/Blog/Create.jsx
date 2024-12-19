@@ -2,6 +2,7 @@ import { useState, useEffect, useRef, useMemo } from "react";
 import { AiOutlineLoading } from "react-icons/ai";
 import { Link, useForm } from "@inertiajs/react";
 import { toast } from "react-toastify";
+import { debounce } from "lodash";
 import { MdOutlineFileUpload } from "react-icons/md";
 import MainLayout from "../../layout/main"
 import Input from "../Components/Forms/Input";
@@ -12,47 +13,28 @@ import Button from "../Components/Forms/Button";
 import Tiptap from "../Components/Markdown/Tiptap";
 import TiptopRte from "../Components/Markdown/TiptopRte";
 
-const CreateBlog = (props) => {
+const CreateBlog = ({ blog }) => {
 
-    const [postId, setPostId] = useState(null)
-    const [isChange, setIsChange] = useState(false)
     const [image, setImage] = useState(null)
     const [loading, setLoading] = useState(false)
-    // const { data, setData, post, errors, progress, reset } = useForm({
-    //     title: '',
-    //     description: '',
-    //     category: '',
-    //     is_publish: false,
-    //     content: null,
-    //     image: null,
-    // })
-    const { data, setData, post } = useForm({
-        content: null,
-        is_publish: false
+    const { data, setData, post, processing } = useForm({
+        content: blog !== null ? blog.content : null,
+        is_publish: blog !== null ? blog.is_published : false
     })
+
+    // const publishBlog = (e) => {
+    //     setData({
+    //         ...data,
+    //         is_publish: e.target.checked
+    //     })
+    // }
 
     // SAVE DATA TO THE DATABASE
     const store = (e) => {
-        e.preventDefault()
         const queryParams = new URLSearchParams(window.location.search)
         post(`/blog/store?post_id=${queryParams.get('id')}`, {
-            onSuccess: () => {
-                // setData({
-                //     title: '',
-                //     description: '',
-                //     is_publish: false,
-                //     content: null,
-                //     image: null,
-                // })
-                // setImage(null)
-                toast.success('New blog successfully uploaded!')
-                setIsChange(true)
-            },
-            onStart: () => {
-                setLoading(true)
-            },
-            onFinish: () => {
-                setLoading(false)
+            onError: error => {
+                toast.error(error.message)
             }
         })
     }
@@ -65,14 +47,14 @@ const CreateBlog = (props) => {
         }
     }
 
-    // useEffect(() => {
-    //     const queryParams = new URLSearchParams(window.location.search)
-    //     setPostId(queryParams.get('id'))
-    // }, [isChange])
+    useEffect(() => {
+        store()
+    }, [data])
 
     return (
         <>
             <MainLayout>
+                <p>{processing ? 'Saving...' : null}</p>
                 <div className=" mb-8 py-4 border-b border-light-gray">
                     <h1 className=" text-xl font-bold">Start Sharing Your Code and Knowledge Today.</h1>
                 </div>
@@ -111,7 +93,7 @@ const CreateBlog = (props) => {
                             <div className=" flex items-center justify-start gap-6">
                                 <div className=" flex items-center gap-2">
                                     <label htmlFor="is_publish" className=" text-sm cursor-pointer">Make this visible to everyone</label>
-                                    <input type="checkbox" id="is_publish" checked={data.is_publish} onChange={e => setData('is_publish', e.target.checked)} />
+                                    <input type="checkbox" id="is_publish" checked={data.is_publish} onChange={(e) => setData('is_publish', e.target.checked)} />
                                 </div>
                             </div>
                         </div>
@@ -120,10 +102,10 @@ const CreateBlog = (props) => {
                             <TiptopRte data={data} setData={setData} />
                             {/* <RteEditor setRteValue={setData} rteValue={data.content} error={errors.content} /> */}
                         </div>
-                        <div className=" flex items-center justify-end gap-2">
+                        {/* <div className=" flex items-center justify-end gap-2">
                             <Link href="/" className=" border border-[#415A77] hover:bg-[#415A77] transition-colors ease-linear duration-150 rounded-md text-xs px-3 py-2 text-[#E0E1DD]">Back</Link>
                             <Button event={store} loading={loading}>Save</Button>
-                        </div>
+                        </div> */}
                     </form>
                 </div>
             </MainLayout>

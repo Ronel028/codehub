@@ -3,10 +3,22 @@ import Placeholder from "@tiptap/extension-placeholder"
 import CodeBlockLowlight from "@tiptap/extension-code-block-lowlight";
 import StarterKit from '@tiptap/starter-kit'
 import { all, createLowlight } from "lowlight";
+import { debounce } from "lodash";
 import { FaBold, FaItalic, FaStrikethrough, FaListOl, FaCode } from "react-icons/fa";
 import { MdFormatListBulleted } from "react-icons/md";
 
 const lowlight = createLowlight(all)
+
+const debounceOnChange = debounce((editor, data, setData) => {
+    let value = editor.getHTML()
+    if (!('content' in editor.getJSON().content[0])) {
+        value = value.replace(/<p>\s*<\/p>/g, '')
+    }
+    setData({
+        ...data,
+        content: value
+    })
+}, 2000)
 
 const TiptopRte = ({ data, setData }) => {
 
@@ -23,16 +35,8 @@ const TiptopRte = ({ data, setData }) => {
         ],
         content: data.content,
         onUpdate: ({ editor }) => {
-            let value = editor.getHTML()
-            if (!('content' in editor.getJSON().content[0])) {
-                value = value.replace(/<p>\s*<\/p>/g, '')
-            }
-            setData({
-                ...data,
-                content: value
-            })
+            debounceOnChange(editor, data, setData)
         }
-
     })
 
     return (

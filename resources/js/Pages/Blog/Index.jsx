@@ -59,7 +59,7 @@ const BlogList = (props) => {
                                                         {/* <button title="Remove">
                                                             <FaTrashAlt className=" text-base fill-red-600" />
                                                         </button> */}
-                                                        <Link title="Edit" href={`/blog/edit/${blog.id}`}>
+                                                        <Link title="Edit" href={`/blog/create?id=${blog.id}`}>
                                                             <MdEditSquare className=" text-lg fill-[#E0E1DD]" />
                                                         </Link>
                                                     </div>
