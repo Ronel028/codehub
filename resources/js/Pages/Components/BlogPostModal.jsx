@@ -43,9 +43,16 @@ const BlogPostModal = ({ setIsModalOpen }) => {
         })
     }
 
+    const removeImage = () => {
+        setImage(prevState => null)
+        setCropImage(prevState => null)
+    }
+
     const store = () => {
         post(`/blog/create-blog-title`, {
             onSuccess: () => {
+                setPreviewCropImage(prevState => null)
+                setCropImage(prevState => null)
                 setIsModalOpen(false)
             },
             onError: error => {
@@ -128,7 +135,7 @@ const BlogPostModal = ({ setIsModalOpen }) => {
                                                         ref={cropperRef}
                                                     />
                                                     <div className=" bg-secondary bg-opacity-80 backdrop-blur-sm h-9 absolute bottom-0 left-0 right-0 flex items-center justify-end gap-1 px-2">
-                                                        <button className="inline-flex w-full items-center justify-center rounded bg-red-400 px-3 py-1 text-xs font-semibold text-white shadow-sm hover:bg-opacity-90 sm:w-auto">
+                                                        <button onClick={removeImage} className="inline-flex w-full items-center justify-center rounded bg-red-400 px-3 py-1 text-xs font-semibold text-white shadow-sm hover:bg-opacity-90 sm:w-auto">
                                                             Remove
                                                         </button>
                                                         <button onClick={saveCropImage} className="inline-flex w-full items-center justify-center rounded bg-green-400 px-3 py-1 text-xs font-semibold text-white shadow-sm hover:bg-opacity-90 sm:w-auto">

@@ -105,9 +105,9 @@ const ViewBlog = (props) => {
                                         props.more_blogs.map(blog => (
                                             <Link key={blog.id} href={`/blog-list/read/${blog.user.username}/${blog.slug}`}>
                                                 <div>
-                                                    <div className="h-[250px] overflow-hidden rounded mb-2 border border-[#415A77]">
+                                                    <div className=" overflow-hidden rounded-t mb-2 border border-[#415A77]">
                                                         <img
-                                                            className=" w-full h-full object-cover rounded"
+                                                            className=" aspect-[4/2] object-cover rounded-t"
                                                             src={(blog.upload && blog.upload.path) ?? imagePlaceholder}
                                                             alt={(blog.upload && blog.upload.filename) ?? 'No image available'}
                                                         />
@@ -119,7 +119,7 @@ const ViewBlog = (props) => {
                                                         </p>
                                                     </div>
                                                     <div>
-                                                        <p className=" font-normal mb-1 text-gray-400 text-base">{blog.description}</p>
+                                                        <p className=" font-normal mb-1 text-gray-400 text-sm">{blog.description}</p>
                                                     </div>
                                                 </div>
                                             </Link>

@@ -84,9 +84,9 @@ const Blogs = (props) => {
                                     props.blogs.map(blog => (
                                         <Link key={blog.id} href={`/blog-list/read/${blog.user.username}/${blog.id}`}>
                                             <div>
-                                                <div className="w-full aspect-[4/2] overflow-hidden rounded mb-2 border border-[#415A77]">
+                                                <div className="w-full aspect-[4/2] overflow-hidden rounded-t mb-2 border border-[#415A77]">
                                                     <img
-                                                        className=" w-full aspect-[4/2] object-cover rounded"
+                                                        className=" w-full aspect-[4/2] object-cover rounded-t"
                                                         src={(blog.upload && blog.upload.path) ?? imagePlaceholder}
                                                         alt={(blog.upload && blog.upload.filename) ?? 'No image available'}
                                                     />
