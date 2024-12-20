@@ -18,9 +18,9 @@ const ViewBlog = (props) => {
         <>
             <MainLayout>
                 <main className=" max-w-[1000px] mx-auto">
-                    {/* <div className=" pt-5 mb-6">
-                        <h1 className=" blog__title font-bold tracking-wide">{isNull(props.blog.title) || isEmpty(props.blog.title) ? null : props.blog.title}</h1>
-                    </div> */}
+                    <div className=" pt-5 mb-6">
+                        <h1 className=" blog__title font-bold tracking-wide">{props.blog.title}</h1>
+                    </div>
                     <div className="pt-3 pb-7">
                         <div className=" flex items-center gap-2 mb-5">
                             <div className="w-10 h-10 rounded-full p-[2px] border border-[#415A77] flex items-center justify-center">

@@ -13,13 +13,11 @@ return new class extends Migration
     {
         Schema::disableForeignKeyConstraints();
         Schema::create('blog_posts', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary();
             $table->foreignId('user_id')->constrained();
-            $table->foreignId('category_reference_id')->constrained();
-            $table->text('slug');
             $table->string('title');
-            $table->string('description');
-            $table->longText('content');
+            $table->string('description')->nullable();
+            $table->longText('content')->nullable();
             $table->string('status');
             $table->timestamps();
         });

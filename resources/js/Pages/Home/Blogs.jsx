@@ -6,8 +6,6 @@ import imagePlaceholder from "../Assets/Img/placeholder.jpg"
 
 const Blogs = (props) => {
 
-    console.log(props)
-
     return (
         <>
             <MainLayout pageTitle="Blogs">
@@ -23,7 +21,7 @@ const Blogs = (props) => {
                                     />
                                     <div className="absolute inset-0 bg-secondary bg-opacity-40 rounded"></div>
                                 </div>
-                                <Link href={`/blog-list/read/${props.latest_blog[0].user.username}/${props.latest_blog[0].slug}`}>
+                                <Link href={`/blog-list/read/${props.latest_blog[0].user.username}/${props.latest_blog[0].id}`}>
                                     <div className=" absolute bottom-4 left-4">
                                         <p className=" font-bold mb-1 text-light blog__title__home">{props.latest_blog[0].title}</p>
                                         <p className="text-xs text-light flex items-center gap-1">
@@ -42,7 +40,7 @@ const Blogs = (props) => {
                                 <ul className=" flex flex-col gap-2">
                                     {
                                         props.latest_blog.map(blog => (
-                                            <Link key={blog.id} href={`/blog-list/read/${blog.user.username}/${blog.slug}`}>
+                                            <Link key={blog.id} href={`/blog-list/read/${blog.user.username}/${blog.id}`}>
                                                 <li className="grid grid-cols-2 gap-2">
                                                     <div className=" w-full h-auto md:h-[170px] rounded border p-1 border-[#415A77]">
                                                         <img
@@ -84,7 +82,7 @@ const Blogs = (props) => {
                             <div className=" grid sm:grid-cols-2 md:grid-cols-3 gap-3">
                                 {
                                     props.blogs.map(blog => (
-                                        <Link key={blog.id} href={`/blog-list/read/${blog.user.username}/${blog.slug}`}>
+                                        <Link key={blog.id} href={`/blog-list/read/${blog.user.username}/${blog.id}`}>
                                             <div>
                                                 <div className="h-[250px] overflow-hidden rounded mb-2 border border-[#415A77]">
                                                     <img

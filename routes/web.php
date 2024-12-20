@@ -15,7 +15,7 @@ Route::get('/', function () {
 // BLOG LIST
 Route::name('blog-list.')->prefix('blog-list')->group(function () {
     Route::get('/', [BlogListController::class, 'index'])->name('index');
-    Route::get('/read/{username}/{slug}', [BlogListController::class, 'fetch']);
+    Route::get('/read/{username}/{id}', [BlogListController::class, 'fetch']);
     Route::get('/blog/{category}', [BlogListController::class, 'blogListCategory'])->name('blog-list-category');
     // Route::get('/all', [BlogListController::class, 'blogs'])->name('all');
 });
@@ -45,6 +45,7 @@ Route::middleware(['auth', 'verified'])->name('blog.')->prefix('blog')->group(fu
     Route::post('/save-edit', [BlogController::class, 'update'])->name('save-edit');
     Route::get('/list', [BlogController::class, 'index'])->name('list');
     Route::post('/store', [BlogController::class, 'store'])->name('store');
+    Route::post('/create-blog-title', [BlogController::class, 'createPostTitle'])->name('create-blog-title');
     Route::get('/fetch', [BlogController::class, 'fetch'])->name('fetch');
 });
 

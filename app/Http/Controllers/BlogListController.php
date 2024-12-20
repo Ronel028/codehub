@@ -34,19 +34,24 @@ class BlogListController extends Controller
 
     public function fetch(Request $request)
     {
-        $username = $request->username;
-        $slug = $request->slug;
+        try {
+            $username = $request->username;
+            $id = $request->id;
 
-        return Inertia::render('Home/View', [
-            'blog' =>  BlogPost::with(['user' => function ($query) {
-                $query->with('userDetail', 'upload');
-            }])->whereHas('user', function ($query) use ($username) {
-                $query->where('username', $username);
-            })->where('slug', $slug)->first(),
-            'more_blogs' => BlogPost::with(['user', 'upload'])->whereHas('user', function ($query) use ($username) {
-                $query->where('username', $username);
-            })->whereNot('slug', $slug)->orderBy('created_at', 'desc')->get()
-        ]);
+            return Inertia::render('Home/View', [
+                'blog' =>  BlogPost::with(['user' => function ($query) {
+                    $query->with('userDetail', 'upload');
+                }])->whereHas('user', function ($query) use ($username) {
+                    $query->where('username', $username);
+                })->where('id', $id)->first(),
+                'more_blogs' => BlogPost::with(['user', 'upload'])->whereHas('user', function ($query) use ($username) {
+                    $query->where('username', $username);
+                })->whereNot('id', $id)->orderBy('created_at', 'desc')->get()
+            ]);
+        } catch (\Throwable $th) {
+            dd($th->getMessage());
+            //throw $th;
+        }
     }
 
     public function blogs(Request $request)

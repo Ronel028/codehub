@@ -14,10 +14,10 @@ return new class extends Migration
         Schema::create('user_details', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained();
-            $table->string('first_name');
+            $table->string('first_name')->nullable();
             $table->string('middle_name')->nullable();
-            $table->string('last_name');
-            $table->text('address');
+            $table->string('last_name')->nullable();
+            $table->text('address')->nullable();
             $table->json('experiences')->nullable();
             $table->string('soc_fb')->nullable();
             $table->string('soc_linkedin')->nullable();

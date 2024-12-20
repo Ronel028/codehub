@@ -56,53 +56,46 @@ class BlogController extends Controller
     // CREATE AND SAVE NEW BLOG BlogPostRequest
     public function store(Request $request)
     {
-        DB::beginTransaction();
         try {
-            $title = null;
-            $description = null;
-            preg_match('/<h1>(.*?)<\/h1>/', $request->content, $title);
-            preg_match('/<h2>(.*?)<\/h2>/', $request->content, $description);
-            if (isset($title[1])) {
-                $title = $title[1];
-            } else {
-                $title = null;
-            }
-            if (isset($description[1])) {
-                $description = $description[1];
-            } else {
-                $description = null;
-            }
-            // $title = Str::betweenFirst($request->content, '<h1>', '</h1>');
-            // $description = Str::betweenFirst($request->content, '<h2>', '</h2>');
-
             $blog = BlogPost::updateOrCreate(
                 [
                     "id" => $request->post_id
                 ],
                 [
-                    'user_id' => Auth::user()->id,
-                    'slug' => Str::uuid(),
-                    'title' => $title,
-                    'description' => $description,
                     'content' => $request->content,
                     'is_published' => $request->is_publish,
                 ]
             );
+            return redirect()->route('blog.create-page', ['id' => (string)$blog->id]);
+        } catch (\Throwable $th) {
+            dd($th->getMessage());
+            DB::rollBack();
+        }
+    }
 
-            if ($request->hasFile('image')) {
+    public function createPostTitle(Request $request)
+    {
+        DB::beginTransaction();
+        try {
+            $blog = new BlogPost();
+            $blog->user_id = Auth::id();
+            $blog->title = $request->title;
+            $blog->description = $request->description;
+            if ($blog->save()) {
+                if ($request->hasFile('image')) {
 
-                $uploadedFile = Cloudinary::upload($request->file('image')->getRealPath(), [
-                    'folder' => 'knowl_img'
-                ]);
+                    $uploadedFile = Cloudinary::upload($request->file('image')->getRealPath(), [
+                        'folder' => 'knowl_img'
+                    ]);
 
-                $blog->upload()->create([
-                    'filename' => $request->file('image')->getClientOriginalName(),
-                    'path' => $uploadedFile->getSecurePath(),
-                ]);
+                    $blog->upload()->create([
+                        'filename' => $request->file('image')->getClientOriginalName(),
+                        'path' => $uploadedFile->getSecurePath(),
+                    ]);
+                }
+                DB::commit();
+                return redirect()->route('blog.create-page', ['id' => (string)$blog->id]);
             }
-
-            DB::commit();
-            return redirect()->route('blog.create-page', ['id' => $blog->id]);
         } catch (\Throwable $th) {
             DB::rollBack();
         }

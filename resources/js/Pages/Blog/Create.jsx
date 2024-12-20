@@ -2,37 +2,33 @@ import { useState, useEffect, useRef, useMemo } from "react";
 import { AiOutlineLoading } from "react-icons/ai";
 import { Link, useForm } from "@inertiajs/react";
 import { toast } from "react-toastify";
-import { debounce } from "lodash";
+import { debounce, isEmpty, isNull } from "lodash";
 import { MdOutlineFileUpload } from "react-icons/md";
 import MainLayout from "../../layout/main"
 import Input from "../Components/Forms/Input";
 import RteEditor from "../Components/Markdown/Rte";
 import Select from "../Components/Forms/Select";
 import Button from "../Components/Forms/Button";
+import BlogPostModal from "../Components/BlogPostModal"
 
 import Tiptap from "../Components/Markdown/Tiptap";
 import TiptopRte from "../Components/Markdown/TiptopRte";
 
 const CreateBlog = ({ blog }) => {
 
+    const [isModalOpen, setIsModalOpen] = useState(false)
+    const [disableCheck, setDisableCheck] = useState(false)
     const [image, setImage] = useState(null)
-    const [loading, setLoading] = useState(false)
     const { data, setData, post, processing } = useForm({
         content: blog !== null ? blog.content : null,
         is_publish: blog !== null ? blog.is_published : false
     })
 
-    // const publishBlog = (e) => {
-    //     setData({
-    //         ...data,
-    //         is_publish: e.target.checked
-    //     })
-    // }
-
     // SAVE DATA TO THE DATABASE
     const store = (e) => {
         const queryParams = new URLSearchParams(window.location.search)
-        post(`/blog/store?post_id=${queryParams.get('id')}`, {
+        const postId = queryParams.get('id');
+        post(`/blog/store?post_id=${postId}`, {
             onError: error => {
                 toast.error(error.message)
             }
@@ -48,11 +44,33 @@ const CreateBlog = ({ blog }) => {
     }
 
     useEffect(() => {
-        store()
+        const queryParams = new URLSearchParams(window.location.search)
+        if (!isNull(queryParams.get('id'))) {
+            store()
+        }
     }, [data])
+
+    useEffect(() => {
+        const queryParams = new URLSearchParams(window.location.search)
+        if (isNull(queryParams.get('id'))) {
+            setIsModalOpen(prevState => true)
+        } else {
+            setIsModalOpen(prevState => false)
+        }
+    }, [isModalOpen])
+
+    useEffect(() => {
+        console.log(data.content)
+        if (isNull(data.content) || isEmpty(data.content)) {
+            setDisableCheck(prevState => true)
+        } else {
+            setDisableCheck(prevState => false)
+        }
+    }, [data.content])
 
     return (
         <>
+            {isModalOpen ? <BlogPostModal setIsModalOpen={setIsModalOpen} /> : null}
             <MainLayout>
                 <p>{processing ? 'Saving...' : null}</p>
                 <div className=" mb-8 py-4 border-b border-light-gray">
@@ -93,7 +111,7 @@ const CreateBlog = ({ blog }) => {
                             <div className=" flex items-center justify-start gap-6">
                                 <div className=" flex items-center gap-2">
                                     <label htmlFor="is_publish" className=" text-sm cursor-pointer">Make this visible to everyone</label>
-                                    <input type="checkbox" id="is_publish" checked={data.is_publish} onChange={(e) => setData('is_publish', e.target.checked)} />
+                                    <input disabled={disableCheck} type="checkbox" id="is_publish" checked={data.is_publish} onChange={(e) => setData('is_publish', e.target.checked)} />
                                 </div>
                             </div>
                         </div>

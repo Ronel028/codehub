@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('filename');
             $table->string('path');
-            $table->integer('uploadable_id')->unsigned();
+            $table->string('uploadable_id');
             $table->string('uploadable_type');
             $table->timestamps();
         });
