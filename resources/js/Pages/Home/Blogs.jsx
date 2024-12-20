@@ -42,9 +42,9 @@ const Blogs = (props) => {
                                         props.latest_blog.map(blog => (
                                             <Link key={blog.id} href={`/blog-list/read/${blog.user.username}/${blog.id}`}>
                                                 <li className="grid grid-cols-2 gap-2">
-                                                    <div className=" w-full h-auto md:h-[170px] rounded border p-1 border-[#415A77]">
+                                                    <div className="w-full aspect-[4/2] rounded border p-1 border-[#415A77]">
                                                         <img
-                                                            className=" w-full h-full object-cover rounded"
+                                                            className="w-full aspect-[4/2] object-cover rounded"
                                                             src={(blog.upload && blog.upload.path) ?? imagePlaceholder}
                                                             alt={(blog.upload && blog.upload.filename) ?? 'No image available'}
                                                         />
@@ -84,9 +84,9 @@ const Blogs = (props) => {
                                     props.blogs.map(blog => (
                                         <Link key={blog.id} href={`/blog-list/read/${blog.user.username}/${blog.id}`}>
                                             <div>
-                                                <div className="h-[250px] overflow-hidden rounded mb-2 border border-[#415A77]">
+                                                <div className="w-full aspect-[4/2] overflow-hidden rounded mb-2 border border-[#415A77]">
                                                     <img
-                                                        className=" w-full h-full object-cover rounded"
+                                                        className=" w-full aspect-[4/2] object-cover rounded"
                                                         src={(blog.upload && blog.upload.path) ?? imagePlaceholder}
                                                         alt={(blog.upload && blog.upload.filename) ?? 'No image available'}
                                                     />

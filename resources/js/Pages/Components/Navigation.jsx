@@ -49,16 +49,6 @@ const Navigation = (props) => {
                                 Blogs
                             </Link>
                         </li>
-                        {/* <li>
-                            <Link href="/about" className={`${url === '/about' ? 'text-red-400 font-bold' : 'text-[#E0E1DD]'} flex items-center gap-2 text-xs tracking-wide`}>
-                                About
-                            </Link>
-                        </li>
-                        <li>
-                            <Link href="/contact" className={`${url === '/contact' ? 'text-red-400 font-bold' : 'text-[#E0E1DD]'} flex items-center gap-2 text-xs tracking-wide`}>
-                                Contact
-                            </Link>
-                        </li> */}
                     </ul>
                     <ul className=" flex items-center gap-7">
                         {

@@ -1,14 +1,47 @@
-import { useState } from "react"
+import { useRef, useState } from "react"
 import { Link, useForm } from "@inertiajs/react"
+import Cropper from "react-cropper"
+import "cropperjs/dist/cropper.css";
 import Beatloader from 'react-spinners/BeatLoader'
+import { dataURLtoFile } from "../../utils/functions"
+import { isNull } from "lodash"
 
 const BlogPostModal = ({ setIsModalOpen }) => {
 
+    const cropperRef = useRef(null)
+    const [image, setImage] = useState(null)
+    const [cropImage, setCropImage] = useState(null)
+    const [previewCropImage, setPreviewCropImage] = useState(null)
     const { data, setData, post, processing, errors } = useForm({
         title: '',
         description: '',
-        is_publish: false
+        is_publish: false,
+        image: null
     })
+
+    const onChangeImageEvent = (e) => {
+        const image = e.target.files[0]
+        const reader = new FileReader()
+        reader.onload = (e) => {
+            setImage(e.target.result)
+        }
+        reader.readAsDataURL(image)
+    }
+
+    const onCrop = () => {
+        const cropper = cropperRef.current?.cropper;
+        setCropImage(cropper.getCroppedCanvas().toDataURL())
+    }
+
+    const saveCropImage = () => {
+        const image = dataURLtoFile(cropImage)
+        setPreviewCropImage(cropImage)
+        setImage(prevState => null)
+        setData({
+            ...data,
+            image: image
+        })
+    }
 
     const store = () => {
         post(`/blog/create-blog-title`, {
@@ -33,20 +66,91 @@ const BlogPostModal = ({ setIsModalOpen }) => {
                                 <div className="mt-3 text-center sm:mt-0 sm:text-left">
                                     <h3 className="text-lg font-semibold text-gray-900" id="modal-title">Create blog</h3>
                                     <div className="mt-4">
-                                        <div className=" mb-5">
+                                        <div className=" mb-3">
                                             <input value={data.title} onChange={(e) => setData('title', e.target.value)} placeholder="Write your title here..." className={`${errors.title ? 'focus:outline-red-400 outline-red-400' : 'focus:outline-[#778DA9]'} w-full border border-[#415A77]  bg-light outline-none p-2 text-primary text-xs rounded-md`} />
                                             {errors.title && <p className="mt-1 text-red-400 italic text-xs font-bold">{errors.title}</p>}
                                         </div>
-                                        <div>
+                                        <div className="mb-3">
                                             <textarea value={data.description} onChange={(e) => setData('description', e.target.value)} placeholder="Start thinking your description..." rows={5} className={`${errors.description ? 'focus:outline-red-400 outline-red-400' : 'focus:outline-[#778DA9]'} w-full border border-[#415A77] bg-light outline-none p-2 text-primary text-xs rounded-md`}></textarea>
                                             {errors.description && <p className=" text-red-400 italic text-xs font-bold">{errors.description}</p>}
                                         </div>
+                                        <div className=" mb-3">
+                                            <label
+                                                className="flex  cursor-pointer appearance-none justify-center rounded-md border border-dashed border-gray-300 bg-white px-3 py-6 text-sm transition hover:border-gray-400 focus:border-solid focus:border-blue-600 focus:outline-none focus:ring-1 focus:ring-blue-600 disabled:cursor-not-allowed disabled:bg-gray-200 disabled:opacity-75"
+                                                tabIndex="0">
+                                                <span htmlFor="photo-dropbox" className="flex items-center space-x-2">
+                                                    <svg className="h-6 w-6 stroke-gray-400" viewBox="0 0 256 256">
+                                                        <path
+                                                            d="M96,208H72A56,56,0,0,1,72,96a57.5,57.5,0,0,1,13.9,1.7"
+                                                            fill="none"
+                                                            strokeLinecap="round"
+                                                            strokeLinejoin="round"
+                                                            strokeWidth="24"></path>
+                                                        <path
+                                                            d="M80,128a80,80,0,1,1,144,48"
+                                                            fill="none"
+                                                            strokeLinecap="round"
+                                                            strokeLinejoin="round"
+                                                            strokeWidth="24"></path>
+                                                        <polyline
+                                                            points="118.1 161.9 152 128 185.9 161.9"
+                                                            fill="none"
+                                                            strokeLinecap="round"
+                                                            strokeLinejoin="round"
+                                                            strokeWidth="24"></polyline>
+                                                        <line
+                                                            x1="152"
+                                                            y1="208"
+                                                            x2="152"
+                                                            y2="128"
+                                                            fill="none"
+                                                            strokeLinecap="round"
+                                                            strokeLinejoin="round"
+                                                            strokeWidth="24"></line>
+                                                    </svg>
+                                                    <span className="text-xs font-medium text-gray-600">
+                                                        <span className="text-blue-600 underline mr-1">Browse</span>files to Attach
+                                                    </span>
+                                                </span>
+                                                <input onChange={onChangeImageEvent} id="photo-dropbox" type="file" className="sr-only" />
+                                            </label>
+                                        </div>
+                                        {
+                                            !isNull(image) ? (
+                                                <div className=" relative">
+                                                    <Cropper
+                                                        src={image}
+                                                        style={{ height: 200, width: "100%" }}
+                                                        initialAspectRatio={4 / 2}
+                                                        aspectRatio={4 / 2}
+                                                        guides={false}
+                                                        crop={onCrop}
+                                                        ref={cropperRef}
+                                                    />
+                                                    <div className=" bg-secondary bg-opacity-80 backdrop-blur-sm h-9 absolute bottom-0 left-0 right-0 flex items-center justify-end gap-1 px-2">
+                                                        <button className="inline-flex w-full items-center justify-center rounded bg-red-400 px-3 py-1 text-xs font-semibold text-white shadow-sm hover:bg-opacity-90 sm:w-auto">
+                                                            Remove
+                                                        </button>
+                                                        <button onClick={saveCropImage} className="inline-flex w-full items-center justify-center rounded bg-green-400 px-3 py-1 text-xs font-semibold text-white shadow-sm hover:bg-opacity-90 sm:w-auto">
+                                                            Crop
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            ) : null
+                                        }
+                                        {
+                                            !isNull(previewCropImage) ? (
+                                                <div>
+                                                    <img src={previewCropImage} alt="" className=" aspect-[4/2] w-full" />
+                                                </div>
+                                            ) : null
+                                        }
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
-                            <button onClick={store} disabled={processing} type="button" className="inline-flex w-full min-w-[78.38px] h-9 items-center justify-center rounded-md bg-primary px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-opacity-90 sm:ml-3 sm:w-auto">
+                            <button onClick={store} disabled={processing} type="button" className="inline-flex w-full min-w-[78.38px] h-9 items-center justify-center rounded bg-primary px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-opacity-90 sm:ml-3 sm:w-auto">
                                 {processing ? null : "Create"}
                                 <Beatloader
                                     color={'#B6BBC4'}
@@ -56,7 +160,7 @@ const BlogPostModal = ({ setIsModalOpen }) => {
                                     data-testid="loader"
                                 />
                             </button>
-                            <Link href="/blog-list" class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto">Back</Link>
+                            <Link href="/blog-list" className="mt-3 inline-flex w-full justify-center rounded bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto">Back</Link>
                         </div>
                     </div>
                 </div>
