@@ -40,11 +40,16 @@ const Navigation = (props) => {
                     </Link>
                     <ul className=" hidden sm:flex items-center gap-8">
                         <li>
+                            <Link href="/" className={`${url === '/' ? 'text-red-400 font-bold' : 'text-[#E0E1DD]'} flex items-center gap-2 text-xs tracking-wide`}>
+                                Home
+                            </Link>
+                        </li>
+                        <li>
                             <Link href="/blog-list" className={`${url.startsWith('/blog-list') ? 'text-red-400 font-bold' : 'text-[#E0E1DD]'} flex items-center gap-2 text-xs tracking-wide`}>
                                 Blogs
                             </Link>
                         </li>
-                        <li>
+                        {/* <li>
                             <Link href="/about" className={`${url === '/about' ? 'text-red-400 font-bold' : 'text-[#E0E1DD]'} flex items-center gap-2 text-xs tracking-wide`}>
                                 About
                             </Link>
@@ -53,7 +58,7 @@ const Navigation = (props) => {
                             <Link href="/contact" className={`${url === '/contact' ? 'text-red-400 font-bold' : 'text-[#E0E1DD]'} flex items-center gap-2 text-xs tracking-wide`}>
                                 Contact
                             </Link>
-                        </li>
+                        </li> */}
                     </ul>
                     <ul className=" flex items-center gap-7">
                         {

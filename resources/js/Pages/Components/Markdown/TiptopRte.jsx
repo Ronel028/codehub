@@ -18,7 +18,7 @@ const debounceOnChange = debounce((editor, data, setData) => {
         ...data,
         content: value
     })
-}, 2000)
+}, 2300)
 
 const TiptopRte = ({ data, setData }) => {
 
@@ -80,17 +80,17 @@ const TiptopRte = ({ data, setData }) => {
                     <div className="floating-menu bg-light text-primary rounded p-1 flex items-center gap-2">
                         <button
                             type="button"
-                            onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}
-                            className={`${editor.isActive('heading', { level: 1 }) ? 'bg-light-gray' : ''} text-sm text-primary hover:bg-light-gray  rounded p-1`}
+                            onClick={() => editor.chain().focus().toggleHeading({ level: 3 }).run()}
+                            className={`${editor.isActive('heading', { level: 3 }) ? 'bg-light-gray' : ''} text-sm text-primary hover:bg-light-gray  rounded p-1`}
                         >
-                            Title
+                            h3
                         </button>
                         <button
                             type="button"
-                            onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}
-                            className={`${editor.isActive('heading', { level: 2 }) ? 'bg-light-gray' : ''} text-sm text-primary hover:bg-light-gray  rounded p-1`}
+                            onClick={() => editor.chain().focus().toggleHeading({ level: 4 }).run()}
+                            className={`${editor.isActive('heading', { level: 4 }) ? 'bg-light-gray' : ''} text-sm text-primary hover:bg-light-gray  rounded p-1`}
                         >
-                            Description
+                            h4
                         </button>
                         <button
                             type="button"

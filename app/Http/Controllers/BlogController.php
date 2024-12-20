@@ -75,6 +75,10 @@ class BlogController extends Controller
 
     public function createPostTitle(Request $request)
     {
+        $request->validate([
+            'title' => 'required',
+            'description' => 'required'
+        ]);
         DB::beginTransaction();
         try {
             $blog = new BlogPost();
