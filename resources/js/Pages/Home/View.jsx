@@ -5,7 +5,7 @@ import ReactQuill from "react-quill";
 import { LuDot } from "react-icons/lu";
 import Tiptap from "../Components/Markdown/Tiptap";
 import MainLayout from "../../layout/main"
-import imagePlacholder from "../Assets/Img/image-placeholder.webp"
+import imagePlacholder from "../Assets/Img/cypher.jpg"
 import imagePlaceholder from "../Assets/Img/placeholder.jpg"
 import 'react-quill/dist/quill.snow.css';
 import NoDataFound from "../Components/Nodatafound";
@@ -23,11 +23,11 @@ const ViewBlog = (props) => {
                     </div>
                     <div className="pt-3 pb-7">
                         <div className=" flex items-center gap-2 mb-5">
-                            <div className="w-10 h-10 rounded-full p-[2px] border border-[#415A77] flex items-center justify-center">
+                            <div className="w-10 aspect-square rounded-full p-[2px] border border-[#415A77] flex items-center justify-center">
                                 <img
                                     src={(props.blog.user.upload && props.blog.user.upload.path) ?? imagePlacholder}
                                     alt={(props.blog.user.upload && props.blog.user.upload.filename) ?? 'user'}
-                                    className=" object-center w-full h-full rounded-full cursor-pointer" />
+                                    className=" w-full aspect-square rounded-full cursor-pointer" />
                             </div>
                             <div>
                                 <p className=" text-[#E0E1DD] text-sm">
@@ -103,7 +103,7 @@ const ViewBlog = (props) => {
                                 <div className=" grid sm:grid-cols-2 md:grid-cols-3 gap-3">
                                     {
                                         props.more_blogs.map(blog => (
-                                            <Link key={blog.id} href={`/blog-list/read/${blog.user.username}/${blog.slug}`}>
+                                            <Link key={blog.id} href={`/blog-list/read/${blog.user.username}/${blog.id}`}>
                                                 <div>
                                                     <div className=" overflow-hidden rounded-t mb-2 border border-[#415A77]">
                                                         <img

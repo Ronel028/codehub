@@ -11,7 +11,7 @@ import { BsPersonLock } from "react-icons/bs";
 import { RiStickyNoteAddLine } from "react-icons/ri";
 import { AiOutlineCodepenCircle } from "react-icons/ai";
 import { FaLaptopCode } from "react-icons/fa";
-import imagePlacholder from "../Assets/Img/image-placeholder.webp"
+import imagePlacholder from "../Assets/Img/cypher.jpg"
 import knowl from "../Assets/Img/knowl-logo.png"
 import Input from "./Forms/Input";
 
@@ -71,7 +71,7 @@ const Navigation = (props) => {
                                         <img
                                             src={(props.user.upload && props.user.upload.path) ?? imagePlacholder}
                                             alt={(props.user.upload && props.user.upload.filename) ?? 'user'}
-                                            className=" object-cover w-full h-full rounded-full cursor-pointer" />
+                                            className=" w-full aspect-square rounded-full cursor-pointer" />
                                     ) : (
                                         <img src={imagePlacholder} alt="user" className="object-cover w-full h-full rounded-full cursor-pointer" />
                                     )
