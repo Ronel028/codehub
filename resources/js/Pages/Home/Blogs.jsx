@@ -9,7 +9,7 @@ const Blogs = (props) => {
     return (
         <>
             <MainLayout pageTitle="Blogs">
-                {
+                {/* {
                     props.latest_blog.length > 0 ? (
                         <main className=" grid md:grid-cols-2 gap-1 mb-10">
                             <section className=" flex items-center relative border border-[#778DA9] rounded-md overflow-hidden p-1">
@@ -73,12 +73,12 @@ const Blogs = (props) => {
                     ) : (
                         <NoDataFound content="Uh-oh! No data found. Please be the first to share." />
                     )
-                }
+                } */}
 
                 {/* All BLOG */}
                 {
                     props.blogs.length > 0 ? (
-                        <div className="border-b border-secondary pb-5">
+                        <div className="pb-5">
                             <div className=" grid sm:grid-cols-2 md:grid-cols-3 gap-3">
                                 {
                                     props.blogs.map(blog => (
@@ -112,7 +112,7 @@ const Blogs = (props) => {
                                 }
                             </div>
                         </div>
-                    ) : null
+                    ) : <NoDataFound title="EMPTY!" content="Be the first to share your expertise!" />
                 }
             </MainLayout>
         </>

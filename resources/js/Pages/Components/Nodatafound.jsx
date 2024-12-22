@@ -1,13 +1,14 @@
-import empty from "../Assets/Img/empty.webp"
+import empty from "../Assets/Img/code.svg"
 
-const NoDataFound = ({ content }) => {
+const NoDataFound = ({ title, content }) => {
     return (
         <>
             <div className=" flex flex-col items-center justify-center">
-                <img width={150} height={150} src={empty} alt="empty" />
-                <h1 className=" text-xl font-bold tracking-wide">
+                <img width={500} className="mb-4" src={empty} alt="empty" />
+                <h1 className=" font-bold text-7xl uppercase">{title}</h1>
+                <h2 className=" text-xl font-bold tracking-wide">
                     {content}
-                </h1>
+                </h2>
             </div>
         </>
     )

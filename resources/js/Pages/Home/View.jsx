@@ -1,7 +1,5 @@
-import { useEffect } from "react";
 import { Link } from "@inertiajs/react";
 import moment from "moment"
-import ReactQuill from "react-quill";
 import { LuDot } from "react-icons/lu";
 import Tiptap from "../Components/Markdown/Tiptap";
 import MainLayout from "../../layout/main"
@@ -9,7 +7,7 @@ import imagePlacholder from "../Assets/Img/cypher.jpg"
 import imagePlaceholder from "../Assets/Img/placeholder.jpg"
 import 'react-quill/dist/quill.snow.css';
 import NoDataFound from "../Components/Nodatafound";
-import { isEmpty, isNull } from "lodash";
+import { diffInDays } from "../../utils/functions";
 
 
 const ViewBlog = (props) => {
@@ -38,7 +36,7 @@ const ViewBlog = (props) => {
                                     }
                                 </p>
                                 <p className=" text-gray-400 text-xs flex items-center">
-                                    {moment(props.blog.created_at).startOf('hour').fromNow()}
+                                    {diffInDays(props.blog.created_at)}
                                     <LuDot />
                                     {moment(props.blog.created_at).format('ll')}
                                 </p>

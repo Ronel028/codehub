@@ -56,9 +56,6 @@ const BlogList = (props) => {
                                                         </div>
                                                     </div>
                                                     <div className=" flex items-center gap-3">
-                                                        {/* <button title="Remove">
-                                                            <FaTrashAlt className=" text-base fill-red-600" />
-                                                        </button> */}
                                                         <Link title="Edit" href={`/blog/create?id=${blog.id}`}>
                                                             <MdEditSquare className=" text-lg fill-[#E0E1DD]" />
                                                         </Link>
@@ -71,7 +68,7 @@ const BlogList = (props) => {
                                     ))
                                 }
                             </div>
-                        ) : <NoDataFound content="Uh-oh! No data found." />
+                        ) : <NoDataFound title="EMPTY!" content="Be the first to share your expertise!" />
                     }
                 </div>
             </MainLayout>
