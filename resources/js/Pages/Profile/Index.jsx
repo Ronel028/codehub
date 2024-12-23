@@ -1,13 +1,11 @@
 import { Link } from "@inertiajs/react";
 import ProfileLayout from "../../layout/profileLayout";
-import { FaLinkedinIn, FaFacebook } from "react-icons/fa";
-import { FaLocationDot, FaSquareXTwitter, FaCircleInfo } from "react-icons/fa6";
-import { CiEdit } from "react-icons/ci";
+import { FaLinkedinIn, FaFacebook, FaUserEdit } from "react-icons/fa";
+import { FaLocationDot, FaSquareXTwitter } from "react-icons/fa6";
+import BlogPostCard from "../Components/BlogPostCard";
 import altImage from "../Assets/Img/cypher.jpg"
 
 const Profile = (props) => {
-
-    console.log(props);
 
     return (
         <>
@@ -24,7 +22,7 @@ const Profile = (props) => {
                                 />
                             </div>
                         </div>
-                        <div className=" max-w-[1500px] w-[90%] mx-auto px-4 pb-8 pt-14  mb-4 ">
+                        <div className=" max-w-[1500px] w-[90%] mx-auto pb-8 pt-14  mb-4 ">
                             <div className="flex items-start justify-between">
                                 <div className=" flex gap-2 items-start">
                                     <div className="">
@@ -76,15 +74,14 @@ const Profile = (props) => {
                                     </div>
                                 </div>
                                 <div className=" flex items-center gap-2">
-                                    <Link href="/profile/edit" className=" border border-[#415A77] hover:bg-[#415A77] transition-colors ease-linear duration-150 rounded-md text-xs px-2 py-2 text-[#E0E1DD]">
-                                        <CiEdit className=" text-base fill-light inline mr-1" />
-                                        <span className=" align-middle">Edit Profile</span>
+                                    <Link title="Edit Profile" href="/profile/edit" className=" border border-[#415A77] hover:border-red-400 hover:bg-red-400 transition-colors ease-linear duration-150 rounded-md text-xs px-2 py-2 text-[#E0E1DD]">
+                                        <FaUserEdit className=" text-base text-light inline" />
                                     </Link>
                                 </div>
                             </div>
                             {
                                 props.user.user_detail && props.user.user_detail.about ? (
-                                    <div className=" pb-8 mt-8">
+                                    <div className=" mt-8">
                                         <h2 className=" text-base font-bold tracking-wide mb-1 text-yellow-400 uppercase">
                                             About {(props.user.user_detail && props.user.user_detail.first_name) ?? props.user.username}
                                         </h2>
@@ -95,6 +92,30 @@ const Profile = (props) => {
                                 ) : null
                             }
                         </div>
+                    </section>
+                    <section className="max-w-[1500px] w-[90%] mx-auto">
+                        {
+                            props.blogs.length > 0 ? (
+                                <>
+                                    <p className="inline-block bg-red-400 text-xs font-bold me-2 px-2.5 py-2 mb-2 rounded-full transition-colors ease-linear duration-150 ">Blogs</p>
+                                    <div className=" grid grid-cols-3 gap-2">
+                                        {
+                                            props.blogs.map(blog => (
+                                                <BlogPostCard
+                                                    key={blog.id}
+                                                    blogId={blog.id}
+                                                    username={blog.user.username}
+                                                    title={blog.title}
+                                                    description={blog.description}
+                                                    createdAt={blog.created_at}
+                                                    blogPhoto={blog.upload}
+                                                />
+                                            ))
+                                        }
+                                    </div>
+                                </>
+                            ) : null
+                        }
                     </section>
                 </main>
             </ProfileLayout>

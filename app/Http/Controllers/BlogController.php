@@ -31,7 +31,7 @@ class BlogController extends Controller
     public function Index(Request $request)
     {
         $search = $request->query('search');
-        $blog_list = BlogPost::with(['upload'])
+        $blog_list = BlogPost::with(['upload', 'user'])
             ->where('user_id', Auth::user()->id)
             ->when(
                 $search,

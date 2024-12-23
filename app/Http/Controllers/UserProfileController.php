@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\BlogPost;
 use App\Models\User;
 use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 use Illuminate\Http\Request;
@@ -13,9 +14,14 @@ class UserProfileController extends Controller
 {
     public function index()
     {
-        $user = User::with(['userDetail', 'upload'])->where('id', Auth::user()->id)->first();
+        $user = User::with(['userDetail', 'upload'])->where('id', Auth::id())->first();
+        $blogs = BlogPost::with(['upload', 'user'])
+            ->where('user_id', Auth::id())
+            ->orderBy('created_at', 'desc')
+            ->get();
         return Inertia::render('Profile/Index', [
-            'user' => $user
+            'user' => $user,
+            'blogs' => $blogs
         ]);
     }
 
