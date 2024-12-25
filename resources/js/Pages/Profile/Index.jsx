@@ -1,25 +1,55 @@
+import { useState } from "react";
 import { Link } from "@inertiajs/react";
+import { isNull } from "lodash";
 import ProfileLayout from "../../layout/profileLayout";
-import { FaLinkedinIn, FaFacebook, FaUserEdit } from "react-icons/fa";
-import { FaLocationDot, FaSquareXTwitter } from "react-icons/fa6";
+import ProfilePictureModal from "../Components/Modals/ProfilePictureModal";
 import BlogPostCard from "../Components/BlogPostCard";
+import { FaLinkedinIn, FaFacebook, FaUserEdit } from "react-icons/fa";
+import { FaLocationDot, FaSquareXTwitter, FaCameraRotate } from "react-icons/fa6";
 import altImage from "../Assets/Img/cypher.jpg"
 
 const Profile = (props) => {
 
+    const [profilePhoto, setProfilePhoto] = useState(null)
+
+    const handleChangePhoto = (e) => {
+        if (e.target.files && e.target.files[0]) {
+            const image = e.target.files[0]
+            const reader = new FileReader()
+            reader.onload = (e) => {
+                setProfilePhoto(prevState => e.target.result)
+            }
+            reader.readAsDataURL(image)
+            e.target.value = ''
+        }
+    }
+
     return (
         <>
             <ProfileLayout>
+                {
+                    !isNull(profilePhoto) ? (
+                        <ProfilePictureModal photo={profilePhoto} setPhoto={setProfilePhoto} />
+                    ) : null
+                }
                 <main className="">
                     <section>
                         <div className=" h-56 w-full  rounded-t-md">
                             <img className=" h-full w-full object-cover" src="https://images.pexels.com/photos/129208/pexels-photo-129208.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="" />
                             <div className=" -mt-24 flex items-center justify-start max-w-[1500px] w-[90%] mx-auto ">
-                                <img
-                                    className="h-full w-36 aspect-square object-cover rounded-full"
-                                    src={(props.user.upload && props.user.upload.path) ?? altImage}
-                                    alt={(props.user.upload && props.user.upload.filename) ?? "image-placeholder"}
-                                />
+                                <div className=" relative overflow-hidden rounded-full group">
+                                    <img
+                                        className="h-full w-36 aspect-square object-cover rounded-full"
+                                        src={(props.user.upload && props.user.upload.path) ?? altImage}
+                                        alt={(props.user.upload && props.user.upload.filename) ?? "image-placeholder"}
+                                    />
+                                    <div className=" bg-primary bg-opacity-70 absolute left-0 right-0 bottom-0 h-10 hidden group-hover:flex items-center justify-center">
+                                        <label htmlFor="profile__Photo" className="cursor-pointer">
+                                            <FaCameraRotate className="text-xl hover:text-red-400 transition-colors ease-linear duration-150" />
+                                        </label>
+                                        <input onChange={handleChangePhoto} type="file" id="profile__Photo" hidden />
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div className=" max-w-[1500px] w-[90%] mx-auto pb-8 pt-14  mb-4 ">
@@ -97,7 +127,7 @@ const Profile = (props) => {
                         {
                             props.blogs.length > 0 ? (
                                 <>
-                                    <p className="inline-block bg-red-400 text-xs font-bold me-2 px-2.5 py-2 mb-2 rounded-full transition-colors ease-linear duration-150 ">Blogs</p>
+                                    <p className="inline-block bg-red-400 text-xs font-bold me-2 px-2.5 py-1 mb-2 rounded-full transition-colors ease-linear duration-150 ">Blogs</p>
                                     <div className=" grid grid-cols-3 gap-2">
                                         {
                                             props.blogs.map(blog => (

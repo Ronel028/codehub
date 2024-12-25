@@ -3,7 +3,7 @@ import { Link, router } from "@inertiajs/react";
 import { toast } from "react-toastify";
 import { FaCameraRetro, FaCamera, FaMinusCircle } from "react-icons/fa";
 import { IoIosAdd } from "react-icons/io";
-import altImage from "../Assets/Img/image-placeholder.webp"
+import altImage from "../Assets/Img/cypher.jpg"
 import Input from "../Components/Forms/Input";
 import MainLayout from "../../layout/main";
 import Button from "../Components/Forms/Button";

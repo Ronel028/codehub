@@ -93,4 +93,6 @@ class UserProfileController extends Controller
             DB::rollBack();
         }
     }
+
+    public function updateProfilePicture() {}
 }
