@@ -7,6 +7,7 @@ import BlogPostCard from "../Components/BlogPostCard";
 import { FaLinkedinIn, FaFacebook, FaUserEdit } from "react-icons/fa";
 import { FaLocationDot, FaSquareXTwitter, FaCameraRotate } from "react-icons/fa6";
 import altImage from "../Assets/Img/cypher.jpg"
+import { toast } from "react-toastify";
 
 const Profile = (props) => {
 
@@ -15,6 +16,13 @@ const Profile = (props) => {
     const handleChangePhoto = (e) => {
         if (e.target.files && e.target.files[0]) {
             const image = e.target.files[0]
+
+            if (image.size > 1000000) {
+                toast.error('File size exceed the maximum limit for 1mb, Please try upload another image.', {
+                    position: 'top-right'
+                })
+                return
+            }
             const reader = new FileReader()
             reader.onload = (e) => {
                 setProfilePhoto(prevState => e.target.result)

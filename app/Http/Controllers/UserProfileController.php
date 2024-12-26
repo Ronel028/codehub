@@ -94,5 +94,23 @@ class UserProfileController extends Controller
         }
     }
 
-    public function updateProfilePicture() {}
+    public function updateProfilePicture(Request $request)
+    {
+        try {
+            $user = User::find(Auth::id());
+            if ($request->hasFile('photo')) {
+
+                $uploadedFile = Cloudinary::upload($request->file('photo')->getRealPath(), [
+                    'folder' => 'knowl_img'
+                ]);
+
+                $user->upload()->create([
+                    'filename' => $request->file('photo')->getClientOriginalName(),
+                    'path' => $uploadedFile->getSecurePath(),
+                ]);
+            }
+        } catch (\Throwable $th) {
+            dd($th->getMessage());
+        }
+    }
 }
