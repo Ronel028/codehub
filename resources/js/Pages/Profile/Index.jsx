@@ -19,7 +19,8 @@ const Profile = (props) => {
 
             if (image.size > 1000000) {
                 toast.error('File size exceed the maximum limit for 1mb, Please try upload another image.', {
-                    position: 'top-right'
+                    position: 'top-right',
+                    autoClose: 10000,
                 })
                 return
             }
@@ -65,7 +66,7 @@ const Profile = (props) => {
                                 <div className=" flex gap-2 items-start">
                                     <div className="">
                                         <h2 className=" text-4xl font-bold tracking-wide mb-1">{(props.user.user_detail && props.user.full_name) ?? props.user.username}</h2>
-                                        <div className=" flex items-center gap-5 mb-5">
+                                        <div className=" flex items-center flex-wrap gap-5 mb-5">
                                             {
                                                 props.user.user_detail && props.user.user_detail.address ? (
                                                     <p className=" text-xs font-bold tracking-wide flex gap-1">
@@ -74,7 +75,7 @@ const Profile = (props) => {
                                                     </p>
                                                 ) : null
                                             }
-                                            <div className=" flex gap-5 tracking-wide">
+                                            <div className=" flex flex-wrap gap-5 tracking-wide">
                                                 {
                                                     props.user.user_detail && props.user.user_detail.soc_fb ? (
                                                         <Link href={props.user.user_detail.soc_fb ?? '#'} className="font-bold flex gap-1 text-xs hover:underline">
@@ -101,11 +102,11 @@ const Profile = (props) => {
                                                 }
                                             </div>
                                         </div>
-                                        <div>
+                                        <div className=" flex items-center gap-2 flex-wrap">
                                             {
                                                 props.user.user_detail &&
                                                     props.user.user_detail.experiences !== null ? props.user.user_detail.experiences.map((experience, index) => (
-                                                        <span key={index} className="border border-red-400 hover:bg-[#415A77] text-red-400 text-xs font-bold me-2 px-2.5 py-2 rounded-full transition-colors ease-linear duration-150 ">{experience}</span>
+                                                        <span key={index} className="border border-red-400 hover:bg-[#415A77] text-red-400 text-xs font-bold px-2.5 py-2 rounded-full transition-colors ease-linear duration-150 ">{experience}</span>
                                                     )) : null
                                             }
                                         </div>
@@ -136,7 +137,7 @@ const Profile = (props) => {
                             props.blogs.length > 0 ? (
                                 <>
                                     <p className="inline-block bg-red-400 text-xs font-bold me-2 px-2.5 py-1 mb-2 rounded-full transition-colors ease-linear duration-150 ">Blogs</p>
-                                    <div className=" grid grid-cols-3 gap-2">
+                                    <div className=" grid sm:grid-cols-2 md:grid-cols-3 gap-2">
                                         {
                                             props.blogs.map(blog => (
                                                 <BlogPostCard

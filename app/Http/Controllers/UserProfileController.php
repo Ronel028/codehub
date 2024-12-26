@@ -37,35 +37,13 @@ class UserProfileController extends Controller
     public function store(Request $request)
     {
         DB::beginTransaction();
-        $user = User::with('userDetail')->where('id', Auth::user()->id)->first();
-        $user->username = $request->username;
-        $user->email = $request->email;
-        $user->password = !is_null($request->password) ? $request->password : $user->password;
-        if ($user->save()) {
-            DB::commit();
-
-            // UPLOAD IMAGE
-            if ($request->hasFile('image')) {
-
-                $uploadedFile = Cloudinary::upload($request->file('image')->getRealPath(), [
-                    'folder' => 'knowl_img'
-                ]);
-
-                $user->upload()->create([
-                    'filename' => $request->file('image')->getClientOriginalName(),
-                    'path' => $uploadedFile->getSecurePath(),
-                ]);
-
-                // $user->upload()->create([
-                //     'filename' => $request->file('image')->getClientOriginalName(),
-                //     'path' => $request->file('image')->store('images', 'public')
-                // ]);
-            }
-
-            // SAVE USER INFORMATION, CHECK IF ALREADY EXIST OR NOT
-            if (is_null($user->userDetail)) {
-                $user->userDetail()->create([
+        try {
+            $user = User::with('userDetail')->where('id', Auth::id())->first();
+            $user->userDetail()->updateOrCreate(
+                [
                     'user_id' => $user->id,
+                ],
+                [
                     'first_name' => $request->first_name,
                     'middle_name' => $request->middle_name,
                     'last_name' => $request->last_name,
@@ -75,21 +53,10 @@ class UserProfileController extends Controller
                     'soc_linkedin' => $request->soc_linkedin,
                     'soc_twitter' => $request->soc_twitter,
                     'about' => $request->about,
-                ]);
-            } else {
-                $user->userDetail()->update([
-                    'first_name' => $request->first_name,
-                    'middle_name' => $request->middle_name,
-                    'last_name' => $request->last_name,
-                    'address' => $request->address,
-                    'experiences' => is_null($request->experience[0]) ? null : $request->experience,
-                    'soc_fb' => $request->soc_fb,
-                    'soc_linkedin' => $request->soc_linkedin,
-                    'soc_twitter' => $request->soc_twitter,
-                    'about' => $request->about,
-                ]);
-            }
-        } else {
+                ]
+            );
+            DB::commit();
+        } catch (\Throwable $th) {
             DB::rollBack();
         }
     }

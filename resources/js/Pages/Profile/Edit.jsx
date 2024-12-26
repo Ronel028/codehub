@@ -12,10 +12,6 @@ const Edit = (props) => {
 
     const [loading, setLoading] = useState(false)
     const [datas, setDatas] = useState({
-        image: null,
-        username: props.user.username,
-        email: props.user.email,
-        password: '',
         first_name: (props.user.user_detail && props.user.user_detail.first_name) ?? '',
         middle_name: (props.user.user_detail && props.user.user_detail.middle_name) ?? '',
         last_name: (props.user.user_detail && props.user.user_detail.last_name) ?? '',
@@ -26,7 +22,6 @@ const Edit = (props) => {
         soc_twitter: (props.user.user_detail && props.user.user_detail.soc_twitter) ?? '',
         about: (props.user.user_detail && props.user.user_detail.about) ?? ''
     })
-    const [imagePreview, setImagePreview] = useState((props.user.upload && props.user.upload.path) ?? null)
 
     // ADD INPUT FIELD FOR EXPERIENCE
     const addExperience = () => {
@@ -54,17 +49,6 @@ const Edit = (props) => {
         })
     }
 
-    // HANDLE IMAGE PREVIEW
-    const onImageChange = (event) => {
-        if (event.target.files && event.target.files[0]) {
-            setImagePreview(URL.createObjectURL(event.target.files[0]));
-            setDatas({
-                ...datas,
-                image: event.target.files[0]
-            })
-        }
-    }
-
     // REMOVE EXPERIENCE LIST
     const removeExperience = (index) => {
         datas.experience.splice(index, 1)
@@ -75,8 +59,6 @@ const Edit = (props) => {
     }
 
     const store = () => {
-        console.log(datas);
-
         router.post('/profile/store', datas, {
             onSuccess: () => {
                 toast.success('Profile updated successfully')
@@ -94,30 +76,13 @@ const Edit = (props) => {
         <>
             <MainLayout>
                 <div className=" pt-2">
-                    <h1 className=" font-bold text-xl mb-5">Edit profile</h1>
+                    <h1 className=" font-bold text-xl mb-5">Personal Information</h1>
                 </div>
-                <main className=" grid grid-cols-[40%_59%] gap-[1%]">
-                    <div className=" ">
+                <main className="">
+                    {/* <div className=" ">
                         <div className="pt-5 pb-10 px-3 rounded-md border border-[#0D1B2A]">
                             <h4 className=" font-bold text-base mb-7">Account Details</h4>
                             <div>
-                                <div className=" flex flex-col items-center justify-center">
-                                    <div className=" relative rounded-full inline-block mb-5">
-                                        <input id="upload" type="file" className="hidden" accept="image/*" onChange={onImageChange} />
-                                        <div className=" w-32 h-32 overflow-hidden rounded-full shadow-md ">
-                                            {
-                                                imagePreview === null ? <img className="h-full w-full object-cover" src={altImage} alt="image-placeholder" />
-                                                    : <img className="h-full w-full object-cover" src={imagePreview} alt="" />
-                                            }
-
-                                        </div>
-                                        <label htmlFor="upload" className=" bg-secondary shadow p-2 rounded-full cursor-pointer inline-block absolute bottom-0 right-2">
-                                            <div className="">
-                                                <FaCamera className=" fill-white text-base" />
-                                            </div>
-                                        </label>
-                                    </div>
-                                </div>
                                 <div className=" px-10 flex flex-col gap-3">
                                     <Input name="username" type="text" label="Username" value={datas.username} onChange={handleChange} />
                                     <Input name="email" type="email" label="Email address" value={datas.email} onChange={handleChange} />
@@ -125,11 +90,10 @@ const Edit = (props) => {
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div className=" py-5 px-3 rounded-md border border-[#0D1B2A]">
+                    </div> */}
+                    <div className=" py-2 rounded-md">
                         <div>
                             <div className="">
-                                <h4 className=" font-bold text-base mb-7">Personal Information</h4>
                                 <div className=" grid grid-cols-3 gap-2 mb-5">
                                     <Input label="First Name" name="first_name" value={datas.first_name} onChange={handleChange} />
                                     <Input label="Middle Name(Optional)" name="middle_name" value={datas.middle_name} onChange={handleChange} />
