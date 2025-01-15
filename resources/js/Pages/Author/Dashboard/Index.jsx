@@ -1,4 +1,4 @@
-import AuthorLayout from "../../../layout/AuthotLayout"
+import AuthorLayout from "../../../layout/AuthorLayout"
 
 const DashboardIndex = () => {
     return <p>Welcome to Dashboard</p>

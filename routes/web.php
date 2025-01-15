@@ -6,6 +6,7 @@ use App\Http\Controllers\BlogController;
 use App\Http\Controllers\BlogListController;
 use App\Http\Controllers\UserProfileController;
 use App\Http\Controllers\Author\DashboardController;
+use App\Http\Controllers\Author\ProfileController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -61,5 +62,7 @@ Route::middleware(['auth', 'verified'])->name('profile.')->prefix('profile')->gr
 
 // ======= AUTHOR PAGES ROUTE ============
 Route::middleware(['auth', 'verified'])->name('author.')->prefix('author')->group(function () {
-    Route::get('/', [DashboardController::class, 'Index'])->name('dashboard.index');
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
+    Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
+    Route::get('/profile/edit', [ProfileController::class, 'editProfile'])->name('profile.edit');
 });

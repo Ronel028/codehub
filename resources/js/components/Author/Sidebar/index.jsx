@@ -55,7 +55,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
   return (
     <aside
       ref={sidebar}
-      className={`absolute left-0 top-0 z-9999 flex h-screen w-72.5 flex-col overflow-y-hidden bg-primary duration-300 ease-linear lg:static lg:translate-x-0 ${
+      className={`absolute left-0 top-0 z-[60] flex h-screen w-72 flex-col overflow-y-hidden bg-primary duration-300 ease-linear lg:static lg:translate-x-0 ${
         sidebarOpen ? 'translate-x-0' : '-translate-x-full'
       }`}
     >
@@ -104,9 +104,23 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
 
             <ul className="mb-6 flex flex-col gap-1.5">
               {/* <!-- Menu Item Dashboard --> */}
+              <li>
+                <Link
+                  href="/author/dashboard"
+                  className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
+                    url.includes('/author/dashboard') && 'bg-secondary'
+                  }`}
+                >
+                  <RxDashboard />
+                  Dashboard
+                </Link>
+              </li>
+              {/* <!-- Menu Item Dashboard --> */}
+
+              {/* <!-- Menu Item Profile --> */}
               <SidebarLinkGroup
                 activeCondition={
-                  url === '/' || url.includes('dashboard')
+                  url === '/author/profile' || url.includes('/author/profile')
                 }
               >
                 {(handleClick, open) => {
@@ -114,10 +128,10 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                     <React.Fragment>
                       <Link
                         href="#"
-                        className={`group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
-                          (url === '/' ||
-                            url.includes('dashboard')) &&
-                          'bg-graydark dark:bg-meta-4'
+                        className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
+                          (url === '/author/profile' ||
+                            url.includes('/author/profile')) &&
+                          'bg-secondary'
                         }`}
                         onClick={(e) => {
                           e.preventDefault();
@@ -126,8 +140,8 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                             : setSidebarExpanded(true);
                         }}
                       >
-                        <RxDashboard />
-                        Dashboard
+                        <FaRegUser />
+                        Profile
                         <FaChevronDown className={`absolute right-4 top-1/2 -translate-y-1/2 ${ open && 'rotate-180'}`} />
                       </Link>
                       {/* <!-- Dropdown Menu Start --> */}
@@ -139,13 +153,24 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                         <ul className="mt-4 mb-5 flex flex-col gap-2.5 pl-6">
                           <li>
                             <Link
-                              href="/"
+                              href="/author/profile"
+                              className={({ isActive }) =>
+                                'group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-red-500 duration-300 ease-in-out hover:text-light ' +
+                                (isActive && '!text-red-500')
+                              }
+                            >
+                              View
+                            </Link>
+                          </li>
+                          <li>
+                            <Link
+                              href="/author/profile/edit"
                               className={({ isActive }) =>
                                 'group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white ' +
                                 (isActive && '!text-white')
                               }
                             >
-                              eCommerce
+                              Manage Profile
                             </Link>
                           </li>
                         </ul>
@@ -155,26 +180,12 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                   );
                 }}
               </SidebarLinkGroup>
-              {/* <!-- Menu Item Dashboard --> */}
-
-              {/* <!-- Menu Item Profile --> */}
-              <li>
-                <Link
-                  href="/profile"
-                  className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
-                    url.includes('profile') && 'bg-graydark dark:bg-meta-4'
-                  }`}
-                >
-                  <FaRegUser />
-                  Profile
-                </Link>
-              </li>
               {/* <!-- Menu Item Profile --> */}
 
               {/* <!-- Menu Item Blog Content --> */}
               <SidebarLinkGroup
                 activeCondition={
-                  url === '/forms' || url.includes('forms')
+                  url === '/author/blog/create' || url.includes('/author/blog/create')
                 }
               >
                 {(handleClick, open) => {
@@ -183,9 +194,9 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                       <Link
                         href="#"
                         className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
-                          (url === '/forms' ||
-                            url.includes('forms')) &&
-                          'bg-graydark dark:bg-meta-4'
+                          (url === '/author/blog/create' ||
+                            url.includes('/author/blog/create')) &&
+                          'bg-secondary'
                         }`}
                         onClick={(e) => {
                           e.preventDefault();
