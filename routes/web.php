@@ -5,6 +5,7 @@ use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\BlogListController;
 use App\Http\Controllers\UserProfileController;
+use App\Http\Controllers\Author\DashboardController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -55,4 +56,10 @@ Route::middleware(['auth', 'verified'])->name('profile.')->prefix('profile')->gr
     Route::get('/edit', [UserProfileController::class, 'edit'])->name('edit');
     Route::post('/store', [UserProfileController::class, 'store'])->name('store');
     Route::post('/change-profile-picture', [UserProfileController::class, 'updateProfilePicture'])->name('change-profile-picture');
+});
+
+
+// ======= AUTHOR PAGES ROUTE ============
+Route::middleware(['auth', 'verified'])->name('author.')->prefix('author')->group(function () {
+    Route::get('/', [DashboardController::class, 'Index'])->name('dashboard.index');
 });
