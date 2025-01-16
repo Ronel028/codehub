@@ -19,6 +19,7 @@ export default {
         'secondary': '#31304D',
         'light-gray': '#B6BBC4',
         'light': '#F0ECE5',
+        'very-light': '#F8F9FA'
       },
     },
     fontFamily: {

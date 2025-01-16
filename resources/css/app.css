@@ -28,7 +28,8 @@ input,
 button {
     /* color: #31304D; */
     color: #E0E1DD;
-    font-family: "Courier Prime", sans-serif;
+    /* font-family: "Courier Prime", sans-serif; */
+    font-family: "Nunito Sans";
 }
 
 #style-editor>* {
