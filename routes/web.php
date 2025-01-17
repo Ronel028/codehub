@@ -63,6 +63,11 @@ Route::middleware(['auth', 'verified'])->name('profile.')->prefix('profile')->gr
 // ======= AUTHOR PAGES ROUTE ============
 Route::middleware(['auth', 'verified'])->name('author.')->prefix('author')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
+
+    // ======== PROFILE SECTION ========
     Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
     Route::get('/profile/edit', [ProfileController::class, 'editProfile'])->name('profile.edit');
+    Route::post('/profile/edit', [ProfileController::class, 'addSocialMediaAccount'])->name('profile.edit.save');
+    // ======== PROFILE SECTION ========
+
 });

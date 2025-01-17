@@ -1,5 +1,5 @@
 // import Breadcrumb from '../components/Breadcrumbs/Breadcrumb';
-import { Link } from '@inertiajs/react';
+import { Link, useForm } from '@inertiajs/react';
 import AuthorLayout from '../../../layout/AuthorLayout';
 import Input from '../../../components/Forms/Input';
 import CoverOne from '../../../assets/img/cover-01.png';
@@ -8,8 +8,20 @@ import { MdAddPhotoAlternate, MdAdd } from "react-icons/md";
 import { IoCameraOutline } from 'react-icons/io5';
 import { FaFacebookF, FaGithub, FaLinkedinIn } from 'react-icons/fa';
 import { FaSquareXTwitter } from "react-icons/fa6";
+import { useState } from 'react';
 
 const EditProfile = () => {
+
+  const [showAddSocialMediaModal, setShowAddSocialMediaModal] = useState(false)
+
+  function addSocialMedia(name){
+    if(name === 'show'){
+      setShowAddSocialMediaModal(true)
+    }else{
+      setShowAddSocialMediaModal(false)
+    }
+  }
+
   return (
     <>
     <div className="mx-auto max-w-270">
@@ -65,12 +77,13 @@ const EditProfile = () => {
             <div className=' bg-gray-200/80 rounded-md px-3 py-3'>
               <p className=' text-primary text-lg font-bold font-nunito-sans'>Social Media Accounts</p>
               <div className='mt-2 flex flex-col gap-5'>
-                <button className=' flex items-center justify-center text-primary text-sm border border-gray-300 bg-very-light px-3 py-2 rounded-md'>
+                <button onClick={() => addSocialMedia('show')} className=' flex items-center justify-center text-primary text-sm border border-gray-300 bg-very-light px-3 py-2 rounded-md'>
                   <MdAdd className=' text-lg' />
                   Add
                 </button>
               </div>
             </div>
+            { showAddSocialMediaModal ? <SocialMediaAccountModal addSocialMedia={addSocialMedia} /> : null }
           </div>
           {/* ================ RIGHT SIDE =============== */}
       </div>
@@ -78,6 +91,76 @@ const EditProfile = () => {
   </>
   );
 };
+
+const SocialMediaAccountModal =  ( { addSocialMedia } ) => {
+
+  const { data, setData, post, processing, errors } = useForm({
+    platform: '',
+    link: '',
+  })
+
+  function handleOnChange(e){
+    setData({
+      ...data,
+      [e.target.name]: e.target.value
+    })
+  }
+
+  function save(e){
+    e.preventDefault()
+    post('/author/profile/edit')
+  }
+
+  return (
+    <div className="relative z-50" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+      <div className="fixed inset-0 bg-gray-500/75 transition-opacity" aria-hidden="true"></div>
+      <div className="fixed inset-0 z-10 w-screen overflow-y-auto">
+          <div className="flex min-h-full items-start justify-center p-4 text-center sm:items-center sm:p-0">
+              <form onSubmit={save} className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
+                  <div className="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
+                      <div className="sm:flex sm:items-start">
+                          <div className="mt-3 text-center sm:mt-0 sm:text-left w-full">
+                              <h3 className="text-base font-semibold text-gray-900" id="modal-title">Social Media Account</h3>
+                              <div className="mt-4">
+                                <div className=''>
+                                  <label htmlFor="platform" className='text-primary text-sm'>Platform</label>
+                                  <div>
+                                    <select onChange={handleOnChange} value={data.platform} name="platform" id="platform" className='w-full border border-light-gray focus:outline-[#778DA9] bg-white outline-none p-2 text-xs placeholder:text-light-gray text-primary rounded-md'>
+                                      <option value="" disabled>---Select Platform---</option>
+                                      <option value="facebook">Facebook</option>
+                                      <option value="twitter">Twitter</option>
+                                      <option value="linkedin">Linkedin</option>
+                                    </select>
+                                  </div>
+                                </div>
+                                {
+                                  data.platform.length > 0 ? (
+                                    <div className='mt-3'>
+                                        <Input onChange={handleOnChange} value={data.link} required name="link" label="Link" placeholder="Enter your link..." />
+                                    </div>
+                                  ) : null
+                                }
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                  <div className="bg-gray-50 px-4 py-3 flex justify-end items-center gap-2 sm:px-6">
+                      <button onClick={() => addSocialMedia('close')} type="button" className=" inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:w-auto">Close</button>
+                      <button
+                          onClick={save}
+                          disabled={processing}
+                          type="button"
+                          className={`inline-flex w-full items-center justify-center rounded-md bg-primary h-9 px-3 py-1 text-sm font-semibold text-white shadow-sm hover:bg-opacity-75 sm:w-auto`}
+                      >
+                          Save
+                      </button>
+                  </div>
+              </form>
+          </div>
+      </div>
+  </div>
+  )
+}
 
 EditProfile.layout = page => <AuthorLayout children={page} />
 

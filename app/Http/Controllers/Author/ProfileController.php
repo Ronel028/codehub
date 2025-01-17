@@ -14,4 +14,7 @@ class ProfileController extends Controller
     public function editProfile(){
         return Inertia::render('Author/Profile/Edit');
     }
+    public function addSocialMediaAccount(Request $request){
+        dd($request);
+    }
 }
