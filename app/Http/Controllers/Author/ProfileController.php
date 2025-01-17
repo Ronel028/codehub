@@ -19,6 +19,8 @@ class ProfileController extends Controller
             'socialMediaLinks' => $socialMediaLinks
         ]);
     }
+
+    // =========== Social Media Links Function ============
     public function addSocialMediaAccount(Request $request){
         $request->validate([
             'platform' => 'required',
@@ -37,6 +39,9 @@ class ProfileController extends Controller
         }
     }
     public function updateSocialMediaLink(Request $request){
+        $request->validate([
+            'link' => 'required',
+        ]);
         try {
             $socialMediaLinks = SocialMediaLinks::find($request->id);
             $socialMediaLinks->link = $request->link;
@@ -57,4 +62,5 @@ class ProfileController extends Controller
             dd($th);
         }
     }
+    // =========== Social Media Links Function ============
 }

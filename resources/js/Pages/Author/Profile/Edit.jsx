@@ -18,6 +18,7 @@ const EditProfile = ({ socialMediaLinks }) => {
     id: null,
     link: ''
   })
+  const [socialMediaLinkError, setSocialMediaLinkError] = useState(null)
 
   function addSocialMedia(name){
     if(name === 'show'){
@@ -28,6 +29,7 @@ const EditProfile = ({ socialMediaLinks }) => {
   }
 
   function editSocialMediaLink(id, link) {
+    setSocialMediaLinkError(null)
     setSocialMediaLinkId({
       ...socialMediaLinkId,
       id: id,
@@ -51,6 +53,9 @@ const EditProfile = ({ socialMediaLinks }) => {
           id: null,
           link: ''
         })
+      },
+      onError: (error) => {
+        setSocialMediaLinkError(error.link)
       }
     })
   }
@@ -120,12 +125,12 @@ const EditProfile = ({ socialMediaLinks }) => {
                         return (
                           <div key={value.id} className=' grid grid-cols-5 gap-2'>
                               <div className='p-2 bg-very-light rounded-md'>
-                                <span className=' text-sm text-primary text-center'>{capitalize(value.platform)}</span>
+                                <span className=' align-middle text-sm text-primary text-center'>{capitalize(value.platform)}</span>
                               </div>
                               <div className=' col-span-4 p-2 bg-very-light rounded-md flex items-center justify-between gap-3'>
                                 {
                                   socialMediaLinkId.id === value.id ? (
-                                    <Input onChange={updateLinkValue} value={socialMediaLinkId.link} name={`social_link_${value.id}`} className="w-full" />
+                                    <Input onChange={updateLinkValue} value={socialMediaLinkId.link} error={socialMediaLinkError} name={`social_link_${value.id}`} className="w-full" />
                                   ) : <a href={value.link} target='_blank' className='text-sm text-blue-500 font-bold hover:underline'>{value.link}</a>
                                 }
                                 <div className=' flex items-center gap-2'>
