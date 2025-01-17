@@ -36,4 +36,25 @@ class ProfileController extends Controller
             dd($th);
         }
     }
+    public function updateSocialMediaLink(Request $request){
+        try {
+            $socialMediaLinks = SocialMediaLinks::find($request->id);
+            $socialMediaLinks->link = $request->link;
+            if($socialMediaLinks->save()){
+                return to_route('author.profile.edit');
+            }
+        } catch (\Throwable $th) {
+            dd($th);
+        }
+    }
+    public function removeSocialMediaLink(Request $request){
+        try {
+            $socialMediaLinks = SocialMediaLinks::find($request->id);
+            if($socialMediaLinks->delete()){
+                return to_route('author.profile.edit');
+            }
+        } catch (\Throwable $th) {
+            dd($th);
+        }
+    }
 }

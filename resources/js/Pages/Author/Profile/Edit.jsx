@@ -1,19 +1,23 @@
 // import Breadcrumb from '../components/Breadcrumbs/Breadcrumb';
 import { useState } from 'react';
-import { Link, useForm } from '@inertiajs/react';
+import { Link, useForm, router } from '@inertiajs/react';
 import AuthorLayout from '../../../layout/AuthorLayout';
 import Input from '../../../components/Forms/Input';
 import CoverOne from '../../../assets/img/cover-01.png';
 import userSix from '../../../assets/img/user-06.png';
 import { MdAddPhotoAlternate, MdAdd } from "react-icons/md";
 import { IoCameraOutline } from 'react-icons/io5';
-import { FaFacebookF, FaGithub, FaLinkedinIn } from 'react-icons/fa';
+import { FaFacebookF, FaGithub, FaLinkedinIn, FaRegEdit, FaSave, FaTrashAlt } from 'react-icons/fa';
 import { FaSquareXTwitter } from "react-icons/fa6";
-import { capitalize } from 'lodash';
+import { capitalize, set } from 'lodash';
 
 const EditProfile = ({ socialMediaLinks }) => {
 
   const [showAddSocialMediaModal, setShowAddSocialMediaModal] = useState(false)
+  const [socialMediaLinkId, setSocialMediaLinkId] = useState({
+    id: null,
+    link: ''
+  })
 
   function addSocialMedia(name){
     if(name === 'show'){
@@ -23,7 +27,37 @@ const EditProfile = ({ socialMediaLinks }) => {
     }
   }
 
-  console.log(socialMediaLinks)
+  function editSocialMediaLink(id, link) {
+    setSocialMediaLinkId({
+      ...socialMediaLinkId,
+      id: id,
+      link: link
+    })
+  }
+
+  function updateLinkValue(e){
+    const name = e.target.name
+    setSocialMediaLinkId({
+      ...socialMediaLinkId,
+      link: e.target.value
+    })
+  }
+
+  function saveUpdatedSocialMediaLink(){
+    router.post(`/author/profile/edit/social-media-account/update`, socialMediaLinkId, {
+      onSuccess: () => {
+        setSocialMediaLinkId({
+          ...socialMediaLinkId,
+          id: null,
+          link: ''
+        })
+      }
+    })
+  }
+
+  function removeSocialMediaLink(id){
+    router.delete(`/author/profile/edit/social-media-account/remove/${id}`)
+  }
 
   return (
     <>
@@ -88,8 +122,28 @@ const EditProfile = ({ socialMediaLinks }) => {
                               <div className='p-2 bg-very-light rounded-md'>
                                 <span className=' text-sm text-primary text-center'>{capitalize(value.platform)}</span>
                               </div>
-                              <div className=' col-span-4 p-2 bg-very-light rounded-md'>
-                                <a href={value.link} target='_blank' className='text-sm text-blue-500 font-bold hover:underline'>{value.link}</a>
+                              <div className=' col-span-4 p-2 bg-very-light rounded-md flex items-center justify-between gap-3'>
+                                {
+                                  socialMediaLinkId.id === value.id ? (
+                                    <Input onChange={updateLinkValue} value={socialMediaLinkId.link} name={`social_link_${value.id}`} className="w-full" />
+                                  ) : <a href={value.link} target='_blank' className='text-sm text-blue-500 font-bold hover:underline'>{value.link}</a>
+                                }
+                                <div className=' flex items-center gap-2'>
+                                  {
+                                    socialMediaLinkId.id === value.id ? (
+                                      <button onClick={saveUpdatedSocialMediaLink} title='Save' className=' text-green-500'>
+                                        <FaSave />
+                                      </button>
+                                    ) : (
+                                      <button onClick={() => editSocialMediaLink(value.id, value.link)} title='Edit' className=' text-blue-500'>
+                                        <FaRegEdit />
+                                      </button>
+                                    )
+                                  }
+                                  <button onClick={() => removeSocialMediaLink(value.id)} title='Remove' className=' text-red-500'>
+                                    <FaTrashAlt />
+                                  </button>
+                                </div>
                               </div>
                           </div>
                         )
