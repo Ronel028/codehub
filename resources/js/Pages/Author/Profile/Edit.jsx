@@ -9,6 +9,7 @@ import { MdAddPhotoAlternate, MdAdd } from "react-icons/md";
 import { IoCameraOutline } from 'react-icons/io5';
 import { FaFacebookF, FaGithub, FaLinkedinIn } from 'react-icons/fa';
 import { FaSquareXTwitter } from "react-icons/fa6";
+import { capitalize } from 'lodash';
 
 const EditProfile = ({ socialMediaLinks }) => {
 
@@ -83,8 +84,13 @@ const EditProfile = ({ socialMediaLinks }) => {
                     {
                       socialMediaLinks.map(value => {
                         return (
-                          <div key={value.id} className='p-2 bg-very-light rounded-md'>
-                              <a href={value.link} target='_blank' className=' text-primary'>{value.link}</a>
+                          <div key={value.id} className=' grid grid-cols-5 gap-2'>
+                              <div className='p-2 bg-very-light rounded-md'>
+                                <span className=' text-sm text-primary text-center'>{capitalize(value.platform)}</span>
+                              </div>
+                              <div className=' col-span-4 p-2 bg-very-light rounded-md'>
+                                <a href={value.link} target='_blank' className='text-sm text-blue-500 font-bold hover:underline'>{value.link}</a>
+                              </div>
                           </div>
                         )
                       })
