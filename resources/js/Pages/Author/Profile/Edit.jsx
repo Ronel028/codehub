@@ -1,4 +1,5 @@
 // import Breadcrumb from '../components/Breadcrumbs/Breadcrumb';
+import { useState } from 'react';
 import { Link, useForm } from '@inertiajs/react';
 import AuthorLayout from '../../../layout/AuthorLayout';
 import Input from '../../../components/Forms/Input';
@@ -8,9 +9,8 @@ import { MdAddPhotoAlternate, MdAdd } from "react-icons/md";
 import { IoCameraOutline } from 'react-icons/io5';
 import { FaFacebookF, FaGithub, FaLinkedinIn } from 'react-icons/fa';
 import { FaSquareXTwitter } from "react-icons/fa6";
-import { useState } from 'react';
 
-const EditProfile = () => {
+const EditProfile = ({ socialMediaLinks }) => {
 
   const [showAddSocialMediaModal, setShowAddSocialMediaModal] = useState(false)
 
@@ -21,6 +21,8 @@ const EditProfile = () => {
       setShowAddSocialMediaModal(false)
     }
   }
+
+  console.log(socialMediaLinks)
 
   return (
     <>
@@ -77,6 +79,17 @@ const EditProfile = () => {
             <div className=' bg-gray-200/80 rounded-md px-3 py-3'>
               <p className=' text-primary text-lg font-bold font-nunito-sans'>Social Media Accounts</p>
               <div className='mt-2 flex flex-col gap-5'>
+                <div className='flex flex-col gap-2'>
+                    {
+                      socialMediaLinks.map(value => {
+                        return (
+                          <div key={value.id} className='p-2 bg-very-light rounded-md'>
+                              <a href={value.link} target='_blank' className=' text-primary'>{value.link}</a>
+                          </div>
+                        )
+                      })
+                    }
+                </div>
                 <button onClick={() => addSocialMedia('show')} className=' flex items-center justify-center text-primary text-sm border border-gray-300 bg-very-light px-3 py-2 rounded-md'>
                   <MdAdd className=' text-lg' />
                   Add
@@ -108,8 +121,12 @@ const SocialMediaAccountModal =  ( { addSocialMedia } ) => {
 
   function save(e){
     e.preventDefault()
-    post('/author/profile/edit')
+    post('/author/profile/edit/social-media-account', {
+      onSuccess: () => addSocialMedia('close')
+    })
   }
+
+  console.log(errors)
 
   return (
     <div className="relative z-50" aria-labelledby="modal-title" role="dialog" aria-modal="true">
@@ -125,18 +142,19 @@ const SocialMediaAccountModal =  ( { addSocialMedia } ) => {
                                 <div className=''>
                                   <label htmlFor="platform" className='text-primary text-sm'>Platform</label>
                                   <div>
-                                    <select onChange={handleOnChange} value={data.platform} name="platform" id="platform" className='w-full border border-light-gray focus:outline-[#778DA9] bg-white outline-none p-2 text-xs placeholder:text-light-gray text-primary rounded-md'>
+                                    <select onChange={handleOnChange} value={data.platform} name="platform" id="platform" className={`${errors.platform && 'focus:outline-red-500 border-red-500'} w-full border border-light-gray focus:outline-[#778DA9] bg-white outline-none p-2 text-xs placeholder:text-light-gray text-primary rounded-md`}>
                                       <option value="" disabled>---Select Platform---</option>
                                       <option value="facebook">Facebook</option>
                                       <option value="twitter">Twitter</option>
                                       <option value="linkedin">Linkedin</option>
                                     </select>
+                                    {errors.platform && <div className='mt-2 text-xs text-red-500'>{errors.platform}</div>}
                                   </div>
                                 </div>
                                 {
                                   data.platform.length > 0 ? (
                                     <div className='mt-3'>
-                                        <Input onChange={handleOnChange} value={data.link} required name="link" label="Link" placeholder="Enter your link..." />
+                                        <Input onChange={handleOnChange} value={data.link} error={errors.link} required name="link" label="Link" placeholder="Enter your link..." />
                                     </div>
                                   ) : null
                                 }

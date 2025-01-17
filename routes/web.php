@@ -67,7 +67,7 @@ Route::middleware(['auth', 'verified'])->name('author.')->prefix('author')->grou
     // ======== PROFILE SECTION ========
     Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
     Route::get('/profile/edit', [ProfileController::class, 'editProfile'])->name('profile.edit');
-    Route::post('/profile/edit', [ProfileController::class, 'addSocialMediaAccount'])->name('profile.edit.save');
+    Route::post('/profile/edit/social-media-account', [ProfileController::class, 'addSocialMediaAccount'])->name('profile.edit.social-media-account');
     // ======== PROFILE SECTION ========
 
 });
