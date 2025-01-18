@@ -63,4 +63,16 @@ class ProfileController extends Controller
         }
     }
     // =========== Social Media Links Function ============
+
+    // =========== PERSONAL INFORMATION FUNCTION ============
+    public function savePersonalInformation(Request $request){
+        $request->validate([
+            'fullname' => 'required',
+            'tagline' => 'required',
+            'bio' => 'required',
+        ]);
+        dd($request);
+    }
+    // =========== PERSONAL INFORMATION FUNCTION ============
+
 }

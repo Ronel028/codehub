@@ -20,6 +20,14 @@ const EditProfile = ({ socialMediaLinks }) => {
   })
   const [socialMediaLinkError, setSocialMediaLinkError] = useState(null)
 
+  const [personalInformationData, setPersonalInformationData] = useState({
+    fullname: '',
+    tagline: '',
+    address: '',
+    bio: ''
+  })
+
+  /* ============== SOCIAL MEDIA LINKS FUNCTIOS =============== */
   function addSocialMedia(name){
     if(name === 'show'){
       setShowAddSocialMediaModal(true)
@@ -27,7 +35,6 @@ const EditProfile = ({ socialMediaLinks }) => {
       setShowAddSocialMediaModal(false)
     }
   }
-
   function editSocialMediaLink(id, link) {
     setSocialMediaLinkError(null)
     setSocialMediaLinkId({
@@ -36,7 +43,6 @@ const EditProfile = ({ socialMediaLinks }) => {
       link: link
     })
   }
-
   function updateLinkValue(e){
     const name = e.target.name
     setSocialMediaLinkId({
@@ -44,7 +50,6 @@ const EditProfile = ({ socialMediaLinks }) => {
       link: e.target.value
     })
   }
-
   function saveUpdatedSocialMediaLink(){
     router.post(`/author/profile/edit/social-media-account/update`, socialMediaLinkId, {
       onSuccess: () => {
@@ -59,10 +64,29 @@ const EditProfile = ({ socialMediaLinks }) => {
       }
     })
   }
-
   function removeSocialMediaLink(id){
     router.delete(`/author/profile/edit/social-media-account/remove/${id}`)
   }
+  /* ============== SOCIAL MEDIA LINKS FUNCTIOS =============== */
+
+  /* ============== PERSONAL INFORMATION FUNCTIOS =============== */
+  function onChangeGetPeronalInformation(e){
+    setPersonalInformationData({
+      ...personalInformationData,
+      [e.target.name]: e.target.value
+    })
+  }
+  function savePersonalInformation(){
+    router.post('/author/profile/edit/personal-information/save', personalInformationData, {
+      onSuccess: () => {
+        console.log('Personal Information Saved.')
+      },
+      onError: (error) => {
+        console.log(error)
+      }
+    })
+  }
+  /* ============== PERSONAL INFORMATIONS FUNCTIOS =============== */
 
   return (
     <>
@@ -97,12 +121,18 @@ const EditProfile = ({ socialMediaLinks }) => {
             <div className=' bg-gray-200/80 rounded-md px-3 py-3'>
               <p className=' text-primary text-lg font-bold'>Personal Information</p>
               <div className='mt-4 flex flex-col gap-5'>
-                <Input label="Full name" />
-                <Input label="Tagline" />
-                <Input label="Address(Optional)" />
-                {/* <div>
-                  <button className=' text-very-light text-sm border border-primary bg-primary px-2 py-1 rounded-md'>Save</button>
-                </div> */}
+                <Input onChange={onChangeGetPeronalInformation} value={personalInformationData.fullname} name="fullname" label="Full name" placeholder="Enter your full here" />
+                <Input onChange={onChangeGetPeronalInformation} value={personalInformationData.tagline} name="tagline" label="Tagline" placeholder="Describe yourself in one line" />
+                <Input onChange={onChangeGetPeronalInformation} value={personalInformationData.address} name="address" label="Address(Optional)" placeholder="Add your current location" />
+                <div>
+                  <label htmlFor='bio' className='  block text-sm text-primary tracking-wide'>Bio</label>
+                  <div className=' flex flex-col gap-5'>
+                    <textarea onChange={onChangeGetPeronalInformation} value={personalInformationData.bio} name="bio" id="bio" rows={6} placeholder='Share your story...' className='border-light-gray focus:outline-[#778DA9] bg-white outline-none p-2 text-xs placeholder:text-light-gray text-primary rounded-md'></textarea>
+                  </div>
+                </div>
+                <div className='flex items-center justify-end'>
+                  <button onClick={savePersonalInformation} className=' text-very-light text-sm border border-primary bg-primary px-2 py-1 rounded-md'>Save</button>
+                </div>
               </div>
             </div>
           </div>
@@ -110,12 +140,6 @@ const EditProfile = ({ socialMediaLinks }) => {
 
           {/* ================ RIGHT SIDE =============== */}
           <div>
-            <div className=' bg-gray-200/80 rounded-md px-3 py-3 mb-3'>
-                <p className=' text-primary text-lg font-bold'>BIO</p>
-                <div className='mt-2 flex flex-col gap-5'>
-                  <textarea rows={6} name="bio" id="" placeholder='Introduce your self...' className='border-light-gray focus:outline-[#778DA9] bg-white outline-none p-2 text-xs placeholder:text-light-gray text-primary rounded-md'></textarea>
-                </div>
-              </div>
             <div className=' bg-gray-200/80 rounded-md px-3 py-3'>
               <p className=' text-primary text-lg font-bold font-nunito-sans'>Social Media Accounts</p>
               <div className='mt-2 flex flex-col gap-5'>

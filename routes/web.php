@@ -70,6 +70,7 @@ Route::middleware(['auth', 'verified'])->name('author.')->prefix('author')->grou
     Route::post('/profile/edit/social-media-account', [ProfileController::class, 'addSocialMediaAccount'])->name('profile.edit.social-media-account');
     Route::post('/profile/edit/social-media-account/update', [ProfileController::class, 'updateSocialMediaLink'])->name('profile.edit.social-media-account.update');
     Route::delete('/profile/edit/social-media-account/remove/{id}', [ProfileController::class, 'removeSocialMediaLink'])->name('profile.edit.social-media-account.remove');
+    Route::post('/profile/edit/personal-information/save', [ProfileController::class, 'savePersonalInformation'])->name('profile.edit.personal-information.save');
     // ======== PROFILE SECTION ========
 
 });
