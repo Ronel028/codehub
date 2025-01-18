@@ -1,30 +1,29 @@
 // import Breadcrumb from '../components/Breadcrumbs/Breadcrumb';
-import { useState } from 'react';
-import { Link, useForm, router } from '@inertiajs/react';
+import { useState, useEffect } from 'react';
+import { useForm, router } from '@inertiajs/react';
 import AuthorLayout from '../../../layout/AuthorLayout';
 import Input from '../../../components/Forms/Input';
 import CoverOne from '../../../assets/img/cover-01.png';
 import userSix from '../../../assets/img/user-06.png';
 import { MdAddPhotoAlternate, MdAdd } from "react-icons/md";
-import { IoCameraOutline } from 'react-icons/io5';
-import { FaFacebookF, FaGithub, FaLinkedinIn, FaRegEdit, FaSave, FaTrashAlt } from 'react-icons/fa';
-import { FaSquareXTwitter } from "react-icons/fa6";
-import { capitalize, set } from 'lodash';
+import { FaRegEdit, FaSave, FaTrashAlt } from 'react-icons/fa';
+import { capitalize, isNull, set } from 'lodash';
 
 const EditProfile = ({ socialMediaLinks, userDetail }) => {
+
+  const [errors, setError] = useState(null)
   const [showAddSocialMediaModal, setShowAddSocialMediaModal] = useState(false)
   const [socialMediaLinkId, setSocialMediaLinkId] = useState({
     id: null,
     link: ''
   })
-  const [errors, setError] = useState(null)
-
   const [personalInformationData, setPersonalInformationData] = useState({
-    fullname: userDetail?.full_name ?? '',
-    tagline: userDetail?.tagline ?? '',
-    address: userDetail?.address ?? '',
-    bio: userDetail?.bio ?? ''
+    fullname: '',
+    tagline: '',
+    address: '',
+    bio: ''
   })
+
 
   /* ============== SOCIAL MEDIA LINKS FUNCTIOS =============== */
   function addSocialMedia(name){
@@ -83,12 +82,25 @@ const EditProfile = ({ socialMediaLinks, userDetail }) => {
         setError(prevState => null)
       },
       onError: (error) => {
-        console.log(error)
         setError(error)
       }
     })
   }
   /* ============== PERSONAL INFORMATIONS FUNCTIOS =============== */
+
+  /* ============== REACT useEffect() FUNCTIONS ================ */
+  useEffect(() => {
+    if(!isNull(userDetail)){
+      setPersonalInformationData({
+        ...personalInformationData,
+        fullname: userDetail.full_name ?? '',
+        tagline: userDetail.tagline ?? '',
+        address: userDetail.address ?? '',
+        bio: userDetail.bio ?? ''
+      })
+    }
+  }, [userDetail])
+  /* ============== REACT useEffect() FUNCTIONS ================ */
 
   return (
     <>
