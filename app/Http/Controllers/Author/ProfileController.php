@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Author;
 
 use App\Http\Controllers\Controller;
 use App\Models\SocialMediaLinks;
+use App\Models\User;
+use App\Models\UserDetail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
@@ -15,8 +17,10 @@ class ProfileController extends Controller
     }
     public function editProfile(){
         $socialMediaLinks = SocialMediaLinks::where('user_id', Auth::id())->get();
+        $userDetail = UserDetail::where('user_id', Auth::id())->first();
         return Inertia::render('Author/Profile/Edit', [
-            'socialMediaLinks' => $socialMediaLinks
+            'socialMediaLinks' => $socialMediaLinks,
+            'userDetail' => $userDetail
         ]);
     }
 
@@ -71,7 +75,24 @@ class ProfileController extends Controller
             'tagline' => 'required',
             'bio' => 'required',
         ]);
-        dd($request);
+        try {
+            $userDetail = UserDetail::updateOrCreate(
+                    [
+                        'user_id' => Auth::id()
+                    ],
+                    [
+                        'full_name' => $request->fullname,
+                        'tagline' => $request->tagline,
+                        'address' => $request->address,
+                        'bio' => $request->bio,
+                    ]
+                );
+            if($userDetail){
+                return to_route('author.profile.edit');
+            }
+        } catch (\Throwable $th) {
+            dd($th);
+        }
     }
     // =========== PERSONAL INFORMATION FUNCTION ============
 

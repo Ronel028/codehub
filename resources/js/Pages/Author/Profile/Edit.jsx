@@ -11,20 +11,19 @@ import { FaFacebookF, FaGithub, FaLinkedinIn, FaRegEdit, FaSave, FaTrashAlt } fr
 import { FaSquareXTwitter } from "react-icons/fa6";
 import { capitalize, set } from 'lodash';
 
-const EditProfile = ({ socialMediaLinks }) => {
-
+const EditProfile = ({ socialMediaLinks, userDetail }) => {
   const [showAddSocialMediaModal, setShowAddSocialMediaModal] = useState(false)
   const [socialMediaLinkId, setSocialMediaLinkId] = useState({
     id: null,
     link: ''
   })
-  const [socialMediaLinkError, setSocialMediaLinkError] = useState(null)
+  const [errors, setError] = useState(null)
 
   const [personalInformationData, setPersonalInformationData] = useState({
-    fullname: '',
-    tagline: '',
-    address: '',
-    bio: ''
+    fullname: userDetail?.full_name ?? '',
+    tagline: userDetail?.tagline ?? '',
+    address: userDetail?.address ?? '',
+    bio: userDetail?.bio ?? ''
   })
 
   /* ============== SOCIAL MEDIA LINKS FUNCTIOS =============== */
@@ -36,7 +35,7 @@ const EditProfile = ({ socialMediaLinks }) => {
     }
   }
   function editSocialMediaLink(id, link) {
-    setSocialMediaLinkError(null)
+    setError(prevState => null)
     setSocialMediaLinkId({
       ...socialMediaLinkId,
       id: id,
@@ -58,9 +57,10 @@ const EditProfile = ({ socialMediaLinks }) => {
           id: null,
           link: ''
         })
+        setError(prevState => null)
       },
       onError: (error) => {
-        setSocialMediaLinkError(error.link)
+        setError(error)
       }
     })
   }
@@ -80,9 +80,11 @@ const EditProfile = ({ socialMediaLinks }) => {
     router.post('/author/profile/edit/personal-information/save', personalInformationData, {
       onSuccess: () => {
         console.log('Personal Information Saved.')
+        setError(prevState => null)
       },
       onError: (error) => {
         console.log(error)
+        setError(error)
       }
     })
   }
@@ -121,13 +123,22 @@ const EditProfile = ({ socialMediaLinks }) => {
             <div className=' bg-gray-200/80 rounded-md px-3 py-3'>
               <p className=' text-primary text-lg font-bold'>Personal Information</p>
               <div className='mt-4 flex flex-col gap-5'>
-                <Input onChange={onChangeGetPeronalInformation} value={personalInformationData.fullname} name="fullname" label="Full name" placeholder="Enter your full here" />
-                <Input onChange={onChangeGetPeronalInformation} value={personalInformationData.tagline} name="tagline" label="Tagline" placeholder="Describe yourself in one line" />
+                <Input onChange={onChangeGetPeronalInformation} value={personalInformationData.fullname} error={errors?.fullname} name="fullname" label="Full name" placeholder="Enter your full here" />
+                <Input onChange={onChangeGetPeronalInformation} value={personalInformationData.tagline} error={errors?.tagline} name="tagline" label="Tagline" placeholder="Describe yourself in one line" />
                 <Input onChange={onChangeGetPeronalInformation} value={personalInformationData.address} name="address" label="Address(Optional)" placeholder="Add your current location" />
                 <div>
                   <label htmlFor='bio' className='  block text-sm text-primary tracking-wide'>Bio</label>
-                  <div className=' flex flex-col gap-5'>
-                    <textarea onChange={onChangeGetPeronalInformation} value={personalInformationData.bio} name="bio" id="bio" rows={6} placeholder='Share your story...' className='border-light-gray focus:outline-[#778DA9] bg-white outline-none p-2 text-xs placeholder:text-light-gray text-primary rounded-md'></textarea>
+                  <div className=''>
+                    <textarea 
+                      onChange={onChangeGetPeronalInformation} 
+                      value={personalInformationData.bio} 
+                      name="bio" 
+                      id="bio" 
+                      rows={6} 
+                      placeholder='Share your story...' 
+                      className={`w-full border ${errors?.bio ? 'border-red-500 focus:outline-red-500' : 'border-light-gray focus:outline-[#778DA9]'} bg-white outline-none p-2 text-xs placeholder:text-light-gray text-primary rounded-md`}
+                    ></textarea>
+                    {errors?.bio && <p className=" text-xs text-red-500 ">{errors?.bio}</p>}
                   </div>
                 </div>
                 <div className='flex items-center justify-end'>
@@ -154,7 +165,7 @@ const EditProfile = ({ socialMediaLinks }) => {
                               <div className=' col-span-4 p-2 bg-very-light rounded-md flex items-center justify-between gap-3'>
                                 {
                                   socialMediaLinkId.id === value.id ? (
-                                    <Input onChange={updateLinkValue} value={socialMediaLinkId.link} error={socialMediaLinkError} name={`social_link_${value.id}`} className="w-full" />
+                                    <Input onChange={updateLinkValue} value={socialMediaLinkId.link} error={errors?.link} name={`social_link_${value.id}`} className="w-full" />
                                   ) : <a href={value.link} target='_blank' className='text-sm text-blue-500 font-bold hover:underline'>{value.link}</a>
                                 }
                                 <div className=' flex items-center gap-2'>

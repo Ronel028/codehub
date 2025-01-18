@@ -11,18 +11,10 @@ class UserDetail extends Model
     use HasFactory;
 
     protected $fillable = [
-        'first_name',
-        'middle_name',
-        'last_name',
+        'user_id',
+        'full_name',
+        'tagline',
         'address',
-        'experiences',
-        'soc_fb',
-        'soc_linkedin',
-        'soc_twitter',
-        'about'
-    ];
-
-    protected $casts = [
-        'experiences' => 'array'
+        'bio'
     ];
 }
