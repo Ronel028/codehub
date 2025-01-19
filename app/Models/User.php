@@ -74,6 +74,11 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->morphOne(Upload::class, 'uploadable')->latestOfMany();
     }
 
+    public function avatar(): MorphOne
+    {
+        return $this->morphOne(Upload::class, 'uploadable')->where('type', '=', 'avatar')->take(1)->latest();
+    }
+
     public function userDetail(): HasOne
     {
         return $this->hasOne(UserDetail::class, 'user_id');

@@ -14,6 +14,7 @@ class Upload extends Model
     protected $fillable = [
         'filename',
         'path',
+        'type',
         'uploadable_id',
         'uploadable_type',
     ];

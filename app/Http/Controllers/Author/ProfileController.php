@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\SocialMediaLinks;
 use App\Models\User;
 use App\Models\UserDetail;
+use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
@@ -18,9 +19,11 @@ class ProfileController extends Controller
     public function editProfile(){
         $socialMediaLinks = SocialMediaLinks::where('user_id', Auth::id())->get();
         $userDetail = UserDetail::where('user_id', Auth::id())->first();
+        $user = User::with('avatar')->where('id', Auth::id())->first();
         return Inertia::render('Author/Profile/Edit', [
             'socialMediaLinks' => $socialMediaLinks,
-            'userDetail' => $userDetail
+            'userDetail' => $userDetail,
+            'userAvatar' => $user->avatar
         ]);
     }
 
@@ -95,5 +98,32 @@ class ProfileController extends Controller
         }
     }
     // =========== PERSONAL INFORMATION FUNCTION ============
+
+    // =========== PROFILE AND COVER PHOTO FUNCTION ============
+    public function saveProfilePhoto(Request $request){
+        $request->validate([
+            'photo' => 'required'
+        ]);
+        try {
+            $user = User::find(Auth::id());
+            if ($request->hasFile('photo')) {
+
+                $uploadedFile = Cloudinary::upload($request->file('photo')->getRealPath(), [
+                    'folder' => 'knowl_img'
+                ]);
+
+                $user->upload()->create([
+                    'filename' => $request->file('photo')->getClientOriginalName(),
+                    'path' => $uploadedFile->getSecurePath(),
+                    'type' => 'avatar'
+                ]);
+
+                return to_route('author.profile.edit');
+            }
+        } catch (\Throwable $th) {
+            dd($th->getMessage());
+        }
+    }
+    // =========== PROFILE AND COVER PHOTO FUNCTION ============
 
 }

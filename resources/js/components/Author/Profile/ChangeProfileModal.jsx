@@ -1,10 +1,11 @@
 import { useRef, useState } from "react";
+import { router } from "@inertiajs/react";
 import Cropper from "react-cropper";
-import "cropperjs/dist/cropper.css";
 import { isNull } from "lodash";
 import { dataURLtoFile } from "../../../utils/functions";
+import "cropperjs/dist/cropper.css";
 
-const ChangeProfilePhotoModal = ({ photo }) => {
+const ChangeProfilePhotoModal = ({ photo, setPhoto }) => {
 
     const cropperRef = useRef(null);
     const [cropImage, setCropImage] = useState(null)
@@ -25,7 +26,15 @@ const ChangeProfilePhotoModal = ({ photo }) => {
     }
 
     function save(){
-        console.log(cropImageFinal)
+        router.post('/author/profile/edit/profile-photo/save', { photo: cropImageFinal }, {
+            onSuccess: () => {
+                console.log('Profile photo saved.')
+                setPhoto(prevState => null)
+            },
+            onError: (error) => {
+                console.log(error)
+            }
+        })
     }
 
     return (

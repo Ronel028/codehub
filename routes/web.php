@@ -71,6 +71,7 @@ Route::middleware(['auth', 'verified'])->name('author.')->prefix('author')->grou
     Route::post('/profile/edit/social-media-account/update', [ProfileController::class, 'updateSocialMediaLink'])->name('profile.edit.social-media-account.update');
     Route::delete('/profile/edit/social-media-account/remove/{id}', [ProfileController::class, 'removeSocialMediaLink'])->name('profile.edit.social-media-account.remove');
     Route::post('/profile/edit/personal-information/save', [ProfileController::class, 'savePersonalInformation'])->name('profile.edit.personal-information.save');
+    Route::post('/profile/edit/profile-photo/save', [ProfileController::class, 'saveProfilePhoto'])->name('profile.edit.profile-photo.save');
     // ======== PROFILE SECTION ========
 
 });

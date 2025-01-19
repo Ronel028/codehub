@@ -10,8 +10,7 @@ import { capitalize, isNull } from 'lodash';
 import ChangeProfilePhotoModal from '../../../components/Author/Profile/ChangeProfileModal';
 import { toast } from 'react-toastify';
 
-const EditProfile = ({ socialMediaLinks, userDetail }) => {
-
+const EditProfile = ({ socialMediaLinks, userDetail, userAvatar }) => {
   const [errors, setError] = useState(null)
   const [showAddSocialMediaModal, setShowAddSocialMediaModal] = useState(false)
   const [socialMediaLinkId, setSocialMediaLinkId] = useState({
@@ -128,9 +127,8 @@ const EditProfile = ({ socialMediaLinks, userDetail }) => {
 
   return (
     <>
-    { isNull(profilePhoto) ? null : <ChangeProfilePhotoModal photo={profilePhoto} /> }
+    { isNull(profilePhoto) ? null : <ChangeProfilePhotoModal photo={profilePhoto} setPhoto={setProfilePhoto} /> }
     <div className="mx-auto max-w-270">
-      {/* <Breadcrumb pageName="Settings" /> */}
       <h1 className=' text-primary font-bold text-2xl mb-2'>Edit Profile</h1>
 
       <div className="grid grid-cols-2 gap-4">
@@ -145,7 +143,7 @@ const EditProfile = ({ socialMediaLinks, userDetail }) => {
                   <input type="file" id='cover__photo' hidden />
               </div>
               <div className=' -mt-14 px-4 relative'>
-                <img src={userSix} alt="" className='w-20 rounded-full border-2 border-gray-200 aspect-square' />
+                <img src={isNull(userAvatar) ? userSix : userAvatar.path} alt="" className='w-20 aspect-square rounded-full border-2 border-gray-200' />
               </div>
               <div className=' px-3 pb-4 mt-2'>
                 <p className=' text-primary font-bold'>Your photo</p>
