@@ -14,7 +14,10 @@ use Inertia\Inertia;
 class ProfileController extends Controller
 {
     public function index(){
-        return Inertia::render('Author/Profile/Index');
+        $user = User::with('avatar', 'cover', 'userDetail')->where('id', Auth::id())->first();
+        return Inertia::render('Author/Profile/Index', [
+            'user' => $user
+        ]);
     }
     public function editProfile(){
         $socialMediaLinks = SocialMediaLinks::where('user_id', Auth::id())->get();
