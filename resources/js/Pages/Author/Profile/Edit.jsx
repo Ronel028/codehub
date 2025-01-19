@@ -1,4 +1,3 @@
-// import Breadcrumb from '../components/Breadcrumbs/Breadcrumb';
 import { useState, useEffect } from 'react';
 import { useForm, router } from '@inertiajs/react';
 import AuthorLayout from '../../../layout/AuthorLayout';
@@ -7,7 +6,9 @@ import CoverOne from '../../../assets/img/cover-01.png';
 import userSix from '../../../assets/img/user-06.png';
 import { MdAddPhotoAlternate, MdAdd } from "react-icons/md";
 import { FaRegEdit, FaSave, FaTrashAlt } from 'react-icons/fa';
-import { capitalize, isNull, set } from 'lodash';
+import { capitalize, isNull } from 'lodash';
+import ChangeProfilePhotoModal from '../../../components/Author/Profile/ChangeProfileModal';
+import { toast } from 'react-toastify';
 
 const EditProfile = ({ socialMediaLinks, userDetail }) => {
 
@@ -23,6 +24,7 @@ const EditProfile = ({ socialMediaLinks, userDetail }) => {
     address: '',
     bio: ''
   })
+  const [profilePhoto, setProfilePhoto] = useState(null)
 
 
   /* ============== SOCIAL MEDIA LINKS FUNCTIOS =============== */
@@ -88,6 +90,28 @@ const EditProfile = ({ socialMediaLinks, userDetail }) => {
   }
   /* ============== PERSONAL INFORMATIONS FUNCTIOS =============== */
 
+  /* ============== PROFILE AND COVER PHOTO FUNCTIOS =============== */
+  function handleOnChangeGetProfilePhoto(e){
+    if (e.target.files && e.target.files[0]) {
+      const image = e.target.files[0]
+
+      if (image.size > 1000000) {
+          toast.error('File size exceed the maximum limit for 1mb, Please try upload another image.', {
+              position: 'top-right',
+              autoClose: 10000,
+          })
+          return
+      }
+      const reader = new FileReader()
+      reader.onload = (e) => {
+        setProfilePhoto(prevState => e.target.result)
+      }
+      reader.readAsDataURL(image)
+      e.target.value = ''
+  }
+  }
+  /* ============== PROFILE AND COVER PHOTO FUNCTIOS =============== */
+
   /* ============== REACT useEffect() FUNCTIONS ================ */
   useEffect(() => {
     if(!isNull(userDetail)){
@@ -104,6 +128,7 @@ const EditProfile = ({ socialMediaLinks, userDetail }) => {
 
   return (
     <>
+    { isNull(profilePhoto) ? null : <ChangeProfilePhotoModal photo={profilePhoto} /> }
     <div className="mx-auto max-w-270">
       {/* <Breadcrumb pageName="Settings" /> */}
       <h1 className=' text-primary font-bold text-2xl mb-2'>Edit Profile</h1>
@@ -127,7 +152,7 @@ const EditProfile = ({ socialMediaLinks, userDetail }) => {
                 <p className=' text-secondary text-xs'>This will be displayed in your profile</p>
                 <div className='mt-2 flex items-center gap-2'>
                   <label htmlFor='profile__photo' className='cursor-pointer text-primary text-sm border border-gray-400 px-2 py-1 rounded-md'>Upload new</label>
-                  <input type="file" id='profile__photo' hidden />
+                  <input onChange={handleOnChangeGetProfilePhoto} type="file" id='profile__photo' hidden />
                   <button className=' text-very-light text-sm border border-primary bg-primary px-2 py-1 rounded-md'>Save</button>
                 </div>
               </div>
