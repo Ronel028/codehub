@@ -56,3 +56,12 @@ export const getTime = (value) => {
     let seconds = dt.getSeconds()
     return `${hours}:${minutes}:${seconds}`
 }
+
+/*
+    Convert bytes to kelobytes, megabytes and gigabytes from base64 image
+*/
+export const convertBytes = (file) => {
+    const base64String = file.replaceAll('=', '');
+    const bytes = base64String.length * (3 / 4);
+    return bytes
+}

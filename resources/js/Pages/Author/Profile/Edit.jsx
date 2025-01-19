@@ -7,10 +7,10 @@ import userSix from '../../../assets/img/user-06.png';
 import { MdAddPhotoAlternate, MdAdd } from "react-icons/md";
 import { FaRegEdit, FaSave, FaTrashAlt } from 'react-icons/fa';
 import { capitalize, isNull } from 'lodash';
-import ChangeProfilePhotoModal from '../../../components/Author/Profile/ChangeProfileModal';
+import ChangePhotoModal from '../../../components/Author/Profile/ChangePhotoModal';
 import { toast } from 'react-toastify';
 
-const EditProfile = ({ socialMediaLinks, userDetail, userAvatar }) => {
+const EditProfile = ({ socialMediaLinks, userDetail, userAvatar, userCoverPhoto }) => {
   const [errors, setError] = useState(null)
   const [showAddSocialMediaModal, setShowAddSocialMediaModal] = useState(false)
   const [socialMediaLinkId, setSocialMediaLinkId] = useState({
@@ -24,6 +24,7 @@ const EditProfile = ({ socialMediaLinks, userDetail, userAvatar }) => {
     bio: ''
   })
   const [profilePhoto, setProfilePhoto] = useState(null)
+  const [coverPhoto, setCoverPhoto] = useState(null)
 
 
   /* ============== SOCIAL MEDIA LINKS FUNCTIOS =============== */
@@ -93,6 +94,7 @@ const EditProfile = ({ socialMediaLinks, userDetail, userAvatar }) => {
   function handleOnChangeGetProfilePhoto(e){
     if (e.target.files && e.target.files[0]) {
       const image = e.target.files[0]
+      const inputFieldNameAttr = e.target.name
 
       if (image.size > 1000000) {
           toast.error('File size exceed the maximum limit for 1mb, Please try upload another image.', {
@@ -103,7 +105,12 @@ const EditProfile = ({ socialMediaLinks, userDetail, userAvatar }) => {
       }
       const reader = new FileReader()
       reader.onload = (e) => {
-        setProfilePhoto(prevState => e.target.result)
+        if(inputFieldNameAttr === 'profile__photo'){
+          setProfilePhoto(prevState => e.target.result)
+        }else{
+          console.log('cover photo')
+          setCoverPhoto(prevState => e.target.result)
+        }
       }
       reader.readAsDataURL(image)
       e.target.value = ''
@@ -127,7 +134,8 @@ const EditProfile = ({ socialMediaLinks, userDetail, userAvatar }) => {
 
   return (
     <>
-    { isNull(profilePhoto) ? null : <ChangeProfilePhotoModal photo={profilePhoto} setPhoto={setProfilePhoto} /> }
+    { isNull(profilePhoto) ? null : <ChangePhotoModal photo={profilePhoto} setPhoto={setProfilePhoto} type='avatar' aspectRatio={1/1} /> }
+    { isNull(coverPhoto) ? null : <ChangePhotoModal photo={coverPhoto} setPhoto={setCoverPhoto} type='cover' aspectRatio={5/2} /> }
     <div className="mx-auto max-w-270">
       <h1 className=' text-primary font-bold text-2xl mb-2'>Edit Profile</h1>
 
@@ -136,22 +144,21 @@ const EditProfile = ({ socialMediaLinks, userDetail, userAvatar }) => {
           <div className=''>
             <div className=' bg-gray-200/80 rounded-md mb-3'>
               <div className=' relative'>
-                <img src={CoverOne} alt="" className='w-full h-36 aspect-video rounded-t-md' />
+                <img src={isNull(userCoverPhoto) ? CoverOne : userCoverPhoto.path} alt="" className=' aspect-[5/2] rounded-t-md' />
                 <label htmlFor='cover__photo' className='absolute top-3 right-3 flex items-center justify-center w-7 aspect-square text-primary border bg-gray-400 cursor-pointer rounded-full'>
                   <MdAddPhotoAlternate className=' text-lg' />
                 </label>
-                  <input type="file" id='cover__photo' hidden />
+                  <input onChange={handleOnChangeGetProfilePhoto} type="file" name='cover__photo' id='cover__photo' hidden />
               </div>
               <div className=' -mt-14 px-4 relative'>
-                <img src={isNull(userAvatar) ? userSix : userAvatar.path} alt="" className='w-20 aspect-square rounded-full border-2 border-gray-200' />
+                <img src={isNull(userAvatar) ? userSix : userAvatar.path} alt="" className=' w-24 aspect-square rounded-full border-2 border-gray-200' />
               </div>
               <div className=' px-3 pb-4 mt-2'>
                 <p className=' text-primary font-bold'>Your photo</p>
                 <p className=' text-secondary text-xs'>This will be displayed in your profile</p>
                 <div className='mt-2 flex items-center gap-2'>
                   <label htmlFor='profile__photo' className='cursor-pointer text-primary text-sm border border-gray-400 px-2 py-1 rounded-md'>Upload new</label>
-                  <input onChange={handleOnChangeGetProfilePhoto} type="file" id='profile__photo' hidden />
-                  <button className=' text-very-light text-sm border border-primary bg-primary px-2 py-1 rounded-md'>Save</button>
+                  <input onChange={handleOnChangeGetProfilePhoto} type="file" name='profile__photo' id='profile__photo' hidden />
                 </div>
               </div>
             </div>

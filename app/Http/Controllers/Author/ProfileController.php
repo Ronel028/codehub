@@ -18,12 +18,12 @@ class ProfileController extends Controller
     }
     public function editProfile(){
         $socialMediaLinks = SocialMediaLinks::where('user_id', Auth::id())->get();
-        $userDetail = UserDetail::where('user_id', Auth::id())->first();
-        $user = User::with('avatar')->where('id', Auth::id())->first();
+        $user = User::with('avatar', 'cover', 'userDetail')->where('id', Auth::id())->first();
         return Inertia::render('Author/Profile/Edit', [
             'socialMediaLinks' => $socialMediaLinks,
-            'userDetail' => $userDetail,
-            'userAvatar' => $user->avatar
+            'userDetail' => $user->userDetail,
+            'userAvatar' => $user->avatar,
+            'userCoverPhoto' => $user->cover
         ]);
     }
 
@@ -102,7 +102,9 @@ class ProfileController extends Controller
     // =========== PROFILE AND COVER PHOTO FUNCTION ============
     public function saveProfilePhoto(Request $request){
         $request->validate([
-            'photo' => 'required'
+            'photo' => 'required|max:1024'
+        ], [
+            'photo.max' => 'The file size must be less than 1 MB.'
         ]);
         try {
             $user = User::find(Auth::id());
@@ -115,7 +117,7 @@ class ProfileController extends Controller
                 $user->upload()->create([
                     'filename' => $request->file('photo')->getClientOriginalName(),
                     'path' => $uploadedFile->getSecurePath(),
-                    'type' => 'avatar'
+                    'type' => $request->type
                 ]);
 
                 return to_route('author.profile.edit');
