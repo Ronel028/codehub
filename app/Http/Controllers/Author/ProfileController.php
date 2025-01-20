@@ -14,7 +14,7 @@ use Inertia\Inertia;
 class ProfileController extends Controller
 {
     public function index(){
-        $user = User::with('avatar', 'cover', 'userDetail')->where('id', Auth::id())->first();
+        $user = User::with('avatar', 'cover', 'userDetail', 'socialMediaLinks')->where('id', Auth::id())->first();
         return Inertia::render('Author/Profile/Index', [
             'user' => $user
         ]);

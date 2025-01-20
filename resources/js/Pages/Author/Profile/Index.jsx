@@ -5,6 +5,14 @@ import CoverOne from '../../../assets/img/cover-01.png';
 import userSix from '../../../assets/img/user-06.png';
 import { FaFacebookF, FaGithub, FaLinkedinIn } from 'react-icons/fa';
 import { FaSquareXTwitter } from "react-icons/fa6";
+import { isNull } from 'lodash';
+
+const socialMediaIcons = {
+  facebook: <FaFacebookF className=' text-xl' />,
+  linkedin: <FaLinkedinIn className=' text-xl' />,
+  twitter: <FaSquareXTwitter className=' text-xl' />,
+  github: <FaGithub className=' text-xl' />,
+}
 
 const Profile = ({ user }) => {
   return (
@@ -14,11 +22,11 @@ const Profile = ({ user }) => {
           <img
             src={user.cover?.path ?? CoverOne}
             alt="profile cover"
-            className="h-full w-full rounded-tl-md rounded-tr-md object-cover object-center"
+            className="aspect-[4/1] h-full w-full rounded-tl-md rounded-tr-md object-cover object-center"
           />
         </div>
         <div className="px-4 pb-6 text-center lg:pb-8 xl:pb-11">
-          <div className="relative z-30 mx-auto -mt-24 h-30 w-full max-w-30 rounded-full bg-light/20 p-1 backdrop-blur sm:h-44 sm:max-w-44 sm:p-3">
+          <div className="relative z-30 mx-auto -mt-24 h-30 w-full max-w-30 rounded-full bg-very-light p-1 sm:h-44 sm:max-w-44 sm:p-1">
             <div className="relative drop-shadow-2">
               <img src={user.avatar?.path ?? userSix} alt="profile" className=' rounded-full' />
             </div>
@@ -49,54 +57,43 @@ const Profile = ({ user }) => {
               </div>
             </div>
 
-            <div className="mx-auto max-w-180">
-              <h4 className="font-semibold text-primary dark:text-white">
-                About Me
-              </h4>
-              <p className="mt-4 text-secondary text-sm">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                Pellentesque posuere fermentum urna, eu condimentum mauris
-                tempus ut. Donec fermentum blandit aliquet. Etiam dictum dapibus
-                ultricies. Sed vel aliquet libero. Nunc a augue fermentum,
-                pharetra ligula sed, aliquam lacus.
-              </p>
-            </div>
+            {
+              !isNull(user.user_detail) ? (
+                  <div className="mx-auto max-w-180">
+                    <h4 className="font-bold text-primary">
+                      About Me
+                    </h4>
+                    <p className="mt-4 text-secondary text-sm">
+                      {user.user_detail.bio}
+                    </p>
+                  </div>
+              ) : null
+            }
 
-            <div className="mt-6">
-              <h4 className="mb-3.5 font-medium text-black dark:text-white">
-                Follow me on
-              </h4>
-              <div className="flex items-center justify-center gap-3.5">
-                <Link
-                  href="#"
-                  className="hover:text-primary text-secondary"
-                  aria-label="social-icon"
-                >
-                  <FaFacebookF className=' text-xl' />
-                </Link>
-                <Link
-                  href="#"
-                  className="hover:text-primary text-secondary"
-                  aria-label="social-icon"
-                >
-                 <FaSquareXTwitter className=' text-xl' />
-                </Link>
-                <Link
-                  href="#"
-                  className="hover:text-primary text-secondary"
-                  aria-label="social-icon"
-                >
-                  <FaLinkedinIn className=' text-xl' />
-                </Link>
-                <Link
-                  href="#"
-                  className="hover:text-primary text-secondary"
-                  aria-label="social-icon"
-                >
-                  <FaGithub className=' text-xl' />
-                </Link>
+            {
+              user.social_media_links?.length > 0 ? (
+                <div className="mt-6">
+                <h4 className="mb-3.5 font-bold text-black dark:text-white">
+                  Follow me on
+                </h4>
+                <div className="flex items-center justify-center gap-3.5">
+                  {
+                     user.social_media_links?.map(value => (
+                        <a
+                          key={value.id}
+                          href={value.link}
+                          target='_blank'
+                          className="hover:text-primary text-secondary"
+                          aria-label="social-icon"
+                        >
+                          {socialMediaIcons[value.platform]}
+                        </a>
+                     ))
+                  }
+                </div>
               </div>
-            </div>
+              ) : null
+            }
           </div>
         </div>
       </div>

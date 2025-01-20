@@ -6,7 +6,7 @@ import { filesize } from "filesize";
 import { convertBytes, dataURLtoFile } from "../../../utils/functions";
 import "cropperjs/dist/cropper.css";
 
-const ChangePhotoModal = ({ photo, setPhoto, type, aspectRatio }) => {
+const ChangePhotoModal = ({ photo, setPhoto, type, aspectRatio, title }) => {
 
     const cropperRef = useRef(null);
     const [cropImage, setCropImage] = useState(null)
@@ -73,7 +73,7 @@ const ChangePhotoModal = ({ photo, setPhoto, type, aspectRatio }) => {
                             <div className="sm:flex sm:items-start">
                                 <div className="mt-3 text-center sm:mt-0 sm:text-left w-full">
                                     <div className=" flex items-center justify-between gap-2">
-                                        <h3 className="text-base font-semibold text-gray-900" id="modal-title">Change Profile</h3>
+                                        <h3 className="text-base font-semibold text-gray-900" id="modal-title">{title}</h3>
                                         <p className=" text-secondary text-sm">
                                             Crop filesize: 
                                             <span 
