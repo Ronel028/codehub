@@ -25,6 +25,7 @@ const EditProfile = ({ socialMediaLinks, userDetail, userAvatar, userCoverPhoto 
     id: null,
     link: ''
   })
+  const [processing, setProcessing] = useState(false)
   const [personalInformationData, setPersonalInformationData] = useState({
     fullname: '',
     tagline: '',
@@ -44,7 +45,7 @@ const EditProfile = ({ socialMediaLinks, userDetail, userAvatar, userCoverPhoto 
     }
   }
   function editSocialMediaLink(id, link) {
-    setError(prevState => null)
+    setError(null)
     setSocialMediaLinkId({
       ...socialMediaLinkId,
       id: id,
@@ -66,15 +67,31 @@ const EditProfile = ({ socialMediaLinks, userDetail, userAvatar, userCoverPhoto 
           id: null,
           link: ''
         })
-        setError(prevState => null)
+        setError(null)
+        setProcessing(false)
       },
       onError: (error) => {
         setError(error)
-      }
+        setProcessing(false)
+      },
+      onProgress: () => {
+        console.log('running')
+        setProcessing(true)
+      },
     })
   }
   function removeSocialMediaLink(id){
-    router.delete(`/author/profile/edit/social-media-account/remove/${id}`)
+    router.delete(`/author/profile/edit/social-media-account/remove/${id}`, {
+      onSuccess: () => {
+        setProcessing(false)
+      },
+      onError: () => {
+        setProcessing(false)
+      },
+      onProgress: () => {
+        setProcessing(true)
+      }
+    })
   }
   /* ============== SOCIAL MEDIA LINKS FUNCTIOS =============== */
 
@@ -89,10 +106,15 @@ const EditProfile = ({ socialMediaLinks, userDetail, userAvatar, userCoverPhoto 
     router.post('/author/profile/edit/personal-information/save', personalInformationData, {
       onSuccess: () => {
         console.log('Personal Information Saved.')
-        setError(prevState => null)
+        setError(null)
+        setProcessing(false)
       },
       onError: (error) => {
         setError(error)
+        setProcessing(false)
+      },
+      onProgress: () => {
+        setProcessing(true)
       }
     })
   }
@@ -114,10 +136,10 @@ const EditProfile = ({ socialMediaLinks, userDetail, userAvatar, userCoverPhoto 
       const reader = new FileReader()
       reader.onload = (e) => {
         if(inputFieldNameAttr === 'profile__photo'){
-          setProfilePhoto(prevState => e.target.result)
+          setProfilePhoto(e.target.result)
         }else{
           console.log('cover photo')
-          setCoverPhoto(prevState => e.target.result)
+          setCoverPhoto(e.target.result)
         }
       }
       reader.readAsDataURL(image)
@@ -192,7 +214,7 @@ const EditProfile = ({ socialMediaLinks, userDetail, userAvatar, userCoverPhoto 
                   </div>
                 </div>
                 <div className='flex items-center justify-end'>
-                  <button onClick={savePersonalInformation} className=' text-very-light text-sm border border-primary bg-primary px-2 py-1 rounded-md'>Save</button>
+                  <button onClick={savePersonalInformation} disabled={processing} className=' text-very-light text-sm border border-primary bg-primary px-2 py-1 rounded-md'>Save</button>
                 </div>
               </div>
             </div>
@@ -221,7 +243,7 @@ const EditProfile = ({ socialMediaLinks, userDetail, userAvatar, userCoverPhoto 
                                 <div className=' flex items-center gap-2'>
                                   {
                                     socialMediaLinkId.id === value.id ? (
-                                      <button onClick={saveUpdatedSocialMediaLink} title='Save' className=' text-green-500'>
+                                      <button onClick={saveUpdatedSocialMediaLink} disabled={processing} title='Save' className=' text-green-500'>
                                         <FaSave />
                                       </button>
                                     ) : (
@@ -230,7 +252,7 @@ const EditProfile = ({ socialMediaLinks, userDetail, userAvatar, userCoverPhoto 
                                       </button>
                                     )
                                   }
-                                  <button onClick={() => removeSocialMediaLink(value.id)} title='Remove' className=' text-red-500'>
+                                  <button onClick={() => removeSocialMediaLink(value.id)} disabled={processing} title='Remove' className=' text-red-500'>
                                     <FaTrashAlt />
                                   </button>
                                 </div>

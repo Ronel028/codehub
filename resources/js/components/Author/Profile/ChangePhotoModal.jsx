@@ -26,7 +26,7 @@ const ChangePhotoModal = ({ photo, setPhoto, type, aspectRatio, title }) => {
 
     function crop(){
         if(!isNull(cropImage)){
-            setError(prevState => null)
+            setError(null)
             const base64ToFileObject = dataURLtoFile(cropImage)
             setCropImageFinal(base64ToFileObject)
             setCropImageFinalPreview(cropImage)
@@ -34,17 +34,17 @@ const ChangePhotoModal = ({ photo, setPhoto, type, aspectRatio, title }) => {
     }
 
     function resetState(){
-        setPhoto(prevState => null)
-        setCropImage(prevState => null);
-        setCropImageFinal(prevState => null)
-        setCropImageFinalPreview(prevState => null)
-        setError(prevState => null)
+        setPhoto(null)
+        setCropImage(null);
+        setCropImageFinal(null)
+        setCropImageFinalPreview(null)
+        setError(null)
         setProcessing(false)
     }
 
     function cropAgain(){
-        setCropImageFinalPreview(prevState => null)
-        setError(prevState => null)
+        setCropImageFinalPreview(null)
+        setError(null)
     }
 
     function save(){
