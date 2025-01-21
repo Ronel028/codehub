@@ -8,6 +8,7 @@ import ChangePhotoModal from '../../../components/Author/Profile/ChangePhotoModa
 import { MdAddPhotoAlternate, MdAdd } from "react-icons/md";
 import { FaFacebookF, FaGithub, FaLinkedinIn, FaRegEdit, FaSave, FaTrashAlt } from 'react-icons/fa';
 import { FaSquareXTwitter } from 'react-icons/fa6';
+import { HiOutlineArrowTrendingUp } from "react-icons/hi2";
 import coverPlaceholder from '../../../assets/img/cover-placeholder.jpg';
 import profilePlaceholder from '../../../assets/img/cypher.jpg';
 
@@ -167,7 +168,13 @@ const EditProfile = ({ socialMediaLinks, userDetail, userAvatar, userCoverPhoto 
     { isNull(profilePhoto) ? null : <ChangePhotoModal photo={profilePhoto} setPhoto={setProfilePhoto} type='avatar' aspectRatio={1/1} title={'Change Profile'} /> }
     { isNull(coverPhoto) ? null : <ChangePhotoModal photo={coverPhoto} setPhoto={setCoverPhoto} type='cover' aspectRatio={4/1} title={'Change Cover'} /> }
     <div className="mx-auto max-w-270">
-      <h1 className=' text-primary font-bold text-2xl mb-2'>Edit Profile</h1>
+      <div className=' flex items-center gap-3'>
+        <h1 className=' text-primary font-bold text-2xl mb-2'>Edit Profile</h1>
+        <button className=' text-blue-500 text-sm flex items-center hover:underline'>
+          Preview
+          <HiOutlineArrowTrendingUp />
+        </button>
+      </div>
 
       <div className="grid grid-cols-5 gap-4">
           {/* ================ LEFT SIDE =============== */}

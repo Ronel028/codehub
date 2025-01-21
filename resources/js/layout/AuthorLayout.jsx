@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
+import { usePage } from '@inertiajs/react';
 import Header from '../components/Author/Header/index';
 import Sidebar from '../components/Author/Sidebar';
 
 const AuthorLayout = ({ children }) => {
+  const { auth } = usePage().props
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
@@ -16,7 +18,7 @@ const AuthorLayout = ({ children }) => {
         {/* <!-- ===== Content Area Start ===== --> */}
         <div className="relative flex flex-1 flex-col overflow-y-auto overflow-x-hidden">
           {/* <!-- ===== Header Start ===== --> */}
-          <Header sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
+          <Header sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} user={auth.user} />
           {/* <!-- ===== Header End ===== --> */}
 
           {/* <!-- ===== Main Content Start ===== --> */}

@@ -38,7 +38,7 @@ class HandleInertiaRequests extends Middleware
     {
         return array_merge(parent::share($request), [
             'auth.user' => fn () => $request->user()
-                ? User::with(['upload', 'avatar', 'userDetail'])->where('id', $request->user()->id)->first()
+                ? User::with(['avatar', 'userDetail'])->where('id', $request->user()->id)->first()
                 : null,
         ]);
     }

@@ -52,13 +52,13 @@ const Profile = (props) => {
                 <main className="">
                     <section>
                         <div className=" h-56 w-full  rounded-t-md">
-                            <img className=" w-full aspect-[4/1]" src={props.user.cover?.path ?? coverPlaceholder} alt="" />
+                            <img className=" w-full aspect-[4/1]" src={props.user.cover?.path ?? coverPlaceholder} alt={props.user.cover?.filename ?? null} />
                             <div className=" -mt-24 flex items-center justify-start max-w-[1500px] w-[90%] mx-auto ">
                                 <div className=" relative overflow-hidden rounded-full">
                                     <img
                                         className="h-full w-36 aspect-square rounded-full border-2 border-[#1b263b]"
                                         src={props.user.avatar?.path ?? altImage}
-                                        alt={(props.user.upload && props.user.upload.filename) ?? "image-placeholder"}
+                                        alt={props.user.user_detail?.full_name  ?? props.user.username}
                                     />
                                 </div>
                             </div>
