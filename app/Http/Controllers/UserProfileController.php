@@ -12,12 +12,12 @@ use Inertia\Inertia;
 
 class UserProfileController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $user = User::with(['userDetail', 'avatar', 'cover', 'socialMediaLinks'])->where('id', Auth::id())->first();
-        // dd($user);
+        $username = $request->username;
+        $user = User::with(['userDetail', 'avatar', 'cover', 'socialMediaLinks'])->where('username', $username)->first();
         $blogs = BlogPost::with(['upload', 'user'])
-            ->where('user_id', Auth::id())
+            ->where('user_id', $user->id)
             ->orderBy('created_at', 'desc')
             ->get();
         return Inertia::render('Profile/Index', [

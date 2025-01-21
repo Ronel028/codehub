@@ -8,8 +8,8 @@ import ChangePhotoModal from '../../../components/Author/Profile/ChangePhotoModa
 import { MdAddPhotoAlternate, MdAdd } from "react-icons/md";
 import { FaFacebookF, FaGithub, FaLinkedinIn, FaRegEdit, FaSave, FaTrashAlt } from 'react-icons/fa';
 import { FaSquareXTwitter } from 'react-icons/fa6';
-import CoverOne from '../../../assets/img/cover-01.png';
-import userSix from '../../../assets/img/user-06.png';
+import coverPlaceholder from '../../../assets/img/cover-placeholder.jpg';
+import profilePlaceholder from '../../../assets/img/cypher.jpg';
 
 const socialMediaIcons = {
   facebook: <FaFacebookF className=' text-xl text-primary' />,
@@ -174,14 +174,14 @@ const EditProfile = ({ socialMediaLinks, userDetail, userAvatar, userCoverPhoto 
           <div className=' col-span-3'>
             <div className=' bg-gray-200/80 rounded-md mb-3'>
               <div className=' relative'>
-                <img src={isNull(userCoverPhoto) ? CoverOne : userCoverPhoto.path} alt="" className=' aspect-[4/1] rounded-t-md' />
+                <img src={isNull(userCoverPhoto) ? coverPlaceholder : userCoverPhoto.path} alt="" className='w-full aspect-[4/1] rounded-t-md' />
                 <label htmlFor='cover__photo' className='absolute top-3 right-3 flex items-center justify-center w-7 aspect-square text-primary border bg-gray-400 cursor-pointer rounded-full'>
                   <MdAddPhotoAlternate className=' text-lg' />
                 </label>
                   <input onChange={handleOnChangeGetProfilePhoto} type="file" name='cover__photo' id='cover__photo' hidden />
               </div>
               <div className=' -mt-12 px-4 relative'>
-                <img src={isNull(userAvatar) ? userSix : userAvatar.path} alt="" className=' w-20 aspect-square rounded-full border-2 border-gray-200' />
+                <img src={isNull(userAvatar) ? profilePlaceholder : userAvatar.path} alt="" className=' w-20 aspect-square rounded-full border-2 border-gray-200' />
               </div>
               <div className=' px-3 pb-4 mt-2'>
                 <p className=' text-primary font-bold'>Your photo</p>

@@ -29,7 +29,7 @@ const ViewBlog = (props) => {
                             </div>
                             <div>
                                 <p className=" text-[#E0E1DD] text-sm">
-                                    <span>{(props.blog.user.user_detail?.full_name + ' | ' + props.blog.user.username) ?? props.blog.user.username}</span>
+                                    <span>{props.blog.user.user_detail?.full_name ?? props.blog.user.username}</span>
                                 </p>
                                 <p className=" text-gray-400 text-xs flex items-center">
                                     {diffInDays(props.blog.created_at)}
@@ -63,14 +63,12 @@ const ViewBlog = (props) => {
                         </p>
                         <p className=" text-[#778DA9] text-xs flex items-center mb-3">
                             <span className="flex items-center">
-                                <span className="  bg-[#415A77] py-1 px-2 rounded-md text-very-light">
+                                <span className=" rounded-md text-very-light/80">
                                     {props.blog.user.user_detail?.tagline}
                                 </span>
                             </span>
                         </p>
-                        <p className=" text-sm tracking-wide">
-                            {props.blog.user.user_detail?.bio}
-                        </p>
+                        <Link href={`/profile/info/${props.blog.user.username}`} className="mt-2 bg-very-light text-primary font-bold px-2 py-1 inline-block rounded-md text-sm">Visit Profile</Link>
                     </div>
                     <div className=" pt-5 mb-6">
                         <h1 className=" text-base font-bold tracking-wide flex items-center gap-1 mb-3">

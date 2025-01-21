@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { Link, router, usePage } from "@inertiajs/react"
-import { FaUserCircle, FaSignOutAlt, FaEdit, FaUserLock, FaRegUser } from "react-icons/fa";
+import { FaUserCircle, FaSignOutAlt, FaEdit, FaUserLock, FaRegUser, FaRegUserCircle } from "react-icons/fa";
 import { TiUserAdd } from "react-icons/ti";
-import { MdOutlinePostAdd, MdOutlineSignpost } from "react-icons/md";
+import { MdOutlineAdminPanelSettings, MdOutlinePostAdd, MdOutlineSignpost } from "react-icons/md";
 import { CiLogout } from "react-icons/ci";
 import { IoCodeSlashSharp } from "react-icons/io5";
 import { IoIosLogOut } from "react-icons/io";
@@ -82,9 +82,16 @@ const Navigation = (props) => {
                                 {
                                     props.user ? (
                                         <>
-                                            <Link href="/profile"
+                                            <Link href="/author/dashboard"
                                                 className="flex w-full cursor-pointer hover:bg-secondary select-none items-center gap-2 px-3 py-2 text-start leading-tight outline-none transition-all ease-linear duration-200">
-                                                <FaRegUser className=" text-sm" />
+                                                <MdOutlineAdminPanelSettings className=" text-lg" />
+                                                <p className="block font-sans text-xs antialiased font-medium leading-normal text-inherit">
+                                                    Author Panel
+                                                </p>
+                                            </Link>
+                                            <Link href={`/profile/info/${props.user.username}`}
+                                                className="flex w-full cursor-pointer hover:bg-secondary select-none items-center gap-2 px-3 py-2 text-start leading-tight outline-none transition-all ease-linear duration-200">
+                                                <FaRegUserCircle className=" text-sm" />
                                                 <p className="block font-sans text-xs antialiased font-medium leading-normal text-inherit">
                                                     My Profile
                                                 </p>
@@ -119,7 +126,6 @@ const Navigation = (props) => {
                                 {
                                     props.user ? (
                                         <>
-                                            {/* <hr className=" border-[#415A77]" role="menuitem" /> */}
                                             <button onClick={logout}
                                                 className="group flex w-full cursor-pointer hover:bg-red-100 select-none items-center gap-2 px-3 py-2 text-start leading-tight outline-none transition-all ease-linear duration-200">
                                                 <IoIosLogOut className=" text-sm group-hover:fill-red-500" />

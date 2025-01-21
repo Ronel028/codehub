@@ -4,16 +4,17 @@ import { capitalize, isNull } from "lodash";
 import ProfileLayout from "../../layout/profileLayout";
 import ProfilePictureModal from "../Components/Modals/ProfilePictureModal";
 import BlogPostCard from "../Components/BlogPostCard";
-import { FaLinkedinIn, FaFacebook, FaUserEdit, FaFacebookF, FaGithub } from "react-icons/fa";
-import { FaLocationDot, FaSquareXTwitter, FaCameraRotate } from "react-icons/fa6";
-import altImage from "../Assets/Img/cypher.jpg"
+import { FaLinkedinIn, FaFacebookF, FaGithub } from "react-icons/fa";
+import {FaSquareXTwitter } from "react-icons/fa6";
 import { toast } from "react-toastify";
+import altImage from "../Assets/Img/cypher.jpg"
+import coverPlaceholder from "../../assets/img/cover-placeholder.jpg"
 
 const socialMediaIcons = {
-  facebook: <FaFacebookF className=' text-xs text-blue-400' />,
-  linkedin: <FaLinkedinIn className=' text-xs text-blue-600' />,
-  twitter: <FaSquareXTwitter className=' text-xs text-light' />,
-  github: <FaGithub className=' text-xs text-gray-300' />,
+  facebook: <FaFacebookF className=' text-blue-400' />,
+  linkedin: <FaLinkedinIn className=' text-blue-600' />,
+  twitter: <FaSquareXTwitter className=' text-light' />,
+  github: <FaGithub className=' text-gray-300' />,
 }
 
 const Profile = (props) => {
@@ -51,7 +52,7 @@ const Profile = (props) => {
                 <main className="">
                     <section>
                         <div className=" h-56 w-full  rounded-t-md">
-                            <img className=" w-full aspect-[4/1]" src={props.user.cover?.path ?? null} alt="" />
+                            <img className=" w-full aspect-[4/1]" src={props.user.cover?.path ?? coverPlaceholder} alt="" />
                             <div className=" -mt-24 flex items-center justify-start max-w-[1500px] w-[90%] mx-auto ">
                                 <div className=" relative overflow-hidden rounded-full">
                                     <img
@@ -68,15 +69,15 @@ const Profile = (props) => {
                                     <div className="">
                                         <h2 className=" text-4xl font-bold tracking-wide mb-1">{props.user.user_detail?.full_name ?? props.user.username}</h2>
                                         {
-                                            !isNull(props.user.user_details) ? (
-                                                <div className=" flex flex-wrap gap-5 tracking-wide mb-5">
+                                            !isNull(props.user.user_detail) ? (
+                                                <div className=" flex flex-wrap gap-5 tracking-wide">
                                                     <p className=" text-sm font-light tracking-wide flex gap-1">
                                                         {props.user.user_detail.tagline}
                                                     </p>
                                                 </div>
                                             ) : null
                                         }
-                                        <div className=" flex items-center flex-wrap gap-5">
+                                        <div className=" flex items-center flex-wrap gap-5 mt-4">
                                             {/* {
                                                 props.user.user_detail && props.user.user_detail.address ? (
                                                     <p className=" text-xs font-bold tracking-wide flex gap-1">
@@ -89,7 +90,7 @@ const Profile = (props) => {
                                                 {
                                                     props.user.social_media_links.length > 0 ? (
                                                         props.user.social_media_links.map(value => (
-                                                            <Link key={value.id} href={props.user.user_detail.soc_fb ?? '#'} className="font-bold flex items-center gap-1 text-xs hover:underline">
+                                                            <Link key={value.id} href={value.link} className="font-bold flex items-center gap-1 text-sm hover:underline">
                                                                 { socialMediaIcons[value.platform] }
                                                                 {capitalize(value.platform)}
                                                             </Link>
@@ -102,12 +103,12 @@ const Profile = (props) => {
                                 </div>
                             </div>
                             {
-                                !isNull(props.user.user_detail?.bio) ? (
+                                !isNull(props.user.user_detail) ? (
                                     <div className=" mt-8">
-                                        <h2 className=" text-base font-bold tracking-wide mb-1 text-yellow-400 capitalize">
+                                        <h2 className=" text-lg font-bold tracking-wide mb-1 text-yellow-400 capitalize">
                                             Professional Bio
                                         </h2>
-                                        <p className=" text-xs tracking-wide mb-4">
+                                        <p className=" text-sm tracking-wide mb-4">
                                             {props.user.user_detail.bio}
                                         </p>
                                     </div>
