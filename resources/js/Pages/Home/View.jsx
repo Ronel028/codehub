@@ -23,17 +23,13 @@ const ViewBlog = (props) => {
                         <div className=" flex items-center gap-2 mb-5">
                             <div className="w-10 aspect-square rounded-full p-[2px] border border-[#415A77] flex items-center justify-center">
                                 <img
-                                    src={(props.blog.user.upload && props.blog.user.upload.path) ?? imagePlacholder}
-                                    alt={(props.blog.user.upload && props.blog.user.upload.filename) ?? 'user'}
+                                    src={props.blog.user.avatar?.path ?? imagePlacholder}
+                                    alt={props.blog.user.avatar?.filename ?? 'user'}
                                     className=" w-full aspect-square rounded-full cursor-pointer" />
                             </div>
                             <div>
                                 <p className=" text-[#E0E1DD] text-sm">
-                                    {
-                                        props.blog.user.full_name != ' ' && props.blog.user.full_name != null ? (
-                                            <span>{props.blog.user.full_name + ' | ' + props.blog.user.username}</span>
-                                        ) : <span>{props.blog.user.username}</span>
-                                    }
+                                    <span>{(props.blog.user.user_detail?.full_name + ' | ' + props.blog.user.username) ?? props.blog.user.username}</span>
                                 </p>
                                 <p className=" text-gray-400 text-xs flex items-center">
                                     {diffInDays(props.blog.created_at)}
@@ -56,45 +52,30 @@ const ViewBlog = (props) => {
                 <div className="mb-5 w-[90%] max-w-[1000px] mx-auto">
                     <div className="w-14 h-14 rounded-full p-[2px] mb-3 border border-[#415A77] flex items-center justify-center">
                         <img
-                            src={(props.blog.user.upload && props.blog.user.upload.path) ?? imagePlacholder}
-                            alt={(props.blog.user.upload && props.blog.user.upload.filename) ?? 'user'}
+                            src={props.blog.user.avatar?.path ?? imagePlacholder}
+                            alt={props.blog.user.avatar?.filename ?? 'user'}
                             className=" object-center w-full h-full rounded-full cursor-pointer" />
                     </div>
                     <div className=" mb-5">
                         <p className=" text-[#E0E1DD] text-base font-bold flex items-center gap-1 mb-1">
                             Written by
-                            {
-                                props.blog.user.full_name != ' ' && props.blog.user.full_name != null ? (
-                                    <span>{props.blog.user.full_name + ' | ' + props.blog.user.username}</span>
-                                ) : <span>{props.blog.user.username}</span>
-                            }
+                            <span>{props.blog.user.user_detail?.full_name ?? props.blog.user.username}</span>
                         </p>
                         <p className=" text-[#778DA9] text-xs flex items-center mb-3">
-                            {
-                                props.blog.user.user_detail && props.blog.user.user_detail.experiences !== null ? (
-                                    props.blog.user.user_detail.experiences.map((experience, index) => (
-                                        <span key={index} className="flex items-center">
-                                            <span className="  bg-[#415A77] py-1 px-2 rounded-md">
-                                                {experience}
-                                            </span>
-                                            {index !== props.blog.user.user_detail.experiences.length - 1 && <LuDot className=" text-base" />}
-                                        </span>
-                                    ))
-                                ) : null
-                            }
+                            <span className="flex items-center">
+                                <span className="  bg-[#415A77] py-1 px-2 rounded-md text-very-light">
+                                    {props.blog.user.user_detail?.tagline}
+                                </span>
+                            </span>
                         </p>
                         <p className=" text-sm tracking-wide">
-                            {props.blog.user.user_detail && props.blog.user.user_detail.about}
+                            {props.blog.user.user_detail?.bio}
                         </p>
                     </div>
                     <div className=" pt-5 mb-6">
                         <h1 className=" text-base font-bold tracking-wide flex items-center gap-1 mb-3">
                             More from
-                            {
-                                props.blog.user.full_name != ' ' && props.blog.user.full_name != null ? (
-                                    <span>{props.blog.user.full_name + ' | ' + props.blog.user.username}</span>
-                                ) : <span>{props.blog.user.username}</span>
-                            }
+                            <span>{props.blog.user.user_detail?.full_name ?? props.blog.user.username}</span>
                         </h1>
                         {
                             props.more_blogs.length > 0 ? (

@@ -14,7 +14,8 @@ class UserProfileController extends Controller
 {
     public function index()
     {
-        $user = User::with(['userDetail', 'upload'])->where('id', Auth::id())->first();
+        $user = User::with(['userDetail', 'avatar', 'cover', 'socialMediaLinks'])->where('id', Auth::id())->first();
+        // dd($user);
         $blogs = BlogPost::with(['upload', 'user'])
             ->where('user_id', Auth::id())
             ->orderBy('created_at', 'desc')

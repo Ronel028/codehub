@@ -40,7 +40,7 @@ class BlogListController extends Controller
 
             return Inertia::render('Home/View', [
                 'blog' =>  BlogPost::with(['user' => function ($query) {
-                    $query->with('userDetail', 'upload');
+                    $query->with('userDetail', 'avatar');
                 }])->whereHas('user', function ($query) use ($username) {
                     $query->where('username', $username);
                 })->where('id', $id)->first(),

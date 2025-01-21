@@ -69,8 +69,8 @@ const Navigation = (props) => {
                                 {
                                     props.user ? (
                                         <img
-                                            src={(props.user.upload && props.user.upload.path) ?? imagePlacholder}
-                                            alt={(props.user.upload && props.user.upload.filename) ?? 'user'}
+                                            src={props.user.avatar?.path ?? imagePlacholder}
+                                            alt={props.user.avatar?.filename ?? 'user'}
                                             className=" w-full aspect-square rounded-full cursor-pointer" />
                                     ) : (
                                         <img src={imagePlacholder} alt="user" className="object-cover w-full h-full rounded-full cursor-pointer" />
