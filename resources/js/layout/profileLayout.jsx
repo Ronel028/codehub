@@ -7,7 +7,7 @@ const ProfileLayout = (props) => {
 
     return (
         <>
-            <main className=" bg-[#1b263b] h-auto min-h-screen">
+            <main className=" bg-soft-light h-auto min-h-screen">
                 <main className="">
                     <Navigation setSearch={props.setSearch} search={props.search} user={auth.user} />
                     <section className="pt-[52px]">

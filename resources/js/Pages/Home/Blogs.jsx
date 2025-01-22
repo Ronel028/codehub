@@ -84,7 +84,7 @@ const Blogs = (props) => {
                                     props.blogs.map(blog => (
                                         <Link key={blog.id} href={`/blog-list/read/${blog.user.username}/${blog.id}`}>
                                             <div>
-                                                <div className="w-full aspect-[4/2] overflow-hidden rounded-t mb-2 border border-[#415A77]">
+                                                <div className="w-full aspect-[4/2] overflow-hidden rounded-t mb-2 border border-gray-light">
                                                     <img
                                                         className=" w-full aspect-[4/2] object-cover rounded-t"
                                                         src={(blog.upload && blog.upload.path) ?? imagePlaceholder}
@@ -92,8 +92,8 @@ const Blogs = (props) => {
                                                     />
                                                 </div>
                                                 <div className=" mb-1">
-                                                    <p className=" font-bold mb-1 text-xl text-[#E0E1DD]">{blog.title}</p>
-                                                    <p className="text-xs text-[#E0E1DD] flex items-center gap-1">
+                                                    <p className=" font-bold mb-1 text-xl text-dark-gray">{blog.title}</p>
+                                                    <p className="text-xs text-meduim-gray flex items-center gap-1">
                                                         {
                                                             blog.user.full_name != ' ' && blog.user.full_name != null ? (
                                                                 <span>{blog.user.full_name}</span>
@@ -104,7 +104,7 @@ const Blogs = (props) => {
                                                     </p>
                                                 </div>
                                                 <div>
-                                                    <p className=" font-normal mb-1 text-gray-400 text-base">{blog.description}</p>
+                                                    <p className=" font-normal mb-1 text-dark-gray text-sm">{blog.description}</p>
                                                 </div>
                                             </div>
                                         </Link>

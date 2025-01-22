@@ -20,7 +20,7 @@ const Home = (props) => {
         <>
             <div className=" w-full h-auto min-h-screen bg-homepage bg-cover bg-center">
                 <Navigation user={auth.user} />
-                <div className="bg-[#1B263B] bg-opacity-80 w-full h-auto min-h-screen  flex items-center justify-center">
+                <div className="bg-soft-light/60 w-full h-auto min-h-screen  flex items-center justify-center">
                     <main className="pt-[65px] pb-10">
                         <div className="max-w-[1500px] w-[90%] mx-auto">
                             <h1 className=" header__font font-bold mb-5">

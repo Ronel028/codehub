@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, router, usePage } from "@inertiajs/react"
-import { FaUserCircle, FaSignOutAlt, FaEdit, FaUserLock, FaRegUser, FaRegUserCircle } from "react-icons/fa";
+import { FaUserCircle, FaSignOutAlt, FaEdit, FaUserLock, FaRegUser, FaRegUserCircle, FaBlog } from "react-icons/fa";
 import { TiUserAdd } from "react-icons/ti";
 import { MdOutlineAdminPanelSettings, MdOutlinePostAdd, MdOutlineSignpost } from "react-icons/md";
 import { CiLogout } from "react-icons/ci";
@@ -14,6 +14,7 @@ import { FaLaptopCode } from "react-icons/fa";
 import imagePlacholder from "../Assets/Img/cypher.jpg"
 import knowl from "../Assets/Img/knowl-logo.png"
 import Input from "./Forms/Input";
+import { PiFolderUserBold } from "react-icons/pi";
 
 const Navigation = (props) => {
 
@@ -31,21 +32,21 @@ const Navigation = (props) => {
 
     return (
         <>
-            <div className=" bg-[#0d1b2a] fixed top-0 left-0 right-0 z-50 border-b border-[#415A77]">
+            <div className=" bg-[#F7F7F7] fixed top-0 left-0 right-0 z-50 border-b border-gray-light">
                 <nav className=" flex items-center justify-between py-3 max-w-[1500px] w-[90%] mx-auto relative">
                     <Link href="/" className="flex items-center font-bold text-red-400 font-courier-prime text-xl">
                         C
-                        <FaLaptopCode className="px-[0.0625rem] text-xl text-light-gray" />
+                        <FaLaptopCode className="px-[0.0625rem] text-xl text-meduim-gray" />
                         DE HUB
                     </Link>
                     <ul className=" hidden sm:flex items-center gap-8">
                         <li>
-                            <Link href="/" className={`${url === '/' ? 'text-red-400 font-bold' : 'text-[#E0E1DD]'} flex items-center gap-2 text-xs tracking-wide`}>
+                            <Link href="/" className={`${url === '/' ? 'text-red-400 font-bold' : 'text-dark-gray'} flex items-center gap-2 text-xs tracking-wide`}>
                                 Home
                             </Link>
                         </li>
                         <li>
-                            <Link href="/blog-list" className={`${url.startsWith('/blog-list') ? 'text-red-400 font-bold' : 'text-[#E0E1DD]'} flex items-center gap-2 text-xs tracking-wide`}>
+                            <Link href="/blog-list" className={`${url.startsWith('/blog-list') ? 'text-red-400 font-bold' : 'text-dark-gray'} flex items-center gap-2 text-xs tracking-wide`}>
                                 Blogs
                             </Link>
                         </li>
@@ -59,8 +60,8 @@ const Navigation = (props) => {
                             ) : ''
                         }
                         <li>
-                            <Link href="/blog/create" className="flex items-center font-bold shadow gap-1 text-xs border border-[#415a77] hover:bg-[#415a77] text-light py-1 px-2 rounded transition-colors ease-linear duration-200">
-                                <RiStickyNoteAddLine className=" text-sm fill-light" />
+                            <Link href="/blog/create" className="flex items-center font-bold gap-1 text-sm border border-gray-light text-dark-gray py-1 px-2 rounded-md transition-colors ease-linear duration-200">
+                                <RiStickyNoteAddLine />
                                 Write
                             </Link>
                         </li>
@@ -78,47 +79,47 @@ const Navigation = (props) => {
                                 }
                             </button>
                             <ul
-                                className={`${openMenu ? 'flex' : 'hidden'} absolute z-10 flex min-w-[180px] right-0 top-14 flex-col overflow-auto rounded-md border border-[#415A77] bg-[#1b263b] font-sans text-sm font-normal text-blue-gray-500 shadow-lg shadow-blue-gray-500/10 focus:outline-none`}>
+                                className={`${openMenu ? 'flex' : 'hidden'} divide-y absolute z-10 flex min-w-[180px] right-0 top-12 flex-col overflow-auto rounded-md border bg-[#F7F7F7] border-gray-light font-sans text-sm font-normal text-blue-gray-500 focus:outline-none`}>
                                 {
                                     props.user ? (
                                         <>
                                             <Link href="/author/dashboard"
-                                                className="flex w-full cursor-pointer hover:bg-secondary select-none items-center gap-2 px-3 py-2 text-start leading-tight outline-none transition-all ease-linear duration-200">
-                                                <MdOutlineAdminPanelSettings className=" text-lg" />
-                                                <p className="block font-sans text-xs antialiased font-medium leading-normal text-inherit">
+                                                className="flex w-full cursor-pointer text-dark-gray hover:bg-dark-gray/70 hover:text-soft-light select-none items-center gap-2 px-3 py-2 text-start leading-tight outline-none transition-all ease-linear duration-200">
+                                                <PiFolderUserBold className=" text-xl" />
+                                                <span className="block font-sans text-sm antialiased font-medium leading-normal text-inherit">
                                                     Author Panel
-                                                </p>
+                                                </span>
                                             </Link>
-                                            <Link href={`/profile/info/${props.user.username}`}
+                                            {/* <Link href={`/profile/info/${props.user.username}`}
                                                 className="flex w-full cursor-pointer hover:bg-secondary select-none items-center gap-2 px-3 py-2 text-start leading-tight outline-none transition-all ease-linear duration-200">
                                                 <FaRegUserCircle className=" text-sm" />
                                                 <p className="block font-sans text-xs antialiased font-medium leading-normal text-inherit">
                                                     My Profile
                                                 </p>
-                                            </Link>
+                                            </Link> */}
                                             <Link href="/blog/list"
-                                                className="flex w-full cursor-pointer hover:bg-secondary select-none items-center gap-2 px-3 py-2 text-start leading-tight outline-none transition-all ease-linear duration-200">
-                                                <MdOutlineSignpost className=" text-base" />
-                                                <p className="block font-sans text-xs antialiased font-medium leading-normal text-inherit">
+                                                className="flex w-full cursor-pointer text-dark-gray hover:bg-dark-gray/70 hover:text-soft-light select-none items-center gap-2 px-3 py-2 text-start leading-tight outline-none transition-all ease-linear duration-200">
+                                                <FaBlog className=" text-base" />
+                                                <span className="block font-sans text-sm antialiased font-medium leading-normal text-inherit">
                                                     Blog Post
-                                                </p>
+                                                </span>
                                             </Link>
                                         </>
                                     ) : (
                                         <>
                                             <Link href="/login"
-                                                className="flex w-full cursor-pointer hover:bg-secondary select-none items-center gap-2 px-3 py-2 text-start leading-tight outline-none transition-all ease-linear duration-200">
+                                                className="flex w-full cursor-pointer text-dark-gray hover:bg-dark-gray/70 hover:text-soft-light select-none items-center gap-2 px-3 py-2 text-start leading-tight outline-none transition-all ease-linear duration-200">
                                                 <BsPersonLock className=" text-base" />
-                                                <p className="block font-sans text-xs antialiased font-bold leading-normal text-inherit">
+                                                <span className="block font-sans text-sm antialiased font-bold leading-normal text-inherit">
                                                     Signin
-                                                </p>
+                                                </span>
                                             </Link>
                                             <Link href="/register"
-                                                className="flex w-full cursor-pointer hover:bg-secondary select-none items-center gap-2 px-3 py-2 text-start leading-tight outline-none transition-all ease-linear duration-200">
+                                                className="flex w-full cursor-pointer text-dark-gray hover:bg-dark-gray/70 hover:text-soft-light select-none items-center gap-2 px-3 py-2 text-start leading-tight outline-none transition-all ease-linear duration-200">
                                                 <FiUserPlus className=" text-base" />
-                                                <p className="block font-sans text-xs antialiased font-bold leading-normal text-inherit">
+                                                <span className="block font-sans text-sm antialiased font-bold leading-normal text-inherit">
                                                     Create Account
-                                                </p>
+                                                </span>
                                             </Link>
                                         </>
                                     )
@@ -127,9 +128,9 @@ const Navigation = (props) => {
                                     props.user ? (
                                         <>
                                             <button onClick={logout}
-                                                className="group flex w-full cursor-pointer hover:bg-red-100 select-none items-center gap-2 px-3 py-2 text-start leading-tight outline-none transition-all ease-linear duration-200">
-                                                <IoIosLogOut className=" text-sm group-hover:fill-red-500" />
-                                                <p className="block font-sans group-hover:text-red-500 text-xs antialiased font-bold leading-normal text-inherit">
+                                                className="group flex w-full cursor-pointer text-dark-gray hover:bg-red-100 select-none items-center gap-2 px-3 py-2 text-start leading-tight outline-none transition-all ease-linear duration-200">
+                                                <IoIosLogOut className=" text-base group-hover:fill-red-500" />
+                                                <p className="block font-sans group-hover:text-red-500 text-sm antialiased font-bold leading-normal text-inherit">
                                                     Sign Out
                                                 </p>
                                             </button>

@@ -19,7 +19,13 @@ export default {
         'secondary': '#31304D',
         'light-gray': '#B6BBC4',
         'light': '#F0ECE5',
-        'very-light': '#F8F9FA'
+        'very-light': '#F8F9FA',
+        'soft-light': '#F9F9F9',
+        'dark-gray': '#2D2D2D',
+        'meduim-gray': '#5A5A5A',
+        'vibrant-blue': '#0073E6',
+        'muted-accent': '#005BB5',
+        'gray-light': '#E0E0E0'
       },
     },
     fontFamily: {
@@ -28,7 +34,7 @@ export default {
       "courier-prime": ["Courier Prime", "sans-serif"]
     },
     backgroundImage: {
-      'homepage': 'url("/public/images/code-bg.jpg")'
+      'homepage': 'url("/public/images/tech.jpg")'
     },
   },
   plugins: [

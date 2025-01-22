@@ -8,7 +8,7 @@ const BlogPostCard = ({ blogId, username, blogPhoto, isPublish, title, descripti
 
     return (
         <div className="">
-            <div className=" overflow-hidden rounded-t-md mb-2 border border-[#415A77]">
+            <div className=" overflow-hidden rounded-t-md mb-2 border border-gray-light">
                 <img className=" w-full aspect-[4/2] object-cover rounded-t-md" src={(blogPhoto && blogPhoto.path) ?? imagePlaceholder} alt="" />
             </div>
             <div className=" py-2">
@@ -30,11 +30,11 @@ const BlogPostCard = ({ blogId, username, blogPhoto, isPublish, title, descripti
                         </div>
                     ) : null
                 }
-                <Link href={`/blog-list/read/${username}/${blogId}`} className=" font-bold text-xl">
+                <Link href={`/blog-list/read/${username}/${blogId}`} className=" font-bold text-xl text-dark-gray">
                     {title}
                 </Link>
-                <p className=" text-xs italic text-red-400 mb-1">{moment(createdAt).format('LL')}</p>
-                <p className=" font-medium mb-1 text-sm text-light-gray">{description}</p>
+                <p className=" text-xs text-meduim-gray mb-1">{moment(createdAt).format('LL')}</p>
+                <p className=" font-medium mb-1 text-sm text-dark-gray">{description}</p>
             </div>
         </div>
     )

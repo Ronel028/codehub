@@ -36,7 +36,7 @@ const ProfilePreviewModal = ({ profilePreview: user, setProfilePreview }) => {
                                             className="text-base font-semibold text-gray-900"
                                             id="modal-title"
                                         >
-                                            Public Profile Preview
+                                            Profile Preview
                                         </h3>
                                     </div>
                                     <div className="mt-4">

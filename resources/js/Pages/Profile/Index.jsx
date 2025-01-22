@@ -13,8 +13,8 @@ import coverPlaceholder from "../../assets/img/cover-placeholder.jpg"
 const socialMediaIcons = {
   facebook: <FaFacebookF className=' text-blue-400' />,
   linkedin: <FaLinkedinIn className=' text-blue-600' />,
-  twitter: <FaSquareXTwitter className=' text-light' />,
-  github: <FaGithub className=' text-gray-300' />,
+  twitter: <FaSquareXTwitter className=' text-dark-gray' />,
+  github: <FaGithub className=' text-gray-500' />,
 }
 
 const Profile = (props) => {
@@ -56,7 +56,7 @@ const Profile = (props) => {
                             <div className=" -mt-24 flex items-center justify-start max-w-[1500px] w-[90%] mx-auto ">
                                 <div className=" relative overflow-hidden rounded-full">
                                     <img
-                                        className="h-full w-36 aspect-square rounded-full border-2 border-[#1b263b]"
+                                        className="h-full w-36 aspect-square rounded-full border-2 border-soft-light"
                                         src={props.user.avatar?.path ?? altImage}
                                         alt={props.user.user_detail?.full_name  ?? props.user.username}
                                     />
@@ -78,14 +78,6 @@ const Profile = (props) => {
                                             ) : null
                                         }
                                         <div className=" flex items-center flex-wrap gap-5 mt-4">
-                                            {/* {
-                                                props.user.user_detail && props.user.user_detail.address ? (
-                                                    <p className=" text-xs font-bold tracking-wide flex gap-1">
-                                                        <FaLocationDot />
-                                                        {props.user.user_detail.address}
-                                                    </p>
-                                                ) : null
-                                            } */}
                                             <div className=" flex flex-wrap gap-5 tracking-wide">
                                                 {
                                                     props.user.social_media_links.length > 0 ? (
@@ -105,7 +97,7 @@ const Profile = (props) => {
                             {
                                 !isNull(props.user.user_detail) ? (
                                     <div className=" mt-8">
-                                        <h2 className=" text-lg font-bold tracking-wide mb-1 text-yellow-400 capitalize">
+                                        <h2 className=" text-lg font-bold tracking-wide mb-1 text-[#0073E6] capitalize">
                                             Professional Bio
                                         </h2>
                                         <p className=" text-sm tracking-wide mb-4">
