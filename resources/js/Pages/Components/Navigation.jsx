@@ -61,13 +61,13 @@ const Navigation = (props) => {
                             </Link>
                         </li>
                         <li>
-                            <button onClick={open} className=" border border-[#415a77] w-7 h-7 rounded-full align-middle hover:opacity-90 transition-opacity ease-linear duration-200">
+                            <button onClick={open} className=" border border-[#415a77] w-8 h-8 rounded-full align-middle hover:opacity-90 transition-opacity ease-linear duration-200">
                                 {
                                     props.user ? (
                                         <img
                                             src={props.user.avatar?.path ?? imagePlacholder}
                                             alt={props.user.avatar?.filename ?? 'user'}
-                                            className=" w-full aspect-square rounded-full cursor-pointer" />
+                                            className=" aspect-square rounded-full cursor-pointer" />
                                     ) : (
                                         <img src={imagePlacholder} alt="user" className="object-cover w-full h-full rounded-full cursor-pointer" />
                                     )

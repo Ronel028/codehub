@@ -21,7 +21,7 @@ const ViewBlog = (props) => {
                     </div>
                     <div className="pt-3 pb-7">
                         <div className=" flex items-center gap-2 mb-5">
-                            <div className="w-10 aspect-square rounded-full p-[2px] border border-[#415A77] flex items-center justify-center">
+                            <div className="w-10 aspect-square rounded-full p-[2px] border border-gray-light flex items-center justify-center">
                                 <img
                                     src={props.blog.user.avatar?.path ?? imagePlacholder}
                                     alt={props.blog.user.avatar?.filename ?? 'user'}
@@ -50,7 +50,7 @@ const ViewBlog = (props) => {
             </MainLayout>
             <div className=" w-full py-8 h-auto bg-soft-light border-t border-gray-light">
                 <div className="mb-5 w-[90%] max-w-[1000px] mx-auto flex items-start gap-3">
-                    <div className="w-12 h-12 flex-shrink-0 rounded-full p-[2px] mb-3 border border-[#415A77] flex items-center justify-center">
+                    <div className="w-12 h-12 flex-shrink-0 rounded-full p-[2px] mb-3 border border-gray-light flex items-center justify-center">
                         <img
                             src={props.blog.user.avatar?.path ?? imagePlacholder}
                             alt={props.blog.user.avatar?.filename ?? 'user'}

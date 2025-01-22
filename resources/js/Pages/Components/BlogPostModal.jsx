@@ -70,8 +70,8 @@ const BlogPostModal = ({ setIsModalOpen }) => {
             <div className="fixed inset-0 bg-gray-500/75 transition-opacity backdrop-blur-sm" aria-hidden="true"></div>
             <div className="fixed inset-0 z-10 w-screen overflow-y-auto">
                 <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
-                    <div className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
-                        <div className="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
+                    <div className="relative transform overflow-hidden rounded-lg bg-soft-light text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
+                        <div className="bg-soft-light px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
                             <div className="">
                                 <div className="mt-3 text-center sm:mt-0 sm:text-left">
                                     <h3 className="text-lg font-semibold text-gray-900" id="modal-title">Create blog</h3>
@@ -168,11 +168,11 @@ const BlogPostModal = ({ setIsModalOpen }) => {
                                 </div>
                             </div>
                         </div>
-                        <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
-                            <button onClick={store} disabled={processing} type="button" className="inline-flex w-full min-w-[78.38px] h-9 items-center justify-center rounded bg-primary px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-opacity-90 sm:ml-3 sm:w-auto">
+                        <div className="border-t border-gray-light px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
+                            <button onClick={store} disabled={processing} type="button" className="inline-flex w-full min-w-[78.38px] h-9 items-center justify-center rounded bg-yellow-light px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-opacity-90 sm:ml-3 sm:w-auto">
                                 {processing ? null : "Create"}
                                 <Beatloader
-                                    color={'#B6BBC4'}
+                                    color={'#F9F9F9'}
                                     loading={processing}
                                     size={7}
                                     aria-label="Loading Spinner"

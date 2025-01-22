@@ -23,6 +23,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('blog_posts', function (Blueprint $table) {
+            $table->string('status');
             $table->dropColumn('is_published');
         });
     }

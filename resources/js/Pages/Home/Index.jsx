@@ -23,16 +23,16 @@ const Home = (props) => {
                 <div className="bg-soft-light/60 w-full h-auto min-h-screen  flex items-center justify-center">
                     <main className="pt-[65px] pb-10">
                         <div className="max-w-[1500px] w-[90%] mx-auto">
-                            <h1 className=" header__font font-bold mb-5">
+                            <h1 className=" header__font text-dark-gray font-bold mb-5">
                                 The Developer's Hub: Tips, Tools, and Stories for Coders
                             </h1>
-                            <h3 className=" text-xl ms:text-2xl tracking-wide leading-7 mb-5">
-                                Welcome to Codehub, your hub for programming excellence. Discover tutorials, industry news, and tips to power your coding journey.
+                            <h3 className=" text-xl ms:text-2xl tracking-wide text-dark-gray leading-8 mb-5">
+                                Codehub is your online programming journal. From beginner tips to advanced strategies, explore articles that guide you through every step of your coding journey.
                             </h3>
                             <div className=" inline-block">
                                 <Link
                                     href="/blog-list"
-                                    className="w-full inline-flex items-center gap-2 font-bold bg-[#415A77] py-2 text-sm rounded px-3 text-light tracking-wide"
+                                    className="w-full inline-flex items-center gap-2 font-bold bg-[#F4A261] hover:scale-105 py-2 px-3 text-sm rounded-md text-soft-light tracking-wide transition-all ease-linear duration-150"
                                 >
                                     Start Reading
                                     <FaCircleArrowRight />

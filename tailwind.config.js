@@ -25,7 +25,8 @@ export default {
         'meduim-gray': '#5A5A5A',
         'vibrant-blue': '#0073E6',
         'muted-accent': '#005BB5',
-        'gray-light': '#E0E0E0'
+        'gray-light': '#E0E0E0',
+        'yellow-light': '#F4A261'
       },
     },
     fontFamily: {

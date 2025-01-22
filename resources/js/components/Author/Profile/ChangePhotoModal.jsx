@@ -3,6 +3,7 @@ import { router } from "@inertiajs/react";
 import Cropper from "react-cropper";
 import { isNull } from "lodash";
 import { filesize } from "filesize";
+import Beatloader from 'react-spinners/BeatLoader'
 import { convertBytes, dataURLtoFile } from "../../../utils/functions";
 import "cropperjs/dist/cropper.css";
 
@@ -126,13 +127,15 @@ const ChangePhotoModal = ({ photo, setPhoto, type, aspectRatio, title }) => {
                                         >
                                             Crop Again
                                         </button>
-                                        <button
-                                            onClick={save}
-                                            disabled={processing}
-                                            type="button"
-                                            className={`inline-flex w-full items-center justify-center rounded-md bg-primary h-9 px-3 py-1 text-sm font-semibold text-white shadow-sm hover:bg-opacity-75 sm:w-auto`}
-                                        >
-                                            Save
+                                        <button onClick={save} disabled={processing} type="button" className="inline-flex w-full min-w-[78.38px] h-9 items-center justify-center rounded bg-yellow-light px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-opacity-90 sm:w-auto">
+                                            {processing ? null : "Save"}
+                                            <Beatloader
+                                                color={'#F9F9F9'}
+                                                loading={processing}
+                                                size={7}
+                                                aria-label="Loading Spinner"
+                                                data-testid="loader"
+                                            />
                                         </button>
                                     </>
                                 )
