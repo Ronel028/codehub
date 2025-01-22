@@ -30,7 +30,8 @@ button {
     /* color: #E0E1DD; */
     /* color: #2D2D2D; */
     /* font-family: "Courier Prime", sans-serif; */
-    font-family: "Nunito Sans";
+    /* font-family: "Nunito Sans"; */
+    font-family: "Montserrat", serif;;
 }
 
 #style-editor>* {

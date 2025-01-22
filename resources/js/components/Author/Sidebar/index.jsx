@@ -13,7 +13,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
 
   
   return (
-    <aside className=' bg-secondary'>
+    <aside className=' bg-primary'>
       <div className=' w-[260px] px-5 py-6'>
         <div className=' flex items-center justify-center mb-7'>
           <Link href="/" className="flex items-center font-bold text-red-400 font-courier-prime text-xl">
@@ -23,20 +23,20 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
           </Link>
         </div>
         <div>
-          <h3 className=' text-sm text-very-light mb-3 font-bold'>Main</h3>
+          <h3 className=' text-sm text-soft-light mb-3 font-bold'>Main</h3>
           <ul className=' flex flex-col gap-2'>
             <li>
-              <Link href='/author/dashboard' className=' py-2 px-3 flex items-center gap-2 text-base hover:bg-primary rounded-md'>
+              <Link href='/author/dashboard' className=' py-2 px-3 flex items-center gap-2 text-sm text-soft-light hover:bg-secondary rounded-md'>
                   <span className='block'>
-                    <LuLayoutDashboard className=' text-lg' />
+                    <LuLayoutDashboard className=' text-base' />
                   </span>
                   Dashboard
               </Link>
             </li>
             <li>
-              <Link href='/author/profile/edit' className=' py-2 px-3 flex items-center gap-2 text-base hover:bg-primary rounded-md'>
+              <Link href='/author/profile/edit' className=' py-2 px-3 flex items-center gap-2 text-sm text-soft-light hover:bg-secondary rounded-md'>
                   <span className='block'>
-                    <LuUserCog className=' text-lg' />
+                    <LuUserCog className=' text-base' />
                   </span>
                   Manage Profile
               </Link>
@@ -53,7 +53,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                 </Link>
               </li>
             </SidebarLinkGroup> */}
-            <SidebarLinkGroup name={'Blogs'} icon={<FaBlog className="text-lg align-middle" />}>
+            <SidebarLinkGroup name={'Blogs'} icon={<FaBlog className="text-base align-middle" />}>
               <li>
                 <Link href="/author/profile" className=" flex items-center gap-2 text-sm">
                   View

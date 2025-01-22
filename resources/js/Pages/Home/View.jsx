@@ -28,9 +28,9 @@ const ViewBlog = (props) => {
                                     className=" w-full aspect-square rounded-full cursor-pointer" />
                             </div>
                             <div>
-                                <p className=" text-dark-gray font-semibold text-sm">
+                                <Link href={`/profile/info/${props.blog.user.username}`} className="hover:underline text-dark-gray font-semibold text-sm">
                                     <span>{props.blog.user.user_detail?.full_name ?? props.blog.user.username}</span>
-                                </p>
+                                </Link>
                                 <p className=" text-meduim-gray text-xs flex items-center">
                                     {diffInDays(props.blog.created_at)}
                                     <LuDot />

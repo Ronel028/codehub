@@ -1,19 +1,14 @@
 import { useState } from "react";
 import { Link, router, usePage } from "@inertiajs/react"
-import { FaUserCircle, FaSignOutAlt, FaEdit, FaUserLock, FaRegUser, FaRegUserCircle, FaBlog } from "react-icons/fa";
-import { TiUserAdd } from "react-icons/ti";
-import { MdOutlineAdminPanelSettings, MdOutlinePostAdd, MdOutlineSignpost } from "react-icons/md";
-import { CiLogout } from "react-icons/ci";
-import { IoCodeSlashSharp } from "react-icons/io5";
+import { FaBlog } from "react-icons/fa";
 import { IoIosLogOut } from "react-icons/io";
 import { FiUserPlus } from "react-icons/fi";
 import { BsPersonLock } from "react-icons/bs";
 import { RiStickyNoteAddLine } from "react-icons/ri";
-import { AiOutlineCodepenCircle } from "react-icons/ai";
 import { FaLaptopCode } from "react-icons/fa";
 import imagePlacholder from "../Assets/Img/cypher.jpg"
-import knowl from "../Assets/Img/knowl-logo.png"
-import Input from "./Forms/Input";
+// import Input from "./Forms/Input";
+import Input from "../../components/Forms/Input"
 import { PiFolderUserBold } from "react-icons/pi";
 
 const Navigation = (props) => {

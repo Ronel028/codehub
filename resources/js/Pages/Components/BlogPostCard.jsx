@@ -24,7 +24,7 @@ const BlogPostCard = ({ blogId, username, blogPhoto, isPublish, title, descripti
                             </div>
                             <div className=" flex items-center gap-3">
                                 <Link title="Edit Post" href={`/blog/create?id=${blogId}`}>
-                                    <MdOutlineEditNote className=" text-xl text-light hover:text-red-400 transition-colors ease-linear duration-150" />
+                                    <MdOutlineEditNote className=" text-xl text-dark-gray hover:text-red-400 transition-colors ease-linear duration-150" />
                                 </Link>
                             </div>
                         </div>
