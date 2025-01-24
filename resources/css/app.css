@@ -22,6 +22,14 @@
     }
 }
 
+.button-outlined{
+    @apply border-yellow-light text-yellow-light
+}
+
+.button-filled{
+    @apply border-yellow-light bg-yellow-light text-soft-light
+}
+
 body,
 label,
 input,

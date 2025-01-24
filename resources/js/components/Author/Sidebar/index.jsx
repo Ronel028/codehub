@@ -42,26 +42,14 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                   Manage Profile
               </Link>
             </li>
-            {/* <SidebarLinkGroup name={'Profile'} icon={<FiUser className="text-base align-middle" />}>
-              <li>
-                <Link href="/author/profile" className=" flex items-center gap-2 text-sm">
-                  View
-                </Link>
-              </li>
-              <li>
-                <Link href="/author/profile/edit" className=" flex items-center gap-2 text-sm">
-                  Manage Profile
-                </Link>
-              </li>
-            </SidebarLinkGroup> */}
             <SidebarLinkGroup name={'Posts'} icon={<BsFillPinAngleFill className="text-base align-middle" />}>
               <li>
-                <Link href="#" className=" text-soft-light hover:text-yellow-light flex items-center gap-2 text-xs">
+                <Link href="/author/post" className=" text-soft-light hover:text-yellow-light flex items-center gap-2 text-xs">
                   All Posts
                 </Link>
               </li>
               <li>
-                <Link href="#" className="text-soft-light hover:text-yellow-light flex items-center gap-2 text-xs">
+                <Link href="/author/post/create" className="text-soft-light hover:text-yellow-light flex items-center gap-2 text-xs">
                   Create New
                 </Link>
               </li>

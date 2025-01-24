@@ -4,7 +4,7 @@ const Input = (props) => {
         <>
             <div className={props.className}>
                 {
-                    props.label !== null ? <label htmlFor="username" className=" block text-xs text-dark-gray tracking-wide">{props.label}</label> : null
+                    props.label !== null ? <label htmlFor={props.id} className=" block text-sm text-dark-gray tracking-wide mb-1">{props.label}</label> : null
                 }
                 {
                     props.type === 'password' ? (

@@ -6,6 +6,7 @@ use App\Http\Controllers\BlogController;
 use App\Http\Controllers\BlogListController;
 use App\Http\Controllers\UserProfileController;
 use App\Http\Controllers\Author\DashboardController;
+use App\Http\Controllers\Author\PostController;
 use App\Http\Controllers\Author\ProfileController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -70,5 +71,11 @@ Route::middleware(['auth', 'verified'])->name('author.')->prefix('author')->grou
     Route::post('/profile/edit/personal-information/save', [ProfileController::class, 'savePersonalInformation'])->name('profile.edit.personal-information.save');
     Route::post('/profile/edit/user-photo/save', [ProfileController::class, 'saveProfilePhoto'])->name('profile.edit.profile-photo.save');
     // ======== PROFILE SECTION ========
+
+    // ======== BLOG/POSTS SECTION ========
+    Route::get('/post', [PostController::class, 'index'])->name('post.index');
+    Route::post('/post/create-title', [PostController::class, 'createPostTitle'])->name('post.create-title');
+    Route::get('/post/create', [PostController::class, 'createPage'])->name('post.create.page');
+    // ======== BLOG/POSTS SECTION ========
 
 });
