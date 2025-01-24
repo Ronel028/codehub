@@ -54,9 +54,6 @@ Route::middleware(['auth', 'verified'])->name('blog.')->prefix('blog')->group(fu
 // USER PROFILE ROUTE
 Route::middleware(['auth', 'verified'])->name('profile.')->prefix('profile')->group(function () {
     Route::get('/info/{username}', [UserProfileController::class, 'index'])->name('index');
-    Route::get('/edit', [UserProfileController::class, 'edit'])->name('edit');
-    Route::post('/store', [UserProfileController::class, 'store'])->name('store');
-    Route::post('/change-profile-picture', [UserProfileController::class, 'updateProfilePicture'])->name('change-profile-picture');
 });
 
 

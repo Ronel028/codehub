@@ -45,14 +45,6 @@ class BlogController extends Controller
         ]);
     }
 
-    // RENDER EDIT PAGE
-    public function editPage(Request $request)
-    {
-        return Inertia::render('Blog/Edit', [
-            'blog' => BlogPost::with(['upload'])->find($request->id)
-        ]);
-    }
-
     // CREATE AND SAVE NEW BLOG BlogPostRequest
     public function store(Request $request)
     {
@@ -101,46 +93,6 @@ class BlogController extends Controller
                 return redirect()->route('blog.create-page', ['id' => (string)$blog->id]);
             }
         } catch (\Throwable $th) {
-            DB::rollBack();
-        }
-    }
-
-    // SAVE UPDATED BLOG
-    public function update(Request $request)
-    {
-
-        $request->validate([
-            'title' => 'required',
-            'description' => 'required',
-            'content' => 'required',
-            'image' => 'max:8192'
-        ]);
-
-        DB::beginTransaction();
-        $blog = BlogPost::find($request->id);
-        $blog->user_id = Auth::user()->id;
-        $blog->title = $request->title;
-        $blog->slug = Str::slug($request->title, '-');
-        $blog->description = $request->description;
-        $blog->content = $request->content;
-        $blog->is_published = $request->is_publish;
-
-        if ($blog->save()) {
-
-            if ($request->hasFile('image')) {
-
-                $uploadedFile = Cloudinary::upload($request->file('image')->getRealPath(), [
-                    'folder' => 'knowl_img'
-                ]);
-
-                $blog->upload()->create([
-                    'filename' => $request->file('image')->getClientOriginalName(),
-                    'path' => $uploadedFile->getSecurePath(),
-                ]);
-            }
-
-            DB::commit();
-        } else {
             DB::rollBack();
         }
     }

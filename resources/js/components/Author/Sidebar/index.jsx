@@ -7,6 +7,7 @@ import { RxDashboard } from "react-icons/rx";
 import { LuLayoutDashboard, LuUserCog } from "react-icons/lu";
 import { FiUser } from "react-icons/fi";
 import { MdLogin } from "react-icons/md";
+import { BsFillPinAngleFill } from "react-icons/bs";
 
 const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
   const { url } = usePage()
@@ -53,15 +54,25 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                 </Link>
               </li>
             </SidebarLinkGroup> */}
-            <SidebarLinkGroup name={'Blogs'} icon={<FaBlog className="text-base align-middle" />}>
+            <SidebarLinkGroup name={'Posts'} icon={<BsFillPinAngleFill className="text-base align-middle" />}>
               <li>
-                <Link href="/author/profile" className=" flex items-center gap-2 text-sm">
-                  View
+                <Link href="#" className=" text-soft-light hover:text-yellow-light flex items-center gap-2 text-xs">
+                  All Posts
                 </Link>
               </li>
               <li>
-                <Link href="/author/profile/edit" className=" flex items-center gap-2 text-sm">
-                  Manage Profile
+                <Link href="#" className="text-soft-light hover:text-yellow-light flex items-center gap-2 text-xs">
+                  Create New
+                </Link>
+              </li>
+              <li>
+                <Link href="#" className="text-soft-light hover:text-yellow-light flex items-center gap-2 text-xs">
+                  Drafts
+                </Link>
+              </li>
+              <li>
+                <Link href="#" className="text-soft-light hover:text-yellow-light flex items-center gap-2 text-xs">
+                  Published
                 </Link>
               </li>
             </SidebarLinkGroup>

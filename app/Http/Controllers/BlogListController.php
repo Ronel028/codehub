@@ -17,21 +17,6 @@ class BlogListController extends Controller
         ]);
     }
 
-    public function blogListCategory(Request $request)
-    {
-        $category = $request->category;
-        $search = $request->query('search');
-
-        return Inertia::render("Home/Category", [
-            'category' => $request->category,
-            'blogs' => BlogPost::with(['upload', 'user'])->where('is_published', 1)->when(
-                $search,
-                fn($query) =>
-                $query->where('title', 'LIKE', "%{$search}%")
-            )->get()
-        ]);
-    }
-
     public function fetch(Request $request)
     {
         try {
