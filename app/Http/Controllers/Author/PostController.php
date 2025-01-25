@@ -14,7 +14,10 @@ class PostController extends Controller
 {
     public function index()
     {
-        return Inertia::render('Author/Posts/Index');
+        $blogPost = BlogPost::where('user_id', Auth::id())->orderBy('created_at', 'desc')->get();
+        return Inertia::render('Author/Posts/Index',  [
+            'blogPost' => $blogPost
+        ]);
     }
     public function createPage()
     {
@@ -46,11 +49,7 @@ class PostController extends Controller
                 }
                 DB::commit();
                 // return redirect()->route('blog.create-page', ['id' => (string)$blog->id]);
-                if ($request->type === 'draft') {
-                    return redirect()->route('author.post.index');
-                } else {
-                    return redirect()->route('blog.create-page', ['id' => (string)$blog->id]);
-                }
+                return redirect()->route('author.post.index');
             }
         } catch (\Throwable $th) {
             DB::rollBack();

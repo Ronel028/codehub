@@ -7,32 +7,33 @@ import { IoCloudUploadOutline, IoCreateOutline } from "react-icons/io5"
 import TextArea from "../../Forms/TextArea"
 import { FaRegImages } from "react-icons/fa"
 
-const PostTitleModal = ({ close }) => {
+const PostTitleModal = ({ openModal, close }) => {
 
-    const { data, handleOnchage, handleOnChangeThumbnail, save, processing } = useContext(PostTitleCreationContext);
+    const { data, handleOnchage, handleOnChangeThumbnail, save, processing, isModalOpen, closeModal } = useContext(PostTitleCreationContext);
     const [imagePreview, setImagePreview] = useState(null)
+    
     useEffect(() => {
         if (!isNull(data.thumbnail)) {
-          const reader = new FileReader();
-    
-          reader.onloadend = () => {
+            const reader = new FileReader();
+
+            reader.onloadend = () => {
             setImagePreview(reader.result);
-          };
-    
-          reader.onerror = () => {
+            };
+
+            reader.onerror = () => {
             console.error("File reading failed.");
-          };
-    
-          reader.readAsDataURL(data.thumbnail);
-    
-          return () => {
+            };
+
+            reader.readAsDataURL(data.thumbnail);
+
+            return () => {
             reader.abort();
-          };
+            };
         }
-      }, [data.thumbnail]);
+    }, [data.thumbnail]);
 
     return (
-        <div className="relative z-50" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+        <div className={`${isModalOpen ? 'block' : 'hidden'} relative z-50`} aria-labelledby="modal-title" role="dialog" aria-modal="true">
             <div className="fixed inset-0 bg-gray-500/75 transition-opacity" aria-hidden="true"></div>
             <div className="fixed inset-0 z-10 w-screen overflow-y-auto">
                 <div className="flex min-h-full items-start justify-center p-4 text-center sm:items-center sm:p-0">
@@ -70,9 +71,8 @@ const PostTitleModal = ({ close }) => {
                             </div>
                         </div>
                         <div className="bg-gray-50 px-4 py-3 flex justify-end items-center gap-2 sm:px-6">
-                            <Button onClick={close} type="Submit" title={'Close'} variant="outlined" />
-                            <Button processing={processing} onClick={() => save('draft')} title={'Save as Draft'} />
-                            <Button processing={processing} onClick={() => save('content')} title={'Create Content'} />
+                            <Button onClick={closeModal} type="button" title={'Close'} variant="outlined" />
+                            <Button onClick={save} processing={processing} title={'Create Content'} />
                         </div>
                     </form>
                 </div>

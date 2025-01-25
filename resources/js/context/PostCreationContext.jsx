@@ -12,8 +12,16 @@ const PostTitleCreationProvider = ({ children }) => {
         description: '',
         thumbnail: null
     })
-
     const [thumbnail, setThumbnail] = useState(null)
+    const [isModalOpen, setIsModalOpen] = useState(false)
+
+    function openModal(){
+        setIsModalOpen(true)
+    }
+
+    function closeModal(){
+        setIsModalOpen(false)
+    }
 
     function handleOnchage(e){
         setData({
@@ -45,10 +53,11 @@ const PostTitleCreationProvider = ({ children }) => {
         }
     }
 
-    function save(type){
-        post('/author/post/create-title', { ...data, type }, {
+    function save(){
+        post('/author/post/create-title', {
             onSuccess: () => {
                 console.log('Profile photo saved.')
+                closeModal()
                 setData({
                     ...data,
                     title: '',
@@ -60,7 +69,10 @@ const PostTitleCreationProvider = ({ children }) => {
     }
 
     return (
-        <PostTitleCreationContext.Provider value={{ data, setData, thumbnail, setThumbnail, handleOnchage, handleOnChangeThumbnail , save, processing }}>
+        <PostTitleCreationContext.Provider value={{ 
+            data, setData, thumbnail, setThumbnail, handleOnchage, handleOnChangeThumbnail , save, processing, 
+            openModal, closeModal, isModalOpen
+        }}>
             { children }
         </PostTitleCreationContext.Provider>
     )
