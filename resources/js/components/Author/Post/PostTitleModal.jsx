@@ -9,7 +9,7 @@ import { FaRegImages } from "react-icons/fa"
 
 const PostTitleModal = ({ close }) => {
 
-    const { data, handleOnchage, handleOnChangeThumbnail, save } = useContext(PostTitleCreationContext);
+    const { data, handleOnchage, handleOnChangeThumbnail, save, processing } = useContext(PostTitleCreationContext);
     const [imagePreview, setImagePreview] = useState(null)
     useEffect(() => {
         if (!isNull(data.thumbnail)) {
@@ -26,7 +26,6 @@ const PostTitleModal = ({ close }) => {
           reader.readAsDataURL(data.thumbnail);
     
           return () => {
-            console.log('Running')
             reader.abort();
           };
         }
@@ -56,7 +55,7 @@ const PostTitleModal = ({ close }) => {
                                         {
                                             isNull(data.thumbnail) ? (
                                                 <div className=" mt-4">
-                                                    <label htmlFor="thumbnail" className="text-sm font-medium cursor-pointer text-dark-gray flex flex-col items-center justify-center h-52 border border-dashed border-meduim-gray rounded-md">
+                                                    <label htmlFor="thumbnail" className="text-sm font-medium cursor-pointer text-dark-gray flex flex-col items-center justify-center h-28 border border-dashed border-meduim-gray rounded-md">
                                                         <FaRegImages className=" text-3xl mb-1 text-muted-accent" />
                                                         Click to upload your thumbnails.
                                                     </label>
@@ -72,7 +71,8 @@ const PostTitleModal = ({ close }) => {
                         </div>
                         <div className="bg-gray-50 px-4 py-3 flex justify-end items-center gap-2 sm:px-6">
                             <Button onClick={close} type="Submit" title={'Close'} variant="outlined" />
-                            <Button onClick={save} title={'Proceed'} />
+                            <Button processing={processing} onClick={() => save('draft')} title={'Save as Draft'} />
+                            <Button processing={processing} onClick={() => save('content')} title={'Create Content'} />
                         </div>
                     </form>
                 </div>

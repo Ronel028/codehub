@@ -1,13 +1,13 @@
 import { createContext, useEffect, useState } from "react";
 import { isNull } from "lodash";
 import { dataURLtoFile } from "../utils/functions";
-import { router } from "@inertiajs/react";
+import { router, useForm } from "@inertiajs/react";
 
 export const PostTitleCreationContext = createContext({})
 
 const PostTitleCreationProvider = ({ children }) => {
 
-    const [data, setData] = useState({
+    const {data, setData, post, processing, errors} = useForm({
         title: '',
         description: '',
         thumbnail: null
@@ -16,7 +16,6 @@ const PostTitleCreationProvider = ({ children }) => {
     const [thumbnail, setThumbnail] = useState(null)
 
     function handleOnchage(e){
-        console.log(e.target.files)
         setData({
             ...data,
             [e.target.name]: e.target.value
@@ -46,42 +45,22 @@ const PostTitleCreationProvider = ({ children }) => {
         }
     }
 
-    function save(){
-            router.post('/author/post/create-title', data, {
-                onSuccess: () => {
-                    console.log('Profile photo saved.')
-                    setData({
-                        ...data,
-                        title: '',
-                        description: '',
-                        thumbnail: null
-                    })
-                },
-                onError: (error) => {
-                    // setError(error)
-                    // setProcessing(false)
-                    console.log(error)
-                },
-                onProgress: () => {
-                    // setProcessing(true)
-                    console.log('Running')
-                }
-            })
-        }
-
-    // useEffect(() => {
-    //     if(!isNull(data.thumbnail)){
-    //         console.log(data.thumbnail)
-    //         const base64ToFileObject = dataURLtoFile(data.thumbnail)
-    //         setData({
-    //             ...data,
-    //             thumbnail: base64ToFileObject
-    //         })
-    //     }
-    // }, [data.thumbnail])
+    function save(type){
+        post('/author/post/create-title', { ...data, type }, {
+            onSuccess: () => {
+                console.log('Profile photo saved.')
+                setData({
+                    ...data,
+                    title: '',
+                    description: '',
+                    thumbnail: null
+                })
+            },
+        })
+    }
 
     return (
-        <PostTitleCreationContext.Provider value={{ data, setData, thumbnail, setThumbnail, handleOnchage, handleOnChangeThumbnail , save }}>
+        <PostTitleCreationContext.Provider value={{ data, setData, thumbnail, setThumbnail, handleOnchage, handleOnChangeThumbnail , save, processing }}>
             { children }
         </PostTitleCreationContext.Provider>
     )

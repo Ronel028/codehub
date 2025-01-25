@@ -8,18 +8,28 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Support\Str;
+use Spatie\Sluggable\HasSlug;
+use Spatie\Sluggable\SlugOptions;
 
 class BlogPost extends Model
 {
-    use HasFactory;
+    use HasFactory, HasSlug;
 
     protected $keyType = 'string';
     public $incrementing = false;
+
     public static function booted()
     {
         static::creating(function ($model) {
             $model->id = Str::uuid();
         });
+    }
+
+    public function getSlugOptions(): SlugOptions
+    {
+        return SlugOptions::create()
+            ->generateSlugsFrom('title')
+            ->saveSlugsTo('slug');
     }
 
     protected $fillable = [
@@ -28,7 +38,7 @@ class BlogPost extends Model
         'title',
         'description',
         'content',
-        'is_published'
+        'status'
     ];
 
     public function user(): BelongsTo

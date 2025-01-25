@@ -6,7 +6,7 @@ import Button from "../../../components/Forms/Button"
 import { IoCreateOutline } from "react-icons/io5"
 import PostThumbnailModal from "../../../components/Author/Post/PostThumbnailModal"
 
-const PostIndex = () => {
+const PostIndex = (props) => {
 
     const [openPostModal, setOpenPostModal] = useState(false)
 

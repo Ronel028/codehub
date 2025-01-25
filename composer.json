@@ -10,6 +10,7 @@
         "inertiajs/inertia-laravel": "^1.2",
         "laravel/framework": "^11.0",
         "laravel/tinker": "^2.9",
+        "spatie/laravel-sluggable": "^3.7",
         "symfony/http-client": "^7.1"
     },
     "require-dev": {

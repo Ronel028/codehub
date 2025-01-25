@@ -45,10 +45,16 @@ class PostController extends Controller
                     ]);
                 }
                 DB::commit();
-                return redirect()->route('blog.create-page', ['id' => (string)$blog->id]);
+                // return redirect()->route('blog.create-page', ['id' => (string)$blog->id]);
+                if ($request->type === 'draft') {
+                    return redirect()->route('author.post.index');
+                } else {
+                    return redirect()->route('blog.create-page', ['id' => (string)$blog->id]);
+                }
             }
         } catch (\Throwable $th) {
             DB::rollBack();
+            dd($th);
         }
     }
 }

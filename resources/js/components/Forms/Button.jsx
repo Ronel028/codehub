@@ -11,7 +11,7 @@ const Button = ({ type="button", onClick, processing = false, title, icon, varia
                 </span>
             )}
             {
-                processing ? null : (
+                !processing ? null : (
                     <Beatloader
                         color={'#F9F9F9'}
                         loading={processing}
