@@ -49,11 +49,6 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                 </Link>
               </li>
               <li>
-                <Link href="/author/post/create" className="text-soft-light hover:text-yellow-light flex items-center gap-2 text-xs">
-                  Create New
-                </Link>
-              </li>
-              <li>
                 <Link href="#" className="text-soft-light hover:text-yellow-light flex items-center gap-2 text-xs">
                   Published
                 </Link>

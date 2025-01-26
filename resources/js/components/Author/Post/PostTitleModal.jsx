@@ -8,9 +8,11 @@ import TextArea from "../../Forms/TextArea"
 import { FaRegImages } from "react-icons/fa"
 
 const PostTitleModal = ({ openModal, close }) => {
-
+    
     const { data, handleOnchage, handleOnChangeThumbnail, save, processing, isModalOpen, closeModal } = useContext(PostTitleCreationContext);
     const [imagePreview, setImagePreview] = useState(null)
+    const queryParams = new URLSearchParams(window.location.search)
+    const createPost = queryParams.get('create');
     
     useEffect(() => {
         if (!isNull(data.thumbnail)) {
@@ -33,7 +35,7 @@ const PostTitleModal = ({ openModal, close }) => {
     }, [data.thumbnail]);
 
     return (
-        <div className={`${isModalOpen ? 'block' : 'hidden'} relative z-50`} aria-labelledby="modal-title" role="dialog" aria-modal="true">
+        <div className={`${isModalOpen || !isNull(createPost) ? 'block' : 'hidden'} relative z-50`} aria-labelledby="modal-title" role="dialog" aria-modal="true">
             <div className="fixed inset-0 bg-gray-500/75 transition-opacity" aria-hidden="true"></div>
             <div className="fixed inset-0 z-10 w-screen overflow-y-auto">
                 <div className="flex min-h-full items-start justify-center p-4 text-center sm:items-center sm:p-0">

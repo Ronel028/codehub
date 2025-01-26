@@ -54,8 +54,6 @@ class PostController extends Controller
                     ]);
                 }
                 DB::commit();
-                // return redirect()->route('blog.create-page', ['id' => (string)$blog->id]);
-                // return redirect()->route('author.post.index');
                 return redirect()->route('author.post.create.page', ['id' => (string)$blog->id]);
             }
         } catch (\Throwable $th) {
@@ -76,6 +74,19 @@ class PostController extends Controller
                 ]
             );
             return redirect()->route('author.post.create.page', ['id' => (string)$blog->id]);
+        } catch (\Throwable $th) {
+            dd($th->getMessage());
+        }
+    }
+
+    public function changePostStatus(Request $request)
+    {
+        try {
+            $blog = BlogPost::find($request->post_id);
+            $blog->status = $request->status;
+            if ($blog->save()) {
+                return redirect()->route('author.post.create.page', ['id' => (string)$blog->id]);
+            }
         } catch (\Throwable $th) {
             dd($th->getMessage());
         }

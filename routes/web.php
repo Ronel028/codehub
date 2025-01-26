@@ -77,6 +77,7 @@ Route::middleware(['auth', 'verified'])->name('author.')->prefix('author')->grou
     Route::post('/post/create-title', [PostController::class, 'createPostTitle'])->name('post.create-title');
     Route::get('/post/create', [PostController::class, 'createPage'])->name('post.create.page');
     Route::post('/post/create/{post_id}', [PostController::class, 'saveBlogContent'])->name('post.create.save');
+    Route::post('/post/change-status/{post_id}', [PostController::class, 'changePostStatus'])->name('post.change-status');
     // ======== BLOG/POSTS SECTION ========
 
 });

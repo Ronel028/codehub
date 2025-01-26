@@ -8,39 +8,61 @@ import imagePlaceholder from "../Assets/Img/placeholder.jpg"
 import 'react-quill/dist/quill.snow.css';
 import NoDataFound from "../Components/Nodatafound";
 import { diffInDays } from "../../utils/functions";
+import { FaFacebookF, FaGithub, FaLinkedinIn } from "react-icons/fa";
+import { FaSquareXTwitter } from "react-icons/fa6";
 
+const socialMediaIcons = {
+  facebook: <FaFacebookF className=' text-blue-400 text-xl' />,
+  linkedin: <FaLinkedinIn className=' text-blue-600 text-xl' />,
+  twitter: <FaSquareXTwitter className=' text-dark-gray text-xl' />,
+  github: <FaGithub className=' text-gray-500 text-xl' />,
+}
 
 const ViewBlog = (props) => {
-
+    const { blog, more_blogs } = props
     return (
         <>
             <MainLayout>
                 <main className=" max-w-[1000px] mx-auto">
                     <div className=" pt-5 mb-6">
-                        <h1 className=" blog__title text-dark-gray font-bold tracking-wide mb-2">{props.blog.title}</h1>
-                        <p className=" text-dark-gray tracking-wide">{props.blog.description}</p>
+                        <h1 className=" blog__title text-dark-gray font-bold tracking-wide mb-2">{blog.title}</h1>
+                        <p className=" text-dark-gray tracking-wide">{blog.description}</p>
                     </div>
                     <div className="pt-3 pb-7">
-                        <div className=" flex items-center gap-2 mb-5">
-                            <div className="w-10 aspect-square rounded-full p-[2px] border border-gray-light flex items-center justify-center">
-                                <img
-                                    src={props.blog.user.avatar?.path ?? imagePlacholder}
-                                    alt={props.blog.user.avatar?.filename ?? 'user'}
-                                    className=" w-full aspect-square rounded-full cursor-pointer" />
+                        <div className="mb-5 pb-4 flex items-center justify-between gap-2 border-b border-gray-light">
+                            <div className=" flex items-center gap-2">
+                                <div className="w-10 aspect-square rounded-full p-[2px] border border-gray-light flex items-center justify-center">
+                                    <img
+                                        src={blog.user.avatar?.path ?? imagePlacholder}
+                                        alt={blog.user.avatar?.filename ?? 'user'}
+                                        className=" w-full aspect-square rounded-full cursor-pointer" />
+                                </div>
+                                <div>
+                                    <Link href={`/profile/info/${blog.user.username}`} className="hover:underline text-dark-gray font-semibold text-sm">
+                                        <span>{blog.user.user_detail?.full_name ?? blog.user.username}</span>
+                                    </Link>
+                                    <p className=" text-meduim-gray text-xs flex items-center">
+                                        {diffInDays(blog.created_at)}
+                                        <LuDot />
+                                        {moment(blog.created_at).format('ll')}
+                                    </p>
+                                </div>
                             </div>
-                            <div>
-                                <Link href={`/profile/info/${props.blog.user.username}`} className="hover:underline text-dark-gray font-semibold text-sm">
-                                    <span>{props.blog.user.user_detail?.full_name ?? props.blog.user.username}</span>
-                                </Link>
-                                <p className=" text-meduim-gray text-xs flex items-center">
-                                    {diffInDays(props.blog.created_at)}
-                                    <LuDot />
-                                    {moment(props.blog.created_at).format('ll')}
-                                </p>
+                            <div className=" flex items-center gap-3">
+                                {
+                                    blog.user.social_media_links.map(value => (
+                                        <a key={value.id} href={value.link} target="_blank">
+                                            {socialMediaIcons[value.platform]}
+                                        </a>
+                                    ))
+                                }
                             </div>
                         </div>
+                        <div className="mb-5">
+                            <img src={blog.upload?.path} alt={blog.upload.filename} className=" rounded-md w-full" />
+                        </div>
                         <Tiptap
-                            rteValue={props.blog.content}
+                            rteValue={blog.content}
                             setRteValue={null}
                             disableMenuBar={true}
                             styleContainer="h-auto line-hieght"
@@ -53,43 +75,43 @@ const ViewBlog = (props) => {
                 <div className="mb-5 w-[90%] max-w-[1000px] mx-auto flex items-start gap-3">
                     <div className="w-12 h-12 flex-shrink-0 rounded-full p-[2px] mb-3 border border-gray-light flex items-center justify-center">
                         <img
-                            src={props.blog.user.avatar?.path ?? imagePlacholder}
-                            alt={props.blog.user.avatar?.filename ?? 'user'}
+                            src={blog.user.avatar?.path ?? imagePlacholder}
+                            alt={blog.user.avatar?.filename ?? 'user'}
                             className=" object-center w-full h-full rounded-full cursor-pointer" />
                     </div>
                     <div className=" mb-5">
                         <p className=" text-dark-gray text-lg font-bold flex items-center gap-1">
                             Written by
-                            <span>{props.blog.user.user_detail?.full_name ?? props.blog.user.username}</span>
+                            <span>{blog.user.user_detail?.full_name ?? blog.user.username}</span>
                         </p>
                         <p className=" text-meduim-gray text-xs flex items-center">
                             <span className="flex items-center">
                                 <span className=" rounded-md">
-                                    {props.blog.user.user_detail?.tagline}
+                                    {blog.user.user_detail?.tagline}
                                 </span>
                             </span>
                         </p>
                         <p className=" text-meduim-gray text-sm flex items-center mt-2">
                             <span className="flex items-center">
                                 <span className=" rounded-md">
-                                    {props.blog.user.user_detail?.bio}
+                                    {blog.user.user_detail?.bio}
                                 </span>
                             </span>
                         </p>
-                        {/* <Link href={`/profile/info/${props.blog.user.username}`} className="mt-2 bg-very-light text-primary font-bold px-2 py-1 inline-block rounded-md text-sm">Visit Profile</Link> */}
+                        {/* <Link href={`/profile/info/${blog.user.username}`} className="mt-2 bg-very-light text-primary font-bold px-2 py-1 inline-block rounded-md text-sm">Visit Profile</Link> */}
                     </div>
                 </div>
                 {
-                    props.more_blogs.length > 0 ? (
+                    more_blogs.length > 0 ? (
                         <div className=" pt-5 mb-6 w-[90%] max-w-[1000px] mx-auto">
                             <h1 className=" text-xl font-bold tracking-wide flex items-center gap-1 mb-3">
                                 More from
-                                <span>{props.blog.user.user_detail?.full_name ?? props.blog.user.username}</span>
+                                <span>{blog.user.user_detail?.full_name ?? blog.user.username}</span>
                             </h1>
                             {
                                 <div className=" grid sm:grid-cols-2 md:grid-cols-3 gap-3">
                                     {
-                                        props.more_blogs.map(blog => (
+                                        more_blogs.map(blog => (
                                             <Link key={blog.id} href={`/blog-list/read/${blog.user.username}/${blog.id}`}>
                                                 <div>
                                                     <div className=" overflow-hidden rounded-t mb-2 border border-gray-light">

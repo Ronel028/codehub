@@ -26,23 +26,23 @@ const PostIndex = ({blogPost}) => {
                 </div>
                 <div className=" mt-4">
                     <section>
-                        <div class="relative overflow-x-auto">
-                            <table class="w-full text-sm text-left rtl:text-right text-dark-gray">
-                                <thead class="text-xs text-dark-gray uppercase bg-yellow-light">
+                        <div className="relative overflow-x-auto">
+                            <table className="w-full text-sm text-left rtl:text-right text-dark-gray">
+                                <thead className="text-xs text-dark-gray uppercase bg-yellow-light">
                                     <tr>
-                                        <th scope="col" class="px-6 py-3">
+                                        <th scope="col" className="px-6 py-3">
                                             Title
                                         </th>
-                                        <th scope="col" class="px-6 py-3">
+                                        <th scope="col" className="px-6 py-3">
                                             Description
                                         </th>
-                                        <th scope="col" class="px-6 py-3">
+                                        <th scope="col" className="px-6 py-3">
                                             Status
                                         </th>
-                                        <th scope="col" class="px-6 py-3">
+                                        <th scope="col" className="px-6 py-3">
                                             Date Created
                                         </th>
-                                        <th scope="col" class="px-6 py-3">
+                                        <th scope="col" className="px-6 py-3">
                                             Action
                                         </th>
                                     </tr>
@@ -51,23 +51,23 @@ const PostIndex = ({blogPost}) => {
                                     {
                                         blogPost.length > 0 ? (
                                             blogPost.map(value => (
-                                                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200">
-                                                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap overflow-hidden">
+                                                <tr key={value.id} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200">
+                                                    <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap overflow-hidden">
                                                         {truncate(value.title, { length: 25 })}
                                                     </th>
-                                                    <td class="px-6 py-4">
+                                                    <td className="px-6 py-4">
                                                         {truncate(value.description, { length: 40 })}
                                                     </td>
-                                                    <td class="px-6 py-4">
+                                                    <td className="px-6 py-4">
                                                         {capitalize(value.status)}
                                                     </td>
-                                                    <td class="px-6 py-4 whitespace-nowrap overflow-hidden">
+                                                    <td className="px-6 py-4 whitespace-nowrap overflow-hidden">
                                                         {moment(value.created_at).format('LL')}
                                                     </td>
-                                                    <td class="px-6 py-4 whitespace-nowrap overflow-hidden">
+                                                    <td className="px-6 py-4 whitespace-nowrap overflow-hidden">
                                                         <div className=" flex items-center gap-1">
-                                                            <Link href={`/author/post/create?id=${value.id}`}><TfiWrite className=" text-vibrant-blue text-lg" /></Link>
-                                                            <button><FaTrashAlt className=" text-red-500 text-lg" /></button>
+                                                            <Link href={`/author/post/create?id=${value.id}`} title="Edit Content"><TfiWrite className=" text-vibrant-blue text-lg" /></Link>
+                                                            <button title="Remove"><FaTrashAlt className=" text-red-500 text-lg" /></button>
                                                         </div>
                                                     </td>
                                                 </tr>

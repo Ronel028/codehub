@@ -54,8 +54,14 @@ const Navigation = (props) => {
                                 </li>
                             ) : ''
                         }
-                        <li>
+                        {/* <li>
                             <Link href="/blog/create" className="flex items-center font-bold gap-1 text-sm border border-gray-light text-dark-gray py-1 px-2 rounded-md transition-colors ease-linear duration-200">
+                                <RiStickyNoteAddLine />
+                                Write
+                            </Link>
+                        </li> */}
+                        <li>
+                            <Link href={`/author/post?create=${true}`} className="flex items-center font-bold gap-1 text-sm border border-gray-light text-dark-gray py-1 px-2 rounded-md transition-colors ease-linear duration-200">
                                 <RiStickyNoteAddLine />
                                 Write
                             </Link>
@@ -83,20 +89,6 @@ const Navigation = (props) => {
                                                 <PiFolderUserBold className=" text-xl" />
                                                 <span className="block font-sans text-sm antialiased font-medium leading-normal text-inherit">
                                                     Author Panel
-                                                </span>
-                                            </Link>
-                                            {/* <Link href={`/profile/info/${props.user.username}`}
-                                                className="flex w-full cursor-pointer hover:bg-secondary select-none items-center gap-2 px-3 py-2 text-start leading-tight outline-none transition-all ease-linear duration-200">
-                                                <FaRegUserCircle className=" text-sm" />
-                                                <p className="block font-sans text-xs antialiased font-medium leading-normal text-inherit">
-                                                    My Profile
-                                                </p>
-                                            </Link> */}
-                                            <Link href="/blog/list"
-                                                className="flex w-full cursor-pointer text-dark-gray hover:bg-dark-gray/70 hover:text-soft-light select-none items-center gap-2 px-3 py-2 text-start leading-tight outline-none transition-all ease-linear duration-200">
-                                                <FaBlog className=" text-base" />
-                                                <span className="block font-sans text-sm antialiased font-medium leading-normal text-inherit">
-                                                    Blog Post
                                                 </span>
                                             </Link>
                                         </>

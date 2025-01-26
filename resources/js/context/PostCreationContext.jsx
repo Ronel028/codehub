@@ -6,7 +6,6 @@ import { router, useForm } from "@inertiajs/react";
 export const PostTitleCreationContext = createContext({})
 
 const PostTitleCreationProvider = ({ children }) => {
-
     const {data, setData, post, processing, errors} = useForm({
         title: '',
         description: '',
@@ -20,6 +19,7 @@ const PostTitleCreationProvider = ({ children }) => {
     }
 
     function closeModal(){
+        router.get(window.location.pathname)
         setIsModalOpen(false)
     }
 
@@ -57,7 +57,6 @@ const PostTitleCreationProvider = ({ children }) => {
         post('/author/post/create-title', {
             onSuccess: () => {
                 console.log('Profile photo saved.')
-                closeModal()
                 setData({
                     ...data,
                     title: '',
