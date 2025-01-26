@@ -9,6 +9,7 @@ import { capitalize, truncate } from "lodash"
 import moment from "moment"
 import { FaArchive, FaTrashAlt } from "react-icons/fa"
 import { TfiWrite } from "react-icons/tfi";
+import { Link } from "@inertiajs/react"
 
 const PostIndex = ({blogPost}) => {
     const { openModal } = useContext(PostTitleCreationContext)
@@ -65,7 +66,7 @@ const PostIndex = ({blogPost}) => {
                                                     </td>
                                                     <td class="px-6 py-4 whitespace-nowrap overflow-hidden">
                                                         <div className=" flex items-center gap-1">
-                                                            <button><TfiWrite className=" text-vibrant-blue text-lg" /></button>
+                                                            <Link href={`/author/post/create?id=${value.id}`}><TfiWrite className=" text-vibrant-blue text-lg" /></Link>
                                                             <button><FaTrashAlt className=" text-red-500 text-lg" /></button>
                                                         </div>
                                                     </td>

@@ -12,8 +12,8 @@ class BlogListController extends Controller
     public function index()
     {
         return Inertia::render("Home/Blogs", [
-            'latest_blog' => BlogPost::with(['upload', 'user'])->where('is_published', 1)->latest()->take(3)->get(),
-            'blogs' => BlogPost::with(['upload', 'user'])->where('is_published', 1)->orderBy('created_at', 'desc')->get()
+            'latest_blog' => BlogPost::with(['upload', 'user'])->where('status', 'publish')->latest()->take(3)->get(),
+            'blogs' => BlogPost::with(['upload', 'user'])->where('status', 'publish')->orderBy('created_at', 'desc')->get()
         ]);
     }
 
@@ -31,7 +31,7 @@ class BlogListController extends Controller
                 })->where('id', $id)->first(),
                 'more_blogs' => BlogPost::with(['user', 'upload'])->whereHas('user', function ($query) use ($username) {
                     $query->where('username', $username);
-                })->whereNot('id', $id)->orderBy('created_at', 'desc')->get()
+                })->where('status', 'publish')->whereNot('id', $id)->orderBy('created_at', 'desc')->get()
             ]);
         } catch (\Throwable $th) {
             dd($th->getMessage());

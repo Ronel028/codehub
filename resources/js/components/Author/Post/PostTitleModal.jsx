@@ -72,7 +72,7 @@ const PostTitleModal = ({ openModal, close }) => {
                         </div>
                         <div className="bg-gray-50 px-4 py-3 flex justify-end items-center gap-2 sm:px-6">
                             <Button onClick={closeModal} type="button" title={'Close'} variant="outlined" />
-                            <Button onClick={save} processing={processing} title={'Create Content'} />
+                            <Button onClick={save} processing={processing} title={'Proceed'} />
                         </div>
                     </form>
                 </div>

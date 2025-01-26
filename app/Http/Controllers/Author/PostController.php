@@ -19,10 +19,16 @@ class PostController extends Controller
             'blogPost' => $blogPost
         ]);
     }
-    public function createPage()
+
+    public function createPage(Request $request)
     {
-        return Inertia::render('Author/Posts/Create');
+        $blogId = $request->query('id');
+        $blogPost = BlogPost::with(['upload'])->find($blogId);
+        return Inertia::render('Author/Posts/Create', [
+            'blogPost' => $blogPost
+        ]);
     }
+
     public function createPostTitle(Request $request)
     {
         $request->validate([
@@ -49,11 +55,29 @@ class PostController extends Controller
                 }
                 DB::commit();
                 // return redirect()->route('blog.create-page', ['id' => (string)$blog->id]);
-                return redirect()->route('author.post.index');
+                // return redirect()->route('author.post.index');
+                return redirect()->route('author.post.create.page', ['id' => (string)$blog->id]);
             }
         } catch (\Throwable $th) {
             DB::rollBack();
             dd($th);
+        }
+    }
+
+    public function saveBlogContent(Request $request)
+    {
+        try {
+            $blog = BlogPost::updateOrCreate(
+                [
+                    "id" => $request->post_id
+                ],
+                [
+                    'content' => $request->content,
+                ]
+            );
+            return redirect()->route('author.post.create.page', ['id' => (string)$blog->id]);
+        } catch (\Throwable $th) {
+            dd($th->getMessage());
         }
     }
 }

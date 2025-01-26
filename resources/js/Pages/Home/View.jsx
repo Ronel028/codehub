@@ -17,7 +17,8 @@ const ViewBlog = (props) => {
             <MainLayout>
                 <main className=" max-w-[1000px] mx-auto">
                     <div className=" pt-5 mb-6">
-                        <h1 className=" blog__title text-dark-gray font-bold tracking-wide">{props.blog.title}</h1>
+                        <h1 className=" blog__title text-dark-gray font-bold tracking-wide mb-2">{props.blog.title}</h1>
+                        <p className=" text-dark-gray tracking-wide">{props.blog.description}</p>
                     </div>
                     <div className="pt-3 pb-7">
                         <div className=" flex items-center gap-2 mb-5">

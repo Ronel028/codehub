@@ -3,6 +3,7 @@ import { Link } from "@inertiajs/react"
 import NoDataFound from "../Components/Nodatafound";
 import MainLayout from "../../layout/main";
 import imagePlaceholder from "../Assets/Img/placeholder.jpg"
+import { truncate } from "lodash";
 
 const Blogs = (props) => {
 
@@ -82,7 +83,7 @@ const Blogs = (props) => {
                             <div className=" grid sm:grid-cols-2 md:grid-cols-3 gap-3">
                                 {
                                     props.blogs.map(blog => (
-                                        <Link key={blog.id} href={`/blog-list/read/${blog.user.username}/${blog.id}`}>
+                                        <div key={blog.id}>
                                             <div>
                                                 <div className="w-full aspect-[4/2] overflow-hidden rounded-t mb-2 border border-gray-light">
                                                     <img
@@ -92,7 +93,7 @@ const Blogs = (props) => {
                                                     />
                                                 </div>
                                                 <div className=" mb-1">
-                                                    <p className=" font-bold mb-1 text-xl text-dark-gray">{blog.title}</p>
+                                                    <Link href={`/blog-list/read/${blog.user.username}/${blog.id}`} className="hover:underline font-bold mb-1 text-xl text-dark-gray">{blog.title}</Link>
                                                     <p className="text-xs text-meduim-gray flex items-center gap-1">
                                                         {
                                                             blog.user.full_name != ' ' && blog.user.full_name != null ? (
@@ -104,10 +105,10 @@ const Blogs = (props) => {
                                                     </p>
                                                 </div>
                                                 <div>
-                                                    <p className=" font-normal mb-1 text-dark-gray text-sm">{blog.description}</p>
+                                                    <p className=" font-normal mb-1 text-dark-gray text-sm">{truncate(blog.description, { length: 110 })}</p>
                                                 </div>
                                             </div>
-                                        </Link>
+                                        </div>
                                     ))
                                 }
                             </div>
