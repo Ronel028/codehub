@@ -1,3 +1,4 @@
+import { truncate } from "lodash"
 import moment from "moment"
 
 export const dataURLtoFile = (dataurl) => {
@@ -64,4 +65,11 @@ export const convertBytes = (file) => {
     const base64String = file.replaceAll('=', '');
     const bytes = base64String.length * (3 / 4);
     return bytes
+}
+
+/*
+    Limit string display
+*/
+export const limitStr = (str, length = 70) => {
+    return truncate(str, { length: length })
 }

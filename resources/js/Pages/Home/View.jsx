@@ -3,13 +3,12 @@ import moment from "moment"
 import { LuDot } from "react-icons/lu";
 import Tiptap from "../Components/Markdown/Tiptap";
 import MainLayout from "../../layout/main"
-import imagePlacholder from "../Assets/Img/cypher.jpg"
-import imagePlaceholder from "../Assets/Img/placeholder.jpg"
-import 'react-quill/dist/quill.snow.css';
-import NoDataFound from "../Components/Nodatafound";
+import BlogPostCard from "../Components/BlogPostCard";
 import { diffInDays } from "../../utils/functions";
+import 'react-quill/dist/quill.snow.css';
 import { FaFacebookF, FaGithub, FaLinkedinIn } from "react-icons/fa";
 import { FaSquareXTwitter } from "react-icons/fa6";
+import imagePlacholder from "../Assets/Img/cypher.jpg"
 
 const socialMediaIcons = {
   facebook: <FaFacebookF className=' text-blue-400 text-xl' />,
@@ -112,26 +111,36 @@ const ViewBlog = (props) => {
                                 <div className=" grid sm:grid-cols-2 md:grid-cols-3 gap-3">
                                     {
                                         more_blogs.map(blog => (
-                                            <Link key={blog.id} href={`/blog-list/read/${blog.user.username}/${blog.id}`}>
-                                                <div>
-                                                    <div className=" overflow-hidden rounded-t mb-2 border border-gray-light">
-                                                        <img
-                                                            className=" aspect-[4/2] object-cover rounded-t"
-                                                            src={(blog.upload && blog.upload.path) ?? imagePlaceholder}
-                                                            alt={(blog.upload && blog.upload.filename) ?? 'No image available'}
-                                                        />
-                                                    </div>
-                                                    <div className=" mb-1">
-                                                        <p className=" font-bold text-xl text-dark-gray">{blog.title}</p>
-                                                        <p className=" text-xs text-meduim-gray">
-                                                            {(blog.user.user_detail && blog.user.full_name) ?? blog.user.username} | {moment(blog.created_at).format('ll')}
-                                                        </p>
-                                                    </div>
-                                                    <div>
-                                                        <p className=" font-normal mb-1 text-dark-gray text-sm">{blog.description}</p>
-                                                    </div>
-                                                </div>
-                                            </Link>
+                                            // <div key={blog.id} >
+                                            //     <div>
+                                            //         <div className=" overflow-hidden rounded-t mb-2 border border-gray-light">
+                                            //             <img
+                                            //                 className=" aspect-[4/2] object-cover rounded-t"
+                                            //                 src={(blog.upload && blog.upload.path) ?? imagePlaceholder}
+                                            //                 alt={(blog.upload && blog.upload.filename) ?? 'No image available'}
+                                            //             />
+                                            //         </div>
+                                            //         <div className=" mb-1">
+                                            //             <Link href={`/blog-list/read/${blog.user.username}/${blog.id}`} className="font-bold text-xl text-dark-gray hover:underline">{blog.title}</Link>
+                                            //             <p className=" text-xs text-meduim-gray">
+                                            //                 {(blog.user.user_detail && blog.user.full_name) ?? blog.user.username} | {moment(blog.created_at).format('ll')}
+                                            //             </p>
+                                            //         </div>
+                                            //         <div>
+                                            //             <p className=" font-normal mb-1 text-dark-gray text-sm">{limitStr(blog.description, 100)}</p>
+                                            //         </div>
+                                            //     </div>
+                                            // </div>
+                                            <BlogPostCard
+                                                key={blog.id}
+                                                blogId={blog.id}
+                                                username={blog.user.username}
+                                                fullName={blog.user?.user_detail?.full_name}
+                                                title={blog.title}
+                                                description={blog.description}
+                                                createdAt={blog.created_at}
+                                                blogPhoto={blog.upload}
+                                            />
                                         ))
                                     }
                                 </div>

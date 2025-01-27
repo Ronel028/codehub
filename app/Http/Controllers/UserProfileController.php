@@ -18,6 +18,7 @@ class UserProfileController extends Controller
         $user = User::with(['userDetail', 'avatar', 'cover', 'socialMediaLinks'])->where('username', $username)->first();
         $blogs = BlogPost::with(['upload', 'user'])
             ->where('user_id', $user->id)
+            ->where('status', 'publish')
             ->orderBy('created_at', 'desc')
             ->get();
         return Inertia::render('Profile/Index', [
