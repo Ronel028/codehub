@@ -68,12 +68,12 @@ const PostTitleModal = ({ openModal, close }) => {
                                         {
                                             isNull(data.thumbnail) ? (
                                                 <>
-                                                    <div className={`${errors.thumbnail ? 'border border-red-500 p-1 rounded-md' : ''} mt-4`}>
-                                                        <label htmlFor="thumbnail" className=" text-sm font-medium cursor-pointer text-meduim-gray flex flex-col items-center justify-center h-28 border border-dashed border-meduim-gray rounded-md">
+                                                    <div className={` mt-4`}>
+                                                        <label htmlFor="thumbnail" className={`${errors.thumbnail ? ' border-red-500 text-red-300' : 'border-meduim-gray text-meduim-gray'} text-sm cursor-pointer  flex flex-col items-center justify-center h-28 border border-dashed rounded-md`}>
                                                             <FiUploadCloud className=" text-2xl mb-1" />
-                                                            Click to upload your thumbnails.
+                                                            Click to upload thumbnails <span className=" text-xs font-medium italic">(File size must not exceed 1MB)</span>
                                                         </label>
-                                                        <input onChange={handleOnChangeThumbnail} type="file" hidden id="thumbnail" name="thumbnail" />
+                                                        <input onChange={handleOnChangeThumbnail} type="file" accept=".png,.jpg,.jpeg,.webp" hidden id="thumbnail" name="thumbnail" />
                                                     </div>
                                                     {errors.thumbnail && <p className=" text-xs text-red-500 mt-1">{errors.thumbnail}</p>}
                                                 </>
@@ -83,7 +83,7 @@ const PostTitleModal = ({ openModal, close }) => {
                                                         <label htmlFor="thumbnail" className=" text-sm font-medium cursor-pointer text-dark-gray flex flex-col items-center justify-center h-auto rounded-md">
                                                             <img src={imagePreview} alt="" className=" rounded-md aspect-video w-full" />
                                                         </label>
-                                                        <input onChange={handleOnChangeThumbnail} type="file" hidden id="thumbnail" name="thumbnail" />
+                                                        <input onChange={handleOnChangeThumbnail} type="file" accept=".png,.jpg,.jpeg,.webp" hidden id="thumbnail" name="thumbnail" />
                                                     </div>
                                                     {errors.thumbnail && <p className=" text-xs text-red-500 mt-1">{errors.thumbnail}</p>}
                                                 </>

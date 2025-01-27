@@ -4,8 +4,10 @@ import CodeBlockLowlight from "@tiptap/extension-code-block-lowlight";
 import StarterKit from '@tiptap/starter-kit'
 import { all, createLowlight } from "lowlight";
 import { debounce } from "lodash";
-import { FaBold, FaItalic, FaStrikethrough, FaListOl, FaCode } from "react-icons/fa";
+import { FaBold, FaItalic, FaStrikethrough, FaListOl, FaCode, FaImage } from "react-icons/fa";
 import { MdFormatListBulleted } from "react-icons/md";
+import Image from "@tiptap/extension-image";
+import { useCallback, useRef } from "react";
 
 const lowlight = createLowlight(all)
 
@@ -20,8 +22,7 @@ const debounceOnChange = debounce((editor, data, setData) => {
     })
 }, 2300)
 
-const TiptopRte = ({ data, setData }) => {
-
+const TiptopRte = ({ data, setData, getImage }) => {
     const editor = useEditor({
         extensions: [
             StarterKit,
@@ -32,12 +33,48 @@ const TiptopRte = ({ data, setData }) => {
                 placeholder:
                     'Write something … It’ll be shared with everyone else looking at this example.',
             }),
+            Image.configure({
+                allowBase64: true
+            })
         ],
         content: data.content,
         onUpdate: ({ editor }) => {
             debounceOnChange(editor, data, setData)
         }
     })
+
+    const addImage = useCallback((e) => {
+        // const url = window.prompt('URL')
+        // console.log(url)
+        // if (url) {
+        //   editor.chain().focus().setImage({ src: url }).run()
+        // }
+        // console.log(editor.commands.setImage({ src: 'https://images.pexels.com/photos/6153739/pexels-photo-6153739.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1' }))
+        getImage(editor.commands)
+    }, [editor])
+
+    // const getImage = useCallback((e) => {
+    //     console.log(e)
+    //     if (e.target.files && e.target.files[0]) {
+    //         const image = e.target.files[0];
+    //         if (image.size > 1000000) {
+    //             toast.error(
+    //                 "File size exceed the maximum limit for 1mb, Please try upload another image.",
+    //                 {
+    //                     position: "top-right",
+    //                     autoClose: 10000,
+    //                 }
+    //             );
+    //             return;
+    //         }
+    //         const reader = new FileReader();
+    //         reader.onload = (e) => {
+    //             editor.chain().focus().setImage({ src: e.target.result }).run()
+    //         };
+    //         reader.readAsDataURL(image);
+    //         e.target.value = "";
+    //     }
+    // }, [editor])
 
     return (
         <>
@@ -76,7 +113,7 @@ const TiptopRte = ({ data, setData }) => {
                 </BubbleMenu>
             }
             {
-                editor && <FloatingMenu editor={editor} tippyOptions={{ duration: 100 }}>
+                editor && <FloatingMenu editor={editor} tippyOptions={{ duration: 100, zIndex: 10 }}>
                     <div className="floating-menu bg-light text-primary rounded p-1 flex items-center gap-2">
                         <button
                             type="button"
@@ -112,6 +149,13 @@ const TiptopRte = ({ data, setData }) => {
                             className={`${editor.isActive('codeBlock') ? 'bg-light-gray' : ''} text-sm italic text-primary hover:bg-light-gray  rounded p-1`}
                         >
                             <FaCode />
+                        </button>
+                        <button
+                            type="button"
+                            onClick={addImage}
+                            className={` text-sm italic text-primary hover:bg-light-gray  rounded p-1`}
+                        >
+                            <FaImage />
                         </button>
                     </div>
                 </FloatingMenu>

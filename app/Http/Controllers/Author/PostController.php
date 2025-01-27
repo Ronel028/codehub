@@ -31,11 +31,19 @@ class PostController extends Controller
 
     public function createPostTitle(Request $request)
     {
-        $request->validate([
-            'title' => 'required',
-            'description' => 'required|min:150|max:300',
-            'thumbnail' => 'required|max:1024'
-        ]);
+        $request->validate(
+            [
+                'title' => 'required',
+                'description' => 'required|min:150|max:300',
+                'thumbnail' => 'required|image|mimes:jpeg,png,jpg,webp|max:1024'
+            ],
+            [
+                'thumbnail.max' => 'The thumbnail must not exceed 1MB in size.',
+                'thumbnail.required' => 'Please upload a thumbnail.',
+                'thumbnail.image' => 'The uploaded file must be an image.',
+                'thumbnail.mimes' => 'The thumbnail must be a file of type: jpeg, png, jpg, or webp.'
+            ]
+        );
         DB::beginTransaction();
         try {
             $blog = new BlogPost();
