@@ -4,7 +4,6 @@ import BlogPostCard from "../Components/BlogPostCard";
 
 const Blogs = (props) => {
     const { blogs } = props
-    console.log(blogs)
     return (
         <>
             <MainLayout pageTitle="Blogs">
@@ -18,6 +17,7 @@ const Blogs = (props) => {
                                         <BlogPostCard
                                             key={blog.id}
                                             blogId={blog.id}
+                                            slug={blog.slug}
                                             username={blog.user.username}
                                             fullName={blog.user?.user_detail?.full_name}
                                             title={blog.title}

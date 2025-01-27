@@ -21,17 +21,17 @@ class BlogListController extends Controller
     {
         try {
             $username = $request->username;
-            $id = $request->id;
+            $slug = $request->slug;
 
             return Inertia::render('Home/View', [
                 'blog' =>  BlogPost::with(['upload', 'user' => function ($query) {
                     $query->with('userDetail', 'avatar', 'socialMediaLinks');
                 }])->whereHas('user', function ($query) use ($username) {
                     $query->where('username', $username);
-                })->where('id', $id)->first(),
+                })->where('slug', $slug)->first(),
                 'more_blogs' => BlogPost::with(['user', 'upload'])->whereHas('user', function ($query) use ($username) {
                     $query->where('username', $username);
-                })->where('status', 'publish')->whereNot('id', $id)->orderBy('created_at', 'desc')->get()
+                })->where('status', 'publish')->whereNot('slug', $slug)->orderBy('created_at', 'desc')->get()
             ]);
         } catch (\Throwable $th) {
             dd($th->getMessage());

@@ -18,7 +18,7 @@ Route::get('/', function () {
 // BLOG LIST
 Route::name('blog-list.')->prefix('blog-list')->group(function () {
     Route::get('/', [BlogListController::class, 'index'])->name('index');
-    Route::get('/read/{username}/{id}', [BlogListController::class, 'fetch']);
+    Route::get('/read/{username}/{slug}', [BlogListController::class, 'fetch']);
     Route::get('/blog/{category}', [BlogListController::class, 'blogListCategory'])->name('blog-list-category');
     // Route::get('/all', [BlogListController::class, 'blogs'])->name('all');
 });

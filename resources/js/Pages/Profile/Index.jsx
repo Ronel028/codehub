@@ -119,6 +119,7 @@ const Profile = (props) => {
                                                 <BlogPostCard
                                                     key={blog.id}
                                                     blogId={blog.id}
+                                                    slug={blog.slug}
                                                     username={blog.user.username}
                                                     fullName={blog.user?.user_detail?.full_name}
                                                     title={blog.title}

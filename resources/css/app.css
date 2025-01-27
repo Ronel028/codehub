@@ -30,6 +30,15 @@
     @apply border-yellow-light bg-yellow-light text-soft-light
 }
 
+.text-overflow-clamp{
+    width: 100%;
+    /* this code clamps based on specified lines */
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    display: -webkit-box;
+}
+
 body,
 label,
 input,

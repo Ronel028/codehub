@@ -28,7 +28,7 @@ class BlogPost extends Model
     public function getSlugOptions(): SlugOptions
     {
         return SlugOptions::create()
-            ->generateSlugsFrom('title')
+            ->generateSlugsFrom(['title', 'id'])
             ->saveSlugsTo('slug');
     }
 
