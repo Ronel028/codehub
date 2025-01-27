@@ -8,7 +8,12 @@ const TextArea = (props) => {
                 }
                 <div>
                     <textarea {...props} className={`w-full border ${props.error ? 'border-red-500 focus:outline-red-500' : 'border-gray-light focus:outline-meduim-gray'} bg-soft-light outline-none p-2 text-xs rounded-md`}></textarea>
-                    {props.error && <p className=" text-xs text-red-500 mt-1">{props.error}</p>}
+                    <div className="flex items-center justify-between mt-1">
+                        <div>
+                            {props.error && <p className=" text-xs text-red-500">{props.error}</p>}
+                        </div>
+                        <p className=" text-xs text-dark-gray">{props.strLength ?? 0}/<span className="">150-300</span></p>
+                    </div>
                 </div>
             </div>
         </>

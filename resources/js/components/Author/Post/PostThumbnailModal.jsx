@@ -3,20 +3,22 @@ import { Cropper } from "react-cropper"
 import { isNull } from "lodash";
 import { PostTitleCreationContext } from "../../../context/PostCreationContext";
 import Button from "../../Forms/Button";
-import { dataURLtoFile } from "../../../utils/functions";
+import { convertBytes, dataURLtoFile } from "../../../utils/functions";
+import { filesize } from "filesize";
 
 const PostThumbnailModal = ({ photo, setPhoto, type, aspectRatio, title }) => {
 
     const { data, setData, thumbnail, setThumbnail } = useContext(PostTitleCreationContext);
     const cropperRef = useRef(null)
     const [cropPhoto, setCropPhoto] = useState(null)
+    const [photoSize, setPhotoSize] = useState(0)
 
     function onCrop(){
         const cropper = cropperRef.current?.cropper;
         const cropImage = cropper.getCroppedCanvas().toDataURL()
+        const cropFileSize = convertBytes(cropImage)
         setCropPhoto(cropImage);
-        // const cropFileSize = convertBytes(cropImage)
-        // setPhotoSize(cropFileSize)
+        setPhotoSize(cropFileSize)
     };
 
     function saveCropPhoto(){
@@ -27,6 +29,10 @@ const PostThumbnailModal = ({ photo, setPhoto, type, aspectRatio, title }) => {
         })
         setThumbnail(prevState => prevState = null)
         setCropPhoto(prevState => prevState = null)
+    }
+
+    function closeCropModal(){
+        setThumbnail(prevState => prevState = null)
     }
 
     return (
@@ -40,12 +46,12 @@ const PostThumbnailModal = ({ photo, setPhoto, type, aspectRatio, title }) => {
                                 <div className="mt-3 text-center sm:mt-0 sm:text-left w-full">
                                     <div className=" flex items-center justify-between gap-2">
                                         <h3 className="text-base font-semibold text-gray-900" id="modal-title">{title}</h3>
-                                        {/* <p className=" text-secondary text-sm">
+                                        <p className=" text-secondary text-sm">
                                             Crop filesize: 
                                             <span 
                                                 className={`${photoSize > 1000000 ? 'text-red-500' : 'text-green-500'} ml-1 font-bold`}>{ filesize(photoSize, {standard: "jedec"}) }
                                             </span>
-                                        </p> */}
+                                        </p>
                                     </div>
                                     <div className="mt-4">
                                         <Cropper
@@ -64,6 +70,7 @@ const PostThumbnailModal = ({ photo, setPhoto, type, aspectRatio, title }) => {
                             </div>
                         </div>
                         <div className="bg-gray-50 px-4 py-3 flex justify-end items-center gap-2 sm:px-6">
+                            <Button onClick={closeCropModal} variant="outlined" title={'Close'} />
                             <Button onClick={saveCropPhoto} title={'Crop'} />
                         </div>
                     </form>

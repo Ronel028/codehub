@@ -33,7 +33,8 @@ class PostController extends Controller
     {
         $request->validate([
             'title' => 'required',
-            'description' => 'required'
+            'description' => 'required|min:150|max:300',
+            'thumbnail' => 'required|max:1024'
         ]);
         DB::beginTransaction();
         try {

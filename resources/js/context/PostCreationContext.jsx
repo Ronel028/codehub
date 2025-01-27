@@ -2,6 +2,7 @@ import { createContext, useEffect, useState } from "react";
 import { isNull } from "lodash";
 import { dataURLtoFile } from "../utils/functions";
 import { router, useForm } from "@inertiajs/react";
+import { toast } from "react-toastify";
 
 export const PostTitleCreationContext = createContext({})
 
@@ -33,17 +34,16 @@ const PostTitleCreationProvider = ({ children }) => {
     function handleOnChangeThumbnail(e) {
         if (e.target.files && e.target.files[0]) {
             const image = e.target.files[0];
-
-            // if (image.size > 1000000) {
-            //     toast.error(
-            //         "File size exceed the maximum limit for 1mb, Please try upload another image.",
-            //         {
-            //             position: "top-right",
-            //             autoClose: 10000,
-            //         }
-            //     );
-            //     return;
-            // }
+            if (image.size > 1000000) {
+                toast.error(
+                    "File size exceed the maximum limit for 1mb, Please try upload another image.",
+                    {
+                        position: "top-right",
+                        autoClose: 10000,
+                    }
+                );
+                return;
+            }
             const reader = new FileReader();
             reader.onload = (e) => {
                 setThumbnail(e.target.result);
@@ -53,10 +53,10 @@ const PostTitleCreationProvider = ({ children }) => {
         }
     }
 
-    function save(){
+    function save(e){
+        e.preventDefault()
         post('/author/post/create-title', {
             onSuccess: () => {
-                console.log('Profile photo saved.')
                 setData({
                     ...data,
                     title: '',
@@ -69,7 +69,7 @@ const PostTitleCreationProvider = ({ children }) => {
 
     return (
         <PostTitleCreationContext.Provider value={{ 
-            data, setData, thumbnail, setThumbnail, handleOnchage, handleOnChangeThumbnail , save, processing, 
+            data, setData, errors, thumbnail, processing, setThumbnail, handleOnchage, handleOnChangeThumbnail , save, 
             openModal, closeModal, isModalOpen
         }}>
             { children }

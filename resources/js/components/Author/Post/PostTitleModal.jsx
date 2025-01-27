@@ -3,13 +3,14 @@ import { isNull } from "lodash"
 import { PostTitleCreationContext } from "../../../context/PostCreationContext"
 import Button from "../../Forms/Button"
 import Input from "../../Forms/Input"
-import { IoCloudUploadOutline, IoCreateOutline } from "react-icons/io5"
 import TextArea from "../../Forms/TextArea"
+import { IoCloudUploadOutline, IoCreateOutline } from "react-icons/io5"
 import { FaRegImages } from "react-icons/fa"
+import { FiUploadCloud } from "react-icons/fi";
 
 const PostTitleModal = ({ openModal, close }) => {
     
-    const { data, handleOnchage, handleOnChangeThumbnail, save, processing, isModalOpen, closeModal } = useContext(PostTitleCreationContext);
+    const { data, errors, handleOnchage, handleOnChangeThumbnail, save, processing, isModalOpen, closeModal } = useContext(PostTitleCreationContext);
     const [imagePreview, setImagePreview] = useState(null)
     const queryParams = new URLSearchParams(window.location.search)
     const createPost = queryParams.get('create');
@@ -40,7 +41,7 @@ const PostTitleModal = ({ openModal, close }) => {
             <div className="fixed inset-0 z-10 w-screen overflow-y-auto">
                 <div className="flex min-h-full items-start justify-center p-4 text-center sm:items-center sm:p-0">
                     <form
-                        // onSubmit={save}
+                        onSubmit={save}
                         className="relative transform overflow-hidden rounded-lg bg-soft-light text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-xl"
                     >
                         <div className="bg-soft-light px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
@@ -53,19 +54,40 @@ const PostTitleModal = ({ openModal, close }) => {
                                         Create Post
                                     </h3>
                                     <div className="mt-4">
-                                        <Input onChange={handleOnchage} value={data.title} label="Title" name="title" id="title" placeholder="Type the title of your blog post" className="mb-4" />
-                                        <TextArea onChange={handleOnchage} value={data.description} label="Short Description" name="description" id="description" placeholder="Add a brief description of your content" rows={6} />
+                                        <Input onChange={handleOnchage} value={data.title} error={errors.title} label="Title" name="title" id="title" placeholder="Type the title of your blog post" className="mb-4" />
+                                        <TextArea onChange={handleOnchage} 
+                                            value={data.description} 
+                                            error={errors.description} 
+                                            label="Short Description" 
+                                            strLength={data.description.replace(/\s/g, '').length} 
+                                            name="description" 
+                                            id="description" 
+                                            placeholder="Write a brief summary of your blog post (150–300 characters)." 
+                                            rows={6} 
+                                        />
                                         {
                                             isNull(data.thumbnail) ? (
-                                                <div className=" mt-4">
-                                                    <label htmlFor="thumbnail" className="text-sm font-medium cursor-pointer text-dark-gray flex flex-col items-center justify-center h-28 border border-dashed border-meduim-gray rounded-md">
-                                                        <FaRegImages className=" text-3xl mb-1 text-muted-accent" />
-                                                        Click to upload your thumbnails.
-                                                    </label>
-                                                    <input onChange={handleOnChangeThumbnail} type="file" hidden id="thumbnail" name="thumbnail" />
-                                                </div>
+                                                <>
+                                                    <div className={`${errors.thumbnail ? 'border border-red-500 p-1 rounded-md' : ''} mt-4`}>
+                                                        <label htmlFor="thumbnail" className=" text-sm font-medium cursor-pointer text-meduim-gray flex flex-col items-center justify-center h-28 border border-dashed border-meduim-gray rounded-md">
+                                                            <FiUploadCloud className=" text-2xl mb-1" />
+                                                            Click to upload your thumbnails.
+                                                        </label>
+                                                        <input onChange={handleOnChangeThumbnail} type="file" hidden id="thumbnail" name="thumbnail" />
+                                                    </div>
+                                                    {errors.thumbnail && <p className=" text-xs text-red-500 mt-1">{errors.thumbnail}</p>}
+                                                </>
                                             ) : (
-                                                <img src={imagePreview} alt="" className="mt-4 aspect-video w-full" />
+                                                <>
+                                                    <div className={`${errors.thumbnail ? 'border border-red-500 p-1 rounded-md' : ''} mt-4`}>
+                                                        <label htmlFor="thumbnail" className=" text-sm font-medium cursor-pointer text-dark-gray flex flex-col items-center justify-center h-auto rounded-md">
+                                                            <img src={imagePreview} alt="" className=" rounded-md aspect-video w-full" />
+                                                        </label>
+                                                        <input onChange={handleOnChangeThumbnail} type="file" hidden id="thumbnail" name="thumbnail" />
+                                                    </div>
+                                                    {errors.thumbnail && <p className=" text-xs text-red-500 mt-1">{errors.thumbnail}</p>}
+                                                </>
+                                                
                                             )
                                         }
                                     </div>
@@ -74,7 +96,7 @@ const PostTitleModal = ({ openModal, close }) => {
                         </div>
                         <div className="bg-gray-50 px-4 py-3 flex justify-end items-center gap-2 sm:px-6">
                             <Button onClick={closeModal} type="button" title={'Close'} variant="outlined" />
-                            <Button onClick={save} processing={processing} title={'Proceed'} />
+                            <Button type="submit" processing={processing} title={'Proceed'} />
                         </div>
                     </form>
                 </div>
