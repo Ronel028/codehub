@@ -24,7 +24,8 @@ const CreatePost = ({ blogPost }) => {
         content: blogPost?.content ?? '',
     })
     const imageRef = useRef(null)
-    const [imageVal, setImageVal] = useState(null)
+    const [tiptopCommand, setTiptopCommand] = useState(null)
+
     function saveContent(){
         const queryParams = new URLSearchParams(window.location.search)
         const postId = queryParams.get('id');
@@ -55,12 +56,12 @@ const CreatePost = ({ blogPost }) => {
     }, [data])
 
     function getImage(command){
-        setImageVal(command)
+        setTiptopCommand(command)
     }
 
     return (
         <>
-            { isNull(imageVal) ? null : <TiptopImage command={imageVal} setCommand={setImageVal} /> }
+            { isNull(tiptopCommand) ? null : <TiptopImage command={tiptopCommand} setCommand={setTiptopCommand} /> }
             <div className="mb-6">
                 <h1 className=" text-dark-gray font-medium text-xl">Manage your post</h1>
                 <p className=" text-sm text-meduim-gray">Start Create/Edit your blog content here.</p>
@@ -123,7 +124,6 @@ const TiptopImage = ({ command, setCommand }) => {
             const image = e.target.files[0];
             const reader = new FileReader();
             reader.onload = (e) => {
-                // imageVal.setImage({ src: e.target.result })
                 setImage(e.target.result)
             };
             reader.readAsDataURL(image);
@@ -141,7 +141,15 @@ const TiptopImage = ({ command, setCommand }) => {
         if(!isNull(image)){
             command.setImage({ src: cropImage })
             setCommand(prevState => prevState = null)
+            setCropImage(prevState => prevState = null)
+            setImage(prevState => prevState = null)
         }
+    }
+
+    function close(){
+        setCommand(prevState => prevState = null)
+        setCropImage(prevState => prevState = null)
+        setImage(prevState => prevState = null)
     }
 
     return (
@@ -162,19 +170,6 @@ const TiptopImage = ({ command, setCommand }) => {
                                             </span>
                                         </p> */}
                                     </div>
-                                    {/* <div className="mt-4">
-                                        <Cropper
-                                            src={thumbnail}
-                                            style={{ height: 300, width: "100%" }}
-                                            initialAspectRatio={16/9}
-                                            aspectRatio={16/9}
-                                            guides={false}
-                                            viewMode={1}
-                                            crop={onCrop}
-                                            ref={cropperRef}
-                                            />
-                                    </div> */}
-                                    {/* <p className="mt-1 text-sm text-red-500 font-bold">{error?.photo}</p> */}
                                     {
                                         isNull(image) ? (
                                             <div className={` mt-4`}>
@@ -188,8 +183,7 @@ const TiptopImage = ({ command, setCommand }) => {
                                             <Cropper
                                                 src={image}
                                                 style={{ height: 300, width: "100%" }}
-                                                initialAspectRatio={16/9}
-                                                aspectRatio={16/9}
+                                                initialAspectRatio={1/1}
                                                 guides={false}
                                                 viewMode={1}
                                                 crop={onCrop}
@@ -201,7 +195,7 @@ const TiptopImage = ({ command, setCommand }) => {
                             </div>
                         </div>
                         <div className="bg-gray-50 px-4 py-3 flex justify-end items-center gap-2 sm:px-6">
-                            {/* <Button onClick={closeCropModal} variant="outlined" title={'Close'} /> */}
+                            <Button onClick={close} variant="outlined" title={'Close'} />
                             <Button onClick={save} title={'Save'} />
                         </div>
                     </form>

@@ -44,37 +44,8 @@ const TiptopRte = ({ data, setData, getImage }) => {
     })
 
     const addImage = useCallback((e) => {
-        // const url = window.prompt('URL')
-        // console.log(url)
-        // if (url) {
-        //   editor.chain().focus().setImage({ src: url }).run()
-        // }
-        // console.log(editor.commands.setImage({ src: 'https://images.pexels.com/photos/6153739/pexels-photo-6153739.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1' }))
         getImage(editor.commands)
     }, [editor])
-
-    // const getImage = useCallback((e) => {
-    //     console.log(e)
-    //     if (e.target.files && e.target.files[0]) {
-    //         const image = e.target.files[0];
-    //         if (image.size > 1000000) {
-    //             toast.error(
-    //                 "File size exceed the maximum limit for 1mb, Please try upload another image.",
-    //                 {
-    //                     position: "top-right",
-    //                     autoClose: 10000,
-    //                 }
-    //             );
-    //             return;
-    //         }
-    //         const reader = new FileReader();
-    //         reader.onload = (e) => {
-    //             editor.chain().focus().setImage({ src: e.target.result }).run()
-    //         };
-    //         reader.readAsDataURL(image);
-    //         e.target.value = "";
-    //     }
-    // }, [editor])
 
     return (
         <>
