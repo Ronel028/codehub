@@ -9,6 +9,7 @@ import 'react-quill/dist/quill.snow.css';
 import { FaFacebookF, FaGithub, FaLinkedinIn } from "react-icons/fa";
 import { FaSquareXTwitter } from "react-icons/fa6";
 import imagePlacholder from "../Assets/Img/cypher.jpg"
+import TiptopRte from "../Components/Markdown/TiptopRte";
 
 const socialMediaIcons = {
   facebook: <FaFacebookF className=' text-blue-400 text-xl' />,
@@ -60,13 +61,14 @@ const ViewBlog = (props) => {
                         <div className="mb-5">
                             <img src={blog.upload?.path} alt={blog.upload.filename} className=" rounded-md w-full" />
                         </div>
-                        <Tiptap
+                        {/* <Tiptap
                             rteValue={blog.content}
                             setRteValue={null}
                             disableMenuBar={true}
                             styleContainer="h-auto line-hieght"
                             editable={false}
-                        />
+                        /> */}
+                        <TiptopRte data={blog} editable={false} />
                     </div>
                 </main>
             </MainLayout>

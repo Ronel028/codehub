@@ -1,13 +1,15 @@
+import { useCallback } from "react";
 import { BubbleMenu, FloatingMenu, EditorContent, useEditor } from "@tiptap/react"
 import Placeholder from "@tiptap/extension-placeholder"
 import CodeBlockLowlight from "@tiptap/extension-code-block-lowlight";
+import Link from "@tiptap/extension-link";
+import ImageResize from "tiptap-extension-resize-image";
+import Youtube from "@tiptap/extension-youtube";
 import StarterKit from '@tiptap/starter-kit'
 import { all, createLowlight } from "lowlight";
 import { debounce } from "lodash";
-import { FaBold, FaItalic, FaStrikethrough, FaListOl, FaCode, FaImage } from "react-icons/fa";
+import { FaBold, FaItalic, FaStrikethrough, FaListOl, FaCode, FaImage, FaLink, FaYoutube } from "react-icons/fa";
 import { MdFormatListBulleted } from "react-icons/md";
-import Image from "@tiptap/extension-image";
-import { useCallback, useRef } from "react";
 
 const lowlight = createLowlight(all)
 
@@ -22,21 +24,55 @@ const debounceOnChange = debounce((editor, data, setData) => {
     })
 }, 2300)
 
-const TiptopRte = ({ data, setData, getImage }) => {
+const TiptopRte = ({ data, setData, editable=true, getImage }) => {
     const editor = useEditor({
         extensions: [
-            StarterKit,
+            StarterKit.configure({
+                codeBlock: false,
+                code: {
+                    HTMLAttributes: {
+                        class: 'text-sm'
+                    }
+                }
+            }),
             CodeBlockLowlight.configure({
+                HTMLAttributes: {
+                    class: ' text-sm'
+                },
                 lowlight
             }),
             Placeholder.configure({
                 placeholder:
                     'Write something … It’ll be shared with everyone else looking at this example.',
             }),
-            Image.configure({
-                allowBase64: true
-            })
+            ImageResize.configure({
+                HTMLAttributes: {
+                    class: 'border border-gray-light rounded-md shadow shadow-gray-light'
+                },
+                inline: true,
+                allowBase64: true,
+            }),
+            Link.configure({
+                HTMLAttributes: {
+                    class: 'cursor-pointer text-blue-500 font-medium underline'
+                },
+                autolink: true,
+                openOnClick: false,
+                defaultProtocol: 'https',
+                protocols: ['http', 'https'],
+            }),
+            Youtube.configure({
+                inline: false,
+                width: 480,
+                height: 320,
+                nocookie: true,
+                allowFullscreen: true,
+                ccLanguage: 'es',
+                disableKBcontrols: true,
+                loop: false,
+            }),
         ],
+        editable: editable,
         content: data.content,
         onUpdate: ({ editor }) => {
             debounceOnChange(editor, data, setData)
@@ -46,6 +82,42 @@ const TiptopRte = ({ data, setData, getImage }) => {
     const addImage = useCallback((e) => {
         getImage(editor.commands)
     }, [editor])
+
+    const setLink = useCallback(() => {
+        const previousUrl = editor.getAttributes('link').href
+        const url = window.prompt('URL', previousUrl)
+    
+        // cancelled
+        if (url === null) {
+        return
+        }
+    
+        // empty
+        if (url === '') {
+        editor.chain().focus().extendMarkRange('link').unsetLink()
+            .run()
+    
+        return
+        }
+    
+        // update link
+        try {
+        editor.chain().focus().extendMarkRange('link').setLink({ href: url })
+            .run()
+        } catch (e) {
+            alert(e.message)
+        }
+    }, [editor])
+
+    const addYoutubeVideo = () => {
+        const url = prompt('Enter YouTube URL')
+    
+        if (url) {
+          editor.commands.setYoutubeVideo({
+            src: url,
+          })
+        }
+      }
 
     return (
         <>
@@ -79,6 +151,13 @@ const TiptopRte = ({ data, setData, getImage }) => {
                             className={`${editor.isActive('code') ? 'bg-light-gray' : ''} text-sm italic text-primary hover:bg-light-gray  rounded p-1`}
                         >
                             <FaCode />
+                        </button>
+                        <button
+                            type="button"
+                            onClick={setLink}
+                            className={`${editor.isActive('link') ? 'bg-light-gray' : ''} text-sm italic text-primary hover:bg-light-gray  rounded p-1`}
+                        >
+                            <FaLink />
                         </button>
                     </div>
                 </BubbleMenu>
@@ -127,6 +206,13 @@ const TiptopRte = ({ data, setData, getImage }) => {
                             className={` text-sm italic text-primary hover:bg-light-gray  rounded p-1`}
                         >
                             <FaImage />
+                        </button>
+                        <button
+                            type="button"
+                            onClick={addYoutubeVideo}
+                            className={` text-sm italic text-primary hover:bg-light-gray  rounded p-1`}
+                        >
+                            <FaYoutube />
                         </button>
                     </div>
                 </FloatingMenu>

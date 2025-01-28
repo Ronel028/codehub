@@ -19,7 +19,7 @@
         "@tiptap/extension-code-block-lowlight": "^2.4.0",
         "@tiptap/extension-heading": "^2.4.0",
         "@tiptap/extension-image": "^2.11.3",
-        "@tiptap/extension-link": "^2.4.0",
+        "@tiptap/extension-link": "^2.11.3",
         "@tiptap/extension-placeholder": "^2.4.0",
         "@tiptap/extension-youtube": "^2.4.0",
         "@tiptap/pm": "^2.4.0",

@@ -18,11 +18,11 @@ Typically this "required" baseline CSS is added by `makestuff.js` during build.
 pre code {
     display: block;
     overflow-x: auto;
-    padding: 1em;
+    padding: 0.625em 0.875em;
   }
   
   code {
-    padding: 3px 5px;
+    padding: 0.1875em 0.3125em;
   }
   /* end baseline CSS */
   
@@ -58,8 +58,9 @@ SOFTWARE.
 */
 
 code {
-  border-radius: 0.375rem;
+  border-radius: 0.25rem;
   background: #011627;
+  /* background-color: #2D2D2D; */
   color: #d6deeb;
 }
 
