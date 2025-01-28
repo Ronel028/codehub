@@ -59,7 +59,7 @@ const PostTitleModal = ({ openModal, close }) => {
                                             value={data.description} 
                                             error={errors.description} 
                                             label="Short Description" 
-                                            strLength={data.description.replace(/\s/g, '').length} 
+                                            strlength={data.description.replace(/\s/g, '').length} 
                                             name="description" 
                                             id="description" 
                                             placeholder="Write a brief summary of your blog post (150–300 characters)." 

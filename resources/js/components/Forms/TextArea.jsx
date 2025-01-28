@@ -12,7 +12,7 @@ const TextArea = (props) => {
                         <div>
                             {props.error && <p className=" text-xs text-red-500">{props.error}</p>}
                         </div>
-                        <p className=" text-xs text-dark-gray">{props.strLength ?? 0}/<span className="">150-300</span></p>
+                        <p className=" text-xs text-dark-gray">{props.strlength ?? 0}/<span className="">150-300</span></p>
                     </div>
                 </div>
             </div>

@@ -11,8 +11,6 @@ import { BsFillPinAngleFill } from "react-icons/bs";
 
 const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
   const { url } = usePage()
-
-  
   return (
     <aside className=' bg-primary'>
       <div className=' w-[260px] px-5 py-6'>
@@ -27,7 +25,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
           <h3 className=' text-sm text-soft-light mb-3 font-bold'>Main</h3>
           <ul className=' flex flex-col gap-2'>
             <li>
-              <Link href='/author/dashboard' className=' py-2 px-3 flex items-center gap-2 text-sm text-soft-light hover:bg-secondary rounded-md'>
+              <Link href='/author/dashboard' className={`${url === '/author/dashboard' ? 'bg-secondary' : ''} py-2 px-3 flex items-center gap-2 text-sm text-soft-light hover:bg-secondary rounded-md`}>
                   <span className='block'>
                     <LuLayoutDashboard className=' text-base' />
                   </span>
@@ -35,32 +33,17 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
               </Link>
             </li>
             <li>
-              <Link href='/author/profile/edit' className=' py-2 px-3 flex items-center gap-2 text-sm text-soft-light hover:bg-secondary rounded-md'>
+              <Link href='/author/profile/edit' className={`${url === '/author/profile/edit' ? 'bg-secondary' : ''} py-2 px-3 flex items-center gap-2 text-sm text-soft-light hover:bg-secondary rounded-md`}>
                   <span className='block'>
                     <LuUserCog className=' text-base' />
                   </span>
                   Manage Profile
               </Link>
             </li>
-            <SidebarLinkGroup name={'Posts'} icon={<BsFillPinAngleFill className="text-base align-middle" />}>
+            <SidebarLinkGroup name={'Posts'} activeRoute={url.startsWith('/author/post')} icon={<BsFillPinAngleFill className="text-base align-middle" />}>
               <li>
-                <Link href="/author/post" className=" text-soft-light hover:text-yellow-light flex items-center gap-2 text-xs">
+                <Link href="/author/post" className={`${url === '/author/post' ? 'text-yellow-light font-medium' : ''} text-soft-light hover:text-yellow-light flex items-center gap-2 text-xs`}>
                   All Posts
-                </Link>
-              </li>
-              <li>
-                <Link href="#" className="text-soft-light hover:text-yellow-light flex items-center gap-2 text-xs">
-                  Published
-                </Link>
-              </li>
-              <li>
-                <Link href="#" className="text-soft-light hover:text-yellow-light flex items-center gap-2 text-xs">
-                  Archive
-                </Link>
-              </li>
-              <li>
-                <Link href="#" className="text-soft-light hover:text-yellow-light flex items-center gap-2 text-xs">
-                  Drafts
                 </Link>
               </li>
             </SidebarLinkGroup>
