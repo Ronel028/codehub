@@ -24,7 +24,7 @@ const debounceOnChange = debounce((editor, data, setData) => {
     })
 }, 2300)
 
-const TiptopRte = ({ data, setData, editable=true, getImage }) => {
+const Tiptop = ({ data, setData, editable=true, getImage }) => {
     const editor = useEditor({
         extensions: [
             StarterKit.configure({
@@ -47,7 +47,7 @@ const TiptopRte = ({ data, setData, editable=true, getImage }) => {
             }),
             ImageResize.configure({
                 HTMLAttributes: {
-                    class: 'border border-gray-light rounded-md shadow shadow-gray-light'
+                    class: ' border border-gray-light rounded-md shadow shadow-gray-light'
                 },
                 inline: true,
                 allowBase64: true,
@@ -62,9 +62,10 @@ const TiptopRte = ({ data, setData, editable=true, getImage }) => {
                 protocols: ['http', 'https'],
             }),
             Youtube.configure({
+                HTMLAttributes: {
+                    class: " w-full md:w-[480px] aspect-video"
+                },
                 inline: false,
-                width: 480,
-                height: 320,
                 nocookie: true,
                 allowFullscreen: true,
                 ccLanguage: 'es',
@@ -120,7 +121,7 @@ const TiptopRte = ({ data, setData, editable=true, getImage }) => {
         <>
             {
                 editor && <BubbleMenu editor={editor} tippyOptions={{ duration: 100 }}>
-                    <div className="bubble-menu bg-soft-light light text-dark-gray shadow border border-gray-light rounded p-1 flex items-center gap-2">
+                    <div className=" bubble-menu bg-soft-light light text-dark-gray shadow border border-gray-light rounded p-1 flex items-center gap-2">
                         <button
                             type="button"
                             title="Bold"
@@ -231,4 +232,4 @@ const TiptopRte = ({ data, setData, editable=true, getImage }) => {
     )
 }
 
-export default TiptopRte
+export default Tiptop

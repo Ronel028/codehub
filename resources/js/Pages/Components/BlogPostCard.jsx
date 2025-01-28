@@ -9,8 +9,8 @@ const BlogPostCard = ({ blogId, slug, username, fullName, blogPhoto, title, desc
             <div className=" overflow-hidden rounded-t-md">
                 <img className=" w-full aspect-video object-cover rounded-t-md" src={(blogPhoto && blogPhoto.path) ?? imagePlaceholder} alt="" />
             </div>
-            <div className=" py-2 px-3">
-                <div className=" w-full truncate">
+            <div className=" py-2 px-3 w-full">
+                <div className="text-overflow-clamp-oneline">
                     <Link title={title} href={`/blog-list/read/${username}/${slug}`} className=" font-bold text-xl text-dark-gray hover:underline">
                         {title}
                     </Link>

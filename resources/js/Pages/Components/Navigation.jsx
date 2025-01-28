@@ -1,15 +1,15 @@
 import { useState } from "react";
 import { Link, router, usePage } from "@inertiajs/react"
-import { FaBlog } from "react-icons/fa";
+// import Input from "./Forms/Input";
+import Input from "../../components/Forms/Input"
 import { IoIosLogOut } from "react-icons/io";
 import { FiUserPlus } from "react-icons/fi";
 import { BsPersonLock } from "react-icons/bs";
 import { RiStickyNoteAddLine } from "react-icons/ri";
 import { FaLaptopCode } from "react-icons/fa";
-import imagePlacholder from "../Assets/Img/cypher.jpg"
-// import Input from "./Forms/Input";
-import Input from "../../components/Forms/Input"
 import { PiFolderUserBold } from "react-icons/pi";
+import { TiPinOutline } from "react-icons/ti";
+import imagePlacholder from "../Assets/Img/cypher.jpg"
 
 const Navigation = (props) => {
 
@@ -89,6 +89,13 @@ const Navigation = (props) => {
                                                 <PiFolderUserBold className=" text-xl" />
                                                 <span className="block font-sans text-sm antialiased font-medium leading-normal text-inherit">
                                                     Author Panel
+                                                </span>
+                                            </Link>
+                                            <Link href="/blog-list"
+                                                className="flex w-full cursor-pointer text-dark-gray hover:bg-dark-gray/70 hover:text-soft-light select-none items-center gap-2 px-3 py-2 text-start leading-tight outline-none transition-all ease-linear duration-200 sm:hidden">
+                                                <TiPinOutline className=" text-xl" />
+                                                <span className="block font-sans text-sm antialiased font-medium leading-normal text-inherit">
+                                                    Blog
                                                 </span>
                                             </Link>
                                         </>

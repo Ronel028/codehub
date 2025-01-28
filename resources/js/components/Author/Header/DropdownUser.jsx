@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link } from '@inertiajs/react';
+import { Link, router } from '@inertiajs/react';
 import ClickOutside from '../../ClickOutside'
 import { FaChevronDown, FaRegUser } from 'react-icons/fa';
 import { IoSettingsOutline } from 'react-icons/io5';
@@ -9,6 +9,11 @@ import profilePlaceholder from '../../../assets/img/cypher.jpg';
 const DropdownUser = (props) => {
   const { user } = props
   const [dropdownOpen, setDropdownOpen] = useState(false);
+
+  const logout = (e) => {
+      e.preventDefault()
+      router.post('/logout')
+  }
 
   return (
     <ClickOutside onClick={() => setDropdownOpen(false)} className="relative">
@@ -44,8 +49,8 @@ const DropdownUser = (props) => {
               </Link>
             </li>
           </ul>
-          <button className="flex items-center gap-3.5 px-6 py-4 text-sm font-medium duration-300 ease-in-out text-red-500 hover:font-bold lg:text-base">
-          <MdLogout />
+          <button onClick={logout} className="flex items-center gap-3.5 px-6 py-4 text-sm font-medium duration-300 ease-in-out text-red-500 hover:font-bold lg:text-base">
+            <MdLogout />
             Log Out
           </button>
         </div>

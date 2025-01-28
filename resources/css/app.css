@@ -32,12 +32,24 @@
 
 .text-overflow-clamp{
     width: 100%;
-    /* this code clamps based on specified lines */
     overflow: hidden;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 2;
     display: -webkit-box;
 }
+
+.text-overflow-clamp-oneline{
+    width: 100%;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    display: -webkit-box;
+}
+
+/* .youtube-video {
+    aspect-ratio: 16 / 9;
+    width: 100%;
+} */
 
 body,
 label,

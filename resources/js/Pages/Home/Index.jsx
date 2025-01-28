@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 import { Link, usePage } from "@inertiajs/react";
 import { toast } from "react-toastify";
-import { FaCircleArrowRight } from "react-icons/fa6";
 import Navigation from "../Components/Navigation";
+import { FaCircleArrowRight } from "react-icons/fa6";
 
 const Home = (props) => {
 
@@ -18,7 +18,7 @@ const Home = (props) => {
 
     return (
         <>
-            <div className=" w-full h-auto min-h-screen bg-homepage bg-cover bg-center">
+            <div className=" w-full h-auto min-h-screen bg-homepage bg-cover bg-[100%]">
                 <Navigation user={auth.user} />
                 <div className="bg-soft-light/60 w-full h-auto min-h-screen  flex items-center justify-center">
                     <main className="pt-[65px] pb-10">

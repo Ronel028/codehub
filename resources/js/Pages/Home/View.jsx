@@ -1,15 +1,13 @@
 import { Link } from "@inertiajs/react";
 import moment from "moment"
-import { LuDot } from "react-icons/lu";
-import Tiptap from "../Components/Markdown/Tiptap";
 import MainLayout from "../../layout/main"
+import Tiptop from "../../components/WYSIWYG/Tiptop"
 import BlogPostCard from "../Components/BlogPostCard";
 import { diffInDays } from "../../utils/functions";
-import 'react-quill/dist/quill.snow.css';
 import { FaFacebookF, FaGithub, FaLinkedinIn } from "react-icons/fa";
+import { LuDot } from "react-icons/lu";
 import { FaSquareXTwitter } from "react-icons/fa6";
 import imagePlacholder from "../Assets/Img/cypher.jpg"
-import TiptopRte from "../Components/Markdown/TiptopRte";
 
 const socialMediaIcons = {
   facebook: <FaFacebookF className=' text-blue-400 text-xl' />,
@@ -26,7 +24,7 @@ const ViewBlog = (props) => {
                 <main className=" max-w-[1000px] mx-auto">
                     <div className=" pt-5 mb-6">
                         <h1 className=" blog__title text-dark-gray font-bold tracking-wide mb-2">{blog.title}</h1>
-                        <p className=" text-dark-gray tracking-wide">{blog.description}</p>
+                        <p className=" text-justify text-sm text-dark-gray tracking-wide sm:text-left">{blog.description}</p>
                     </div>
                     <div className="pt-3 pb-7">
                         <div className="mb-5 pb-4 flex items-center justify-between gap-2 border-b border-gray-light">
@@ -61,14 +59,7 @@ const ViewBlog = (props) => {
                         <div className="mb-5">
                             <img src={blog.upload?.path} alt={blog.upload.filename} className=" rounded-md w-full" />
                         </div>
-                        {/* <Tiptap
-                            rteValue={blog.content}
-                            setRteValue={null}
-                            disableMenuBar={true}
-                            styleContainer="h-auto line-hieght"
-                            editable={false}
-                        /> */}
-                        <TiptopRte data={blog} editable={false} />
+                        <Tiptop data={blog} editable={false} />
                     </div>
                 </main>
             </MainLayout>
@@ -87,16 +78,12 @@ const ViewBlog = (props) => {
                         </p>
                         <p className=" text-meduim-gray text-xs flex items-center">
                             <span className="flex items-center">
-                                <span className=" rounded-md">
-                                    {blog.user.user_detail?.tagline}
-                                </span>
+                                {blog.user.user_detail?.tagline}
                             </span>
                         </p>
-                        <p className=" text-meduim-gray text-sm flex items-center mt-2">
+                        <p className=" text-meduim-gray text-justify text-sm flex items-center mt-2 sm:text-left">
                             <span className="flex items-center">
-                                <span className=" rounded-md">
-                                    {blog.user.user_detail?.bio}
-                                </span>
+                                {blog.user.user_detail?.bio}
                             </span>
                         </p>
                         {/* <Link href={`/profile/info/${blog.user.username}`} className="mt-2 bg-very-light text-primary font-bold px-2 py-1 inline-block rounded-md text-sm">Visit Profile</Link> */}
@@ -113,26 +100,6 @@ const ViewBlog = (props) => {
                                 <div className=" grid sm:grid-cols-2 md:grid-cols-3 gap-3">
                                     {
                                         more_blogs.map(blog => (
-                                            // <div key={blog.id} >
-                                            //     <div>
-                                            //         <div className=" overflow-hidden rounded-t mb-2 border border-gray-light">
-                                            //             <img
-                                            //                 className=" aspect-[4/2] object-cover rounded-t"
-                                            //                 src={(blog.upload && blog.upload.path) ?? imagePlaceholder}
-                                            //                 alt={(blog.upload && blog.upload.filename) ?? 'No image available'}
-                                            //             />
-                                            //         </div>
-                                            //         <div className=" mb-1">
-                                            //             <Link href={`/blog-list/read/${blog.user.username}/${blog.id}`} className="font-bold text-xl text-dark-gray hover:underline">{blog.title}</Link>
-                                            //             <p className=" text-xs text-meduim-gray">
-                                            //                 {(blog.user.user_detail && blog.user.full_name) ?? blog.user.username} | {moment(blog.created_at).format('ll')}
-                                            //             </p>
-                                            //         </div>
-                                            //         <div>
-                                            //             <p className=" font-normal mb-1 text-dark-gray text-sm">{limitStr(blog.description, 100)}</p>
-                                            //         </div>
-                                            //     </div>
-                                            // </div>
                                             <BlogPostCard
                                                 key={blog.id}
                                                 blogId={blog.id}
