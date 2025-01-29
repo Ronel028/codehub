@@ -4,17 +4,6 @@
     "functions": {
         "api/index.php": { "runtime": "vercel-php@0.6.0" }
     },
-    "headers" : [
-        {
-            "source": "/(.*)",
-            "headers": [
-              {
-                "key": "Access-Control-Expose-Headers",
-                "value": "X-Inertia"
-              }
-            ]
-        }
-    ],
     "routes": [
         {
             "src": "/build/assets/(.*)",
@@ -31,6 +20,17 @@
         { 
             "src": "/(.*)", 
             "dest": "/api/index.php" 
+        }
+    ],
+    "headers": [
+        {
+            "source": "/(.*)",
+            "headers": [
+                    {
+                        "key": "Access-Control-Expose-Headers",
+                        "value": "X-Inertia"
+                    }
+                ]
         }
     ],
     "env": {
