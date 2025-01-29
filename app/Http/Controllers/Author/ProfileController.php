@@ -13,13 +13,15 @@ use Inertia\Inertia;
 
 class ProfileController extends Controller
 {
-    public function index(){
+    public function index()
+    {
         $user = User::with('avatar', 'cover', 'userDetail', 'socialMediaLinks')->where('id', Auth::id())->first();
         return Inertia::render('Author/Profile/Index', [
             'user' => $user
         ]);
     }
-    public function editProfile(){
+    public function editProfile()
+    {
         $socialMediaLinks = SocialMediaLinks::where('user_id', Auth::id())->get();
         $user = User::with('avatar', 'cover', 'userDetail')->where('id', Auth::id())->first();
         return Inertia::render('Author/Profile/Edit', [
@@ -31,7 +33,8 @@ class ProfileController extends Controller
     }
 
     // =========== Social Media Links Function ============
-    public function addSocialMediaAccount(Request $request){
+    public function addSocialMediaAccount(Request $request)
+    {
         $request->validate([
             'platform' => 'required',
             'link' => 'required',
@@ -41,32 +44,34 @@ class ProfileController extends Controller
             $socialMediaLinks->user_id = Auth::id();
             $socialMediaLinks->platform = $request->platform;
             $socialMediaLinks->link = $request->link;
-            if($socialMediaLinks->save()){
-                return to_route('author.profile.edit');
+            if ($socialMediaLinks->save()) {
+                return to_route('author.profile.edit', [], 303);
             }
         } catch (\Throwable $th) {
             dd($th);
         }
     }
-    public function updateSocialMediaLink(Request $request){
+    public function updateSocialMediaLink(Request $request)
+    {
         $request->validate([
             'link' => 'required',
         ]);
         try {
             $socialMediaLinks = SocialMediaLinks::find($request->id);
             $socialMediaLinks->link = $request->link;
-            if($socialMediaLinks->save()){
-                return to_route('author.profile.edit');
+            if ($socialMediaLinks->save()) {
+                return to_route('author.profile.edit', [], 303);
             }
         } catch (\Throwable $th) {
             dd($th);
         }
     }
-    public function removeSocialMediaLink(Request $request){
+    public function removeSocialMediaLink(Request $request)
+    {
         try {
             $socialMediaLinks = SocialMediaLinks::find($request->id);
-            if($socialMediaLinks->delete()){
-                return to_route('author.profile.edit');
+            if ($socialMediaLinks->delete()) {
+                return to_route('author.profile.edit', [], 303);
             }
         } catch (\Throwable $th) {
             dd($th);
@@ -75,7 +80,8 @@ class ProfileController extends Controller
     // =========== Social Media Links Function ============
 
     // =========== PERSONAL INFORMATION FUNCTION ============
-    public function savePersonalInformation(Request $request){
+    public function savePersonalInformation(Request $request)
+    {
         $request->validate([
             'fullname' => 'required',
             'tagline' => 'required',
@@ -83,18 +89,18 @@ class ProfileController extends Controller
         ]);
         try {
             $userDetail = UserDetail::updateOrCreate(
-                    [
-                        'user_id' => Auth::id()
-                    ],
-                    [
-                        'full_name' => $request->fullname,
-                        'tagline' => $request->tagline,
-                        'address' => $request->address,
-                        'bio' => $request->bio,
-                    ]
-                );
-            if($userDetail){
-                return to_route('author.profile.edit');
+                [
+                    'user_id' => Auth::id()
+                ],
+                [
+                    'full_name' => $request->fullname,
+                    'tagline' => $request->tagline,
+                    'address' => $request->address,
+                    'bio' => $request->bio,
+                ]
+            );
+            if ($userDetail) {
+                return to_route('author.profile.edit', [], 303);
             }
         } catch (\Throwable $th) {
             dd($th);
@@ -103,7 +109,8 @@ class ProfileController extends Controller
     // =========== PERSONAL INFORMATION FUNCTION ============
 
     // =========== PROFILE AND COVER PHOTO FUNCTION ============
-    public function saveProfilePhoto(Request $request){
+    public function saveProfilePhoto(Request $request)
+    {
         $request->validate([
             'photo' => 'required|max:1024'
         ], [
@@ -123,7 +130,7 @@ class ProfileController extends Controller
                     'type' => $request->type
                 ]);
 
-                return to_route('author.profile.edit');
+                return to_route('author.profile.edit', [], 303);
             }
         } catch (\Throwable $th) {
             dd($th->getMessage());

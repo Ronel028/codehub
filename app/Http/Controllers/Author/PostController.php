@@ -63,7 +63,7 @@ class PostController extends Controller
                     ]);
                 }
                 DB::commit();
-                return redirect()->route('author.post.create.page', ['id' => (string)$blog->id]);
+                return to_route('author.post.create.page', ['id' => (string)$blog->id], 303);
             }
         } catch (\Throwable $th) {
             DB::rollBack();
@@ -82,7 +82,8 @@ class PostController extends Controller
                     'content' => $request->content,
                 ]
             );
-            return redirect()->route('author.post.create.page', ['id' => (string)$blog->id]);
+            // return redirect()->route('author.post.create.page', ['id' => (string)$blog->id]);
+            return to_route('author.post.create.page', ['id' => (string)$blog->id], 303);
         } catch (\Throwable $th) {
             dd($th->getMessage());
         }
@@ -94,7 +95,8 @@ class PostController extends Controller
             $blog = BlogPost::find($request->post_id);
             $blog->status = $request->status;
             if ($blog->save()) {
-                return redirect()->route('author.post.create.page', ['id' => (string)$blog->id]);
+                // return redirect()->route('author.post.create.page', ['id' => (string)$blog->id]);
+                return to_route('author.post.create.page', ['id' => (string)$blog->id], 303);
             }
         } catch (\Throwable $th) {
             dd($th->getMessage());
