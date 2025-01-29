@@ -42,11 +42,4 @@ class HandleInertiaRequests extends Middleware
                 : null,
         ]);
     }
-
-    public function headers(Request $request): array
-    {
-        return [
-            'Access-Control-Expose-Headers' => 'X-Inertia'
-        ];
-    }
 }
