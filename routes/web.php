@@ -28,7 +28,7 @@ Route::get('/login', [AuthController::class, 'login'])->name('login');
 Route::get('/register', [AuthController::class, 'register'])->name('register');
 Route::post('/create-account', [AuthController::class, 'createAccount'])->name('create-account');
 Route::post('/authenticate', [AuthController::class, 'authenticate'])->name('authenticate');
-Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+Route::delete('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
     $request->fulfill();
     return Inertia::render('Home/Index');
