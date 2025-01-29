@@ -38,7 +38,7 @@ class AuthController extends Controller
 
             $request->session()->regenerate();
 
-            return to_route('home.index');
+            return to_route('home.index', [], 303);
         }
 
         return back()->withErrors([
@@ -74,6 +74,6 @@ class AuthController extends Controller
 
         $request->session()->regenerateToken();
 
-        return to_route('home.index');
+        return to_route('home.index', [], 303);
     }
 }
