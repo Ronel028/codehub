@@ -22,17 +22,6 @@
             "dest": "/api/index.php" 
         }
     ],
-    "headers": [
-        {
-            "source": "/(.*)",
-            "headers": [
-                    {
-                        "key": "Access-Control-Expose-Headers",
-                        "value": "X-Inertia"
-                    }
-                ]
-        }
-    ],
     "env": {
         "APP_ENV": "production",
         "APP_DEBUG": "true",

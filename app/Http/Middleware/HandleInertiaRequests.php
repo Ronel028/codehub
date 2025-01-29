@@ -37,9 +37,16 @@ class HandleInertiaRequests extends Middleware
     public function share(Request $request): array
     {
         return array_merge(parent::share($request), [
-            'auth.user' => fn () => $request->user()
+            'auth.user' => fn() => $request->user()
                 ? User::with(['avatar', 'userDetail'])->where('id', $request->user()->id)->first()
                 : null,
         ]);
+    }
+
+    public function headers(Request $request): array
+    {
+        return [
+            'Access-Control-Expose-Headers' => 'X-Inertia'
+        ];
     }
 }
