@@ -39,5 +39,16 @@
         "VIEW_COMPILED_PATH": "/tmp/views",
         "SSR_TEMP_PATH": "/tmp/ssr",
         "NODE_PATH": "node"
-    }
+    },
+    "headers" : [
+        {
+            "source": "/(.*)",
+            "headers": [
+              {
+                "key": "Access-Control-Expose-Headers",
+                "value": "X-Inertia"
+              }
+            ]
+        }
+    ]
 }
