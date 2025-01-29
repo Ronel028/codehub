@@ -13,7 +13,7 @@ use Inertia\Inertia;
 
 Route::get('/', function () {
     return Inertia::render('Home/Index');
-})->name('index');
+})->name('home.index');
 
 // BLOG LIST
 Route::name('blog-list.')->prefix('blog-list')->group(function () {
