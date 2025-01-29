@@ -12,7 +12,7 @@ const DropdownUser = (props) => {
 
   const logout = (e) => {
       e.preventDefault()
-      router.post('/logout')
+      router.delete('/logout')
   }
 
   return (
