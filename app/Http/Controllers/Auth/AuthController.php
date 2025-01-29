@@ -27,7 +27,7 @@ class AuthController extends Controller
     }
 
     // LOGIN USER
-    public function authenticate(Request $request): RedirectResponse
+    public function authenticate(Request $request)
     {
         $credentials = $request->validate([
             'email' => ['required', 'email'],
@@ -38,7 +38,7 @@ class AuthController extends Controller
             $request->session()->regenerate();
 
             // return redirect()->intended('/');
-            return redirect()->route('home.index');
+            return Inertia::render("Home/Index");
         }
 
         return back()->withErrors([
@@ -66,7 +66,7 @@ class AuthController extends Controller
     }
 
     // LOGOUT USER
-    public function logout(Request $request): RedirectResponse
+    public function logout(Request $request)
     {
         Auth::logout();
 
@@ -75,6 +75,6 @@ class AuthController extends Controller
         $request->session()->regenerateToken();
 
         // return redirect('/');
-        return redirect()->route('login');
+        return Inertia::render('Auth/Login');
     }
 }
