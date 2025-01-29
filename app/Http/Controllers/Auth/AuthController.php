@@ -35,10 +35,10 @@ class AuthController extends Controller
         ]);
 
         if (Auth::attempt($credentials)) {
+
             $request->session()->regenerate();
 
-            // return redirect()->intended('/');
-            return Inertia::render("Home/Index");
+            return to_route('home.index');
         }
 
         return back()->withErrors([
@@ -74,7 +74,6 @@ class AuthController extends Controller
 
         $request->session()->regenerateToken();
 
-        // return redirect('/');
-        return Inertia::render('Auth/Login');
+        return to_route('home.index');
     }
 }
