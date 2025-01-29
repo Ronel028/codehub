@@ -16,7 +16,11 @@ const Login = () => {
 
     const create = (e) => {
         e.preventDefault()
-        post('/authenticate')
+        post('/authenticate', {
+            headers: {
+                'Access-Control-Expose-Headers': 'X-Inertia'
+            }
+        })
     }
 
     return (
