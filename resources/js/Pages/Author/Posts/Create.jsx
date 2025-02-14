@@ -1,17 +1,14 @@
 import { useEffect, useRef, useState } from "react"
 import { router, useForm } from "@inertiajs/react"
-import TiptopRte from "../../Components/Markdown/TiptopRte"
 import Button from "../../../components/Forms/Button"
 import AuthorLayout from "../../../layout/AuthorLayout"
-import { MdOutlineCloudUpload, MdOutlinePublishedWithChanges, MdRocketLaunch } from "react-icons/md"
+import { MdRocketLaunch } from "react-icons/md"
 import { BsCloudCheck } from "react-icons/bs"
 import { IoReload } from "react-icons/io5"
 import { GiSandsOfTime } from "react-icons/gi";
 import { RiArchive2Fill } from "react-icons/ri";
-import { FaGlobeAmericas } from "react-icons/fa"
+import { FaGlobeAmericas, FaSave } from "react-icons/fa"
 import { isNull } from "lodash"
-import { FiUploadCloud } from "react-icons/fi"
-import { Cropper } from "react-cropper"
 import Tiptop from "../../../components/WYSIWYG/Tiptop"
 import TiptopImageUploadModal from "../../../components/WYSIWYG/TiptopImageUploadModal"
 
@@ -53,11 +50,11 @@ const CreatePost = ({ blogPost }) => {
         })
     }
     
-    useEffect(() => {
-        if(data.content.length > 0 && blogPost?.content !== data.content){
-            saveContent()
-        }
-    }, [data])
+    // useEffect(() => {
+    //     if(data.content.length > 0 && blogPost?.content !== data.content){
+    //         saveContent()
+    //     }
+    // }, [data])
 
     function getImage(command){
         setTiptopCommand(command)
@@ -70,10 +67,15 @@ const CreatePost = ({ blogPost }) => {
                 <h1 className=" text-dark-gray font-medium text-xl">Manage your post</h1>
                 <p className=" text-sm text-meduim-gray">Start Create/Edit your blog content here.</p>
             </div>
-            <main className=" grid grid-cols-5 gap-2">
-                <section className=" col-span-3 border rounded-md border-gray-light">
+            <main className=" grid grid-cols-6 gap-2">
+                <section className=" col-span-4 border rounded-md border-gray-light">
                     <div className=" p-2">
-                        <Tiptop data={data} setData={setData} getImage={getImage} />
+                        <Tiptop 
+                            data={data} 
+                            setData={setData} 
+                            getImage={getImage} 
+                            paragraphFontSize='text-xs'
+                        />
                     </div>
                 </section>
                 <section className="col-span-2">
@@ -96,19 +98,38 @@ const CreatePost = ({ blogPost }) => {
                             </p>
                             { blogStatusBadge[blogPost.status] }
                         </div>
-                        <div>
-                            <h1 className="text-2xl font-bold mb-1">{blogPost.title}</h1>
+                        <div className=" mt-2">
+                            <h1 className="text-xl font-bold">{blogPost.title}</h1>
                             <p className=" text-xs mb-2">{blogPost.description}</p>
                         </div>
                         <img className="w-full aspect-video rounded-md mb-2" src={blogPost.upload?.path} alt="" />
                         <div className=" flex items-center justify-end">
                             {
                                 blogPost.status === 'publish' ? (
-                                    <Button onClick={() => changeStatus('draft')} disabled={data.content.length <= 0} title={'Save to Draft'} icon={<GiSandsOfTime />} style={'bg-muted-accent text-soft-light'} />
+                                    <Button 
+                                        onClick={() => changeStatus('draft')} 
+                                        disabled={data.content.length <= 0 || processing} 
+                                        title={'Save to Draft'} 
+                                        icon={<GiSandsOfTime />} 
+                                        style={`bg-muted-accent text-soft-light`} 
+                                    />
                                 ) : (
-                                    <Button onClick={() => changeStatus('publish')} disabled={data.content.length <= 0} title={'Publish'} icon={<FaGlobeAmericas />} style={'bg-green-500 text-soft-light'} />
+                                    <Button 
+                                        onClick={() => changeStatus('publish')} 
+                                        disabled={data.content.length <= 0 || processing} 
+                                        title={'Publish'} 
+                                        icon={<FaGlobeAmericas />} 
+                                        style={`${data.content.length <= 0 || processing ? 'bg-green-500/75' : 'bg-green-500'} bg-green-500 text-soft-light`} 
+                                    />
                                 )
                             }
+                            <Button 
+                                onClick={saveContent} 
+                                disabled={data.content.length <= 0 || processing}
+                                title={'Save'} 
+                                icon={<FaSave />} 
+                                style={`${data.content.length <= 0 || processing ? 'bg-green-500/75' : 'bg-green-500'} text-soft-light`} 
+                            />
                         </div>
                     </div>
                 </section>

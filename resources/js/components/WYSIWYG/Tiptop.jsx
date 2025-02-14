@@ -13,18 +13,18 @@ import { MdFormatListBulleted } from "react-icons/md";
 
 const lowlight = createLowlight(all)
 
-const debounceOnChange = debounce((editor, data, setData) => {
-    let value = editor.getHTML()
-    if (!('content' in editor.getJSON().content[0])) {
-        value = value.replace(/<p>\s*<\/p>/g, '')
-    }
-    setData({
-        ...data,
-        content: value
-    })
-}, 2300)
+// const debounceOnChange = debounce((editor, data, setData) => {
+//     let value = editor.getHTML()
+//     if (!('content' in editor.getJSON().content[0])) {
+//         value = value.replace(/<p>\s*<\/p>/g, '')
+//     }
+//     setData({
+//         ...data,
+//         content: value
+//     })
+// }, 2300)
 
-const Tiptop = ({ data, setData, editable=true, getImage }) => {
+const Tiptop = ({ data, setData, editable=true, getImage, paragraphFontSize='text-base' }) => {
     const editor = useEditor({
         extensions: [
             StarterKit.configure({
@@ -32,6 +32,11 @@ const Tiptop = ({ data, setData, editable=true, getImage }) => {
                 code: {
                     HTMLAttributes: {
                         class: 'text-sm'
+                    }
+                },
+                paragraph: {
+                    HTMLAttributes: {
+                        class: paragraphFontSize
                     }
                 }
             }),
@@ -76,7 +81,14 @@ const Tiptop = ({ data, setData, editable=true, getImage }) => {
         editable: editable,
         content: data.content,
         onUpdate: ({ editor }) => {
-            debounceOnChange(editor, data, setData)
+            let value = editor.getHTML()
+            if (!('content' in editor.getJSON().content[0])) {
+                value = value.replace(/<p>\s*<\/p>/g, '')
+            }
+            setData({
+                ...data,
+                content: value
+            })
         }
     })
 

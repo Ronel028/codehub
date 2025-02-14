@@ -38,7 +38,7 @@ const PostIndex = ({blogPost}) => {
                         <div className="relative overflow-x-auto border border-gray-light shadow rounded">
                             <table className="w-full text-sm text-left rtl:text-right text-dark-gray">
                                 <thead className="text-xs text-dark-gray uppercase bg-yellow-light">
-                                    <tr>
+                                    <tr className="divide-x divide-gray-light">
                                         <th scope="col" className="px-6 py-3">
                                             Title
                                         </th>
@@ -60,21 +60,21 @@ const PostIndex = ({blogPost}) => {
                                     {
                                         blogPost.length > 0 ? (
                                             blogPost.map(value => (
-                                                <tr key={value.id} className="bg-soft-light border-b border-gray-light">
-                                                    <th scope="row" className="text-xs px-6 py-4 font-medium text-dark-gray whitespace-nowrap overflow-hidden">
+                                                <tr key={value.id} className="bg-soft-light divide-x divide-gray-light border-b border-gray-light">
+                                                    <th scope="row" className="text-xs px-6 py-1 font-medium text-dark-gray whitespace-nowrap overflow-hidden">
                                                         {truncate(value.title, { length: 25 })}
                                                     </th>
-                                                    <td className="px-6 py-2 text-xs text-nowrap">
+                                                    <td className="px-6 py-1 text-xs text-nowrap">
                                                         {truncate(value.description, { length: 30 })}
                                                     </td>
-                                                    <td className="px-6 py-2">
+                                                    <td className="px-6 py-1">
                                                         {/* {capitalize(value.status)} */}
                                                         { blogStatusBadge[value.status] }
                                                     </td>
-                                                    <td className="px-6 py-2 whitespace-nowrap overflow-hidden text-xs">
+                                                    <td className="px-6 py-1 whitespace-nowrap overflow-hidden text-xs">
                                                         {moment(value.created_at).format('LL')}
                                                     </td>
-                                                    <td className="px-6 py-2 whitespace-nowrap overflow-hidden">
+                                                    <td className="px-6 py-1 whitespace-nowrap overflow-hidden">
                                                         <div className=" flex items-center gap-1">
                                                             <Link href={`/author/post/create?id=${value.id}`} title="Edit Content" className="flex items-center gap-1 bg-muted-accent px-2 py-2 rounded shadow-md shadow-gray-light text-soft-light text-xs font-medium">
                                                                 <TfiWrite className=" text-sm" />

@@ -28,7 +28,7 @@ class BlogListController extends Controller
                     $query->with('userDetail', 'avatar', 'socialMediaLinks');
                 }])->whereHas('user', function ($query) use ($username) {
                     $query->where('username', $username);
-                })->where('slug', $slug)->first(),
+                })->where('slug', $slug)->where('status', 'publish')->first(),
                 'more_blogs' => BlogPost::with(['user', 'upload'])->whereHas('user', function ($query) use ($username) {
                     $query->where('username', $username);
                 })->where('status', 'publish')->whereNot('slug', $slug)->orderBy('created_at', 'desc')->get()

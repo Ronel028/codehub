@@ -8,6 +8,8 @@ import { FaFacebookF, FaGithub, FaLinkedinIn } from "react-icons/fa";
 import { LuDot } from "react-icons/lu";
 import { FaSquareXTwitter } from "react-icons/fa6";
 import imagePlacholder from "../Assets/Img/cypher.jpg"
+import { isNull } from "lodash";
+import NotFound from "../Error/NotFound";
 
 const socialMediaIcons = {
   facebook: <FaFacebookF className=' text-blue-400 text-xl' />,
@@ -18,6 +20,11 @@ const socialMediaIcons = {
 
 const ViewBlog = (props) => {
     const { blog, more_blogs } = props
+
+    if(isNull(blog)){
+        return <NotFound />
+    }
+
     return (
         <>
             <MainLayout>
