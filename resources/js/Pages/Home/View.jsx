@@ -6,10 +6,11 @@ import BlogPostCard from "../Components/BlogPostCard";
 import { diffInDays } from "../../utils/functions";
 import { FaFacebookF, FaGithub, FaLinkedinIn } from "react-icons/fa";
 import { LuDot } from "react-icons/lu";
-import { FaSquareXTwitter } from "react-icons/fa6";
+import { FaBookOpenReader, FaSquareXTwitter } from "react-icons/fa6";
 import imagePlacholder from "../Assets/Img/cypher.jpg"
 import { isNull } from "lodash";
 import NotFound from "../Error/NotFound";
+import { CiRead } from "react-icons/ci";
 
 const socialMediaIcons = {
   facebook: <FaFacebookF className=' text-blue-400 text-xl' />,
@@ -19,11 +20,9 @@ const socialMediaIcons = {
 }
 
 const ViewBlog = (props) => {
-    const { blog, more_blogs } = props
+    const { blog, more_blogs, viewsCount } = props
 
-    if(isNull(blog)){
-        return <NotFound />
-    }
+    console.log(viewsCount)
 
     return (
         <>
@@ -62,6 +61,12 @@ const ViewBlog = (props) => {
                                     ))
                                 }
                             </div>
+                        </div>
+                        <div className="mb-5 ">
+                            <p className=" text-dark-gray font-bold text-sm flex items-center gap-2">
+                                <FaBookOpenReader className=" text-meduim-gray text-base" />
+                                {viewsCount}
+                            </p>
                         </div>
                         <div className="mb-5">
                             <img src={blog.upload?.path} alt={blog.upload.filename} className=" rounded-md w-full" />
